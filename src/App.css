@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+  }
+  body{
+    background: #011230;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  main{
+    max-width: 800px;
+    width: 90%;
+    margin: auto;
+    padding: 40px;
+  }
+  
+  button {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 15px 0;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 1px;
+    background: #560000;
+    cursor: pointer;
+  }
+  
+  .login {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0 20px;
+    background: #011230;
+    display: flex;
+  }
+  
+  .login .loginContainer {
+    padding: 60px;
+    margin: auto;
+    width: 100%;
+    max-width: 520px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 20px;
+    background: #99a0ac;
+    
+  }
+  
+  .login .loginContainer label {
+    color: black;
+    margin: 14px 0;
+    display: block;
+    font-size: 22px;
+    line-height: 1;
+  }
+  
+  .login .loginContainer input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 19px;
+    padding: 10px;
+    background: #929292;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  
+  .login .loginContainer .btnContainer {
+    width: 100%;
+    padding: 24px 0;
+  }
+  
+  .login .loginContainer .btnContainer p {
+    margin: 14px 0 0 0;
+    text-align: right;
+    color: #fff;
+  }
+  
+  .login .loginContainer .btnContainer p span {
+    color: yellow;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: all 400ms ease-in-out;
+  }
+  
+  .login .loginContainer .btnContainer p span:hover {
+    color: red;
+  }
+  
+  .login .loginContainer .errorMsg {
+    color: red;
+    font-size: 16px;
+  }
+  
+  .hero {
+    width: 100%;
+    min-height: 100vh;
+    background: #011230;
+  }
+  
+  .hero nav {
+    background: #560000;
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .hero nav h2 {
+    color: #fff;
+  }
+  
+  .hero nav button {
+    width: auto;
+    padding: 10px;
+    margin-left: 10px;
+    background: #011230;
+  }
+  
+  .hero nav button:hover {
+    transition: ease 2s;
+    background: #fff;
+  }
+  
+  .hero nav button a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .hero nav button a:hover {
+    color: #011230;
+  }
+  
+  h1{
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 40px;
+  }
+
+
+select {
+    width: 100%;
+    background: #fff;
+    border-radius: 3px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 40px 0 10px;
+    transition: .3s ease all;
+    border: 3px solid transparent;
+}
+
+
+
+
+
