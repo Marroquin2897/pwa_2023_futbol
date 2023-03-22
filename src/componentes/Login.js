@@ -58,14 +58,14 @@ const Login = () => {
             <div className='loginContainer'> 
                 <h1>Iniciar Sesión</h1>
                 <form onSubmit={handleSubmit}>
-                    <label> Correo </label>
+                    <label> <b>Correo</b> </label>
                     <input
                         type='email'
                         name='email'
                         value = {email}
                         onChange={handleChange}
                     />
-                    <label> Contraseña </label>
+                    <label><b>Contraseña</b>  </label>
                     <input
                         type='password'
                         name='password'

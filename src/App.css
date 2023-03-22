@@ -49,6 +49,7 @@
     border-radius: 20px;
     background: #99a0ac;
     
+    
   }
   
   .login .loginContainer label {
@@ -63,10 +64,11 @@
     width: 100%;
     border: none;
     outline: none;
-    font-size: 19px;
-    padding: 10px;
-    background: #929292;
-    color: #fff;
+    font-size: 20px;
+    padding: 15px;
+    height: 45px;
+    background: #FCCC08;
+    color: black;
     letter-spacing: 1px;
   }
   

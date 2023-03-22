@@ -13,6 +13,7 @@ import {Helmet} from 'react-helmet';
 import favicon from './imagenes/icono2-burrito.png';
 import './App.css';
 import { AuthProvider } from './contextos/AuthContext';
+
 WebFont.load({
   google: {
     families: ['Ubuntu: 400,500,700', 'Droid Serif']
