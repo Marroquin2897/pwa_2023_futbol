@@ -7,11 +7,12 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Login from './componentes/Login';
 import RegistroUsuario from './componentes/RegistroUsuario';
 import HomePrincipal from './componentes/HomePrincipal';
-import Inicio from './componentes/Inicio';
+import ForgotPassword from './componentes/ForgotPassword';
 import Rol from './Rol';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/icono2-burrito.png';
 import './App.css';
+import { AuthProvider } from './contextos/AuthContext';
 WebFont.load({
   google: {
     families: ['Ubuntu: 400,500,700', 'Droid Serif']
@@ -24,16 +25,20 @@ const Index = () => {
     <Helmet>
       <link rel='shortcut icon' href={favicon} type='image/x-icon'/>
     </Helmet>
-    <BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
     <Routes>
       <Route path="/iniciar-sesion" element = {<Login/>}/>
       <Route path="/crear-cuenta" element = {<RegistroUsuario/>}/>
       <Route path="/sesion-iniciada" element = {<HomePrincipal/>}/>
+      <Route path="/forgot-password" element = {<ForgotPassword/>}/>
       <Route path="/rol" element = {<Rol/>}/>
       <Route path="/" element = {<App/>}/>
     </Routes>
     
     </BrowserRouter>
+    </AuthProvider>
+    
     </>
     
     
