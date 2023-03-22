@@ -2,7 +2,8 @@ import React from 'react';
 
 const VistaProfe = () => {
     return ( 
-        <div> Hola, PROFESOR</div>
+        <div> 
+        Hola, PROFESOR</div>
      );
 }
  
