@@ -126,7 +126,7 @@ const RegistroUsuario = () => {
         <Helmet>
             <title> Crear Cuenta </title>
         </Helmet>
-        <h1> Crear Cuenta </h1>
+        <h1> CREAR CUENTA </h1>
         <main>
           <Formulario onSubmit={handleSubmit}>
             <ComponenteInput
