@@ -71,18 +71,7 @@
   }
 
   /******************Estilos para registrar resultados**********************/
-  .btn-cerrarSesion{
-    border: none;
-    outline: none;
-    width: 10%;
-    padding: 15px 0px;
-    color: #fff;
-    font-size: 18px;
-    letter-spacing: 1px;
-    background: #560000;
-    cursor: pointer;
-    margin: 20px 20px 0;
-  }
+
 
   table {
     align-items: center;

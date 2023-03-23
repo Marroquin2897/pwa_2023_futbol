@@ -16,7 +16,7 @@ function HomePrincipal({usuario}) {
         <div className='btnContainer'>
                      
             {usuario.rol === "administrador" ? <VistaAdmi /> : usuario.rol === "jugador" ?  <JugadorVista /> : <VistaProfe/> }  
-            <button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesion</button>
+            
         </div>
         
         </>
