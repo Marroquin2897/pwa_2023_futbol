@@ -1,9 +1,18 @@
 import React from 'react';
+import MenuProfesor from '../componentes/MenuProfesor';
 
 const VistaProfe = () => {
     return ( 
-        <div> 
-        Hola, PROFESOR</div>
+        <div>
+            <MenuProfesor/>
+            <div className='hero'>
+                <nav>
+                    <h2>Hola, PROFESOR</h2>
+                </nav>
+            </div>
+            
+        </div>
+        
      );
 }
  

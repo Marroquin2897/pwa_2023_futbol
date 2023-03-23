@@ -5,7 +5,11 @@ const VistaAdmi = () => {
     return ( 
         <div> 
             <MenuAdmin/>
-            Hola, administrador
+            <div className='hero'>
+                <nav>
+                    <h2>Hola, administrador</h2>
+                </nav>
+            </div>  
         </div>
      );
 }

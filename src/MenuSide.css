@@ -2,19 +2,22 @@
 .bm-burger-button {
     position: fixed;
     width: 80px;
-    height: 60px;
+    height: 50px;
     left: 36px;
-    top: 25%;
+    top: 10px;
   }
   
-  /* Color/shape of burger icon bars #373a47; */
+  /* Color/shape of burger icon bars #373a47; background: #560000; */
   .bm-burger-bars {
-    background: #560000;
+    background: #bdc3c7;
   }
   
-  /* Color/shape of burger icon bars on hover*/
+  /* Color/shape of burger icon bars on hover  
+  background: #a90000; 
+  box-shadow: 6px 0px 60px rgba(163,163,163,1);
+  */
   .bm-burger-bars-hover {
-    background: #a90000;
+    background: #fff;
     box-shadow: 6px 0px 60px rgba(163,163,163,1);
   }
   
@@ -50,7 +53,7 @@
   /* Wrapper for item list */
   .bm-item-list {
     color: #b8b7ad;
-    padding: 0.8;
+    padding: 0.8em;
   }
   
   /* Individual item */
@@ -71,17 +74,23 @@
   }
 
   /******************Estilos para registrar resultados**********************/
+  .iconMenu{
+    color: #fff;
+    width: 60px;
+    height: 50px;
+  }
+
   .btn-cerrarSesion{
     border: none;
     outline: none;
-    width: 10%;
+    width: 80%;
     padding: 15px 0px;
     color: #fff;
     font-size: 18px;
     letter-spacing: 1px;
     background: #560000;
     cursor: pointer;
-    margin: 20px 20px 0;
+    margin: 30px 10px 0;
   }
 
   table {

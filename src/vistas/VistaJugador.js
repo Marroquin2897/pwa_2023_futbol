@@ -1,8 +1,16 @@
 import React from 'react';
+import MenuJugador from '../componentes/MenuJugador';
 
 const JugadorVista = () => {
     return ( 
-        <div> Hola, jugador</div>
+        <div> 
+            <MenuJugador/>
+            <div className='hero'>
+                <nav>
+                    <h2>Hola, jugador</h2>
+                </nav>
+            </div>         
+        </div>
      );
 }
  
