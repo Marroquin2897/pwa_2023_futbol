@@ -44,13 +44,13 @@
     background:  #011230;
     padding: 2.5em 0.5em 0;
     font-size: 1.15em;
-    width: 320px;
+    width: 300px;
   }
   
   /* Wrapper for item list */
   .bm-item-list {
     color: #b8b7ad;
-    padding: 0.8em;
+    padding: 0.8;
   }
   
   /* Individual item */
@@ -58,6 +58,7 @@
     display: inline-block;
     color: #b8b7ad;
     text-decoration: none;
+    height: 60px;
   }
   
   /* Styling of overlay background: rgba(0, 0, 0, 0.3); */
@@ -69,8 +70,20 @@
     color: rgba(163,163,163,1);
   }
 
-
   /******************Estilos para registrar resultados**********************/
+  .btn-cerrarSesion{
+    border: none;
+    outline: none;
+    width: 10%;
+    padding: 15px 0px;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 1px;
+    background: #560000;
+    cursor: pointer;
+    margin: 20px 20px 0;
+  }
+
   table {
     align-items: center;
     text-align: center;
