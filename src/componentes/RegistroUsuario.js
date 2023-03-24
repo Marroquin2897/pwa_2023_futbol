@@ -95,14 +95,15 @@ const RegistroUsuario = () => {
 
         //Validar que todos los campos esten completos
         if(names.valido === 'true' &&
-        lastnames.valido === 'true' &&
-        fechaNacimiento.valido === 'true' &&
-        phone.valido === 'true' &&
-        address.valido === 'true' &&
-        boletaempl.valido === 'true' &&
-        correoo.valido === 'true' &&
-        contrasenia.valido === 'true' &&
-        contrasenia2.valido === 'true' ){
+            lastnames.valido === 'true' &&
+            fechaNacimiento.valido === 'true' &&
+            phone.valido === 'true' &&
+            address.valido === 'true' &&
+            boletaempl.valido === 'true' &&
+            correoo.valido === 'true' &&
+            contrasenia.valido === 'true' &&
+            contrasenia2.valido === 'true' ){
+
             cambiarFormularioValido(true);
             
         }
@@ -115,6 +116,7 @@ const RegistroUsuario = () => {
         }
         else {
             signInWithEmailAndPassword(auth,email,password);
+            
         }
 
         
@@ -213,23 +215,16 @@ const RegistroUsuario = () => {
               <Label htmlFor='rol'> Rol </Label>
               <GrupoInput>
                 <select name="rol">
-                    <option value="administrador"> Administrador </option>
+                    
                     <option value="jugador"> Jugador </option>
                     <option value="profesor"> Profesor </option>
                 </select> 
               </GrupoInput>   
             </div>
 
-            
-            {formularioValido === false && <MensajeError>
-                <p>
-                    <FontAwesomeIcon icon={faExclamationTriangle}/>
-                    <b>Error: </b> Completa todos los campos correctamente 
-                </p>
-            </MensajeError>}
             <ContenedorBotonCentrado>
               <Boton  type = 'submit' onClick={() => setRegistrarse(!registrarse)}> Crear Cuenta </Boton>  
-              {formularioValido === true && <MensajeExito>Registrado exitosamente</MensajeExito>}
+               {formularioValido === true && <MensajeExito>Registrado exitosamente</MensajeExito>}
             </ContenedorBotonCentrado>
             
         </Formulario>  
