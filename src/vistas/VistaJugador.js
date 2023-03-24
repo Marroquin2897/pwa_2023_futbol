@@ -7,7 +7,7 @@ const JugadorVista = () => {
             <MenuJugador/>
             <div className='hero'>
                 <nav>
-                    <h2>Hola, jugador</h2>
+                    <h2 className='saludosMenu'>Hola, jugador</h2>
                 </nav>
             </div>         
         </div>
