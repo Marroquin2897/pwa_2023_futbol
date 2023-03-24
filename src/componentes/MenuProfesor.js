@@ -13,7 +13,7 @@ class MenuProfesor extends React.Component  {
     render () {
         return (
           <Menu id="menuProfesor" >
-            <Link id="registrarEscuela" className="menu-item" to="/" > <FaPlusCircle className='iconMenu'/>  Registrar Escuela</Link>
+            <Link id="registrarEscuela" className="menu-item" to="/registrar-escuela" > <FaPlusCircle className='iconMenu'/>  Registrar Escuela</Link>
             <Link id="registrarJugador" className="menu-item" to="/"> <FaUserPlus className='iconMenu'/>  Registrar Jugador</Link>
             <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar className='iconMenu'/>  Estadisticas</Link>
             <Link id="rolJuegos" className="menu-item" to="/" > <FaCalendarAlt className='iconMenu'/>  Rol de Juegos</Link>

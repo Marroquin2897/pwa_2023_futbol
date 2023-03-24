@@ -6,9 +6,8 @@ import firebaseApp from "../firebase/firebaseConfig";
 import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 import {getFirestore,doc,setDoc} from "firebase/firestore"
 import { Formulario, Label, GrupoInput, ContenedorBotonCentrado,Boton,
-MensajeError,MensajeExito} from '../elementos/ElementosFormulario';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
+MensajeExito} from '../elementos/ElementosFormulario';
+
 
 import ComponenteInput from './Input';
 

@@ -32,7 +32,7 @@ const Icono = styled(IconoFlecha)`
     fill: #fff;
 `;
 
-const BtnRegresar = ({ruta = '/'}) => { //Aqui vamos a poner la ruta para que regrese a la interfaz de inicio
+const BtnRegresar = ({ruta = '/sesion-iniciada'}) => { //Aqui vamos a poner la ruta para que regrese a la interfaz de inicio
 	const navigate = useNavigate();
 
 	return (

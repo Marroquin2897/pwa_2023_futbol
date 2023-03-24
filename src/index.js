@@ -9,10 +9,12 @@ import RegistroUsuario from './componentes/RegistroUsuario';
 import HomePrincipal from './componentes/HomePrincipal';
 import ForgotPassword from './componentes/ForgotPassword';
 import Rol from './Rol';
+import RegistrarEscuela from './componentes/RegistrarEscuela';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/icono2-burrito.png';
 import './App.css';
 import { AuthProvider } from './contextos/AuthContext';
+import RutaPrivada from './componentes/RutaPrivada';
 
 WebFont.load({
   google: {
@@ -28,14 +30,20 @@ const Index = () => {
     </Helmet>
     <AuthProvider>
       <BrowserRouter>
-    <Routes>
-      <Route path="/iniciar-sesion" element = {<Login/>}/>
-      <Route path="/crear-cuenta" element = {<RegistroUsuario/>}/>
-      <Route path="/sesion-iniciada" element = {<HomePrincipal/>}/>
-      <Route path="/forgot-password" element = {<ForgotPassword/>}/>
-      <Route path="/rol" element = {<Rol/>}/>
-      <Route path="/" element = {<App/>}/>
-    </Routes>
+        <Routes>
+          <Route path="/iniciar-sesion" element = {<Login/>}/>
+          <Route path="/crear-cuenta" element = {<RegistroUsuario/>}/>
+          <Route path="/sesion-iniciada" element = {<HomePrincipal/>}/>
+          <Route path="/forgot-password" element = {<ForgotPassword/>}/>
+          <Route path="/rol" element = {<Rol/>}/>
+          <Route path="/" element = {<App/>}/>
+
+          <Route path="/registrar-escuela" element={
+              <RutaPrivada>
+                <RegistrarEscuela/>
+              </RutaPrivada>
+            }/>
+        </Routes>
     
     </BrowserRouter>
     </AuthProvider>
