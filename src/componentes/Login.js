@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {useNavigate} from 'react-router-dom';
 import firebaseApp from "../firebase/firebaseConfig";
+import Alerta from '../elementos/Alerta';
 
 const auth = getAuth(firebaseApp);
 
@@ -12,6 +13,8 @@ const Login = () => {
     const navigate = useNavigate();
     const[email, establecerEmail] = useState('');
     const[password, establecerPassword] = useState('');    
+    const[estadoAlerta,cambiarEdoAlerta] = useState(false);
+    const[alerta,cambiarAlerta] = useState({});
 
     const handleChange = (e) => {
         if(e.target.name === 'email'){
@@ -22,6 +25,27 @@ const Login = () => {
     }
     const handleSubmit = async (e) =>{ //Para obtener los datos de los inputs
         e.preventDefault();
+        cambiarEdoAlerta(false);
+        cambiarAlerta({});
+
+        const expresionRegular = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
+        if(!expresionRegular.test(email)){ //Si NO hay correo entonces mostramos mensaje de error
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingresa un correo valido'
+            });
+            return;
+        }
+        //Validacion de que llena todos los campos
+        if( email ==='' || password === ''){ 
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Falta llenar email y/o contraseña'
+            });
+            return;
+        }
         
         //Iniciar Sesión con email y password
         try{
@@ -30,7 +54,7 @@ const Login = () => {
 
         } catch(error){ //Mostrar los errores que puede haber en cada campo
             console.log(error)
-            
+            cambiarEdoAlerta(true);
            let mensaje;
            switch(error.code){
                 case 'auth/wrong-password':
@@ -43,6 +67,10 @@ const Login = () => {
                     mensaje = 'Hubo un error al iniciar sesión.'
                     break;
            }
+           cambiarAlerta({
+            tipo:'error',
+            mensaje: mensaje
+           });
            
         }
             
@@ -81,6 +109,11 @@ const Login = () => {
                 </form>
             </div>
         </section>
+        <Alerta
+        tipo={alerta.tipo}
+        mensaje={alerta.mensaje}
+        estadoAlerta={estadoAlerta}
+        cambiarEdoAlerta={cambiarEdoAlerta}/>
       </div>
      );
 }
