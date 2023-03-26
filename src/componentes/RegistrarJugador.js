@@ -59,7 +59,7 @@ const RegistrarJugador = () => {
         } catch (error){
             console.log(error);
         }
-        navigate('/rol');
+        navigate('/menu-profe');
     }
     return ( 
         <>

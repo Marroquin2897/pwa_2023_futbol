@@ -51,7 +51,7 @@ const RegistrarEscuela = () => {
         } catch (error){
             console.log(error);
         }
-        navigate('/');
+        navigate('/menu-profe');
     }
 
     return ( 

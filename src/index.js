@@ -8,6 +8,8 @@ import Login from './componentes/Login';
 import RegistroUsuario from './componentes/RegistroUsuario';
 import HomePrincipal from './componentes/HomePrincipal';
 import ForgotPassword from './componentes/ForgotPassword';
+import VistaAdmi from './vistas/VistaAdmi';
+import VistaProfe from './vistas/VistaProfe';
 import Rol from './Rol';
 import RegistrarEscuela from './componentes/RegistrarEscuela';
 import RegistrarJugador from './componentes/RegistrarJugador';
@@ -47,6 +49,11 @@ const Index = () => {
           <Route path="/registrar-jugador" element={
               <RutaPrivada>
                 <RegistrarJugador/>
+              </RutaPrivada>
+            }/>
+          <Route path="/menu-profe" element={
+              <RutaPrivada>
+                <VistaProfe/>
               </RutaPrivada>
             }/>
         </Routes>
