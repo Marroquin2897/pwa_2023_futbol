@@ -10,6 +10,7 @@ import HomePrincipal from './componentes/HomePrincipal';
 import ForgotPassword from './componentes/ForgotPassword';
 import Rol from './Rol';
 import RegistrarEscuela from './componentes/RegistrarEscuela';
+import RegistrarJugador from './componentes/RegistrarJugador';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/icono2-burrito.png';
 import './App.css';
@@ -41,6 +42,11 @@ const Index = () => {
           <Route path="/registrar-escuela" element={
               <RutaPrivada>
                 <RegistrarEscuela/>
+              </RutaPrivada>
+            }/>
+          <Route path="/registrar-jugador" element={
+              <RutaPrivada>
+                <RegistrarJugador/>
               </RutaPrivada>
             }/>
         </Routes>

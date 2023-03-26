@@ -16,6 +16,15 @@ const Formulario = styled.form `
         grid-template-columns: 1fr;
     }
 `;
+const FormularioJugador = styled.form `
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    @media (max-width: 800px){
+        grid-template-columns: 1fr;
+    }
+`;
 const Label = styled.label`
     color: #fff;
     display: block;
@@ -136,6 +145,6 @@ const MensajeError = styled.div`
 
 
 
-export {Formulario,Label, GrupoInput, Input,LeyendaError, IconoValidacion, ContenedorBotonCentrado,Boton, MensajeExito, MensajeError};
+export {Formulario,FormularioJugador,Label, GrupoInput, Input,LeyendaError, IconoValidacion, ContenedorBotonCentrado,Boton, MensajeExito, MensajeError};
 
 
