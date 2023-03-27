@@ -13,6 +13,8 @@ import VistaProfe from './vistas/VistaProfe';
 import Rol from './Rol';
 import RegistrarEscuela from './componentes/RegistrarEscuela';
 import RegistrarJugador from './componentes/RegistrarJugador';
+import ListaJugadores from './componentes/ListaJugadores';
+import EditarJugador from './componentes/EditarJugador';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/icono2-burrito.png';
 import './App.css';
@@ -49,6 +51,16 @@ const Index = () => {
           <Route path="/registrar-jugador" element={
               <RutaPrivada>
                 <RegistrarJugador/>
+              </RutaPrivada>
+            }/>
+            <Route path="/lista-jugadores" element={
+              <RutaPrivada>
+                <ListaJugadores/>
+              </RutaPrivada>
+            }/>
+              <Route path="/editar-jugador/:id" element={
+              <RutaPrivada>
+                <EditarJugador/>
               </RutaPrivada>
             }/>
           <Route path="/menu-profe" element={
