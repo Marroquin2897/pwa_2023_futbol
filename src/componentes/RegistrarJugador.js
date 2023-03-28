@@ -57,19 +57,88 @@ const RegistrarJugador = ({jugador}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const expresionNombreJ = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
+        const expresionApellidoJ = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
+        const expresionNssJ = /^\d{10,11}$/;
+        const expresionCurpJ = /^[A-Z]{1}[AEIOU]{1}[A-Z]{2}\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GR|GT|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS){1}[B-DF-HJ-NP-TV-Z]{3}\w{1}\d{1}$/;
+        const expresionBoletaJ = /^\d{9,10}$/;
+
+        //Validando que en los campos ingrese el tipo de dato correcto y numero exacto de caracteres
+        if(!expresionNombreJ.test(nombreJugador)){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingrese un nombre valido'
+            });
+            return;
+        }
+        if(!expresionApellidoJ.test(apellidosJugador)){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingrese Apellido Paterno y Materno'
+            });
+            return;
+        }
+        if(!expresionNssJ.test(nssJugador)){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'NSS deben ser 11 digitos'
+            });
+            return;
+        }
+        if(!expresionCurpJ.test(curpJugador)){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'CURP: Solo se permiten letras y numeros '
+            });
+            return;
+        }
+        if(!expresionBoletaJ.test(boletaJugador)){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'El No. de boleta deben ser 10 digitos'
+            });
+            return;
+        }
+
+        //Comprobamos que los campos tengan un valor 
+        if(nombreJugador !== '' && apellidosJugador !== '' && fechaNacJugador !== '' && nssJugador !== '' && curpJugador !== '' && boletaJugador !== ''
+        && semestreJugador !== '') {
             agregarJugador({
-                   nombreJugador: nombreJugador,
-                   apellidosJugador: apellidosJugador,
-                   fechaNacJugador: fechaNacJugador,
-                   nssJugador: nssJugador,
-                   curpJugador: curpJugador,
-                   boletaJugador: boletaJugador,
-                   semestreJugador: semestreJugador,
-                   uidUsuario: usuario.uid
-                });
-            
-            console.log(agregarJugador());
-                
+                 nombreJugador: nombreJugador,
+                 apellidosJugador: apellidosJugador,
+                 fechaNacJugador: fechaNacJugador,
+                 nssJugador: nssJugador,
+                 curpJugador: curpJugador,
+                 boletaJugador: boletaJugador,
+                 semestreJugador: semestreJugador,
+                 uidUsuario: usuario.uid
+             })
+             .then (() => {
+                cambiarNombreJ('');
+                cambiarApellidosJ('');
+                cambiarFechaNacJ('');
+                cambiarNssJ('');
+                cambiarCurpJ('');
+                cambiarBoletaJ('');
+                cambiarSemestreJ('');
+
+                cambiarEdoAlerta(true);
+                cambiarAlerta({tipo: 'exito', mensaje: 'Jugador registrado exitosamente'});
+             }) 
+             .catch((error) => {
+                cambiarEdoAlerta(true);
+				cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar agregar tu gasto.'});
+             })           
+        } else {
+            cambiarEdoAlerta(true);
+            cambiarAlerta({tipo: 'error', mensaje: 'Completa todos los campos'});
+        }
+         
     }
 
     return ( 
@@ -167,12 +236,14 @@ const RegistrarJugador = ({jugador}) => {
                
                 </Boton>  
             </ContenedorBotonCentrado>
-        </FormularioJugador>  
         <Alerta 
-            tipo= {alerta.tipo}
-            mensaje= {alerta.mensaje}
-            estadoAlerta={estadoAlerta}
-            cambiarEdoAlerta={cambiarEdoAlerta}/> 
+           tipo= {alerta.tipo}
+           mensaje= {alerta.mensaje}
+           estadoAlerta={estadoAlerta}
+           cambiarEdoAlerta={cambiarEdoAlerta}
+        /> 
+        </FormularioJugador>  
+        
         </main>
         
         </>
