@@ -5,6 +5,7 @@ import {ReactComponent as IconoEditar} from './../imagenes/editar.svg';
 import {ReactComponent as IconoBorrar} from './../imagenes/borrar.svg';
 import {ReactComponent as IconoRegresar} from './../imagenes/regresar.svg';
 import Boton from './../elementos/Boton';
+import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerJugadores from '../hooks/useObtenerJugadores';
 import borrarJugador from './../firebase/borrarJugador';
 import { Lista, 
@@ -65,11 +66,11 @@ const ListaJugadores = () => {
                 </ContenedorBotonCentral>
             }
             
-
             {jugadores.length === 0 &&
                 <ContenedorSubtitulo>
                     <Subtitulo> No hay jugadores por mostrar</Subtitulo>
                     <Boton as={Link} to='/registrar-jugador'>Agregar Jugador</Boton>
+                    <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorSubtitulo>
                 }
                 

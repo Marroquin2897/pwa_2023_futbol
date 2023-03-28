@@ -7,6 +7,7 @@ import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from
 import {getFirestore,doc,setDoc} from "firebase/firestore"
 import { Formulario, Label, GrupoInput, ContenedorBotonCentrado,Boton,
 MensajeExito} from '../elementos/ElementosFormulario';
+import Alerta from '../elementos/Alerta';
 
 
 import ComponenteInput from './Input';
@@ -29,6 +30,8 @@ const RegistroUsuario = () => {
     const [contrasenia,cambiarContrasenia] = useState({campo: '',valido: null});
     const [contrasenia2,cambiarContrasenia2] = useState({campo: '',valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
+    const[estadoAlerta,cambiarEdoAlerta] = useState(false);
+    const[alerta,cambiarAlerta] = useState({});
 
     const expresiones = {
 		nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
@@ -53,18 +56,18 @@ const RegistroUsuario = () => {
         }
     }
 
-    async function registrarUsuario (nombre,apellidos,fechaNac,telefono,direccion,boleta,email, password, rol){
-        const infoUsuario = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password)
-            .then ((usuarioFirebase) => {
+    async function registrarUsuario (nombre,apellidos,fechaNac,telefono,direccion,boleta,email, password, rol){ 
+        cambiarEdoAlerta(false);
+        cambiarAlerta({});
+        try{
+            const infoUsuario = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password)
+                .then ((usuarioFirebase) => {
                 return usuarioFirebase;
-            });
-
-            console.log(infoUsuario);
-
-            //Pasamos el UID del usuario para guardarlo en la BD
+                })
+                //Pasamos el UID del usuario para guardarlo en la BD
             const docuRef = doc(firestore,`usuarios/${infoUsuario.user.uid}`);
             setDoc(docuRef,{
                 nombre: nombre,
@@ -76,7 +79,37 @@ const RegistroUsuario = () => {
                 correo: email,
                 rol: rol
             });
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo:'exito',
+                mensaje:'Registrado exitosamente'
+            });
             navigate('/iniciar-sesion');
+
+        } catch(error){
+            cambiarEdoAlerta(true);
+            let mensaje;
+            switch(error.code){
+                case 'auth/invalid-password':
+					mensaje = 'La contraseña tiene que ser de al menos 8 caracteres.'
+					break;
+				case 'auth/email-already-in-use':
+					mensaje = 'Ya existe una cuenta con el correo electrónico proporcionado.'
+				    break;
+				case 'auth/invalid-email':
+					mensaje = 'El correo electrónico no es válido.'
+				    break;
+				default:
+					mensaje = 'Hubo un error al intentar crear la cuenta.'
+				    break;
+            }
+            cambiarAlerta({
+                tipo:'error',
+                mensaje: mensaje
+               });
+
+        }  
+            
     }
 
     const handleSubmit = async (e) => {
@@ -223,9 +256,14 @@ const RegistroUsuario = () => {
 
             <ContenedorBotonCentrado>
               <Boton  type = 'submit' onClick={() => setRegistrarse(!registrarse)}> Crear Cuenta </Boton>  
-               {formularioValido === true && <MensajeExito>Registrado exitosamente</MensajeExito>}
+               
             </ContenedorBotonCentrado>
-            
+            <Alerta 
+                tipo= {alerta.tipo}
+                mensaje= {alerta.mensaje}
+                estadoAlerta={estadoAlerta}
+                cambiarEdoAlerta={cambiarEdoAlerta}
+            />  
         </Formulario>  
         </main>
         

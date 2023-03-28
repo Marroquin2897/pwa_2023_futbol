@@ -15,7 +15,8 @@ class MenuProfesor extends React.Component  {
           <Menu id="menuProfesor" >
             <Link id="registrarEscuela" className="menu-item" to="/registrar-escuela" > <FaPlusCircle className='iconMenu'/>  Registrar Escuela</Link>
             <Link id="registrarJugador" className="menu-item" to="/registrar-jugador"> <FaUserPlus className='iconMenu'/>  Registrar Jugador</Link>
-            <Link id="registrarJugador" className="menu-item" to="/lista-jugadores"> <FaUserPlus className='iconMenu'/>  Lista de Jugadores</Link>
+            <Link id="listaJugador" className="menu-item" to="/lista-jugadores"> <FaUserPlus className='iconMenu'/>  Lista de Jugadores</Link>
+            <Link id="listaEscuela" className="menu-item" to="/lista-escuelas"> <FaUserPlus className='iconMenu'/>  Lista de Escuelas</Link>
             <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar className='iconMenu'/>  Estadisticas</Link>
             <Link id="rolJuegos" className="menu-item" to="/" > <FaCalendarAlt className='iconMenu'/>  Rol de Juegos</Link>
             <button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesion</button>

@@ -71,6 +71,96 @@ const Nombre = styled.div`
         font-size: 1.12rem;
     }
 `;
+const Entrenador = styled.div`
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 1.25rem; /* 20px */
+    display: flex;
+    align-items: center;
+    
+    svg {
+        width: 3.12rem; /* 50px */
+        height: auto;
+        margin-right: 1.25rem; /* 20px */
+        border-radius: 0.62rem; /* 10px */
+    }
+ 
+    @media (max-width: 50rem) { /* 80px */
+        font-size: 1.12rem;
+    }
+`;
+const Asistente = styled.div`
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 1.25rem; /* 20px */
+    display: flex;
+    align-items: center;
+    
+    svg {
+        width: 3.12rem; /* 50px */
+        height: auto;
+        margin-right: 1.25rem; /* 20px */
+        border-radius: 0.62rem; /* 10px */
+    }
+ 
+    @media (max-width: 50rem) { /* 80px */
+        font-size: 1.12rem;
+    }
+`;
+const Escuela = styled.div`
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 1.25rem; /* 20px */
+    display: flex;
+    align-items: center;
+    
+    svg {
+        width: 3.12rem; /* 50px */
+        height: auto;
+        margin-right: 1.25rem; /* 20px */
+        border-radius: 0.62rem; /* 10px */
+    }
+ 
+    @media (max-width: 50rem) { /* 80px */
+        font-size: 1.12rem;
+    }
+`;
+const Modalidades = styled.div`
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 1.25rem; /* 20px */
+    display: flex;
+    align-items: center;
+    
+    svg {
+        width: 3.12rem; /* 50px */
+        height: auto;
+        margin-right: 1.25rem; /* 20px */
+        border-radius: 0.62rem; /* 10px */
+    }
+ 
+    @media (max-width: 50rem) { /* 80px */
+        font-size: 1.12rem;
+    }
+`;
+const Categoria = styled.div`
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 1.25rem; /* 20px */
+    display: flex;
+    align-items: center;
+    
+    svg {
+        width: 3.12rem; /* 50px */
+        height: auto;
+        margin-right: 1.25rem; /* 20px */
+        border-radius: 0.62rem; /* 10px */
+    }
+ 
+    @media (max-width: 50rem) { /* 80px */
+        font-size: 1.12rem;
+    }
+`;
 const Apellidos = styled.div`
     color: #FFFFFF;
     font-weight: 500;
@@ -246,6 +336,11 @@ export {
     ListaDeCategorias,
     ElementoListaCategorias,
     Nombre,
+    Entrenador,
+    Asistente,
+    Escuela,
+    Modalidades,
+    Categoria,
     Apellidos,
     Nss,
     Curp,
