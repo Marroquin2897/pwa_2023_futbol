@@ -22,16 +22,16 @@ const ComponenteInput = ({label,tipo,name,leyendaError,expresionRegular,estado,c
     }
     return ( 
         <div>
-              <Label htmlFor={name} valido={estado.valido}> {label} </Label>
+              <Label htmlFor={name} > {label} </Label>
                 <GrupoInput>
                     <Input 
                     id={name}
                     type={tipo}
-                    value={estado.campo}
+                    
                     onChange={onChange}
                     onKeyUp={validacion}
                     onBlur={validacion}
-                    valido={estado.valido}
+                    
                      /> 
                     <IconoValidacion 
                         icon = {estado.valido === 'true' ? faCheckCircle : faTimesCircle} 

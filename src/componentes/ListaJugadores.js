@@ -7,7 +7,6 @@ import {ReactComponent as IconoRegresar} from './../imagenes/regresar.svg';
 import Boton from './../elementos/Boton';
 import useObtenerJugadores from '../hooks/useObtenerJugadores';
 import borrarJugador from './../firebase/borrarJugador';
-import { Label } from '../elementos/ElementosFormulario';
 import { Lista, 
         ElementoLista,
         Nombre,
@@ -30,7 +29,7 @@ const ListaJugadores = () => {
         <Helmet>
             <title>Lista de Jugadores</title>
         </Helmet>
-        <h1> Lista de Jugadores </h1>
+        <h1> LISTA DE JUGADORES </h1>
         <Lista>
             {jugadores.map((jugador) => {
                 return(
