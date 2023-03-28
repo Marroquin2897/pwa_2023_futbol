@@ -1,12 +1,12 @@
 import {getFirestore ,doc, updateDoc } from 'firebase/firestore';
 import firebaseApp from "../firebase/firebaseConfig";
 
-const editarJugador = async ({id,nameJugador,lastnameJugador,fechaNacJugador,nssJugador,curpJugador,boletaJugador,semestreJugador}) => {
+const editarJugador = async ({id,nombreJugador,apellidosJugador,fechaNacJugador,nssJugador,curpJugador,boletaJugador,semestreJugador}) => {
     const firestore = getFirestore(firebaseApp);
     const documento = doc(firestore,'jugadores',id);
     return await updateDoc(documento,{
-        nameJugador: nameJugador,
-        lastnameJugador: lastnameJugador,
+        nombreJugador: nombreJugador,
+        apellidosJugador: apellidosJugador,
         fechaNacJugador: fechaNacJugador,
         nssJugador: nssJugador,
         curpJugador: curpJugador,

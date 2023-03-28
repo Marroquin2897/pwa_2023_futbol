@@ -35,10 +35,10 @@ const ListaJugadores = () => {
                 return(
                     <ElementoLista key={jugador.id}> 
                         <Nombre> 
-                            {jugador.nameJugador} 
+                            {jugador.nombreJugador} 
                         </Nombre>
                         <Apellidos>
-                            {jugador.lastnameJugador}
+                            {jugador.apellidosJugador}
                         </Apellidos>
                         <Boleta>
                             {jugador.boletaJugador}

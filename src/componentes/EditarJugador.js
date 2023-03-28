@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import RegistrarJugador from './RegistrarJugador';
 import useObtenerJugador from './../hooks/useObtenerJugador';
+import BtnRegresar from '../elementos/BtnRegresar';
 
 const EditarJugadores = () => {
     const {id} = useParams();
@@ -13,6 +14,7 @@ const EditarJugadores = () => {
             <title>Editar Jugador</title>
         </Helmet>
         <h1> EDITAR JUGADOR </h1>
+        <BtnRegresar ruta = '/lista-jugadores'/>
         <RegistrarJugador jugador={jugador}/>
         </>
      );

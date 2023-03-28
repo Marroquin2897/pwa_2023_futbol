@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { Helmet } from 'react-helmet';
-import { FormularioJugador,Label, GrupoInput, Input, ContenedorBotonCentrado, Boton, MensajeExito } from '../elementos/ElementosFormulario';
-
+import { FormularioJugador,Label, GrupoInput, Input, ContenedorBotonCentrado, Boton } from '../elementos/ElementosFormulario';
+import {ReactComponent as IconoRegresar} from './../imagenes/regresar.svg';
 import Alerta from '../elementos/Alerta';
 import firebaseApp from "../firebase/firebaseConfig";
 import {useAuth} from './../contextos/AuthContext';
@@ -9,6 +9,7 @@ import {getFirestore} from "firebase/firestore"
 import {Link, useNavigate} from 'react-router-dom';
 import agregarJugador from '../firebase/agregarJugador';
 import editarJugador from '../firebase/editarJugador';
+
 
 const RegistrarJugador = ({jugador}) => {
     const firestore = getFirestore(firebaseApp);
@@ -25,6 +26,23 @@ const RegistrarJugador = ({jugador}) => {
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
 
+
+    useEffect(() => { //Comprobamos si hay algun jugador, si hay obtenemos los valores que tiene ese jugador
+        if(jugador){
+            if(jugador.data().uidUsuario === usuario.uid){
+                cambiarNombreJ(jugador.data().nombreJugador);
+                cambiarApellidosJ(jugador.data().apellidosJugador);
+                cambiarFechaNacJ(jugador.data().fechaNacJugador);
+                cambiarNssJ(jugador.data().nssJugador);
+                cambiarCurpJ(jugador.data().curpJugador);
+                cambiarBoletaJ(jugador.data().boletaJugador);
+                cambiarSemestreJ(jugador.data().semestreJugador);
+            } else {
+                navigate('/lista-jugadores');
+            }
+        }
+    },[jugador,usuario,navigate]);
+    
     
     const handleChange = (e) => {
         switch(e.target.name){
@@ -108,7 +126,23 @@ const RegistrarJugador = ({jugador}) => {
         //Comprobamos que los campos tengan un valor 
         if(nombreJugador !== '' && apellidosJugador !== '' && fechaNacJugador !== '' && nssJugador !== '' && curpJugador !== '' && boletaJugador !== ''
         && semestreJugador !== '') {
-            agregarJugador({
+            if(jugador){
+                editarJugador({
+                    id: jugador.id,
+                    nombreJugador: nombreJugador,
+                    apellidosJugador: apellidosJugador,
+                    fechaNacJugador: fechaNacJugador,
+                    nssJugador: nssJugador,
+                    curpJugador: curpJugador,
+                    boletaJugador: boletaJugador,
+                    semestreJugador: semestreJugador
+                }).then(() => {
+                    navigate('/lista-jugadores'); //cuando termine de editar que pase a la lista de jugadores
+                }). catch((error) => {
+                    console.log(error);
+                })
+            } else {
+               agregarJugador({
                  nombreJugador: nombreJugador,
                  apellidosJugador: apellidosJugador,
                  fechaNacJugador: fechaNacJugador,
@@ -133,7 +167,9 @@ const RegistrarJugador = ({jugador}) => {
              .catch((error) => {
                 cambiarEdoAlerta(true);
 				cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar agregar tu gasto.'});
-             })           
+             })  
+            }
+                      
         } else {
             cambiarEdoAlerta(true);
             cambiarAlerta({tipo: 'error', mensaje: 'Completa todos los campos'});
@@ -232,9 +268,8 @@ const RegistrarJugador = ({jugador}) => {
                     </GrupoInput>   
             </div>
             <ContenedorBotonCentrado>
-                <Boton as="button"  type = 'submit' > Registrar Jugador  
-               
-                </Boton>  
+                <Boton as="button"  type = 'submit' >  {jugador ? 'Editar Jugador' : 'Agregar Jugador'} </Boton>
+                <Boton as={Link} to='/menu-profe'>  <IconoRegresar/></Boton>
             </ContenedorBotonCentrado>
         <Alerta 
            tipo= {alerta.tipo}
