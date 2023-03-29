@@ -11,8 +11,8 @@ const Btn = styled.button`
     text-align: center;
     margin-right: 1.25rem; /* 20px */
     border: none;
-    background: #000;
-    color: #fff;
+    background: #560000;
+    color: #0B0B0B;
     display: flex;
     align-items: center;
     justify-content: center;

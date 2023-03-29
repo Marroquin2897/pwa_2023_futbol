@@ -10,6 +10,7 @@ import useObtenerJugadores from '../hooks/useObtenerJugadores';
 import borrarJugador from './../firebase/borrarJugador';
 import { Lista, 
         ElementoLista,
+        Label,
         Nombre,
         Apellidos,
         Boleta,
@@ -35,18 +36,26 @@ const ListaJugadores = () => {
             {jugadores.map((jugador) => {
                 return(
                     <ElementoLista key={jugador.id}> 
-                        <Nombre> 
-                            {jugador.nombreJugador} 
-                        </Nombre>
-                        <Apellidos>
-                            {jugador.apellidosJugador}
-                        </Apellidos>
-                        <Boleta>
-                            {jugador.boletaJugador}
-                        </Boleta>
-                        <Semestre>
-                            {jugador.semestreJugador}
-                        </Semestre>
+                        <Label> Nombre (s) 
+                            <Nombre> 
+                                {jugador.nombreJugador} 
+                            </Nombre>
+                        </Label>
+                        <Label> Apellidos 
+                            <Apellidos>
+                                {jugador.apellidosJugador}
+                            </Apellidos>
+                        </Label>
+                        <Label> Boleta 
+                            <Boleta>
+                                {jugador.boletaJugador}
+                            </Boleta>
+                        </Label>
+                        <Label> Semestre 
+                            <Semestre>
+                                {jugador.semestreJugador}
+                            </Semestre>
+                        </Label>    
 
                         <ContenedorBotones>
                             <BotonAccion as={Link} to={`/editar-jugador/${jugador.id}`}>
@@ -62,7 +71,7 @@ const ListaJugadores = () => {
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasJugadores()}> Cargas más </BotonCargarMas>
-                    <Boton as={Link} to='/menu-profe'>  <IconoRegresar/></Boton>
+                    <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorBotonCentral>
             }
             

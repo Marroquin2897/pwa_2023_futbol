@@ -8,6 +8,7 @@ import {ReactComponent as IconoRegresar} from './../imagenes/flecha.svg';
 import useObtenerEscuelas from '../hooks/useObtenerEscuelas';
 import { Lista, 
     ElementoLista,
+    Label,
     Entrenador,
     Asistente,
     Escuela,
@@ -34,22 +35,30 @@ const ListaEscuelas = () => {
             {escuelas.map((escuela) => {
                 return (
                     <ElementoLista key={escuela.id}>
-                        <Entrenador>
-                            {escuela.nombreEntrenador}
-                        </Entrenador>
-                        <Asistente>
+                        <Label> Entrenador 
+                        <Entrenador> {escuela.nombreEntrenador}</Entrenador>
+                        </Label>
+                        <Label> Auxiliar
+                          <Asistente>
                             {escuela.nombreAsistente}
-                        </Asistente>
+                        </Asistente>  
+                        </Label>
+                        <Label> Escuela
                         <Escuela>
                             {escuela.escuela}
                         </Escuela>
-                        <Modalidades>
+                        </Label>
+                        <Label> Modalidades 
+                         <Modalidades>
                             {escuela.modalidades}
-                        </Modalidades>
-                        <Categoria>
+                        </Modalidades>   
+                        </Label>
+                        <Label> Categoria
+                         <Categoria>
                             {escuela.categoria}
-                        </Categoria>
-
+                        </Categoria>   
+                        </Label>
+                        
                         <ContenedorBotones>
                         <BotonAccion as={Link} to='/lista-jugadores'>
                                 <IconoVer/>     
@@ -62,7 +71,7 @@ const ListaEscuelas = () => {
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasEscuelas()}> Cargas más </BotonCargarMas>
-                    <Boton as={Link} to='/menu-profe'>  <IconoRegresar/></Boton>
+                    <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorBotonCentral>
             }
             {escuelas.length === 0 &&

@@ -38,19 +38,15 @@ const ElementoLista = styled.li`
     }
 `;
  
- 
-const ListaDeCategorias = styled.ul`
-    list-style: none;
-    padding: 0 2.5rem; /* 40px */
-    height: 100%;
-    overflow-y: auto;
-`;
- 
-const ElementoListaCategorias = styled.li`
-    padding: 1.25rem 0; /* 20px */
-    border-bottom: 2px solid #F2F2F2;
-    display: flex;
-    justify-content: space-between;
+const Label = styled.th`
+    color: #A9002E;
+    display: block;
+    font-weight: 700;
+    padding: 10px;
+    min-height: 40px;
+    cursor: pointer;
+
+    
 `;
  
 const Nombre = styled.div`
@@ -333,8 +329,7 @@ const BotonCargarMas = styled.button`
 export {
     Lista,
     ElementoLista,
-    ListaDeCategorias,
-    ElementoListaCategorias,
+    Label,
     Nombre,
     Entrenador,
     Asistente,

@@ -5,9 +5,9 @@ import {useAuth} from './../contextos/AuthContext';
 import { Label, GrupoInput, ContenedorBotonCentrado, Boton, MensajeExito } from '../elementos/ElementosFormulario';
 import ComponenteInput from './Input';
 import firebaseApp from "../firebase/firebaseConfig";
-import {getFirestore, addDoc, collection} from "firebase/firestore"
+import {getFirestore, addDoc, collection, onSnapshot,query,where} from "firebase/firestore"
 import {Link, useNavigate} from 'react-router-dom';
-
+import Alerta from '../elementos/Alerta';
 
 const RegistrarEscuela = () => {
 
@@ -17,6 +17,8 @@ const RegistrarEscuela = () => {
     const [nameE,cambiarNombreE] = useState({campo: '',valido: null});
     const [nameA,cambiarNombreA] = useState({campo: '',valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
+    const[estadoAlerta,cambiarEdoAlerta] = useState(false);
+    const[alerta,cambiarAlerta] = useState({});
 
     const expresiones = {
 		nombreE: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
@@ -47,6 +49,7 @@ const RegistrarEscuela = () => {
                 categoria: categoria,
                 uidUsuario: usuario.uid
             })
+
 
         } catch (error){
             console.log(error);
@@ -156,6 +159,12 @@ const RegistrarEscuela = () => {
                 <Boton  type = 'submit' > Registrar </Boton>  
                 {formularioValido === true && <MensajeExito>Registrado exitosamente</MensajeExito>}
             </ContenedorBotonCentrado>
+            <Alerta 
+                tipo= {alerta.tipo}
+                mensaje= {alerta.mensaje}
+                estadoAlerta={estadoAlerta}
+                cambiarEdoAlerta={cambiarEdoAlerta}
+            />
             </FormularioEscuela>
         </main>
         </>

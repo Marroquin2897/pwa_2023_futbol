@@ -1,7 +1,9 @@
 import React,{useState,useEffect} from 'react';
 import { Helmet } from 'react-helmet';
-import { FormularioJugador,Label, GrupoInput, Input, ContenedorBotonCentrado, Boton } from '../elementos/ElementosFormulario';
-import {ReactComponent as IconoRegresar} from './../imagenes/regresar.svg';
+import { FormularioJugador,Label, GrupoInput,ContenedorBotonCentrado, Input, Boton } from '../elementos/ElementosFormulario';
+import { ContenedorBotonCentral } from '../elementos/ElementosDeLista';
+import {ReactComponent as IconoRegresar} from './../imagenes/flecha.svg';
+import BtnRegresar from '../elementos/BtnRegresar';
 import Alerta from '../elementos/Alerta';
 import firebaseApp from "../firebase/firebaseConfig";
 import {useAuth} from './../contextos/AuthContext';
@@ -23,6 +25,7 @@ const RegistrarJugador = ({jugador}) => {
     const [curpJugador,cambiarCurpJ] = useState('');
     const [boletaJugador,cambiarBoletaJ] = useState('');
     const [semestreJugador, cambiarSemestreJ] = useState('');
+    const [sexoJugador, cambiarSexoJ] = useState('');
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
 
@@ -37,6 +40,7 @@ const RegistrarJugador = ({jugador}) => {
                 cambiarCurpJ(jugador.data().curpJugador);
                 cambiarBoletaJ(jugador.data().boletaJugador);
                 cambiarSemestreJ(jugador.data().semestreJugador);
+                cambiarSexoJ(jugador.data().sexoJugador);
             } else {
                 navigate('/lista-jugadores');
             }
@@ -55,6 +59,9 @@ const RegistrarJugador = ({jugador}) => {
             case 'fechanac':
                 cambiarFechaNacJ(e.target.value);
                 break;
+            case 'sexo':
+                cambiarSexoJ(e.target.value);
+                break; 
             case 'nss':
                 cambiarNssJ(e.target.value);
                 break;
@@ -125,13 +132,14 @@ const RegistrarJugador = ({jugador}) => {
 
         //Comprobamos que los campos tengan un valor 
         if(nombreJugador !== '' && apellidosJugador !== '' && fechaNacJugador !== '' && nssJugador !== '' && curpJugador !== '' && boletaJugador !== ''
-        && semestreJugador !== '') {
+        && semestreJugador !== '' && sexoJugador !== '') {
             if(jugador){
                 editarJugador({
                     id: jugador.id,
                     nombreJugador: nombreJugador,
                     apellidosJugador: apellidosJugador,
                     fechaNacJugador: fechaNacJugador,
+                    sexoJugador: sexoJugador,
                     nssJugador: nssJugador,
                     curpJugador: curpJugador,
                     boletaJugador: boletaJugador,
@@ -146,6 +154,7 @@ const RegistrarJugador = ({jugador}) => {
                  nombreJugador: nombreJugador,
                  apellidosJugador: apellidosJugador,
                  fechaNacJugador: fechaNacJugador,
+                 sexoJugador: sexoJugador,
                  nssJugador: nssJugador,
                  curpJugador: curpJugador,
                  boletaJugador: boletaJugador,
@@ -160,6 +169,7 @@ const RegistrarJugador = ({jugador}) => {
                 cambiarCurpJ('');
                 cambiarBoletaJ('');
                 cambiarSemestreJ('');
+                cambiarSexoJ('');
 
                 cambiarEdoAlerta(true);
                 cambiarAlerta({tipo: 'exito', mensaje: 'Jugador registrado exitosamente'});
@@ -219,6 +229,15 @@ const RegistrarJugador = ({jugador}) => {
                 </GrupoInput>
             </div>
             <div>
+                    <Label htmlFor='sexo'> Sexo </Label>
+                    <GrupoInput>
+                        <select name="sexo" onChange = {handleChange}  >
+                            <option value="Femenino"> Femenino </option>
+                            <option value="Masculino"> Masculino </option>
+                        </select> 
+                    </GrupoInput>   
+            </div>
+            <div>
                 <Label> Numero de Seguridad Social </Label>
                 <GrupoInput>
                     <Input
@@ -269,7 +288,7 @@ const RegistrarJugador = ({jugador}) => {
             </div>
             <ContenedorBotonCentrado>
                 <Boton as="button"  type = 'submit' >  {jugador ? 'Editar Jugador' : 'Agregar Jugador'} </Boton>
-                <Boton as={Link} to='/menu-profe'>  <IconoRegresar/></Boton>
+                <BtnRegresar ruta = '/menu-profe'/>
             </ContenedorBotonCentrado>
         <Alerta 
            tipo= {alerta.tipo}
