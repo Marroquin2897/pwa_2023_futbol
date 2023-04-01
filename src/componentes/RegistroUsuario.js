@@ -1,69 +1,87 @@
-import React, {useState} from 'react';
-
+import React, {useState, useEffect} from 'react';
+import {useAuth} from './../contextos/AuthContext';
 import {Helmet} from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import firebaseApp from "../firebase/firebaseConfig";
-import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
-import {getFirestore,doc,setDoc} from "firebase/firestore"
-import { Formulario, Label, GrupoInput, ContenedorBotonCentrado,Boton,
-MensajeExito} from '../elementos/ElementosFormulario';
+import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, updatePassword, updateEmail, updatePhoneNumber} from 'firebase/auth';
+import {getFirestore,doc,setDoc, updateDoc} from "firebase/firestore"
+import { Formulario, Label, GrupoInput, Input, ContenedorBotonCentrado, Boton, MensajeExito} from '../elementos/ElementosFormulario';
 import Alerta from '../elementos/Alerta';
-
-
-import ComponenteInput from './Input';
 
 const auth = getAuth(firebaseApp);
 
-const RegistroUsuario = () => {
-
+const RegistroUsuario = ({usuario}) => {
+    
     const firestore = getFirestore(firebaseApp);
-    const [registrarse, setRegistrarse] = useState(false);
+	const [registrarse, setRegistrarse] = useState(false);
     const navigate = useNavigate();
-
-    const [names,cambiarNombre] = useState({campo: '',valido: null});
-    const [lastnames,cambiarApellidos] = useState({campo: '',valido: null});
-    const [fechaNacimiento,cambiarFechaNacimiento] = useState({campo: '',valido: null});
-    const [phone,cambiarTelefono] = useState({campo: '',valido: null});
-    const [address,cambiarDireccion] = useState({campo: '',valido: null});
-    const [boletaempl,cambiarBoleta] = useState({campo: '',valido: null});
-    const [correoo,cambiarCorreo] = useState({campo: '',valido: null});
-    const [contrasenia,cambiarContrasenia] = useState({campo: '',valido: null});
-    const [contrasenia2,cambiarContrasenia2] = useState({campo: '',valido: null});
-    const [formularioValido, cambiarFormularioValido] = useState(null);
+      
+    const[nombre, cambiarNombre] = useState('');
+    const[apellidos, cambiarApellidos] = useState('');
+    const[fechaNacimiento, cambiarFechaNacimiento] = useState('');
+    const[telefono, cambiarTelefono] = useState('');
+    const[direccion, cambiarDireccion] = useState('');
+    const[boleta,cambiarBoletaEmpleado] = useState('');
+    const[correo, cambiarCorreo] = useState('');
+    const[contrasenia, cambiarContrasenia] = useState('');
+    const[contrasenia2, cambiarContrasenia2] = useState('');	
+    const[rol,cambiarRol] = useState('');
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
 
-    const expresiones = {
-		nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-        apellido: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
-        direccion: /^[a-zA-Z0-9\s]+$/,
-		password: /^.{8,12}$/, // 4 a 12 digitos.
-		correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-		telefono: /^\d{10,14}$/, // 7 a 14 numeros.
-        boleta: /^\d{7,14}$/
-	}
-    const validarPassword2 = () => {
-        if(contrasenia.campo.length > 0) {
-            if(contrasenia.campo !== contrasenia2.campo){
-                cambiarContrasenia2((prevState) => {
-                    return {...prevState,valido: 'false'}
-                });
-            } else {
-                cambiarContrasenia2((prevState) => {
-                    return {...prevState,valido: 'true'}
-                });
-            }
+	const{usuarioAPP} = useAuth(); 
+    useEffect(() => { //Comprobamos si hay algun usuario, si hay obtenemos los valores que tiene ese usuario
+        if(usuario){
+            if(usuario.data().uidUsuario === usuario.uid){ 
+                cambiarNombre(usuario.data().nombre);
+                cambiarApellidos(usuario.data().apellidos);
+                cambiarFechaNacimiento(usuario.data().fechaNacimiento);
+                cambiarTelefono(usuario.data().telefono);
+                cambiarDireccion(usuario.data().direccion);
+                cambiarBoletaEmpleado(usuario.data().boleta);
+                cambiarCorreo(usuario.data().correo);
+                cambiarContrasenia(usuario.data().contrasenia);
+                cambiarContrasenia2(usuario.data().contrasenia2);
+            } 
         }
+    },[usuario,usuarioAPP,navigate]);
+
+
+    async function actualizarUsuario (nombreU,apellidosU,fechaNacimientoU,telefonoU,direccionU,boletaU,correoU,contraseniaU,rolU) {
+        const firestore = getFirestore(firebaseApp);
+        const id = usuario.id
+        console.log(nombreU,apellidosU,fechaNacimientoU,telefonoU,direccionU,boletaU,correoU,contraseniaU,rolU)
+        console.log(apellidosU)
+        console.log(apellidos)
+        const documento = doc(firestore, `usuarios`, id);
+        updateDoc(documento,{
+            nombre: nombreU,
+            apellidos: apellidosU,
+            fechaNacimiento: fechaNacimientoU,
+            telefono:telefonoU,
+            direccion: direccionU,
+            boleta: boletaU,
+            correo: correoU,
+            contrasenia: contraseniaU,
+            rol:rolU 
+        });  
+        cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo:'exito',
+                mensaje:'Actualizado exitosamente'
+            });
     }
 
-    async function registrarUsuario (nombre,apellidos,fechaNac,telefono,direccion,boleta,email, password, rol){ 
+
+	async function registrarUsuario (nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo, contrasenia, rol){ 
         cambiarEdoAlerta(false);
         cambiarAlerta({});
+        let mensaje;
         try{
             const infoUsuario = await createUserWithEmailAndPassword(
                 auth,
-                email,
-                password)
+                correo,
+                contrasenia)
                 .then ((usuarioFirebase) => {
                 return usuarioFirebase;
                 })
@@ -72,11 +90,11 @@ const RegistroUsuario = () => {
             setDoc(docuRef,{
                 nombre: nombre,
                 apellidos: apellidos,
-                fechaNacimiento: fechaNac,
+                fechaNacimiento: fechaNacimiento,
                 telefono: telefono,
                 direccion: direccion,
                 boleta: boleta,
-                correo: email,
+                correo: correo,
                 rol: rol
             });
             cambiarEdoAlerta(true);
@@ -88,7 +106,7 @@ const RegistroUsuario = () => {
 
         } catch(error){
             cambiarEdoAlerta(true);
-            let mensaje;
+            
             switch(error.code){
                 case 'auth/invalid-password':
 					mensaje = 'La contraseña tiene que ser de al menos 8 caracteres.'
@@ -112,138 +130,282 @@ const RegistroUsuario = () => {
             
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const nombre = e.target.nombre.value;
-        const apellidos = e.target.apellidos.value;
-        const fechaNacimiento = e.target.fechaNac.value;
-        const telefono = e.target.telefono.value;
-        const direccion = e.target.direccion.value;
-        const boleta = e.target.boleta.value;
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        const password2 = e.target.password2.value;
-        const rol = e.target.rol.value;
-
-        //Validar que todos los campos esten completos
-        if(names.valido === 'true' &&
-            lastnames.valido === 'true' &&
-            fechaNacimiento.valido === 'true' &&
-            phone.valido === 'true' &&
-            address.valido === 'true' &&
-            boletaempl.valido === 'true' &&
-            correoo.valido === 'true' &&
-            contrasenia.valido === 'true' &&
-            contrasenia2.valido === 'true' ){
-
-            cambiarFormularioValido(true);
-            
+    
+	
+	
+	
+	
+	const handleChange = (e) => {
+        switch(e.target.name){
+            case 'nombre':
+                cambiarNombre(e.target.value);
+                break;
+            case 'apellidos':
+                cambiarApellidos(e.target.value);
+                break;
+            case 'fechaNacimiento':
+                cambiarFechaNacimiento(e.target.value);
+                break;
+            case 'telefono':
+                cambiarTelefono(e.target.value);
+                break; 
+            case 'direccion':
+                cambiarDireccion(e.target.value);
+                break;
+            case 'boleta':
+                cambiarBoletaEmpleado(e.target.value);
+                break;
+            case 'correo':
+                cambiarCorreo(e.target.value);
+                break; 
+            case 'contrasenia':
+                cambiarContrasenia(e.target.value);
+                break;     
+            case 'contrasenia2':
+                cambiarContrasenia2(e.target.value);
+                break;    
+            default:
+                break;
         }
-        else {
-            cambiarFormularioValido(false);
+	}
+ 
+    
+	const handleSubmit = async (e) => {
+
+		e.preventDefault();
+		const rol = e.target.rol.value; //linea necesaria para guardar el rol del jugador
+		//validar el correo, nombre, direccion, telefono, boleta, apellidos
+        const expresionRegularNombre = /^[a-zA-ZÀ-ÿ\s]{1,40}$/; // Letras y espacios, pueden llevar acentos.
+        const expresionRegularApellidos = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
+        const expresionRegularTelefono = /^\d{10,14}$/;// 10 a 14 numeros
+        const expresionRegularBoleta = /^\d{7,14}$/;
+		const expresionRegularCorreo = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+		const expresionRegularDireccion = /^[a-zA-Z0-9\s]+$/;
+		const expresionRegularPassword = /^.{8,12}$/; // 8 a 12 digitos.
+		
+				
+        if(!expresionRegularNombre.test(nombre)){ 
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingrese un nombre valido'
+            });
+            return;
+        }
+        if(!expresionRegularApellidos.test(apellidos)){
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:'Apellido Paterno y Materno'
+            });
+            return;
+        }
+        if(!expresionRegularTelefono.test(telefono)){
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:'Numero con 10 digitos'
+            });
+            return;
+        }
+        if(!expresionRegularBoleta.test(boleta)){
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:'Solo se permite numeros'
+            });
+            return;
         }
 
-        if(registrarse){
-            registrarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,email, password, rol);
+        if(!expresionRegularCorreo.test(correo)){ //Si NO hay correo entonces mostramos mensaje de error
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingresa un correo valido'
+            });
+            return;
         }
-        else {
-            signInWithEmailAndPassword(auth,email,password);
-            
+		
+		if(!expresionRegularDireccion.test(direccion)){ 
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingresa una direccion valida'
+            });
+            return;
         }
-
+		
+		if(!expresionRegularPassword.test(contrasenia)){ 
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingresa una contraseña valida'
+            });
+            return;
+        }
+		
+        //Validar que las contraseñas sean iguales
+        if(contrasenia !== contrasenia2){
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Las contraseñas no son iguales'
+            });
+            return;
+        }
+		
+		//Validar que ningun campo quede vacio 
+        if(nombre !== '' && apellidos !== '' && fechaNacimiento !== '' && telefono !== '' && direccion !== '' && boleta !== '' && correo !=='' && contrasenia !== '' && contrasenia2 !==''
+        ){ 
+            if(usuario){
+                actualizarUsuario({
+                    nombre: nombre,
+                    apellidos: apellidos,
+                    fechaNacimiento: fechaNacimiento,
+                    telefono: telefono,
+                    direccion: direccion,
+                    boleta: boleta,
+                    correo: correo,
+                    contrasenia: contrasenia,
+                    rol:rol
+                }).then(()=>{
+                    navigate('/rol');
+                }).catch((error)=>{
+                    console.log(error);
+                })
+            }else if(!usuario) {
+                registrarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo, contrasenia, rol);
+            } else {
+                signInWithEmailAndPassword(auth,correo,contrasenia);
+            }        
+        }else{
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Completa todos los campos'
+            });
+            return;
+        }
         
-    }
-
-
-    return ( 
-        <>
+        
+	}
+	
+	return(
+    <>
         <Helmet>
             <title> Crear Cuenta </title>
         </Helmet>
-        <h1> CREAR CUENTA </h1>
-        <main>
-          <Formulario onSubmit={handleSubmit}>
-            <ComponenteInput
-                label= "Nombre(s)"
-                tipo= "text"
-                name="nombre"
-                leyendaError="Solo se permiten letras"
-                expresionRegular={expresiones.nombre}
-                estado={names}
-                cambiarEstado={cambiarNombre}
-                />
-            <ComponenteInput
-                label= "Apellidos(s)"
-                tipo= "text"
-                name="apellidos"
-                leyendaError="Solo se permiten letras"
-                expresionRegular={expresiones.apellido}
-                estado={lastnames}
-                cambiarEstado={cambiarApellidos}
-                />
-            <ComponenteInput
-                label= "Fecha de Nacimiento"
-                tipo= "date"
-                name="fechaNac"
-                estado={fechaNacimiento}
-                cambiarEstado={cambiarFechaNacimiento}
-                />
-            <ComponenteInput
-                label= "Telefono "
-                tipo= "text"
-                name="telefono"
-                leyendaError=" 10 digitos"
-                expresionRegular={expresiones.telefono}
-                estado={phone}
-                cambiarEstado={cambiarTelefono}
-                />
-            <ComponenteInput
-                label= "Dirección "
-                tipo= "text"
-                name="direccion"
-                leyendaError="Solo se permiten letras y numeros"
-                expresionRegular={expresiones.direccion}
-                estado={address}
-                cambiarEstado={cambiarDireccion}
-                />
-            <ComponenteInput
-                label= "Boleta o No. Empleado"
-                tipo= "text"
-                name="boleta"
-                leyendaError="10 digitos"
-                expresionRegular={expresiones.boleta}
-                estado={boletaempl}
-                cambiarEstado={cambiarBoleta}
-                />
-            <ComponenteInput
-                label= "Correo Electrónico"
-                tipo= "text"
-                name="email"
-                leyendaError="Ingrese un correo valido"
-                expresionRegular={expresiones.correo}
-                estado={correoo}
-                cambiarEstado={cambiarCorreo}
-                />
-            <ComponenteInput
-                label= "Contraseña"
-                tipo= "password"
-                name="password"
-                leyendaError=" 8 caracteres "
-                expresionRegular={expresiones.password}
-                estado={contrasenia}
-                cambiarEstado={cambiarContrasenia}
-                />
-            <ComponenteInput
-                label= "Confirmar Contraseña"
-                tipo= "password"
-                name="password2"
-                leyendaError=" No coinciden la contraseña"
-                estado={contrasenia2}
-                cambiarEstado={cambiarContrasenia2}
-                funcion={validarPassword2}
-                
-                />
+        <h1> {usuario ? 'Editar Usuario' : 'Crear Cuenta'}  </h1>
+		<main>
+        <Formulario onSubmit={handleSubmit}>
             <div>
+				<Label> Nombre(s) </Label>
+				<GrupoInput>
+					<Input
+						type='text'
+						name='nombre'
+						placeholder='Ingresa tu nombre(s)'
+						value={nombre}
+						onChange={handleChange}
+					/>
+				</GrupoInput>
+			</div>
+			<div>
+				<Label> Apellido(s) </Label>
+				<GrupoInput>
+					<Input
+						type='text'
+						name='apellidos'
+						placeholder='Ingresa tu apellido(s)'
+						value={apellidos}
+						onChange={handleChange}
+					/>
+				</GrupoInput>
+			</div>
+			<div>
+                <Label> Fecha de Nacimiento </Label>
+                <GrupoInput>
+                        <Input
+                        type='date'
+                        name='fechaNacimiento'
+                        value = {fechaNacimiento}
+                        onChange = {handleChange}
+                        />
+                </GrupoInput>
+			</div>
+			<div>
+				<Label> Telefono </Label>
+				<GrupoInput>
+					 <Input
+						type='text'
+						name='telefono'
+						placeholder='Ingresa tu telefono 10 digitos'
+						value={telefono}
+						onChange={handleChange}
+					/>
+				</GrupoInput>
+			</div>
+			<div>
+				<Label> Dirección </Label>
+				<GrupoInput>
+					<Input
+						type='text'
+						name='direccion'
+						value={direccion}
+						onChange={handleChange}
+						placeholder='Calle No. Ext No. Int Col. CP Municipio/Alcaldia'
+					/>
+				</GrupoInput>
+			</div>
+			<div>
+				<Label> Boleta o No. Empleado </Label>
+				<GrupoInput>
+					 <Input
+						type='text'
+						name='boleta'
+						value={boleta}
+						onChange={handleChange}
+						placeholder='Boleta (Alumno) o No. Empleado (Profesor)'
+					/>
+				</GrupoInput>
+			</div>
+			<div>
+				<Label> Correo Electrónico </Label>
+				<GrupoInput>
+					<Input
+						type='email'
+						name='correo'
+						placeholder='Ingresa tu correo'
+						value={correo}
+						onChange={handleChange}
+					/>
+				</GrupoInput>
+			</div>
+			<div>
+				<Label> Contraseña </Label>
+				<GrupoInput>
+					<Input
+						type='password'
+						name='contrasenia'
+						placeholder='Contraseña'
+						value={contrasenia}
+						onChange={handleChange}
+					/>
+				</GrupoInput>
+			</div>
+			<div>
+				<Label> Confirmar Contraseña </Label>
+				<GrupoInput>
+					<Input
+						type='password'
+						name='contrasenia2'
+						placeholder='Confirmar contraseña'
+						value={contrasenia2}
+						onChange={handleChange}
+					/>  
+				</GrupoInput>
+			</div>
+			<div>
               <Label htmlFor='rol'> Rol </Label>
               <GrupoInput>
                 <select name="rol">
@@ -255,24 +417,17 @@ const RegistroUsuario = () => {
             </div>
 
             <ContenedorBotonCentrado>
-              <Boton  type = 'submit' onClick={() => setRegistrarse(!registrarse)}> Crear Cuenta </Boton>  
-               
+                <Boton as="button"  type = 'submit' >  {usuario ? 'Editar Usuario' : 'Crear Cuenta'} </Boton>
             </ContenedorBotonCentrado>
-            <Alerta 
-                tipo= {alerta.tipo}
-                mensaje= {alerta.mensaje}
-                estadoAlerta={estadoAlerta}
-                cambiarEdoAlerta={cambiarEdoAlerta}
-            />  
-        </Formulario>  
+        <Alerta 
+            tipo= {alerta.tipo}
+            mensaje= {alerta.mensaje}
+            estadoAlerta={estadoAlerta}
+            cambiarEdoAlerta={cambiarEdoAlerta}
+        />
+		 </Formulario>  
         </main>
-        
-        
-        
-       
-        </>
-        
-     );
+    </>
+ );
 }
- 
 export default RegistroUsuario;
