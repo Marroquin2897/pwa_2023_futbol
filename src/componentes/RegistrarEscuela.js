@@ -1,60 +1,117 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import { FormularioEscuela } from '../elementos/FormularioEscuela';
 import {useAuth} from './../contextos/AuthContext';
-import { Label, GrupoInput, ContenedorBotonCentrado, Boton, MensajeExito } from '../elementos/ElementosFormulario';
+import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormulario';
 import ComponenteInput from './Input';
-import firebaseApp from "../firebase/firebaseConfig";
-import {getFirestore, addDoc, collection, onSnapshot,query,where} from "firebase/firestore"
+import {firebaseApp} from "../firebase/firebaseConfig";
+import {getFirestore, collection, addDoc, onSnapshot,query,where, getDoc, getDocs } from 'firebase/firestore';
+
 import {Link, useNavigate} from 'react-router-dom';
 import Alerta from '../elementos/Alerta';
 
-const RegistrarEscuela = () => {
 
+const RegistrarEscuela = ({escuelaData}) => {
+    
+    
+   
     const firestore = getFirestore(firebaseApp);
-    const navigate = useNavigate();
+    const navigate = useNavigate();  
     const{usuario} = useAuth();
-    const [nameE,cambiarNombreE] = useState({campo: '',valido: null});
-    const [nameA,cambiarNombreA] = useState({campo: '',valido: null});
-    const [formularioValido, cambiarFormularioValido] = useState(null);
+    const [nombreEntrenador, cambiarNombreE] = useState('');
+    const [nombreAsistente,cambiarNombreA] = useState('');
+    const [escuela,cambiarEscuela] = useState('');
+    const [modalidades,cambiarModalidaes] = useState('');
+    const [categoria,cambiarCategoria ] = useState('');
+    
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
 
-    const expresiones = {
-		nombreE: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-        nombreA: /^[a-zA-ZÀ-ÿ\s]{1,40}$/
-        
-	}
+    useEffect(() => { //Comprobamos si hay algun jugador, si hay obtenemos los valores que tiene ese jugador
+        if(escuelaData){
+            if(escuelaData.data().uidUsuario === usuario.uid){
+                cambiarNombreE(escuelaData.data().nombreEntrenador);
+                cambiarNombreA(escuelaData.data().nombreAsistente);
+                cambiarEscuela(escuelaData.data().escuela);
+                cambiarModalidaes(escuelaData.data().modalidades);
+                cambiarCategoria(escuelaData.data().categoria);
+            } else {
+                navigate('/menu-profe');
+            }
+        }
+    },[escuelaData,usuario,navigate]);
+
+   
+    const handleChange = (e) => {
+        switch(e.target.name){
+            case 'nombreEntrenador':
+                cambiarNombreE(e.target.value);
+                break;
+            case 'nombreAsistente':
+                cambiarNombreA(e.target.value);
+                break;
+            case 'escuela':
+                cambiarEscuela(e.target.value);
+                break;
+            case 'modalidades':
+                cambiarModalidaes(e.target.value);
+                break; 
+            case 'categoria':
+                cambiarCategoria(e.target.value);
+                break;     
+            default:
+                break;
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const nombreEntrenador = e.target.nombreEntrenador.value;
-        const nombreAsistente = e.target.nombreAsistente.value;
-        const escuela = e.target.escuela.value;
-        const modalidades = e.target.modalidades.value;
-        const categoria = e.target.categoria.value;
 
-        if(nameE.valido === 'true' && nameA.valido === 'true') {
-            cambiarFormularioValido(true);
-        } else {
-            cambiarFormularioValido(false);
+        const escuelaRef = collection(firestore,'escuelas');
+        
+       const nombreE = /^[a-zA-ZÀ-ÿ\s]{1,40}$/ ;// Letras y espacios, pueden llevar acentos.
+       const nombreA = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
+
+       if(!nombreE.test(nombreEntrenador)){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingrese un nombre valido'
+            });
+            return;
+        }
+        if(!nombreA.test(nombreAsistente)){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingrese un nombre valido'
+            });
+            return;
         }
 
+        
+
         try {
-            await addDoc (collection(firestore,'escuelas'),{
-                nombreEntrenador: nombreEntrenador,
-                nombreAsistente: nombreAsistente,
-                escuela: escuela,
-                modalidades: modalidades,
-                categoria: categoria,
-                uidUsuario: usuario.uid
-            })
 
-
+            const consulta = await getDocs(query(collection(firestore,'escuelas'),where('escuela','==',escuela),where('categoria','==',categoria)));
+            if(consulta.size > 0 ){
+                console.log('La escuela ya existe');
+            }
+            else {
+                    await addDoc (collection(firestore,'escuelas'),{
+                        nombreEntrenador: nombreEntrenador,
+                        nombreAsistente: nombreAsistente,
+                        escuela: escuela,
+                        modalidades: modalidades,
+                        categoria: categoria,
+                        uidUsuario: usuario.uid
+                })
+                }
         } catch (error){
             console.log(error);
         }
         navigate('/menu-profe');
+
     }
 
     return ( 
@@ -65,28 +122,33 @@ const RegistrarEscuela = () => {
         <h1> REGISTRAR ESCUELA </h1>
         <main>
             <FormularioEscuela onSubmit={handleSubmit}>
-                <ComponenteInput
-                    label= "Entrenador (a) en Jefe (a) "
-                    tipo= "text"
-                    name="nombreEntrenador"
-                    leyendaError="Solo se permiten letras"
-                    expresionRegular={expresiones.nombreE}
-                    estado={nameE}
-                    cambiarEstado={cambiarNombreE}
-                    />
-                <ComponenteInput
-                    label= "Entrenador Asistente"
-                    tipo= "text"
-                    name="nombreAsistente"
-                    leyendaError="Solo se permiten letras"
-                    expresionRegular={expresiones.nombreA}
-                    estado={nameA}
-                    cambiarEstado={cambiarNombreA}
-                />
+                <div>
+                    <Label> Entrenador (a) en Jefe (a) </Label>
+                    <GrupoInput>
+                        <Input
+                        type='text'
+                        name='nombreEntrenador'
+                        value = {nombreEntrenador}
+                        onChange = {handleChange}
+                        />
+                    </GrupoInput>
+                </div>
+                <div>
+                    <Label> Entrenador Asistente </Label>
+                    <GrupoInput>
+                        <Input
+                        type='text'
+                        name='nombreAsistente'
+                        value = {nombreAsistente}
+                        onChange = {handleChange}
+                        />
+                    </GrupoInput>
+                </div>
+                
                 <div>
                     <Label htmlFor='escuela'> Escuela </Label>
                     <GrupoInput>
-                        <select name="escuela">
+                        <select name="escuela" onChange = {handleChange}>
                             <option value="CET 1"> CET 1 Walter Cross Buchanan </option>
                             <option value="Cecyt 1"> CECyT No. 1 Gonzalo Vázquez Vela </option>
                             <option value="Cecyt 2"> CECyT No. 2 Miguel Bernard </option>
@@ -133,7 +195,7 @@ const RegistrarEscuela = () => {
                 <div>
                     <Label htmlFor='modalidades'> Modalidades </Label>
                     <GrupoInput>
-                        <select name="modalidades">
+                        <select name="modalidades" onChange = {handleChange}>
                             
                             <option value="Futbol 7"> Fútbol 7 </option>
                             <option value="Futbol Rapido"> Fútbol Rápido </option>
@@ -148,8 +210,7 @@ const RegistrarEscuela = () => {
                 <div>
                     <Label htmlFor='categoria'> Categoria </Label>
                     <GrupoInput>
-                        <select name="categoria">
-                            
+                        <select name="categoria"  onChange = {handleChange}>
                             <option value="femenil"> Femenil </option>
                             <option value="varonil"> Varonil </option>
                         </select> 
@@ -157,7 +218,7 @@ const RegistrarEscuela = () => {
                 </div>
                 <ContenedorBotonCentrado>
                 <Boton  type = 'submit' > Registrar </Boton>  
-                {formularioValido === true && <MensajeExito>Registrado exitosamente</MensajeExito>}
+                
             </ContenedorBotonCentrado>
             <Alerta 
                 tipo= {alerta.tipo}

@@ -1,5 +1,5 @@
 import {getFirestore, collection, addDoc } from 'firebase/firestore';
-import firebaseApp from "../firebase/firebaseConfig";
+import {firebaseApp} from "../firebase/firebaseConfig";
 
 
 const agregarJugador = ({nombreJugador,apellidosJugador,fechaNacJugador,sexoJugador,nssJugador,curpJugador,boletaJugador,semestreJugador,uidUsuario}) => {

@@ -2,15 +2,17 @@ import React, {useState} from 'react';
 
 import {Helmet} from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
-import firebaseApp from "../firebase/firebaseConfig";
+
 import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 import {getFirestore,doc,setDoc} from "firebase/firestore"
 import { Formulario, Label, GrupoInput, ContenedorBotonCentrado,Boton,
 MensajeExito} from '../elementos/ElementosFormulario';
 import Alerta from '../elementos/Alerta';
 
+import {firebaseApp} from "../firebase/firebaseConfig";
 
 import ComponenteInput from './Input';
+
 
 const auth = getAuth(firebaseApp);
 
@@ -55,6 +57,7 @@ const RegistroUsuario = () => {
             }
         }
     }
+    
 
     async function registrarUsuario (nombre,apellidos,fechaNac,telefono,direccion,boleta,email, password, rol){ 
         cambiarEdoAlerta(false);
@@ -137,7 +140,7 @@ const RegistroUsuario = () => {
             contrasenia2.valido === 'true' ){
 
             cambiarFormularioValido(true);
-            
+
         }
         else {
             cambiarFormularioValido(false);

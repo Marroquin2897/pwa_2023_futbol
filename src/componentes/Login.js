@@ -3,8 +3,10 @@ import {Helmet} from 'react-helmet';
 import { Link } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {useNavigate} from 'react-router-dom';
-import firebaseApp from "../firebase/firebaseConfig";
+import {firebaseApp} from "../firebase/firebaseConfig";
+
 import Alerta from '../elementos/Alerta';
+
 
 const auth = getAuth(firebaseApp);
 

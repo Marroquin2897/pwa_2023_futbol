@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import RegistroUsuario from './componentes/RegistroUsuario';
 import Login from './componentes/Login';
 import HomePrincipal from './componentes/HomePrincipal';
-import firebaseApp from './firebase/firebaseConfig';
+import {firebaseApp} from './firebase/firebaseConfig';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {getFirestore,doc,getDoc} from "firebase/firestore"
 
@@ -12,6 +12,7 @@ const firestore = getFirestore(firebaseApp);
 const Rol = () => {
 
   const [usuario, setUsuario] = useState (null);
+  
 
   async function getRol(uid){
     const docuRef = doc (firestore,`usuarios/${uid}`);

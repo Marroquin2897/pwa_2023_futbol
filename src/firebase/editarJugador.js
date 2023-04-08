@@ -1,5 +1,6 @@
 import {getFirestore ,doc, updateDoc } from 'firebase/firestore';
-import firebaseApp from "../firebase/firebaseConfig";
+import {firebaseApp} from "../firebase/firebaseConfig";
+
 
 const editarJugador = async ({id,nombreJugador,apellidosJugador,fechaNacJugador,nssJugador,curpJugador,boletaJugador,semestreJugador}) => {
     const firestore = getFirestore(firebaseApp);

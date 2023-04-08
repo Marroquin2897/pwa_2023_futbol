@@ -1,6 +1,7 @@
 import  {useEffect,useState} from 'react';
-import firebaseApp from '../firebase/firebaseConfig';
+import {firebaseApp} from '../firebase/firebaseConfig';
 import {getFirestore,collection, onSnapshot, query, where, limit,startAfter} from "firebase/firestore"
+
 import {useAuth} from './../contextos/AuthContext';
 
 const useObtenerJugadores = () => {

@@ -1,10 +1,13 @@
 import React from 'react';
-import firebaseApp from '../firebase/firebaseConfig';
+
 import { getAuth,signOut } from 'firebase/auth';
 import { slide as Menu } from 'react-burger-menu'
 import '../MenuSide.css';
 import { Link } from 'react-router-dom';
 import {FaUserEdit, FaRegChartBar, FaCalendarAlt, FaNewspaper} from "react-icons/fa";
+import {firebaseApp} from "../firebase/firebaseConfig";
+
+
 
 const auth=getAuth(firebaseApp);
 

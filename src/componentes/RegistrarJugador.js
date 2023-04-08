@@ -5,7 +5,7 @@ import { ContenedorBotonCentral } from '../elementos/ElementosDeLista';
 import {ReactComponent as IconoRegresar} from './../imagenes/flecha.svg';
 import BtnRegresar from '../elementos/BtnRegresar';
 import Alerta from '../elementos/Alerta';
-import firebaseApp from "../firebase/firebaseConfig";
+import {firestore} from "../firebase/firebaseConfig";
 import {useAuth} from './../contextos/AuthContext';
 import {getFirestore} from "firebase/firestore"
 import {Link, useNavigate} from 'react-router-dom';
@@ -14,7 +14,7 @@ import editarJugador from '../firebase/editarJugador';
 
 
 const RegistrarJugador = ({jugador}) => {
-    const firestore = getFirestore(firebaseApp);
+    
     const navigate = useNavigate();
     const{usuario} = useAuth();
 
