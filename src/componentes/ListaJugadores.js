@@ -55,7 +55,12 @@ const ListaJugadores = () => {
                             <Semestre>
                                 {jugador.semestreJugador}
                             </Semestre>
-                        </Label>    
+                        </Label>  
+                        <Label> Sexo 
+                            <Semestre>
+                                {jugador.sexoJugador}
+                            </Semestre>
+                        </Label>  
 
                         <ContenedorBotones>
                             <BotonAccion as={Link} to={`/editar-jugador/${jugador.id}`}>

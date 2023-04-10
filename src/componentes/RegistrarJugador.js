@@ -176,7 +176,7 @@ const RegistrarJugador = ({jugador}) => {
              }) 
              .catch((error) => {
                 cambiarEdoAlerta(true);
-				cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar agregar tu gasto.'});
+				cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar agregar al jugador.'});
              })  
             }
                       
