@@ -21,6 +21,8 @@ import favicon from './imagenes/icono2-burrito.png';
 import './App.css';
 import { AuthProvider } from './contextos/AuthContext';
 import RutaPrivada from './componentes/RutaPrivada';
+import ListaJugadoresFem from './componentes/ListaJugadoresFem';
+import ListaJugadoresMas from './componentes/ListaJugadoresMas';
 
 WebFont.load({
   google: {
@@ -64,6 +66,17 @@ const Index = () => {
                 <ListaEscuelas/>
               </RutaPrivada>
             }/>
+            <Route path="/equipo-femenil" element={
+              <RutaPrivada>
+                <ListaJugadoresFem/>
+              </RutaPrivada>
+            }/>
+            <Route path="/equipo-varonil" element={
+              <RutaPrivada>
+                <ListaJugadoresMas/>
+              </RutaPrivada>
+            }/>
+
               <Route path="/editar-jugador/:id" element={
               <RutaPrivada>
                 <EditarJugador/>

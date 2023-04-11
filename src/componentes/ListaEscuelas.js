@@ -60,10 +60,11 @@ const ListaEscuelas = () => {
                         </Label>
                         
                         <ContenedorBotones>
-                        <BotonAccion as={Link} to='/lista-jugadores'>
+                        <BotonAccion as={Link} to='/equipo-femenil'>
                                 <IconoVer/>     
                             </BotonAccion>
                         </ContenedorBotones>
+                        
 
                     </ElementoLista>
                 );
