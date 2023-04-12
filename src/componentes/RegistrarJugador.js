@@ -7,22 +7,23 @@ import BtnRegresar from '../elementos/BtnRegresar';
 import Alerta from '../elementos/Alerta';
 import {firestore} from "../firebase/firebaseConfig";
 import {useAuth} from './../contextos/AuthContext';
-import {getFirestore} from "firebase/firestore"
+import {firebaseApp} from "../firebase/firebaseConfig";
 import {Link, useNavigate} from 'react-router-dom';
 import agregarJugador from '../firebase/agregarJugador';
 import editarJugador from '../firebase/editarJugador';
-
+import {getFirestore, collection, query, where , getDocs } from 'firebase/firestore';
 
 const RegistrarJugador = ({jugador}) => {
     
     const navigate = useNavigate();
     const{usuario} = useAuth();
-
+    const firestore = getFirestore(firebaseApp);
     const [nombreJugador, cambiarNombreJ] = useState('');
     const [apellidosJugador,cambiarApellidosJ] = useState('');
     const [fechaNacJugador,cambiarFechaNacJ] = useState('');
     const [nssJugador,cambiarNssJ] = useState('');
     const [curpJugador,cambiarCurpJ] = useState('');
+    const [escuelaJugador,cambiarEscuelaJ] = useState('');
     const [boletaJugador,cambiarBoletaJ] = useState('');
     const [semestreJugador, cambiarSemestreJ] = useState('');
     const [sexoJugador, cambiarSexoJ] = useState('');
@@ -38,6 +39,7 @@ const RegistrarJugador = ({jugador}) => {
                 cambiarFechaNacJ(jugador.data().fechaNacJugador);
                 cambiarNssJ(jugador.data().nssJugador);
                 cambiarCurpJ(jugador.data().curpJugador);
+                cambiarEscuelaJ(jugador.data().escuelaJugador);
                 cambiarBoletaJ(jugador.data().boletaJugador);
                 cambiarSemestreJ(jugador.data().semestreJugador);
                 cambiarSexoJ(jugador.data().sexoJugador);
@@ -68,6 +70,9 @@ const RegistrarJugador = ({jugador}) => {
             case 'curp':
                 cambiarCurpJ(e.target.value);
                 break;
+            case 'escuela':
+                cambiarEscuelaJ(e.target.value);
+                break;    
             case 'boleta':
                 cambiarBoletaJ(e.target.value);
                 break; 
@@ -131,54 +136,66 @@ const RegistrarJugador = ({jugador}) => {
         }
 
         //Comprobamos que los campos tengan un valor 
-        if(nombreJugador !== '' && apellidosJugador !== '' && fechaNacJugador !== '' && nssJugador !== '' && curpJugador !== '' && boletaJugador !== ''
+        if(nombreJugador !== '' && apellidosJugador !== '' && fechaNacJugador !== '' && nssJugador !== '' && curpJugador !== '' && escuelaJugador !== '' && boletaJugador !== ''
         && semestreJugador !== '' && sexoJugador !== '') {
-            if(jugador){
-                editarJugador({
-                    id: jugador.id,
-                    nombreJugador: nombreJugador,
-                    apellidosJugador: apellidosJugador,
-                    fechaNacJugador: fechaNacJugador,
-                    sexoJugador: sexoJugador,
-                    nssJugador: nssJugador,
-                    curpJugador: curpJugador,
-                    boletaJugador: boletaJugador,
-                    semestreJugador: semestreJugador
-                }).then(() => {
-                    navigate('/lista-jugadores'); //cuando termine de editar que pase a la lista de jugadores
-                }). catch((error) => {
-                    console.log(error);
-                })
-            } else {
-               agregarJugador({
-                 nombreJugador: nombreJugador,
-                 apellidosJugador: apellidosJugador,
-                 fechaNacJugador: fechaNacJugador,
-                 sexoJugador: sexoJugador,
-                 nssJugador: nssJugador,
-                 curpJugador: curpJugador,
-                 boletaJugador: boletaJugador,
-                 semestreJugador: semestreJugador,
-                 uidUsuario: usuario.uid
-             })
-             .then (() => {
-                cambiarNombreJ('');
-                cambiarApellidosJ('');
-                cambiarFechaNacJ('');
-                cambiarNssJ('');
-                cambiarCurpJ('');
-                cambiarBoletaJ('');
-                cambiarSemestreJ('');
-                cambiarSexoJ('');
 
+            const consulta = await getDocs(query(collection(firestore,'jugadores'),where('boletaJugador','==',boletaJugador)));
+            if (consulta.size > 0) {
                 cambiarEdoAlerta(true);
-                cambiarAlerta({tipo: 'exito', mensaje: 'Jugador registrado exitosamente'});
-             }) 
-             .catch((error) => {
-                cambiarEdoAlerta(true);
-				cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar agregar al jugador.'});
-             })  
+                cambiarAlerta({tipo: 'error', mensaje: 'Este jugador ya ha sido registrado'});
+
+            } else {
+                if(jugador){
+                    editarJugador({
+                        id: jugador.id,
+                        nombreJugador: nombreJugador,
+                        apellidosJugador: apellidosJugador,
+                        fechaNacJugador: fechaNacJugador,
+                        sexoJugador: sexoJugador,
+                        nssJugador: nssJugador,
+                        curpJugador: curpJugador,
+                        escuelaJugador: escuelaJugador,
+                        boletaJugador: boletaJugador,
+                        semestreJugador: semestreJugador
+                    }).then(() => {
+                        navigate('/lista-jugadores'); //cuando termine de editar que pase a la lista de jugadores
+                    }). catch((error) => {
+                        console.log(error);
+                    })
+                } else {
+                   agregarJugador({
+                     nombreJugador: nombreJugador,
+                     apellidosJugador: apellidosJugador,
+                     fechaNacJugador: fechaNacJugador,
+                     sexoJugador: sexoJugador,
+                     nssJugador: nssJugador,
+                     curpJugador: curpJugador,
+                     escuelaJugador: escuelaJugador,
+                     boletaJugador: boletaJugador,
+                     semestreJugador: semestreJugador,
+                     uidUsuario: usuario.uid
+                 })
+                 .then (() => {
+                    cambiarNombreJ('');
+                    cambiarApellidosJ('');
+                    cambiarFechaNacJ('');
+                    cambiarNssJ('');
+                    cambiarCurpJ('');
+                    cambiarEscuelaJ('');
+                    cambiarBoletaJ('');
+                    cambiarSemestreJ('');
+                    cambiarSexoJ('');
+    
+                    cambiarEdoAlerta(true);
+                    cambiarAlerta({tipo: 'exito', mensaje: 'Jugador registrado exitosamente'});
+                 }) 
+                 .catch((error) => {
+                    cambiarEdoAlerta(true);
+                    cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar agregar al jugador.'});
+                 })  
+                }
             }
+            
                       
         } else {
             cambiarEdoAlerta(true);
@@ -190,7 +207,7 @@ const RegistrarJugador = ({jugador}) => {
     return ( 
         <>
         <Helmet>
-            <title>Registrar Escuela</title>
+            <title>Registrar Jugador</title>
         </Helmet>
         <h1> REGISTRAR JUGADOR </h1>
         <main>
@@ -259,6 +276,53 @@ const RegistrarJugador = ({jugador}) => {
                     />
                 </GrupoInput>
             </div>
+            <div>
+                    <Label htmlFor='escuela'> Escuela </Label>
+                    <GrupoInput>
+                        <select name="escuela" onChange = {handleChange}>
+                            <option value="CET 1"> CET 1 Walter Cross Buchanan </option>
+                            <option value="Cecyt 1"> CECyT No. 1 Gonzalo Vázquez Vela </option>
+                            <option value="Cecyt 2"> CECyT No. 2 Miguel Bernard </option>
+                            <option value="Cecyt 3"> CECyT No. 3 Estanislao Ramírez Ruiz </option>
+                            <option value="Cecyt 4"> CECyT No. 4 Lázaro Cárdenas </option>
+                            <option value="Cecyt 5"> CECyT No. 5 Benito Juárez </option>
+                            <option value="Cecyt 6"> CECyT No. 6 Miguel Othón de Mendizábal </option>
+                            <option value="Cecyt 7"> CECyT No. 7 Cuauhtémoc </option>
+                            <option value="Cecyt 8"> CECyT No. 8 Narciso Bassols </option>
+                            <option value="Cecyt 9"> CECyT No. 9 Juan de Dios Bátiz </option>
+                            <option value="Cecyt 10"> CECyT No. 10 Carlos Vallejo Márquez </option>
+                            <option value="Cecyt 11"> CECyT No. 11 Wilfrido Massieu </option>
+                            <option value="Cecyt 12"> CECyT No. 12 José María Morelos </option>
+                            <option value="Cecyt 13"> CECyT No. 13 Ricardo Flores Magón </option>
+                            <option value="Cecyt 14"> CECyT No. 14 Luis Enrique Erro </option>
+                            <option value="Cecyt 15"> CECyT No. 15 Diódoro Antúnez Echegaray </option>
+                            <option value="CICS Sto Tomas"> CICS Unidad Santo Tomás </option>
+                            <option value="CICS Milpa Alta"> CICS Unidad Milpa Alta </option>
+                            <option value="ENCB"> ENCB </option>
+                            <option value="ENMyH"> ENMyH </option>
+                            <option value="ESCA Sto Tomas"> ESCA Unidad Santo Tomás </option>
+                            <option value="ESCA Tepepan"> ESCA Unidad Tepepan </option>
+                            <option value="ESCOM"> ESCOM </option>
+                            <option value="ESE"> ESE </option>
+                            <option value="ESEO"> ESEO </option>
+                            <option value="ESFM"> ESFM </option>
+                            <option value="ESIME Zacatenco"> ESIME Unidad Zacatenco </option>
+                            <option value="ESIME Azcapotzalco"> ESIME Unidad Azcapotzalco </option>
+                            <option value="ESIME Culhuacan"> ESIME Unidad Culhuacán </option>
+                            <option value="ESIME Ticoman"> ESIME Unidad Ticomán </option>
+                            <option value="ESIQIE"> ESIQIE </option>
+                            <option value="ESIT"> ESIT </option>
+                            <option value="ESIA Tecamachalco"> ESIA Unidad Tecamachalco </option>
+                            <option value="ESIA Ticoman"> ESIA Unidad Ticomán </option>
+                            <option value="ESIA Zacatenco"> ESIA Unidad Zacatenco </option>
+                            <option value="ESM"> ESM </option>
+                            <option value="EST"> EST </option>
+                            <option value="UPIBI"> UPIBI </option>
+                            <option value="UPIICSA"> UPIICSA </option>
+                            <option value="UPIITA"> UPIITA </option>
+                        </select> 
+                    </GrupoInput>   
+                </div>
             <div>
                 <Label> Boleta </Label>
                 <GrupoInput>

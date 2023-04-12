@@ -67,7 +67,7 @@ const RegistrarEscuela = ({escuelaData}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const escuelaRef = collection(firestore,'escuelas');
+       
         
        const nombreE = /^[a-zA-ZÀ-ÿ\s]{1,40}$/ ;// Letras y espacios, pueden llevar acentos.
        const nombreA = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;

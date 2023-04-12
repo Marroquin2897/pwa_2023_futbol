@@ -2,7 +2,7 @@ import {getFirestore, collection, addDoc } from 'firebase/firestore';
 import {firebaseApp} from "../firebase/firebaseConfig";
 
 
-const agregarJugador = ({nombreJugador,apellidosJugador,fechaNacJugador,sexoJugador,nssJugador,curpJugador,boletaJugador,semestreJugador,uidUsuario}) => {
+const agregarJugador = ({nombreJugador,apellidosJugador,fechaNacJugador,sexoJugador,nssJugador,curpJugador,escuelaJugador,boletaJugador,semestreJugador,uidUsuario}) => {
     const firestore = getFirestore(firebaseApp);
     return addDoc(collection(firestore,'jugadores'),{
         nombreJugador: nombreJugador,
@@ -11,6 +11,7 @@ const agregarJugador = ({nombreJugador,apellidosJugador,fechaNacJugador,sexoJuga
         sexoJugador: sexoJugador,
         nssJugador: nssJugador,
         curpJugador: curpJugador,
+        escuelaJugador: escuelaJugador,
         boletaJugador: boletaJugador,
         semestreJugador: semestreJugador,
         uidUsuario: uidUsuario,

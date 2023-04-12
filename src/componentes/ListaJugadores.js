@@ -13,6 +13,7 @@ import { Lista,
         Label,
         Nombre,
         Apellidos,
+        Escuela,
         Boleta,
         Semestre,
         ContenedorBotones,
@@ -46,6 +47,11 @@ const ListaJugadores = () => {
                                 {jugador.apellidosJugador}
                             </Apellidos>
                         </Label>
+                        <Label> Escuela 
+                            <Escuela>
+                                {jugador.escuelaJugador}
+                            </Escuela>
+                        </Label>
                         <Label> Boleta 
                             <Boleta>
                                 {jugador.boletaJugador}
@@ -56,11 +62,7 @@ const ListaJugadores = () => {
                                 {jugador.semestreJugador}
                             </Semestre>
                         </Label>  
-                        <Label> Sexo 
-                            <Semestre>
-                                {jugador.sexoJugador}
-                            </Semestre>
-                        </Label>  
+                        
 
                         <ContenedorBotones>
                             <BotonAccion as={Link} to={`/editar-jugador/${jugador.id}`}>

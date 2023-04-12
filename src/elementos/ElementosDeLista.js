@@ -212,8 +212,6 @@ const Curp = styled.div`
     }
 `;
  
-
- 
 const Boleta = styled.div`
     color: #FFFFFF;
     font-size: 1.25rem; /* 20px */
