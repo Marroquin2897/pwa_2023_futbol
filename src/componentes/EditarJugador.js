@@ -7,6 +7,7 @@ import BtnRegresar from '../elementos/BtnRegresar';
 
 const EditarJugadores = () => {
     const {id} = useParams();
+    console.log(id);
     const[jugador] = useObtenerJugador(id);
     return (
         <>

@@ -16,6 +16,7 @@ import RegistrarJugador from './componentes/RegistrarJugador';
 import ListaJugadores from './componentes/ListaJugadores';
 import ListaEscuelas from './componentes/ListaEscuelas';
 import EditarJugador from './componentes/EditarJugador';
+import Noticias from './componentes/Noticias';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/icono2-burrito.png';
 import './App.css';
@@ -23,6 +24,7 @@ import { AuthProvider } from './contextos/AuthContext';
 import RutaPrivada from './componentes/RutaPrivada';
 import ListaJugadoresFem from './componentes/ListaJugadoresFem';
 import ListaJugadoresMas from './componentes/ListaJugadoresMas';
+import EditarUsuario from './componentes/EditarUsuario';
 
 WebFont.load({
   google: {
@@ -82,9 +84,24 @@ const Index = () => {
                 <EditarJugador/>
               </RutaPrivada>
             }/>
+              <Route path="/noticias" element={
+                <RutaPrivada>
+                  <Noticias/>
+                </RutaPrivada>
+            }/>
+            <Route path="/editar-perfil/:id" element={
+              <RutaPrivada>
+                <EditarUsuario/>
+              </RutaPrivada>
+            }/>
           <Route path="/menu-profe" element={
               <RutaPrivada>
                 <VistaProfe/>
+              </RutaPrivada>
+            }/>
+          <Route path="/menu-admin" element={
+              <RutaPrivada>
+                <VistaAdmi/>
               </RutaPrivada>
             }/>
         </Routes>

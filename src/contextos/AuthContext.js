@@ -15,7 +15,7 @@ const useAuth = () =>{
 //Estado global para verificar que el usuario este activo 
 const AuthProvider = ({children}) => {
     const[usuario,cambiarUsuario] = useState();
-  
+   
     //State para saber cuando termina de cargar onAuthStateChanged
     const[cargando,cambiarCargando] = useState();
     //Comprobación de que el usuario ha iniciado sesion
@@ -25,9 +25,7 @@ const AuthProvider = ({children}) => {
         return sendPasswordResetEmail(auth,email);
       }
     
-      function updatePassword(password) {
-        return usuario.updatePassword(password)
-      }
+
     //Efecto para que la comprobación se haga una vez
     useEffect(()=> {
        const cancelarSuscripcion = onAuthStateChanged(auth,(usuario) => {
@@ -40,7 +38,8 @@ const AuthProvider = ({children}) => {
     const value = {
         usuario,
         resetPassword,
-        updatePassword
+        updateEmailUser,
+        updatePasswordUser
       }
     return (
         <AuthContext.Provider value={value}>
