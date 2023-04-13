@@ -2,10 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 :root {
-  font-size: 16px;
+  font-size: 20px;/* redimensión en pantalla completa */
 }
 
 body {
@@ -14,15 +15,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
 }
 
 #root {
-  width: 100%;
+  width: 100%; /* tamaño que ocupa la pagina web de la pantalla */
+  
 }
 
 @media screen and (max-width: 60rem){ /* 950px */
   :root {
-      font-size: 14px;
+      font-size: 5px; /* redimensión de pantalla ajustada */
   }
 }

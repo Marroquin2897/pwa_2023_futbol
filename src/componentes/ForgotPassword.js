@@ -9,7 +9,7 @@ const ForgotPassword = () => {
     const{resetPassword} = useAuth();
     const[loading,setLoading] = useState(false);
     const[mensaje, setMensaje] = useState('');
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -18,34 +18,39 @@ const ForgotPassword = () => {
             setMensaje('');
             setError('');
             setLoading(true);
-            await resetPassword(emailRes.current.value) //Funcion para reestablecer password 
+            await resetPassword(emailRes.current.value); //Funcion para restablecer password 
             setMensaje('Revisa tu bandeja de entrada y sigue las instrucciones');
            
         }
         catch (error){
             console.log(error);
-            setError('Error al reestablecer contraseña')
+            setError('Error al restablecer la contraseña');
         }
         setLoading(false);
     }
 
     return ( 
-    <div>
+    <div className="hero">
+      <nav>
+         <img src="https://tinyurl.com/233pns5r"/>
+         <h2>Plataforma para la coordinacion de F7, FA Y FR del IPN</h2> 
+      </nav>
       <section className="login">
         <div className="loginContainer">
-          <h1>Recuperar contraseña</h1>
-          { error && <h1>{error}</h1> }
+          <h1>Restablecer contraseña</h1>
           <form onSubmit={handleSubmit}>
-            <label>Email</label>
+            <label>Ingresa tu correo electrónico</label>
             <input
               type='email'
               autoFocus
               required
               ref={emailRes}
             />
-            <div className="btnContainer">
-              <button type='submit' disabled={loading}>Restaurar password</button>
-              <p><Link to='/iniciar-sesion'><span>Regresear</span></Link></p>
+            { error && <h4>{error}</h4> }
+            <br/><br/>{ mensaje && <h5>{mensaje}</h5> }
+            <div className="menu2"><br/><br/>
+              <button type='submit' disabled={loading}>Enviar solicitud</button>
+              <br/><br/><p><Link to='/iniciar-sesion'><span>Regresar</span></Link></p>
             </div>
           </form>
         </div>

@@ -26,7 +26,7 @@ const FormularioJugador = styled.form `
     }
 `;
 const Label = styled.label`
-    color: #fff;
+    color: negro;
     display: block;
     font-weight: 700;
     padding: 10px;
@@ -44,8 +44,8 @@ const GrupoInput = styled.div `
 
 const Input = styled.input`
     width: 100%;
-    background: #fff;
-    border-radius: 3px;
+    background: #cacbcf;
+    border-radius: 30px;
     height: 45px;
     line-height: 45px;
     padding: 0 40px 0 10px;
@@ -117,7 +117,7 @@ const Boton = styled.button`
     letter-spacing: 1px;
     background: #560000;
     cursor: pointer;
-    transition: .1s ease all;
+    transition: 1s ease all;
     
     &: hover {
         box-shadow: 3px 0px 30px rgba(163,163,163,1);
