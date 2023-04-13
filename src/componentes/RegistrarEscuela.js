@@ -3,11 +3,10 @@ import { Helmet } from 'react-helmet';
 import { FormularioEscuela } from '../elementos/FormularioEscuela';
 import {useAuth} from './../contextos/AuthContext';
 import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormulario';
-import ComponenteInput from './Input';
 import {firebaseApp} from "../firebase/firebaseConfig";
-import {getFirestore, collection, addDoc, onSnapshot,query,where, getDoc, getDocs } from 'firebase/firestore';
-
-import {Link, useNavigate} from 'react-router-dom';
+import {getFirestore, collection, addDoc,query,where, getDocs } from 'firebase/firestore';
+import agregarEscuela from '../firebase/agregarEscuela';
+import {useNavigate} from 'react-router-dom';
 import Alerta from '../elementos/Alerta';
 
 
@@ -90,28 +89,40 @@ const RegistrarEscuela = ({escuelaData}) => {
         }
 
         
-
-        try {
-
-            const consulta = await getDocs(query(collection(firestore,'escuelas'),where('escuela','==',escuela),where('categoria','==',categoria)));
-            if(consulta.size > 0 ){
-                console.log('La escuela ya existe');
-            }
-            else {
-                    await addDoc (collection(firestore,'escuelas'),{
+            if(nombreEntrenador !== '' && nombreAsistente !== '' && escuela !== '' && modalidades !== '' && categoria !== ''){
+             const consulta = await getDocs(query(collection(firestore,'escuelas'),where('escuela','==',escuela),where('categoria','==',categoria)));   
+                if(consulta.size > 0){
+                    cambiarEdoAlerta(true);
+                    cambiarAlerta({tipo: 'error', mensaje: 'Esta escuela ya existe'});
+                    console.log('Esta escuela ya existe');
+                } else {
+                    agregarEscuela({
                         nombreEntrenador: nombreEntrenador,
                         nombreAsistente: nombreAsistente,
                         escuela: escuela,
                         modalidades: modalidades,
                         categoria: categoria,
                         uidUsuario: usuario.uid
-                })
-                }
-        } catch (error){
-            console.log(error);
-        }
-        navigate('/menu-profe');
+                    })
+                    .then(() => {
+                        cambiarNombreE('');
+                        cambiarNombreA('');
+                        cambiarEscuela('');
+                        cambiarModalidaes('');
+                        cambiarCategoria('');
 
+                        cambiarEdoAlerta(true);
+                        cambiarAlerta({tipo: 'exito', mensaje: 'Escuela registrada exitosamente'});
+                    })
+                    .catch((error) => {
+                        cambiarEdoAlerta(true);
+                        cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar registrar la escuela.'});
+                    })
+                }
+            } else {
+                cambiarEdoAlerta(true);
+                cambiarAlerta({tipo: 'error', mensaje: 'Completa todos los campos'});
+            }
     }
 
     return ( 
