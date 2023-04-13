@@ -74,10 +74,10 @@
   }
 
   /******************Estilos para registrar resultados**********************/
-  .iconMenu{
+  .iconMenu{ /*Color de los iconos en menu*/
     color: #fff;
-    width: 60px;
-    height: 50px;
+    width: 50px;
+    height: 60px;
   }
 
   .btn-cerrarSesion{
@@ -85,24 +85,18 @@
     outline: none;
     width: 80%;
     padding: 15px 0px;
-    color: #fff;
+    color: #fff; /*Color de la letra en boton cerrar sesion*/
     font-size: 18px;
     letter-spacing: 1px;
-    background: #560000;
+    background: #560000; /*Color boton cerrar sesion*/
     cursor: pointer;
     margin: 30px 10px 0;
   }
 
 .saludosMenu{
-  color: #fff;
+  color: #ffffff;
   margin-left: 70%;
 }
-
-
-
-
-
-
 
   table {
     align-items: center;
@@ -112,6 +106,7 @@
     width: 100%;
     padding: 20px 40px;
     display: flex;
+    
 }
 input {
     width: 40%;
@@ -122,11 +117,13 @@ input {
     padding: 0 10px 0 10px;
     transition: .3s ease all;
     border: 1px solid black;
+    border-radius: 30px;
 }
 
 div h1 {
     margin-bottom: 10px;
     padding: 10px;
     text-align: center;
-    color: white;
+    color: rgb(0, 0, 0);
+
 }

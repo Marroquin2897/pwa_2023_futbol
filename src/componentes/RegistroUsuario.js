@@ -123,11 +123,17 @@ const RegistroUsuario = () => {
 
 
     return ( 
-        <>
+        <div className="hero">
         <Helmet>
             <title> Crear Cuenta </title>
         </Helmet>
-        <h1> CREAR CUENTA </h1>
+        <nav>
+         <img src="https://tinyurl.com/233pns5r"/>
+         <h2>Plataforma para la coordinacion de F7, FA Y FR del IPN</h2> 
+        </nav>
+        <section className='login'>
+        <div className='loginContainer2'>
+        <h1> Crear cuenta </h1>
         <main>
           <Formulario onSubmit={handleSubmit}>
             <ComponenteInput
@@ -140,7 +146,7 @@ const RegistroUsuario = () => {
                 cambiarEstado={cambiarNombre}
                 />
             <ComponenteInput
-                label= "Apellidos(s)"
+                label= "Apellido(s)"
                 tipo= "text"
                 name="apellidos"
                 leyendaError="Solo se permiten letras"
@@ -149,17 +155,17 @@ const RegistroUsuario = () => {
                 cambiarEstado={cambiarApellidos}
                 />
             <ComponenteInput
-                label= "Fecha de Nacimiento"
+                label= "Fecha de nacimiento"
                 tipo= "date"
                 name="fechaNac"
                 estado={fechaNacimiento}
                 cambiarEstado={cambiarFechaNacimiento}
                 />
             <ComponenteInput
-                label= "Telefono "
+                label= "Teléfono "
                 tipo= "text"
                 name="telefono"
-                leyendaError=" 10 digitos"
+                leyendaError="Se deben colocar 10 dígitos"
                 expresionRegular={expresiones.telefono}
                 estado={phone}
                 cambiarEstado={cambiarTelefono}
@@ -168,25 +174,35 @@ const RegistroUsuario = () => {
                 label= "Dirección "
                 tipo= "text"
                 name="direccion"
-                leyendaError="Solo se permiten letras y numeros"
+                leyendaError="Solo se permiten letras y números"
                 expresionRegular={expresiones.direccion}
                 estado={address}
                 cambiarEstado={cambiarDireccion}
                 />
             <ComponenteInput
-                label= "Boleta o No. Empleado"
+                label= "Boleta o No. empleado"
                 tipo= "text"
                 name="boleta"
-                leyendaError="10 digitos"
-                expresionRegular={expresiones.boleta}
+                leyendaError="Solo digitos"
+                expresionRegular={expresiones.boleta} /*Checar que se puedan poner #empleado de 4-6-8 dígitos*/
                 estado={boletaempl}
                 cambiarEstado={cambiarBoleta}
                 />
+                 <div>
+              <Label htmlFor='rol'> Rol </Label>
+              <GrupoInput>
+                <select name="rol">
+                    
+                    <option value="jugador"> Jugador </option>
+                    <option value="profesor"> Profesor </option>
+                </select> 
+              </GrupoInput> 
+            </div>
             <ComponenteInput
-                label= "Correo Electrónico"
+                label= "Correo electrónico"
                 tipo= "text"
                 name="email"
-                leyendaError="Ingrese un correo valido"
+                leyendaError="Ingresa un correo electrónico válido"
                 expresionRegular={expresiones.correo}
                 estado={correoo}
                 cambiarEstado={cambiarCorreo}
@@ -195,44 +211,33 @@ const RegistroUsuario = () => {
                 label= "Contraseña"
                 tipo= "password"
                 name="password"
-                leyendaError=" 8 caracteres "
+                leyendaError="Mínimo de 8 caracteres "
                 expresionRegular={expresiones.password}
                 estado={contrasenia}
                 cambiarEstado={cambiarContrasenia}
                 />
             <ComponenteInput
-                label= "Confirmar Contraseña"
+                label= "Confirmar contraseña"
                 tipo= "password"
                 name="password2"
-                leyendaError=" No coinciden la contraseña"
+                leyendaError=" No coinciden las contraseñas"
                 estado={contrasenia2}
                 cambiarEstado={cambiarContrasenia2}
                 funcion={validarPassword2}
                 
                 />
-            <div>
-              <Label htmlFor='rol'> Rol </Label>
-              <GrupoInput>
-                <select name="rol">
-                    
-                    <option value="jugador"> Jugador </option>
-                    <option value="profesor"> Profesor </option>
-                </select> 
-              </GrupoInput>   
-            </div>
 
             <ContenedorBotonCentrado>
-              <Boton  type = 'submit' onClick={() => setRegistrarse(!registrarse)}> Crear Cuenta </Boton>  
+            <br/><Boton  type = 'submit' onClick={() => setRegistrarse(!registrarse)}> Crear cuenta </Boton> 
                {formularioValido === true && <MensajeExito>Registrado exitosamente</MensajeExito>}
             </ContenedorBotonCentrado>
             
         </Formulario>  
         </main>
-        
-        
-        
-       
-        </>
+
+        </div>
+        </section>
+        </div>
         
      );
 }

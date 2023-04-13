@@ -33,7 +33,7 @@ const Login = () => {
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo: 'error',
-                mensaje:'Ingresa un correo valido'
+                mensaje:'Ingresa un correo válido'
             });
             return;
         }
@@ -78,10 +78,14 @@ const Login = () => {
 
 
     return ( 
-       <div>
+       <div className="hero">
         <Helmet>
-          <title>Iniciar Sesion</title>
+          <title>Iniciar Sesión</title>
         </Helmet>  
+      <nav>
+        <img src="https://tinyurl.com/233pns5r"/>
+        <h2>Plataforma para la coordinacion de F7, FA Y FR del IPN</h2> 
+      </nav>
         <section className='login'>
             <div className='loginContainer'> 
                 <h1>Iniciar Sesión</h1>
@@ -92,7 +96,7 @@ const Login = () => {
                         name='email'
                         value = {email}
                         onChange={handleChange}
-                    />
+                    /><br/><br/>
                     <label><b>Contraseña</b>  </label>
                     <input
                         type='password'
@@ -100,11 +104,11 @@ const Login = () => {
                         value = {password}
                         onChange={handleChange}  
                     />
-                    <div className='btnContainer'>
-                        <button type='submit'>Iniciar Sesión</button>
+                    <div className='menu2'> <br/><br/><br/><br/>
+                        <button type='submit'>Ingresar</button><br/><br/><br/>
                         
-                        <p>¿No tienes cuenta? <Link to='/crear-cuenta'><span> Registrate</span></Link></p>
-                        <p>¿Olvidaste tu contraseña? <Link to='/forgot-password'><span> Reestablecer Contraseña</span></Link></p>
+                        <p>¿No tienes cuenta? <Link to='/crear-cuenta'><span> Regístrate</span></Link></p> <br/>
+                        <p>¿Olvidaste tu contraseña? <Link to='/forgot-password'><br/><span> Restablecer contraseña</span></Link></p>
                     </div>
                 </form>
             </div>

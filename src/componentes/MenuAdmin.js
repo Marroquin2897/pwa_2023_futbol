@@ -13,13 +13,13 @@ class MenuAdmin extends React.Component  {
     render () {
       return (
         <Menu >
-          <Link id="editarPerfil" className="menu-item" to="/"><FaUserEdit  className='iconMenu'/>  Editar Perfil</Link>
-          <Link id="registrarEscuela" className="menu-item" to="/" > <FaPlusCircle  className='iconMenu'/>  Registrar Escuela</Link>
-           <Link id="registrarJugador" className="menu-item" to="/"> <FaUserPlus  className='iconMenu'/>  Registrar Jugador</Link>
-          <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar  className='iconMenu'/>  Estadisticas</Link>
-          <Link id="rolJuegos" className="menu-item" to="/" > <FaCalendarAlt  className='iconMenu'/>  Rol de Juegos</Link>
+          <Link id="editarPerfil" className="menu-item" to="/"><FaUserEdit  className='iconMenu'/>  Editar perfil</Link>
+          <Link id="registrarEscuela" className="menu-item" to="/" > <FaPlusCircle  className='iconMenu'/>  Registrar escuela</Link>
+           <Link id="registrarJugador" className="menu-item" to="/"> <FaUserPlus  className='iconMenu'/>  Registrar jugador</Link>
+          <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar  className='iconMenu'/>  Estadísticas</Link>
+          <Link id="rolJuegos" className="menu-item" to="/" > <FaCalendarAlt  className='iconMenu'/>  Rol de juegos</Link>
           <Link id="noticias" className="menu-item" to="/" > <FaNewspaper  className='iconMenu'/>  Noticias</Link>
-          <button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesion</button>
+          <button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesión</button>
         </Menu>
       );
     }

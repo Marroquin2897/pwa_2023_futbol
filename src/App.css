@@ -4,12 +4,14 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-decoration:none;
   }
   body{
-    background: #011230;
-    font-family: 'Ubuntu', sans-serif;
+    background: #cacbcf;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
+
   main{
     max-width: 800px;
     width: 90%;
@@ -22,33 +24,50 @@
     outline: none;
     width: 100%;
     padding: 15px 0;
-    color: #fff;
-    font-size: 16px;
+    color: #000000; /*color de letras*/
+    font-size: 20px;
     letter-spacing: 1px;
-    background: #560000;
+    border-radius: 30px;
+    background: #cacbcf; /*color de boton*/
     cursor: pointer;
+    
   }
   
   .login {
     width: 100%;
     min-height: 100vh;
-    padding: 0 20px;
-    background: #011230;
-    display: flex;
+    padding: 20px;
+    display: inline-block;
+    position: relative;
+    top: 40px;
+    left: 20px;
+    
   }
   
-  .login .loginContainer {
-    padding: 60px;
+  .login .loginContainer { /*Tamaño y color del recuadro*/
+    padding: 40px;
     margin: auto;
     width: 100%;
-    max-width: 520px;
-    min-height: 600px;
-    display: flex;
+    max-width: 500px;
+    min-height: 350px;
+    display: flow-root;
     flex-direction: column;
-    justify-content: center;
-    border-radius: 20px;
-    background: #99a0ac;
+    justify-content: space-evenly;
+    border-radius: 30px;
+    background: #ffffff;
     
+  }
+
+  .login .loginContainer2 { /*Tamaño y color del recuadro*/
+    padding: 40px;
+    margin: auto;
+    width: 800px;
+    height: 850px;
+    display: flow-root;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-radius: 30px;
+    background: #ffffff;
     
   }
   
@@ -59,7 +78,44 @@
     font-size: 22px;
     line-height: 1;
   }
-  
+
+  .hero .login .loginContainer .menu button {
+    color: black;
+    margin: 8px 0;
+    display: block;
+    font-size: 25px;
+    line-height: 1;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  } 
+
+  .hero .login .loginContainer .menu button:hover  {
+    transition: 1s ease all;
+    box-shadow: 0px 5px 10px #560000;
+}
+
+.hero .login .loginContainer .menu2 button {
+  color: rgb(255, 255, 255);
+  margin: 8px 0;
+  display: block;
+  font-size: 20px;
+  line-height: 1;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #560000 ;
+} 
+
+.hero .login .loginContainer .menu2 button:hover  {
+  transition: 1s ease all;
+  box-shadow: 0px 5px 1px #0000006d;
+}
+
+
+  /* para la parte de recuadros de llenado */
   .login .loginContainer input {
     width: 100%;
     border: none;
@@ -67,100 +123,91 @@
     font-size: 20px;
     padding: 15px;
     height: 45px;
-    background: #FCCC08;
-    color: black;
+    background: #cacbcf;
+    color: rgb(0, 0, 0);  /* letra de llenado */
     letter-spacing: 1px;
   }
   
   .login .loginContainer .btnContainer {
     width: 100%;
     padding: 24px 0;
+
   }
-  
-  .login .loginContainer .btnContainer p {
+
+ /* No tienes cuenta y olvidaste contraseña */
+  .login .loginContainer .btnContainer p { 
     margin: 14px 0 0 0;
     text-align: right;
-    color: #fff;
-  }
-  
-  .login .loginContainer .btnContainer p span {
-    color: yellow;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    margin-left: 5px;
-    cursor: pointer;
-    transition: all 400ms ease-in-out;
-  }
-  
-  .login .loginContainer .btnContainer p span:hover {
-    color: red;
+    color: #ffffff;
   }
   
   .login .loginContainer .errorMsg {
-    color: red;
+    color: #2d3001;
     font-size: 16px;
   }
   
   .hero {
     width: 100%;
     min-height: 100vh;
-    background: #011230;
+    background: #cacbcf;  /* fondo de inicio de sesion */
   }
   
   .hero nav {
-    background: #560000;
+    background: #560000; /* barra de navegacion Hola posicion */
     width: 100%;
     padding: 20px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
   }
   
   .hero nav h2 {
-    color: #fff;
-  }
-  
-  .hero nav button {
-    width: auto;
+    color: #ffffff; /* color letra barra superior */
+    width: 100%;
     padding: 10px;
-    margin-left: 10px;
-    background: #011230;
+    font-size: 32px;
   }
-  
-  .hero nav button:hover {
-    transition: ease 2s;
-    background: #fff;
-  }
+    
   
   .hero nav button a {
     color: #fff;
     text-decoration: none;
+    
   }
   
   .hero nav button a:hover {
     color: #011230;
   }
+   
+  .hero img{
+    width: 35px;
+    height: 35px;
+  }
   
   h1{
     text-align: center;
-    color: #fff;
+    color: #000000;
     margin-bottom: 20px;
     font-size: 40px;
   }
 
+  h4{
+    color: #bb2929;   
+  }
 
-select {
+  h5{
+    color: #560000;   
+  }
+
+
+select {   /* Color del rol en crear cuenta */
     width: 100%;
-    background: #fff;
-    border-radius: 3px;
+    background: #cacbcf;
+    border-radius: 30px;
     height: 45px;
     line-height: 45px;
     padding: 0 40px 0 10px;
     transition: .3s ease all;
-    border: 3px solid transparent;
+    border: 15px solid transparent;
 }
-
-
-
-
-
