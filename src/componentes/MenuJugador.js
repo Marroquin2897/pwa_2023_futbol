@@ -5,13 +5,15 @@ import { slide as Menu } from 'react-burger-menu'
 import '../MenuSide.css';
 import { Link } from 'react-router-dom';
 import {FaUserEdit, FaRegChartBar, FaCalendarAlt, FaNewspaper} from "react-icons/fa";
+import { onAuthStateChanged } from "firebase/auth";
 
 const auth=getAuth(firebaseApp);
 const usuario = auth.currentUser
+console.log(usuario.uid)
 class MenuJugador extends React.Component  {
-    
     render () {
       return (
+        
         <Menu >
           <Link id="editarPerfil" className="menu-item" to={`/editar-perfil/${usuario.uid}`}><FaUserEdit  className='iconMenu'/>  Editar Perfil</Link>
           <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar  className='iconMenu'/>  Estadisticas</Link>

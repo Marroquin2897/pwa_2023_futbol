@@ -47,23 +47,19 @@ const RegistroUsuario = ({usuario}) => {
     },[usuario,usuarioAPP,navigate]);
 
 
-    async function actualizarUsuario (nombreU,apellidosU,fechaNacimientoU,telefonoU,direccionU,boletaU,correoU,contraseniaU,rolU) {
+    async function actualizarUsuario (nombre,apellidos,fechaNacimiento,telefono,direccion) {
         const firestore = getFirestore(firebaseApp);
         const id = usuario.id
-        console.log(nombreU,apellidosU,fechaNacimientoU,telefonoU,direccionU,boletaU,correoU,contraseniaU,rolU)
-        console.log(apellidosU)
+        console.log(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo,contrasenia,rol)
+        console.log(apellidos)
         console.log(apellidos)
         const documento = doc(firestore, `usuarios`, id);
         updateDoc(documento,{
-            nombre: nombreU,
-            apellidos: apellidosU,
-            fechaNacimiento: fechaNacimientoU,
-            telefono:telefonoU,
-            direccion: direccionU,
-            boleta: boletaU,
-            correo: correoU,
-            contrasenia: contraseniaU,
-            rol:rolU 
+            nombre: nombre,
+            apellidos: apellidos,
+            fechaNacimiento: fechaNacimiento,
+            telefono:telefono,
+            direccion: direccion,
         });  
         cambiarEdoAlerta(true);
             cambiarAlerta({
@@ -258,17 +254,7 @@ const RegistroUsuario = ({usuario}) => {
         if(nombre !== '' && apellidos !== '' && fechaNacimiento !== '' && telefono !== '' && direccion !== '' && boleta !== '' && correo !=='' && contrasenia !== '' && contrasenia2 !==''
         ){ 
             if(usuario){
-                actualizarUsuario({
-                    nombre: nombre,
-                    apellidos: apellidos,
-                    fechaNacimiento: fechaNacimiento,
-                    telefono: telefono,
-                    direccion: direccion,
-                    boleta: boleta,
-                    correo: correo,
-                    contrasenia: contrasenia,
-                    rol:rol
-                }).then(()=>{
+                actualizarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion).then(()=>{
                     navigate('/rol');
                 }).catch((error)=>{
                     console.log(error);
@@ -366,6 +352,7 @@ const RegistroUsuario = ({usuario}) => {
 						value={boleta}
 						onChange={handleChange}
 						placeholder='Boleta (Alumno) o No. Empleado (Profesor)'
+                        disabled={usuario ? true : false }
 					/>
 				</GrupoInput>
 			</div>
@@ -378,6 +365,7 @@ const RegistroUsuario = ({usuario}) => {
 						placeholder='Ingresa tu correo'
 						value={correo}
 						onChange={handleChange}
+                        disabled={usuario ? true : false }
 					/>
 				</GrupoInput>
 			</div>
@@ -390,6 +378,7 @@ const RegistroUsuario = ({usuario}) => {
 						placeholder='Contraseña'
 						value={contrasenia}
 						onChange={handleChange}
+                        disabled={usuario ? true : false }
 					/>
 				</GrupoInput>
 			</div>
@@ -402,14 +391,14 @@ const RegistroUsuario = ({usuario}) => {
 						placeholder='Confirmar contraseña'
 						value={contrasenia2}
 						onChange={handleChange}
+                        disabled={usuario ? true : false }
 					/>  
 				</GrupoInput>
 			</div>
 			<div>
               <Label htmlFor='rol'> Rol </Label>
               <GrupoInput>
-                <select name="rol">
-                    
+                <select name="rol" disabled={usuario ? true : false }>                  
                     <option value="jugador"> Jugador </option>
                     <option value="profesor"> Profesor </option>
                 </select> 

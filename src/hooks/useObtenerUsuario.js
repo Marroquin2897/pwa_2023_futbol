@@ -1,10 +1,7 @@
 import {useEffect, useState} from 'react';
 import firebaseApp from '../firebase/firebaseConfig';
 import {useNavigate} from 'react-router-dom';
-import {getFirestore,doc, getDoc, onSnapshot, collection} from 'firebase/firestore';
-import { useAuth } from '../contextos/AuthContext'; 
-import { useRef } from 'react';
-import { dblClick } from '@testing-library/user-event/dist/click';
+import {getFirestore,doc, getDoc} from 'firebase/firestore';
 
 const useObtenerUsuario = (id) => {
     const firestore = getFirestore(firebaseApp);
