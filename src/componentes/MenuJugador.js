@@ -5,7 +5,6 @@ import { slide as Menu } from 'react-burger-menu'
 import '../MenuSide.css';
 import { Link } from 'react-router-dom';
 import {FaUserEdit, FaRegChartBar, FaCalendarAlt, FaNewspaper} from "react-icons/fa";
-import { onAuthStateChanged } from "firebase/auth";
 
 const auth=getAuth(firebaseApp);
 const usuario = auth.currentUser
