@@ -11,14 +11,14 @@ import {firebaseApp} from "../firebase/firebaseConfig";
 
 
 const auth=getAuth(firebaseApp);
-const usuario = auth.currentUser
+const usuarioActual = auth.currentUser
 class MenuProfesor extends React.Component  {
     
     render () {
         return (
          
           <Menu id="menuProfesor" >
-            <Link id="editarPerfil" className="menu-item" to={`/editar-perfil/${usuario.uid}`}><FaUserEdit  className='iconMenu'/>  Editar Perfil</Link>
+            <Link id="editarPerfil" className="menu-item" to={`/editar-perfil/${usuarioActual.uid}`}><FaUserEdit  className='iconMenu'/>  Editar Perfil</Link>
             <Link id="registrarEscuela" className="menu-item" to="/registrar-escuela" > <FaPlusCircle className='iconMenu'/>  Registrar Escuela</Link>
             <Link id="registrarJugador" className="menu-item" to="/registrar-jugador"> <FaUserPlus className='iconMenu'/>  Registrar Jugador</Link>
             <Link id="listaJugador" className="menu-item" to="/lista-jugadores"> <FaClipboardList className='iconMenu'/>  Lista de Jugadores</Link>

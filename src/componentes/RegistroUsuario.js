@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useAuth} from './../contextos/AuthContext';
 import {Helmet} from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
-
+import {firebaseApp} from "../firebase/firebaseConfig";
 import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 import {getFirestore,doc,setDoc, updateDoc} from "firebase/firestore"
 import { Formulario, Label, GrupoInput, Input, ContenedorBotonCentrado, Boton} from '../elementos/ElementosFormulario';

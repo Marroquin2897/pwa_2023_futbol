@@ -37,9 +37,7 @@ const AuthProvider = ({children}) => {
 
     const value = {
         usuario,
-        resetPassword,
-        updateEmailUser,
-        updatePasswordUser
+        resetPassword
       }
     return (
         <AuthContext.Provider value={value}>
