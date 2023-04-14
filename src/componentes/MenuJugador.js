@@ -10,20 +10,20 @@ import {firebaseApp} from "../firebase/firebaseConfig";
 
 
 const auth=getAuth(firebaseApp);
-const usuarioActual = auth.currentUser
 
 class MenuJugador extends React.Component  {
     render () {
       return (
-        
-        <Menu >
-          <Link id="editarPerfil" className="menu-item" to={`/editar-perfil/${usuarioActual.uid}`}><FaUserEdit  className='iconMenu'/>  Editar Perfil</Link>
-          <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar  className='iconMenu'/>  Estadisticas</Link>
-          <Link id="rolJuegos" className="menu-item" to="/" > <FaCalendarAlt  className='iconMenu'/>  Rol de Juegos</Link>
-          <Link id="noticias" className="menu-item" to="/noticias" > <FaNewspaper  className='iconMenu'/>  Noticias</Link>
-          <button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesion</button>
-        </Menu>
-      );
+        <Menu >          
+        <Link id="editarPerfil" className="menu-item" to={`/editar-perfil/${auth.currentUser.uid}`}><FaUserEdit  className='iconMenu'/>  Editar Perfil</Link>
+        <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar  className='iconMenu'/>  Estadisticas</Link>
+        <Link id="rolJuegos" className="menu-item" to="/" > <FaCalendarAlt  className='iconMenu'/>  Rol de Juegos</Link>
+        <Link id="noticias" className="menu-item" to="/noticias" > <FaNewspaper  className='iconMenu'/>  Noticias</Link>
+        <button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesion</button>
+      </Menu>
+  );
     }
+      
+    
 }
 export default MenuJugador;
