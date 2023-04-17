@@ -84,6 +84,11 @@ const ListaEscuelas = () => {
                                 <IconoVer/>     
                             </BotonAccion>
                         </ContenedorBotones>
+                        <ContenedorBotones>
+                        <BotonAccion as={Link} to='/equipo-varonil'>
+                                <IconoVer/>     
+                            </BotonAccion>
+                        </ContenedorBotones>
                     </ElementoLista>
                 );
             })}

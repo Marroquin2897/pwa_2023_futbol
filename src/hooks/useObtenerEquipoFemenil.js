@@ -45,8 +45,8 @@ const useObtenerEquipoFemenil = () => {
             } else{
                 cambiarHayMasPorCargar(false);
             }
-            cambiarFemenil(snapshot.docs.map((escuela) => {
-                return{...escuela.data(), id: escuela.id}
+            cambiarFemenil(snapshot.docs.map((jugador) => {
+                return{...jugador.data(), id: jugador.id}
             }));
         });
 
