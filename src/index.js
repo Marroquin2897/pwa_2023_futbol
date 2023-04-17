@@ -70,12 +70,12 @@ const Index = () => {
                 <ListaEscuelas/>
               </RutaPrivada>
             }/>
-            <Route path="/equipo-femenil" element={
+            <Route path="/equipo-femenil/:id" element={
               <RutaPrivada>
                 <ListaJugadoresFem/>
               </RutaPrivada>
             }/>
-            <Route path="/equipo-varonil" element={
+            <Route path="/equipo-varonil/:id" element={
               <RutaPrivada>
                 <ListaJugadoresMas/>
               </RutaPrivada>

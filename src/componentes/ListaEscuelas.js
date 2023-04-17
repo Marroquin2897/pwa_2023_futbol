@@ -80,15 +80,14 @@ const ListaEscuelas = () => {
                         </Categoria>   
                         </Label>
                         <ContenedorBotones>
-                        <BotonAccion as={Link} to='/equipo-femenil'>
-                                <IconoVer/>     
-                            </BotonAccion>
+                        <BotonAccion as={Link} to={`/equipo-femenil/${escuela.id}`}>
+                            <IconoVer/>     
+                        </BotonAccion>
+                        <BotonAccion as={Link} to={`/equipo-varonil/${escuela.id}`}>
+                            <IconoVer/>     
+                        </BotonAccion>
                         </ContenedorBotones>
-                        <ContenedorBotones>
-                        <BotonAccion as={Link} to='/equipo-varonil'>
-                                <IconoVer/>     
-                            </BotonAccion>
-                        </ContenedorBotones>
+                    
                     </ElementoLista>
                 );
             })}
