@@ -18,6 +18,7 @@ class MenuAdmin extends React.Component  {
           <Link id="listaEscuela" className="menu-item" to="/lista-escuelas"> <FaUserPlus className='iconMenu'/>  Lista de Escuelas</Link>
           <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar  className='iconMenu'/>  Estadisticas</Link>
           <Link id="rolJuegos" className="menu-item" to="/nuevo-torneo" > <FaCalendarAlt  className='iconMenu'/>  Nuevo Torneo </Link>
+          <Link id="rolJuegos" className="menu-item" to="/lista-torneos" > <FaCalendarAlt  className='iconMenu'/>  Lista de Torneos </Link>
           <Link id="noticias" className="menu-item" to="/noticias" > <FaNewspaper  className='iconMenu'/>  Noticias</Link>
           <button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesión</button>
         </Menu>

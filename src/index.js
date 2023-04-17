@@ -26,6 +26,7 @@ import ListaJugadoresFem from './componentes/ListaJugadoresFem';
 import ListaJugadoresMas from './componentes/ListaJugadoresMas';
 import EditarUsuario from './componentes/EditarUsuario';
 import Torneo from './componentes/Torneo';
+import ListaTorneos from './componentes/ListaTorneos';
 
 WebFont.load({
   google: {
@@ -108,6 +109,11 @@ const Index = () => {
           <Route path="/nuevo-torneo" element={
               <RutaPrivada>
                 <Torneo/>
+              </RutaPrivada>
+            }/>
+          <Route path="/lista-torneos" element={
+              <RutaPrivada>
+                <ListaTorneos/>
               </RutaPrivada>
             }/>
         </Routes>

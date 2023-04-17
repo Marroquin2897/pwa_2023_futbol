@@ -106,9 +106,9 @@ const Torneo = () => {
                     <GrupoInput>
                         <select name="sistemacompetencia" onChange = {handleChange}>
                             
-                            <option value="roundRobin"> Todos contra todos </option>
-                            <option value="grupos"> Por Grupos </option>
-                            <option value="eliminaciondirecta"> Eliminación Directa </option>
+                            <option value="Round Robin"> Todos contra todos </option>
+                            <option value="Grupos"> Por Grupos </option>
+                            <option value="Eliminacion Directa"> Eliminación Directa </option>
                         </select> 
                     </GrupoInput>   
             </div>
