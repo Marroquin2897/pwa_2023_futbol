@@ -25,6 +25,7 @@ import RutaPrivada from './componentes/RutaPrivada';
 import ListaJugadoresFem from './componentes/ListaJugadoresFem';
 import ListaJugadoresMas from './componentes/ListaJugadoresMas';
 import EditarUsuario from './componentes/EditarUsuario';
+import Torneo from './componentes/Torneo';
 
 WebFont.load({
   google: {
@@ -102,6 +103,11 @@ const Index = () => {
           <Route path="/menu-admin" element={
               <RutaPrivada>
                 <VistaAdmi/>
+              </RutaPrivada>
+            }/>
+          <Route path="/nuevo-torneo" element={
+              <RutaPrivada>
+                <Torneo/>
               </RutaPrivada>
             }/>
         </Routes>

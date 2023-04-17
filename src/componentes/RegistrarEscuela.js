@@ -229,8 +229,7 @@ const RegistrarEscuela = ({escuelaData}) => {
                 </div>
                 <ContenedorBotonCentrado>
                 <Boton  type = 'submit' > Registrar </Boton>  
-                
-            </ContenedorBotonCentrado>
+                </ContenedorBotonCentrado>
             <Alerta 
                 tipo= {alerta.tipo}
                 mensaje= {alerta.mensaje}
