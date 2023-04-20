@@ -245,7 +245,7 @@ const RegistrarJugador = ({jugador}) => {
                 </GrupoInput>
             </div>
             <div>
-                    <Label htmlFor='sexo'> Sexo </Label>
+                    <Label htmlFor='sexo'> Género </Label>
                     <GrupoInput>
                         <select name="sexo" onChange = {handleChange}  >
                             <option value="Femenino"> Femenino </option>
