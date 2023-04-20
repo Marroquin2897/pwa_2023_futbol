@@ -154,12 +154,10 @@
   
   .hero nav {
     background: #560000; /* barra de navegacion Hola posicion */
-    width: 100%;
     padding: 20px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
   }
   
   .hero nav h2 {
@@ -168,8 +166,16 @@
     padding: 10px;
     font-size: 32px;
   }
-    
+
+  .hero nav h3 {
+    float:right;   
+  }
   
+  .hero nav h3 img{
+    width: 70px;
+    height: 70px; 
+  }
+
   .hero nav button a {
     color: #fff;
     text-decoration: none;
@@ -181,8 +187,8 @@
   }
    
   .hero img{
-    width: 35px;
-    height: 35px;
+    width: 42px;
+    height: 62px;
   }
   
   h1{
@@ -191,9 +197,9 @@
     margin-bottom: 20px;
     font-size: 40px;
   }
+
   label {
     color: #fff;
-    
     margin: 14px 0;
     display: block;
     font-size: 22px;

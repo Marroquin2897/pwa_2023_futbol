@@ -72,11 +72,15 @@ const Torneo = () => {
         }
     }
     return ( 
-        <>
+<div className="hero">
+      <nav>
+      <img src="https://tinyurl.com/2b2ek3ck"/>
+        <center><h2>Nuevo Torneo</h2></center> 
+        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+      </nav>
         <Helmet>
             <title> Nuevo Torneo </title>
         </Helmet>
-        <h1> Nuevo Torneo  </h1>
         <main>
             <Formulario onSubmit={handleSubmit}>
             <div>
@@ -124,7 +128,7 @@ const Torneo = () => {
             </Formulario>
         </main>
         
-        </>
+        </div>
      );
 }
  

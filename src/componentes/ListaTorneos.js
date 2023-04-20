@@ -21,11 +21,16 @@ const ListaTorneos = () => {
     const [torneos,obtenerMasTorneos,hayMasPorCargar] = useObtenerTorneos();
     const navigate = useNavigate();
     return ( 
-        <>
+    <div className="hero">
+      <nav>
+      <img src="https://tinyurl.com/2b2ek3ck"/>
+        <center><h2>Lista de Torneos</h2></center> 
+        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+      </nav>
         <Helmet>
             <title>Lista de Torneos</title>
         </Helmet>
-        <h1> LISTA DE TORNEOS </h1>
+        
         <Lista>
             {torneos.map((torneo) => {
                 return (
@@ -56,7 +61,7 @@ const ListaTorneos = () => {
                 </ContenedorSubtitulo>
                 }
         </Lista>
-        </>
+    </div>
      );
 }
  
