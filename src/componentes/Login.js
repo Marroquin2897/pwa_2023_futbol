@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {useNavigate} from 'react-router-dom';
 import {firebaseApp} from "../firebase/firebaseConfig";
-
 import Alerta from '../elementos/Alerta';
-
+import { FaAlignRight } from 'react-icons/fa';
 
 const auth = getAuth(firebaseApp);
 
@@ -63,7 +62,7 @@ const Login = () => {
                     mensaje = 'La contraseña no es correcta.'
                     break;
                 case 'auth/user-not-found':
-                    mensaje = 'No se encontro una cuenta con este correo electronico'
+                    mensaje = 'No se encontro una cuenta con este correo electrónico'
                     break;
                 default:  
                     mensaje = 'Hubo un error al iniciar sesión.'
@@ -85,8 +84,10 @@ const Login = () => {
           <title>Iniciar Sesión</title>
         </Helmet>  
       <nav>
-        <img src="https://tinyurl.com/233pns5r"/>
+        <img src="https://tinyurl.com/2b2ek3ck"/>
         <h2>Plataforma para la coordinacion de F7, FA Y FR del IPN</h2> 
+        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+
       </nav>
         <section className='login'>
             <div className='loginContainer'> 

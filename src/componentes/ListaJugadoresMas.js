@@ -52,7 +52,7 @@ const ListaJugadoresMas = () => {
                             {jugador.semestreJugador}
                         </Semestre>
                     </Label>
-                    <Label> Sexo 
+                    <Label> Género 
                         <Semestre>
                             {jugador.sexoJugador}
                         </Semestre>
