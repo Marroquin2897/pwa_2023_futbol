@@ -1,7 +1,7 @@
 import {getFirestore, collection, addDoc } from 'firebase/firestore';
 import {firebaseApp} from "../firebase/firebaseConfig";
 
-const agregarEscuela = ({nombreEntrenador,nombreAsistente,escuela,modalidades,categoria,uidUsuario}) => {
+const agregarEscuela = ({nombreEntrenador,nombreAsistente,escuela,modalidades,categoria,nivelAcademico,uidUsuario}) => {
     const firestore = getFirestore(firebaseApp);
     return addDoc(collection(firestore,'escuelas'),{
         nombreEntrenador: nombreEntrenador,
@@ -9,6 +9,7 @@ const agregarEscuela = ({nombreEntrenador,nombreAsistente,escuela,modalidades,ca
         escuela: escuela,
         modalidades: modalidades,
         categoria: categoria,
+        nivelAcademico: nivelAcademico,
         uidUsuario: uidUsuario,
     });
 }

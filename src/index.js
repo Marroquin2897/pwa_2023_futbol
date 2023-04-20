@@ -27,6 +27,7 @@ import ListaJugadoresMas from './componentes/ListaJugadoresMas';
 import EditarUsuario from './componentes/EditarUsuario';
 import Torneo from './componentes/Torneo';
 import ListaTorneos from './componentes/ListaTorneos';
+import RoundRobin from './componentes/RoundRobind';
 
 WebFont.load({
   google: {
@@ -114,6 +115,11 @@ const Index = () => {
           <Route path="/lista-torneos" element={
               <RutaPrivada>
                 <ListaTorneos/>
+              </RutaPrivada>
+            }/>
+            <Route path="/round-robin" element={
+              <RutaPrivada>
+                <RoundRobin/>
               </RutaPrivada>
             }/>
         </Routes>

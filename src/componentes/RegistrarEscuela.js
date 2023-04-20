@@ -22,6 +22,7 @@ const RegistrarEscuela = ({escuelaData}) => {
     const [escuela,cambiarEscuela] = useState('');
     const [modalidades,cambiarModalidaes] = useState('');
     const [categoria,cambiarCategoria ] = useState('');
+    const [nivelAcademico,cambiarNivelA ] = useState('');
     
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
@@ -34,6 +35,7 @@ const RegistrarEscuela = ({escuelaData}) => {
                 cambiarEscuela(escuelaData.data().escuela);
                 cambiarModalidaes(escuelaData.data().modalidades);
                 cambiarCategoria(escuelaData.data().categoria);
+                cambiarNivelA(escuelaData.data().nivelAcademico);
             } else {
                 navigate('/menu-profe');
             }
@@ -57,7 +59,10 @@ const RegistrarEscuela = ({escuelaData}) => {
                 break; 
             case 'categoria':
                 cambiarCategoria(e.target.value);
-                break;     
+                break; 
+            case 'nivelA':
+                cambiarNivelA(e.target.value);
+                break;    
             default:
                 break;
         }
@@ -102,6 +107,7 @@ const RegistrarEscuela = ({escuelaData}) => {
                         escuela: escuela,
                         modalidades: modalidades,
                         categoria: categoria,
+                        nivelAcademico: nivelAcademico,
                         uidUsuario: usuario.uid
                     })
                     .then(() => {
@@ -110,6 +116,8 @@ const RegistrarEscuela = ({escuelaData}) => {
                         cambiarEscuela('');
                         cambiarModalidaes('');
                         cambiarCategoria('');
+                        cambiarNivelA('');
+
 
                         cambiarEdoAlerta(true);
                         cambiarAlerta({tipo: 'exito', mensaje: 'Escuela registrada exitosamente'});
@@ -224,6 +232,15 @@ const RegistrarEscuela = ({escuelaData}) => {
                         <select name="categoria"  onChange = {handleChange}>
                             <option value="femenil"> Femenil </option>
                             <option value="varonil"> Varonil </option>
+                        </select> 
+                    </GrupoInput>   
+                </div>
+                <div>
+                    <Label htmlFor='nivelA'> Nivel Académico </Label>
+                    <GrupoInput>
+                        <select name="nivelA"  onChange = {handleChange}>
+                            <option value="Media Superior"> Media Superior </option>
+                            <option value="Superior"> Superior </option>
                         </select> 
                     </GrupoInput>   
                 </div>
