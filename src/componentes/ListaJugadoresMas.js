@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerEquipoVaronil from '../hooks/useObtenerEquipoVaronil';
+import { PDFViewer,PDFDownloadLink } from "@react-pdf/renderer";
+import { saveAs } from 'file-saver';
 import { Lista, 
     ElementoLista,
     Label,
@@ -18,9 +20,15 @@ import { Lista,
     ContenedorSubtitulo,
     Subtitulo
 } from '../elementos/ElementosDeLista';
+import ListaPDF from './ListaPDF';
 
 const ListaJugadoresMas = () => {
     const [varonil,obtenerMasVaronil,hayMasPorCargar] = useObtenerEquipoVaronil();
+    const [ verPDF, setVerPDF] = useState(false);
+    const downloadPDF = () => {
+        const blob = new Blob([<ListaPDF listaJugadores={varonil}/>], { type: 'application/pdf' });
+        saveAs(blob, 'listaJugadores.pdf');
+    };
     return (  
         <>
         <Helmet>
@@ -74,8 +82,22 @@ const ListaJugadoresMas = () => {
                 </ContenedorSubtitulo>
                 }
             <ContenedorBotonCentral>
-                <Boton> Exportar lista </Boton>   
+                <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
+                <PDFDownloadLink document={<ListaPDF listaJugadores={varonil}/>} fileName='listaJugadores.pdf'>
+                    <Boton>Descargar PDF</Boton>
+                </PDFDownloadLink>    
+                <Boton onClick={downloadPDF}>Descargar PDForiginal</Boton>     
+                <a href={<ListaPDF listaJugadores={varonil}/>} download="listaJugadores.pdf">
+                Descargar PDFENLACE
+                </a>
+
             </ContenedorBotonCentral>
+            {verPDF ? 
+                    <PDFViewer width="100%" height="600px">
+                        <ListaPDF listaJugadores={varonil}/>
+                     </PDFViewer>
+                :
+                 null}
         </Lista>
         </>
     );
