@@ -2,6 +2,7 @@ import  {useEffect,useState} from 'react';
 import {firebaseApp} from '../firebase/firebaseConfig';
 import {useAuth} from './../contextos/AuthContext';
 import {getFirestore,collection, onSnapshot, query, where, limit,startAfter} from "firebase/firestore"
+import { Escuela } from '../elementos/ElementosDeLista';
 
 const useObtenerEquipoVaronil = () => {
     const firestore = getFirestore(firebaseApp);
@@ -15,6 +16,7 @@ const useObtenerEquipoVaronil = () => {
             collection(firestore,'jugadores'),
             where('uidUsuario','==',usuario.uid),
             where('sexoJugador','==','Masculino'),
+            where('escuelaJugador','==',varonil.escuelaJugador),
             limit(10),
             startAfter(ultimoVaronil)
         );
