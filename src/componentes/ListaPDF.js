@@ -7,59 +7,88 @@ const styles = StyleSheet.create({
   titulo: {
     color: '#000',
     fontWeight: 'bold',
-    fontSize: '42px'
+    fontSize: '40px',
+    justifyContent: 'center'
   },
-  titulo2: {
-    color: '#000',
+  tituloInfo: {
     fontWeight: 'bold',
+    fontSize: '20px',
+  },
+  tituloDatos: {
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    padding: '0px 10px',
     fontSize: '20px'
+  },
+  contenedorTitulo: {
+    flexDirection: 'row',
+    margin: '10px 0px'
   },
   page: {
     flexDirection: 'column',
     backgroundColor: '#fff',
-    size: 'A4'
+    size: 'A4',
   },
   section: {
-    margin: 10,
-    padding: 10,
+    marginBottom: 10,
     flexGrow: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'row',
   },
   label: {
-    fontWeight: 'bold',
     marginBottom: 5,
+    padding: '10px 0px',
   },
   value: {
-    marginBottom: 10,
+    marginBottom: 2,
+    padding: '0px 10px',
   },
+  apartadoFirmasCont:{
+    flexDirection: 'row',
+    margin: '150px 10px 2px'
+  },
+  apartadoFirmas:{
+    width: '250px',
+    height: '150px',
+    border: 0.5,
+    justifyContent: 'center',
+    padding: '1px 10px'
+  }
 });
 const ListaPDF = ({listaJugadores}) => {
     return (
         <Document>
           <Page style={styles.page}>
             <View>
-            <Text style={styles.titulo}> Inscripción de Jugadores </Text>
-            <Text style={styles.titulo}> Fecha  </Text>            
+                <Text  style={styles.titulo}> Inscripción de Jugadores </Text>
+                <Text style={styles.tituloInfo} > Fecha  </Text> 
+                <Text style={styles.tituloInfo}> Disciplina  </Text> 
+                <Text style={styles.tituloInfo}> Unidad Académica  </Text> 
+                <Text style={styles.label}> Por medio de la presente informo que los alumnos que a continuación se enlistan, representan a esta 
+                Unidad Académica en el TORNEO INTERPOLITÉCNICO.  </Text>   
+            
+            <View style={styles.contenedorTitulo}>
+                <Text style={styles.tituloDatos} >Nombre</Text>
+                <Text style={styles.tituloDatos} >Apellidos</Text>
+                <Text style={styles.tituloDatos}>Boleta</Text>
+                <Text style={styles.tituloDatos}>Escuela</Text>
+                <Text style={styles.tituloDatos}>Semestre</Text>
+            </View>
+            <View>
             {listaJugadores.map((jugador) => (
                 <View key={jugador ? jugador.id : "no existe"} style={styles.section}>
-                <Text style={styles.label}>Nombre:</Text>
                 <Text style={styles.value}>{jugador ?  jugador.nombreJugador : "no existe"}</Text>
-                <Text style={styles.label}>Apellidos:</Text>
                 <Text style={styles.value}>{jugador ?  jugador.apellidosJugador : "no existe"}</Text>
-                <Text style={styles.label}>Boleta:</Text>
                 <Text style={styles.value}>{jugador ?  jugador.boletaJugador : "no existe"}</Text>
-                <Text style={styles.label}>Semestre:</Text>
                 <Text style={styles.value}>{jugador ?  jugador.semestreJugador : "no existe" }</Text>
-                <Text style={styles.label}>Sexo:</Text>
-                <Text style={styles.value}>{jugador ?  jugador.sexoJugador : "no existe"}</Text>
                 <br></br>
                 </View>
-            ))}
-            <Text style={styles.titulo2}> Nombre, firma y sello Jefe de Servicios estudiantiles </Text>
-            <Text style={styles.titulo2}> Sello de Gestión Escolar </Text>
-            <Text style={styles.titulo2}> Sello de la Direccion </Text>
+            ))}           
+            </View>
+            <View style={styles.apartadoFirmasCont}> 
+                <Text style={styles.apartadoFirmas}> Nombre, firma y sello Jefe de Servicios estudiantiles </Text>          
+                <Text style={styles.apartadoFirmas}> Sello de Gestión Escolar </Text>
+                <Text style={styles.apartadoFirmas}> Sello de la Dirección </Text>
+            </View>
             </View>
           </Page>
         </Document>

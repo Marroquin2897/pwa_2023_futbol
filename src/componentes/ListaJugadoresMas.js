@@ -26,10 +26,6 @@ import { Lista,
 const ListaJugadoresMas = () => {
     const [varonil,obtenerMasVaronil,hayMasPorCargar] = useObtenerEquipoVaronil();
     const [ verPDF, setVerPDF] = useState(false);
-    const downloadPDF = () => {
-        const blob = new Blob([<ListaPDF listaJugadores={varonil}/>], { type: 'application/pdf' });
-        saveAs(blob, 'listaJugadores.pdf');
-    };
     return (  
         <>
         <Helmet>

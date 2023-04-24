@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerEquipoFemenil from '../hooks/useObtenerEquipoFemenil';
+import ListaPDF from './ListaPDF';
+import { PDFViewer,PDFDownloadLink } from "@react-pdf/renderer";
 import { Lista, 
     ElementoLista,
     Label,
@@ -21,7 +23,7 @@ import { Lista,
 
 const ListaJugadoresFem = () => {
     const [femenil,obtenerMasFemenil,hayMasPorCargar] = useObtenerEquipoFemenil();
-
+    const [ verPDF, setVerPDF] = useState(false);
     return ( 
         <>
         <Helmet>
@@ -75,11 +77,15 @@ const ListaJugadoresFem = () => {
                     <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorSubtitulo>
                 }
-
-                <ContenedorBotonCentral>
-                    <Boton> Exportar lista </Boton>
-                    
-                </ContenedorBotonCentral>
+            <ContenedorBotonCentral>
+                <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
+            </ContenedorBotonCentral>
+            {verPDF ? 
+                    <PDFViewer width="100%" height="600px">
+                        <ListaPDF listaJugadores={femenil}/>
+                     </PDFViewer>
+                :
+                 null}
         </Lista>
 
         </>
