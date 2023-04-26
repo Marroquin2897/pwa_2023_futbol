@@ -1,178 +1,124 @@
 import {useState,useEffect} from 'react';
 import { Helmet } from 'react-helmet';
-import {Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormulario';
+import {Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
 import {firebaseApp} from "../firebase/firebaseConfig";
-import {getFirestore, collection, addDoc,query,where, getDocs,onSnapshot, doc } from 'firebase/firestore';
+import {getFirestore, collection, addDoc,query,where, getDocs,updateDoc, doc,onSnapshot,setDoc,runTransaction } from 'firebase/firestore';
 import {Lista,ElementoLista,ContenedorBotonCentral,ContenedorBotones,BotonAccion,Nombre,BotonCargarMas,
   ContenedorSubtitulo,
   Subtitulo} from './../elementos/ElementosListaRoundRobin';
 
 const RoundRobin = () => {
-    
-    const [escuelas, setEscuelas] = useState([]);
-    const [categoria, setCategoria] = useState(""); // Estado para almacenar la categoría seleccionada en el formulario
-    const [nivelAcademico, setNivelAcademico] = useState("");
-    const [numEquipos, setNumEquipos] = useState("");
-    const [enfrentamientos, setEnfrentamientos] = useState([]);
+  
+  const [numEquipos, setNumEquipos] = useState(0);
+  const [equipos, setEquipos] = useState([]);
+  const [partidos, setPartidos] = useState([]);
+  const [jornadas, setJornadas] = useState([]);
 
+  // Función que se ejecuta cuando se cambia el número de equipos
+  const handleNumEquiposChange = (event) => {
+    const num = parseInt(event.target.value);
+    setNumEquipos(num);
 
-      const handleChangeNumEquipos = (e) => {
-        setNumEquipos(e.target.value);
-      };
+    // Crea un array de equipos vacío con la longitud del número de equipos
+    const nuevosEquipos = new Array(num).fill("").map((_, i) => `Equipo ${i + 1}`);
+    setEquipos(nuevosEquipos);
+  };
 
-      const generarEnfrentamientos = (numEquipos) => {
-        if (numEquipos % 2 !== 0) {
-          // Si el número de equipos es impar, agregamos un equipo ficticio para hacerlo par
-          numEquipos += 1;
+  // Función que se ejecuta cuando se cambia el nombre de un equipo
+  const handleEquipoChange = (index, nombre) => {
+    const nuevosEquipos = [...equipos];
+    nuevosEquipos[index] = nombre;
+    setEquipos(nuevosEquipos);
+  };
+
+  // Función que se ejecuta cuando se genera el calendario
+  const handleGenerarCalendario = () => {
+    const nuevosPartidos = [];
+    const numPartidosPorJornada = numEquipos / 2;
+  
+    // Crea una lista de equipos
+    const equiposList = equipos.map((equipo, index) => ({ nombre: equipo, index }));
+  
+    // Itera sobre cada jornada
+    for (let j = 0; j < numEquipos - 1; j++) {
+      const jornada = [];
+  
+      // Itera sobre cada partido en la jornada
+      for (let i = 0; i < numPartidosPorJornada; i++) {
+        const equipoLocal = equiposList[i];
+        const equipoVisitante = equiposList[numEquipos - 1 - i];
+  
+        // Asegúrate de que los equipos no se hayan enfrentado antes
+        if (partidos.some((partido) => (partido.local === equipoLocal.nombre && partido.visitante === equipoVisitante.nombre) || (partido.local === equipoVisitante.nombre && partido.visitante === equipoLocal.nombre))) {
+          alert(`El equipo ${equipoLocal.nombre} ya se enfrentó con el equipo ${equipoVisitante.nombre}. Intente de nuevo.`);
+          return;
         }
-      
-        const numJornadas = numEquipos - 1;
-        const numPartidosPorJornada = numEquipos / 2;
-      
-        const enfrentamientos = [];
-      
-        for (let jornada = 0; jornada < numJornadas; jornada++) {
-          const partidosJornada = [];
-          for (let i = 0; i < numPartidosPorJornada; i++) {
-            const equipoLocal = (jornada + i) % (numEquipos - 1);
-            const equipoVisitante = (numEquipos - 1 - i + jornada) % (numEquipos - 1);
-            // Ignoramos el equipo ficticio si es impar
-            if (equipoLocal === numEquipos - 1) {
-              continue;
-            }
-            if (equipoVisitante === numEquipos - 1) {
-              continue;
-            }
-            partidosJornada.push({ equipoLocal, equipoVisitante });
-          }
-          enfrentamientos.push(partidosJornada);
-        }
-      
-        return enfrentamientos;
-      };
-      // Función para obtener los enfrentamientos desde Firestore de acuerdo al número de equipos ingresado por el usuario
-      const obtenerEnfrentamientos = async (numEquipos) => {
-        try {
-          const db = getFirestore(firebaseApp);
-          const partidosRef = collection(db, 'partidos');
-          const partidosQuery = query(partidosRef, where('numEquipos', '==', numEquipos));
-          const partidosSnapshot = await getDocs(partidosQuery);
-          const enfrentamientosFirestore = partidosSnapshot.docs.map(doc => doc.data());
-          setEnfrentamientos(enfrentamientosFirestore);
-        } catch (error) {
-          console.error('Error al obtener los enfrentamientos:', error);
-        }
-      };
-      useEffect(() => {
-        const fetchData = async () => { //Para seleccionar la categoria y el nivel academico 
-          try {
-            const firestore = getFirestore(firebaseApp);
-            const q = query(collection(firestore, 'escuelas'),
-              where('categoria', '==', categoria),
-              where('nivelAcademico', '==', nivelAcademico)
-            );
-            const querySnapshot = await getDocs(q);
-            const escuelasData = querySnapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data()
-            }));
-            setEscuelas(escuelasData);
-          } catch (error) {
-            console.error('Error al obtener las escuelas:', error);
-          }
+  
+        // Crea un objeto con la información del partido
+        const partido = {
+          local: equipoLocal.nombre,
+          visitante: equipoVisitante.nombre,
+          jornada: j + 1
         };
-        fetchData();
-        }, [categoria, nivelAcademico]);
-      
-      useEffect(() => {
-        const enfrentamientosGenerados = generarEnfrentamientos(numEquipos);
-        setEnfrentamientos(enfrentamientosGenerados);
-        obtenerEnfrentamientos(numEquipos);
-      }, [numEquipos]);
-
-      const handleGenerarEnfrentamientos = async (e) => {
-        e.preventDefault();
-        const enfrentamientosGenerados = generarEnfrentamientos(numEquipos);
-        setEnfrentamientos(enfrentamientosGenerados);
-      };
-
-
-    return ( 
-        <>
-        <Helmet>
-            <title>Round Robin</title>
-        </Helmet>
-        <h1> Round Robin</h1>
-        <main>
-        <Formulario>
-            <div>
-                <Label htmlFor='rama'> Selecciona la categoria </Label>
-                  <GrupoInput>
-                      <select value={categoria} onChange={(e) => setCategoria(e.target.value)}>    
-                        <option value="femenil"> Femenil </option>
-                        <option value="varonil"> Varonil </option>
-                            
-                      </select> 
-                  </GrupoInput>   
-            </div>
-            <div>
-                <Label htmlFor='rama'> Selecciona el Nivel Académico: </Label>
-                  <GrupoInput>
-                      <select value={nivelAcademico} onChange={(e) => setNivelAcademico(e.target.value)}>    
-                        <option value="Superior"> Superior </option>
-                        <option value="Media Superior"> Media Superior </option>
-                            
-                      </select> 
-                  </GrupoInput>   
-            </div>
-            <div>
-                <Label htmlFor='rama'> Ingresa Numero de Equipos (Mínimo 6 equipos, Máximo 15 equipos): </Label>
-                  <GrupoInput>
-                  <Input
-						        type='text'
-						        name='numE'
-                    value = {numEquipos}
-                    onChange = {handleChangeNumEquipos}
-					        /> 
-                  </GrupoInput>   
-            </div>
-            
-            <div>
-                <Label htmlFor='rama'> Selecciona Rival </Label>
-                  <GrupoInput>
-                      <select>    
-                        {escuelas.map((escuela) => (   
-                          <option key={escuela.id} value={escuela.id}>
-                          {escuela.escuela}   
-                          </option>
-                        ))}
-                      </select> 
-                  </GrupoInput>   
-            </div>
-            <ContenedorBotonCentrado>
-                <Boton  type = 'submit' onClick={handleGenerarEnfrentamientos}> Generar partidos </Boton>  
-                </ContenedorBotonCentrado>
-                <Lista>
-                  {enfrentamientos.map((jornada, index) => (
-                    <ElementoLista key={index}>
-                      <h2>Jornada {index + 1}</h2>
-                      {jornada.map((partido, index) => (
-                        <div key={index}>
-                          <Nombre>
-                            {escuelas[partido.equipoLocal].escuela} vs{' '}
-                            {escuelas[partido.equipoVisitante].escuela}
-                          </Nombre>
-                        </div>
-                      ))}
-                    </ElementoLista>
-                  ))}
-                </Lista>
-        </Formulario>
-        </main>
-       
+  
+        // Agrega el partido a la lista de partidos
+        nuevosPartidos.push(partido);
         
-        </>
-     );
-}
+        const firestore = getFirestore(firebaseApp);
+        // Agrega el partido a la subcolección "partidos"
+        setDoc(doc(firestore, "partidos", `${partido.local}-${partido.visitante}-${partido.jornada}`), partido)
+          .then(() => {
+            console.log("Partido agregado a la subcolección 'partidos'");
+          })
+          .catch((error) => {
+            console.error("Error al agregar el partido a la subcolección 'partidos':", error);
+          });
+      }
+  
+      // Mueve los equipos hacia arriba en la lista
+      equiposList.splice(1, 0, equiposList.pop());
+    }
+  
+    // Actualiza el estado de los partidos
+    setPartidos(nuevosPartidos);
+  };
+
+    return (
+        <div>
+          <label>
+          Número de equipos:
+           <input
+            type="number"
+            min="6"
+            max="15"
+            value={numEquipos}
+            onChange={handleNumEquiposChange}
+          />
+          </label>
+          {equipos.map((equipo, index) => (
+            <div key={index}>
+              <label>
+                Equipo {index + 1}:
+                <input
+                  type="text"
+                  value={equipo}
+                  onChange={(event) => handleEquipoChange(index, event.target.value)}
+                />
+              </label>
+            </div>
+          ))}
+          <button onClick={handleGenerarCalendario}>Generar calendario</button>
+          {/* Renderiza los partidos */}
+          <h2>Partidos</h2>
+          {partidos.map((partido, index) => (
+            <div key={index}>
+              <p>Jornada {partido.jornada}: {partido.local} vs {partido.visitante}</p>
+            </div>
+          ))}
+        </div>
+        
+      );
+  }
+    
  
 export default RoundRobin;

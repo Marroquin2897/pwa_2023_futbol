@@ -225,3 +225,14 @@ select {   /* Color del rol en crear cuenta */
     transition: .3s ease all;
     border: 15px solid transparent;
 }
+
+.school {   /* Color del school en round robin */
+  width: 35%;
+  background: #cacbcf;
+  border-radius: 30px;
+  height: 45px;
+  line-height: 45px;
+  padding: 0 40px 0 10px;
+  transition: .3s ease all;
+  border: 15px solid transparent;
+}
