@@ -226,6 +226,7 @@ select {   /* Color del rol en crear cuenta */
     border: 15px solid transparent;
 }
 
+<<<<<<< Updated upstream
 .school {   /* Color del school en round robin */
   width: 35%;
   background: #cacbcf;
@@ -236,3 +237,38 @@ select {   /* Color del rol en crear cuenta */
   transition: .3s ease all;
   border: 15px solid transparent;
 }
+=======
+.hero nav button a:hover {
+  color: #011230;
+}
+ 
+.hero img{
+  width: 42px;
+  height: 62px;
+}
+
+h1{
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+
+.hero .login .loginContainer .menu button:hover  {
+  transition: 1s ease all;
+  box-shadow: 0px 5px 10px #560000;
+}
+
+.hero .login .loginContainer .menu2 button {
+color: rgb(255, 255, 255);
+margin: 8px 0;
+display: block;
+font-size: 20px;
+line-height: 1;
+border-radius: 30px;
+border: none;
+outline: none;
+cursor: pointer;
+background: #560000 ;
+} 
+>>>>>>> Stashed changes

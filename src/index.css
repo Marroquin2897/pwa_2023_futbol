@@ -29,3 +29,21 @@ body {
       font-size: 5px; /* redimensión de pantalla ajustada */
   }
 }
+
+.hero .login .loginContainer .menu button:hover  {
+  transition: 1s ease all;
+  box-shadow: 0px 5px 10px #560000;
+}
+
+.hero .login .loginContainer .menu2 button {
+color: rgb(255, 255, 255);
+margin: 8px 0;
+display: block;
+font-size: 20px;
+line-height: 1;
+border-radius: 30px;
+border: none;
+outline: none;
+cursor: pointer;
+background: #560000 ;
+} 
