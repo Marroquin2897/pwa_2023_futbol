@@ -60,7 +60,7 @@ const ListaEscuelas = () => {
             {escuelas.map((escuela) => {
                 return (
                     <ElementoLista key={escuela.id}>
-                        <Label> Entrenador 
+                        <Label> Entrenador
                         <Entrenador> {escuela.nombreEntrenador}</Entrenador>
                         </Label>
                         <Label> Auxiliar
@@ -84,11 +84,11 @@ const ListaEscuelas = () => {
                         </Categoria>   
                         </Label>
                         <ContenedorBotones>
-                        <BotonAccion as={Link} to={`/equipo-femenil/${escuela.id}`}>
-                            <IconoVer/>     
-                        </BotonAccion>
-                        <BotonAccion as={Link} to={`/equipo-varonil/${escuela.id}`}>
-                            <IconoVer/>     
+                        <BotonAccion as={Link} to={
+                            escuela.categoria === "varonil" 
+                            ? `/equipo-varonil/${escuela.id}` 
+                            : `/equipo-femenil/${escuela.id}`
+                        }><IconoVer/>   
                         </BotonAccion>
                         </ContenedorBotones>
                     

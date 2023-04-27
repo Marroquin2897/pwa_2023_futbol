@@ -5,6 +5,7 @@ import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerEquipoVaronil from '../hooks/useObtenerEquipoVaronil';
 import ListaPDF from './ListaPDF';
+import { useParams } from 'react-router-dom';
 import { PDFViewer,PDFDownloadLink } from "@react-pdf/renderer";
 import { saveAs } from 'file-saver';
 import { Lista, 
@@ -24,7 +25,9 @@ import { Lista,
 
 
 const ListaJugadoresMas = () => {
-    const [varonil,obtenerMasVaronil,hayMasPorCargar] = useObtenerEquipoVaronil();
+    const escuelaID = useParams()
+    console.log(escuelaID)
+    const [varonil,obtenerMasVaronil,hayMasPorCargar] = useObtenerEquipoVaronil(escuelaID);
     const [ verPDF, setVerPDF] = useState(false);
     return (  
         <>
@@ -67,8 +70,8 @@ const ListaJugadoresMas = () => {
             })}
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
-                    <BotonCargarMas onClick={() => obtenerMasVaronil()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-profe'/>
+                    <BotonCargarMas onClick={() => obtenerMasVaronil(escuelaID)}> Cargas más </BotonCargarMas>
+                    <BtnRegresar ruta = '/lista-escuelas'/>
                 </ContenedorBotonCentral>
             }
             {varonil.length === 0 &&
