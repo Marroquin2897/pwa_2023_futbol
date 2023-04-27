@@ -5,7 +5,8 @@ import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerEquipoFemenil from '../hooks/useObtenerEquipoFemenil';
 import ListaPDF from './ListaPDF';
-import { PDFViewer,PDFDownloadLink } from "@react-pdf/renderer";
+import { useParams } from 'react-router-dom';
+import { PDFViewer } from "@react-pdf/renderer";
 import { Lista, 
     ElementoLista,
     Label,
@@ -22,7 +23,9 @@ import { Lista,
 } from '../elementos/ElementosDeLista';
 
 const ListaJugadoresFem = () => {
-    const [femenil,obtenerMasFemenil,hayMasPorCargar] = useObtenerEquipoFemenil();
+    const escuelaID = useParams()
+    console.log(escuelaID)
+    const [femenil,obtenerMasFemenil,hayMasPorCargar] = useObtenerEquipoFemenil(escuelaID);
     const [ verPDF, setVerPDF] = useState(false);
     return ( 
         <>
@@ -65,8 +68,8 @@ const ListaJugadoresFem = () => {
             })}
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
-                    <BotonCargarMas onClick={() => obtenerMasFemenil()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-profe'/>
+                    <BotonCargarMas onClick={() => obtenerMasFemenil(escuelaID)}> Cargas más </BotonCargarMas>
+                    <BtnRegresar ruta = '/lista-escuelas'/>
                 </ContenedorBotonCentral>
             }
             

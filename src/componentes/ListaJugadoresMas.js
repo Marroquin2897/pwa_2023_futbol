@@ -6,8 +6,7 @@ import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerEquipoVaronil from '../hooks/useObtenerEquipoVaronil';
 import ListaPDF from './ListaPDF';
 import { useParams } from 'react-router-dom';
-import { PDFViewer,PDFDownloadLink } from "@react-pdf/renderer";
-import { saveAs } from 'file-saver';
+import { PDFViewer } from "@react-pdf/renderer";
 import { Lista, 
     ElementoLista,
     Label,
