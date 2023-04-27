@@ -1,5 +1,4 @@
 import React from 'react';
-import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'; //para crear nuestro PDF
 
