@@ -226,7 +226,7 @@ select {   /* Color del rol en crear cuenta */
     border: 15px solid transparent;
 }
 
-<<<<<<< Updated upstream
+
 .school {   /* Color del school en round robin */
   width: 35%;
   background: #cacbcf;
@@ -237,7 +237,7 @@ select {   /* Color del rol en crear cuenta */
   transition: .3s ease all;
   border: 15px solid transparent;
 }
-=======
+
 .hero nav button a:hover {
   color: #011230;
 }
@@ -271,4 +271,4 @@ outline: none;
 cursor: pointer;
 background: #560000 ;
 } 
->>>>>>> Stashed changes
+

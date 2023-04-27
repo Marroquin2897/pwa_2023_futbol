@@ -139,19 +139,17 @@ const Torneo = () => {
                     </GrupoInput>   
             </div>
             <div>
-                    <Label htmlFor='nivelA'> Rama </Label>
+                    <Label htmlFor='nivelA'> Nivel Académico </Label>
                     <GrupoInput>
                         <select name="nivelA" onChange = {handleChange}>
-                            
                             <option value="Media Superior"> Media Superior </option>
-                            <option value="Superior"> Superior </option>
-                            
+                            <option value="Superior"> Superior </option> 
                         </select> 
                     </GrupoInput>   
             </div>
             <ContenedorBotonCentrado>
                 <Boton  type = 'submit' > Registrar </Boton>  
-                </ContenedorBotonCentrado>
+            </ContenedorBotonCentrado>
             <Alerta 
                 tipo= {alerta.tipo}
                 mensaje= {alerta.mensaje}

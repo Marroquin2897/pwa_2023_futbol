@@ -13,6 +13,9 @@ const RoundRobin = () => {
   const [equipos, setEquipos] = useState([]);
   const [partidos, setPartidos] = useState([]);
   const [jornadas, setJornadas] = useState([]);
+  const [nivelAcademico, setNivelAcademico] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [escuelas, setEscuelas] = useState([]);
 
   // Función que se ejecuta cuando se cambia el número de equipos
   const handleNumEquiposChange = (event) => {
@@ -82,39 +85,108 @@ const RoundRobin = () => {
     // Actualiza el estado de los partidos
     setPartidos(nuevosPartidos);
   };
+  
+  const handleBuscarEscuelas = async () => {
+    try {
+      const firestore = getFirestore(firebaseApp);
+      const escuelasRef = collection(firestore, "escuelas");
+      const q = query(escuelasRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria));
+      const querySnapshot = await getDocs(q);
+  
+      const escuelas = [];
+  
+      querySnapshot.forEach((doc) => {
+        escuelas.push({ id: doc.id, ...doc.data() });
+      });
+  
+      console.log("Escuelas encontradas:", escuelas);
+      setEscuelas(escuelas);
+    } catch (error) {
+      console.error("Error al buscar las escuelas:", error);
+      setEscuelas([]);
+    }
+  };
 
     return (
-        <div>
-          <label>
-          Número de equipos:
-           <input
-            type="number"
-            min="6"
-            max="15"
-            value={numEquipos}
-            onChange={handleNumEquiposChange}
-          />
-          </label>
-          {equipos.map((equipo, index) => (
-            <div key={index}>
-              <label>
-                Equipo {index + 1}:
-                <input
-                  type="text"
-                  value={equipo}
-                  onChange={(event) => handleEquipoChange(index, event.target.value)}
-                />
-              </label>
-            </div>
-          ))}
-          <button onClick={handleGenerarCalendario}>Generar calendario</button>
-          {/* Renderiza los partidos */}
-          <h2>Partidos</h2>
-          {partidos.map((partido, index) => (
-            <div key={index}>
-              <p>Jornada {partido.jornada}: {partido.local} vs {partido.visitante}</p>
-            </div>
-          ))}
+        <div className="hero"> 
+            <nav>
+            <img src="https://tinyurl.com/2b2ek3ck"/>
+              <center><h2>Round Robin</h2></center> 
+              <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+            </nav>
+            <Helmet>
+                <title> Round Robin </title>
+            </Helmet>
+            <main>
+              <Formulario onSubmit={handleGenerarCalendario}>
+                <div>
+                    <Label htmlFor='rama'> Selecciona la rama a jugar </Label>
+                    <GrupoInput>
+                        <select name="rama" onChange = {(e) => setCategoria(e.target.value)}>
+                            <option value="Femenil"> Femenil </option>
+                            <option value="Varonil"> Varonil </option>
+                        </select> 
+                    </GrupoInput>   
+                </div>
+                <div>
+                    <Label htmlFor='nivelA'> Selecciona el nivel académico a jugar </Label>
+                    <GrupoInput>
+                        <select name="nivelA" onChange = {(e) => setNivelAcademico(e.target.value)}>
+                            <option value="Media Superior"> Media Superior </option>
+                            <option value="Superior"> Superior </option> 
+                        </select> 
+                    </GrupoInput>   
+                </div>
+                <div>
+                <button onClick={handleBuscarEscuelas}>Escuelas Disponibles</button>
+                <Lista>
+                  {escuelas.map((escuela) => (
+                    <ElementoLista key={escuela.id}>
+                      <Nombre>{escuela.nombre}</Nombre>
+                    </ElementoLista>
+                  ))}
+            </Lista>
+                </div>
+                <div>
+                <Label> Número de Equipos </Label>
+                  <GrupoInput>
+                    <Input
+                      type='text'
+                      name='numE'
+                      min="6"
+                      max="15"
+                      value = {numEquipos}
+                      onChange = {handleNumEquiposChange}
+                    />
+                  </GrupoInput>
+                </div>
+                <div>
+                    {equipos.map((equipo, index) => (
+                    <div key={index}>
+                      <Label>
+                        Equipo {index + 1}:
+                        <Input
+                          type="text"
+                          value={equipo}
+                          onChange={(event) => handleEquipoChange(index, event.target.value)}
+                        />
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+                
+              <ContenedorBotonCentrado>
+                <Boton  type = 'submit' > Generar Partidos </Boton>  
+              </ContenedorBotonCentrado>
+              <h2>Partidos</h2>
+              {partidos.map((partido, index) => (
+                <div key={index}>
+                  <p>Jornada {partido.jornada}: {partido.local} vs {partido.visitante}</p>
+                </div>
+              ))}
+              </Formulario>
+            </main>
+          
         </div>
         
       );
