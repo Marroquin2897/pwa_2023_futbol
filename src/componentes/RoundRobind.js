@@ -89,16 +89,13 @@ const RoundRobin = () => {
   const handleBuscarEscuelas = async () => {
     try {
       const firestore = getFirestore(firebaseApp);
-      const escuelasRef = collection(firestore, "escuelas");
-      const q = query(escuelasRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria));
-      const querySnapshot = await getDocs(q);
-  
+      const consulta = await getDocs(query(collection(firestore,'escuelas'),where('nivelAcademico','==',nivelAcademico),where('categoria','==',categoria))); 
+      
       const escuelas = [];
   
-      querySnapshot.forEach((doc) => {
+      consulta.forEach((doc) => {
         escuelas.push({ id: doc.id, ...doc.data() });
       });
-  
       console.log("Escuelas encontradas:", escuelas);
       setEscuelas(escuelas);
     } catch (error) {
@@ -118,20 +115,20 @@ const RoundRobin = () => {
                 <title> Round Robin </title>
             </Helmet>
             <main>
-              <Formulario onSubmit={handleGenerarCalendario}>
+              <div>
                 <div>
                     <Label htmlFor='rama'> Selecciona la rama a jugar </Label>
                     <GrupoInput>
-                        <select name="rama" onChange = {(e) => setCategoria(e.target.value)}>
-                            <option value="Femenil"> Femenil </option>
-                            <option value="Varonil"> Varonil </option>
+                        <select name="rama" value={categoria}onChange = {(e) => setCategoria(e.target.value)}>
+                            <option value="femenil"> Femenil </option>
+                            <option value="varonil"> Varonil </option>
                         </select> 
                     </GrupoInput>   
                 </div>
                 <div>
                     <Label htmlFor='nivelA'> Selecciona el nivel académico a jugar </Label>
                     <GrupoInput>
-                        <select name="nivelA" onChange = {(e) => setNivelAcademico(e.target.value)}>
+                        <select name="nivelA" value={nivelAcademico} onChange = {(e) => setNivelAcademico(e.target.value)}>
                             <option value="Media Superior"> Media Superior </option>
                             <option value="Superior"> Superior </option> 
                         </select> 
@@ -139,14 +136,17 @@ const RoundRobin = () => {
                 </div>
                 <div>
                 <button onClick={handleBuscarEscuelas}>Escuelas Disponibles</button>
-                <Lista>
-                  {escuelas.map((escuela) => (
-                    <ElementoLista key={escuela.id}>
-                      <Nombre>{escuela.nombre}</Nombre>
-                    </ElementoLista>
-                  ))}
-            </Lista>
+                {escuelas.length > 0 && (
+                  <ul>
+                    {escuelas.map((escuela) => (
+                      <li key={escuela.id}>{escuela.escuela}</li>
+                    ))}
+                  </ul>
+                )}
                 </div>
+              </div>
+              <Formulario onSubmit={handleGenerarCalendario}>
+                
                 <div>
                 <Label> Número de Equipos </Label>
                   <GrupoInput>
