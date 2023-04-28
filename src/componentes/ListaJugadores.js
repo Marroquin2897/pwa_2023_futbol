@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import {ReactComponent as IconoEditar} from './../imagenes/editar.svg';
@@ -8,6 +8,8 @@ import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerJugadores from '../hooks/useObtenerJugadores';
 import borrarJugador from './../firebase/borrarJugador';
+import { PDFViewer } from "@react-pdf/renderer";
+import ListaPDF from './ListaPDF';
 import { Lista, 
         ElementoLista,
         Label,
@@ -26,7 +28,7 @@ import { Lista,
 
 const ListaJugadores = () => {
     const [jugadores,obtenerMasJugadores,hayMasPorCargar] = useObtenerJugadores();
-    
+    const [ verPDF, setVerPDF] = useState(false);
     return ( 
         <>
         <Helmet>
@@ -89,7 +91,22 @@ const ListaJugadores = () => {
                     <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorSubtitulo>
                 }
-                
+            <ContenedorBotonCentral>
+                <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
+               {/* <PDFDownloadLink document={<ListaPDF listaJugadores={varonil}/>} fileName='listaJugadores.pdf'>
+                    <Boton>Descargar PDF</Boton>
+                </PDFDownloadLink>    
+                <Boton onClick={downloadPDF}>Descargar PDForiginal</Boton>     
+                <a href={<ListaPDF listaJugadores={varonil}/>} download="listaJugadores.pdf">
+                Descargar PDFENLACE
+                </a>*/} 
+            </ContenedorBotonCentral>
+            {verPDF ? 
+                    <PDFViewer width="100%" height="600px">
+                        <ListaPDF listaJugadores={jugadores}/>
+                     </PDFViewer>
+                :
+                 null} 
         </Lista>
 
         </>

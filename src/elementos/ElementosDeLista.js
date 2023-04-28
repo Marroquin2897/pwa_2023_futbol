@@ -247,6 +247,7 @@ const Fecha = styled.div`
 const ContenedorBotones = styled.div`
     @media (max-width: 50rem) { /* 80px */
         justify-content: end;
+       
     }
 `;
  
@@ -267,7 +268,7 @@ const BotonAccion = styled.button`
     align-items: center;
     justify-content: center;
     opacity: 0;
- 
+    overflow: hidden;
     &:hover {
         background: ${theme.grisClaro2};
     }

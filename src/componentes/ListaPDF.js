@@ -3,54 +3,87 @@ import 'jspdf-autotable';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'; //para crear nuestro PDF
 
 const styles = StyleSheet.create({
-  titulo: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: '40px',
-    justifyContent: 'center'
-  },
-  tituloInfo: {
-    fontWeight: 'bold',
-    fontSize: '20px',
-  },
-  tituloDatos: {
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    padding: '0px 10px',
-    fontSize: '20px'
-  },
-  contenedorTitulo: {
-    flexDirection: 'row',
-    margin: '10px 0px'
-  },
   page: {
     flexDirection: 'column',
     backgroundColor: '#fff',
     size: 'A4',
   },
-  section: {
-    marginBottom: 10,
-    flexGrow: 1,
-    flexDirection: 'row',
+  titulo: {
+    color: "#292b2c", 
+    fontSize: "20px", 
+    textAlign: "center", 
+    marginTop: "10px"
+  },
+  estFecha: {
+    fontWeight:"bold", 
+    fontSize: "12px", 
+    textAlign: 'right', 
+    marginRight: "30px"
+  },
+  divEtiquetas: {
+    flexDirection: 'row'
   },
   label: {
-    marginBottom: 5,
-    padding: '10px 0px',
+    width: "80px", 
+    border: "1", 
+    fontSize: "12px",
+    left: "60px",
+    padding: "5px"
   },
-  value: {
-    marginBottom: 2,
-    padding: '0px 10px',
+  value:{
+    width: "220px", 
+    border: "1", 
+    fontSize: "12px",
+    left: "60px",
+    padding: "5px"
   },
-  apartadoFirmasCont:{
+  encabezadosTabla: {
+    fontSize: "12px", 
+    border:"1", 
+    width:"185px",
+    padding: "10px", 
+    textTransform: "uppercase"
+  },
+  encabezadosInfoMasTabla: {
+    fontSize: "12px", 
+    border:"1", 
+    width:"115px",
+    padding: "10px", 
+    textTransform: "uppercase"
+  },
+  contenedorInfoJug: {
+    flexGrow: 1,
     flexDirection: 'row',
-    margin: '150px 10px 2px'
+    margin: "0 60px"
   },
-  apartadoFirmas:{
-    width: '250px',
-    height: '150px',
-    border: 0.5,
-    justifyContent: 'center',
-    padding: '1px 10px'
+  nombreJugadores: {
+    fontSize: "12px", 
+    border:"1", 
+    width:"185px",  
+    padding: "10px"
+  },
+  infoJugadores: {
+    fontSize: "12px", 
+    border:"1", 
+    width:"115px",  
+    padding: "10px"
+  },
+  contenedorFirmas: {
+    flexDirection: 'row', 
+    position: "fixed", 
+    margin:"0 60px", 
+    top: "45%"
+  },
+  etiquetasContFirmas:{
+    fontSize: "12px", 
+    border:"1", 
+    width:"180px", 
+    height: "130px",
+    padding: "10px"
+  },
+  leyendaUno:{
+    fontSize: "12px", 
+    margin: '10px 30px 0 60px '
   }
 });
 const ListaPDF = ({listaJugadores}) => {
@@ -58,36 +91,45 @@ const ListaPDF = ({listaJugadores}) => {
         <Document>
           <Page style={styles.page}>
             <View>
-                <Text  style={styles.titulo}> Inscripción de Jugadores </Text>
-                <Text style={styles.tituloInfo} > Fecha  </Text> 
-                <Text style={styles.tituloInfo}> Disciplina  </Text> 
-                <Text style={styles.tituloInfo}> Unidad Académica  </Text> 
-                <Text style={styles.label}> Por medio de la presente informo que los alumnos que a continuación se enlistan, representan a esta 
+                <Text style={styles.titulo}> Inscripción de Jugadores </Text>
+                <Text style={styles.estFecha} > Fecha: ___________  </Text> 
+                <view style={styles.divEtiquetas} >
+                  <Text style={styles.label}> Disciplina  </Text> 
+                  <Text style={styles.value}/> 
+                </view>
+                <view style={styles.divEtiquetas} >
+                  <Text style={styles.label}> Unidad Académica </Text>  
+                  <Text style={{width: "220px", height: "42px",border: "1", left: "60px"}}/> 
+                </view>
+                <view style={styles.divEtiquetas} >                
+                  <Text style={styles.label}> Categoría  </Text> 
+                  <Text style={styles.value}/> 
+                </view>
+                <Text style={styles.leyendaUno}>Por medio de la presente informo que los alumnos que a continuación se enlistan, representan a esta 
                 Unidad Académica en el TORNEO INTERPOLITÉCNICO.  </Text>   
-            
-            <View style={styles.contenedorTitulo}>
-                <Text style={styles.tituloDatos} >Nombre</Text>
-                <Text style={styles.tituloDatos} >Apellidos</Text>
-                <Text style={styles.tituloDatos}>Boleta</Text>
-                <Text style={styles.tituloDatos}>Escuela</Text>
-                <Text style={styles.tituloDatos}>Semestre</Text>
-            </View>
-            <View>
-            {listaJugadores.map((jugador) => (
-                <View key={jugador ? jugador.id : "no existe"} style={styles.section}>
-                <Text style={styles.value}>{jugador ?  jugador.nombreJugador : "no existe"}</Text>
-                <Text style={styles.value}>{jugador ?  jugador.apellidosJugador : "no existe"}</Text>
-                <Text style={styles.value}>{jugador ?  jugador.boletaJugador : "no existe"}</Text>
-                <Text style={styles.value}>{jugador ?  jugador.semestreJugador : "no existe" }</Text>
-                <br></br>
+           
+                <View style={{flexDirection: 'row', margin: '10px 60px 0'}}>
+                    <Text style={styles.encabezadosTabla} >Nombre</Text>
+                    <Text style={styles.encabezadosTabla} >Apellidos</Text>
+                    <Text style={styles.encabezadosInfoMasTabla}>Boleta</Text>
+                    <Text style={styles.encabezadosInfoMasTabla}>Semestre</Text>
                 </View>
-            ))}           
-            </View>
-            <View style={styles.apartadoFirmasCont}> 
-                <Text style={styles.apartadoFirmas}> Nombre, firma y sello Jefe de Servicios estudiantiles </Text>          
-                <Text style={styles.apartadoFirmas}> Sello de Gestión Escolar </Text>
-                <Text style={styles.apartadoFirmas}> Sello de la Dirección </Text>
-            </View>
+                <View>
+                {listaJugadores.map((jugador) => (
+                    <View key={jugador ? jugador.id : "no existe"} style={styles.contenedorInfoJug}>
+                    <Text style={styles.nombreJugadores}>{jugador ?  jugador.nombreJugador : "no existe"}</Text>
+                    <Text style={styles.nombreJugadores}>{jugador ?  jugador.apellidosJugador : "no existe"}</Text>
+                    <Text style={styles.infoJugadores}>{jugador ?  jugador.boletaJugador : "no existe"}</Text>
+                    <Text style={styles.infoJugadores}>{jugador ?  jugador.semestreJugador : "no existe" }</Text>
+                    <br></br>
+                    </View>
+                ))}           
+                </View>
+                <View style={styles.contenedorFirmas}> 
+                    <Text style={styles.etiquetasContFirmas}> Nombre, firma y sello Jefe de Servicios estudiantiles </Text>          
+                    <Text style={styles.etiquetasContFirmas}> Sello de Gestión Escolar </Text>
+                    <Text style={styles.etiquetasContFirmas}> Sello de la Dirección </Text>
+                </View>
             </View>
           </Page>
         </Document>
