@@ -2,20 +2,20 @@ import {useState,useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import {Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
 import {firebaseApp} from "../firebase/firebaseConfig";
-import {getFirestore, collection, addDoc,query,where, getDocs,updateDoc, doc,onSnapshot,setDoc,runTransaction } from 'firebase/firestore';
-import {Lista,ElementoLista,ContenedorBotonCentral,ContenedorBotones,BotonAccion,Nombre,BotonCargarMas,
-  ContenedorSubtitulo,
-  Subtitulo} from './../elementos/ElementosListaRoundRobin';
+import {getFirestore, collection, addDoc,query,where, getDocs, doc,setDoc } from 'firebase/firestore';
+import {Lista,ElementoLista,Nombre } from './../elementos/ElementosListaRoundRobin';
+  import Alerta from '../elementos/Alerta';
 
 const RoundRobin = () => {
   
   const [numEquipos, setNumEquipos] = useState(0);
   const [equipos, setEquipos] = useState([]);
   const [partidos, setPartidos] = useState([]);
-  const [jornadas, setJornadas] = useState([]);
   const [nivelAcademico, setNivelAcademico] = useState("");
   const [categoria, setCategoria] = useState("");
   const [escuelas, setEscuelas] = useState([]);
+  const[estadoAlerta,cambiarEdoAlerta] = useState(false);
+  const[alerta,cambiarAlerta] = useState({});
 
   // Función que se ejecuta cuando se cambia el número de equipos
   const handleNumEquiposChange = (event) => {
@@ -35,7 +35,8 @@ const RoundRobin = () => {
   };
 
   // Función que se ejecuta cuando se genera el calendario
-  const handleGenerarCalendario = () => {
+  const handleGenerarCalendario = (e) => {
+    e.preventDefault();
     const nuevosPartidos = [];
     const numPartidosPorJornada = numEquipos / 2;
   
@@ -53,7 +54,11 @@ const RoundRobin = () => {
   
         // Asegúrate de que los equipos no se hayan enfrentado antes
         if (partidos.some((partido) => (partido.local === equipoLocal.nombre && partido.visitante === equipoVisitante.nombre) || (partido.local === equipoVisitante.nombre && partido.visitante === equipoLocal.nombre))) {
-          alert(`El equipo ${equipoLocal.nombre} ya se enfrentó con el equipo ${equipoVisitante.nombre}. Intente de nuevo.`);
+          cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:`El equipo ${equipoLocal.nombre} ya se enfrentó con el equipo ${equipoVisitante.nombre}. Intente de nuevo.`
+            });
           return;
         }
   
@@ -71,10 +76,20 @@ const RoundRobin = () => {
         // Agrega el partido a la subcolección "partidos"
         setDoc(doc(firestore, "partidos", `${partido.local}-${partido.visitante}-${partido.jornada}`), partido)
           .then(() => {
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'exito',
+                mensaje:'Enfrentamientos Guardados Exitosamente'
+            });
             console.log("Partido agregado a la subcolección 'partidos'");
           })
           .catch((error) => {
-            console.error("Error al agregar el partido a la subcolección 'partidos':", error);
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Error al Guardar Enfrentamientos'
+            });
+            
           });
       }
   
@@ -99,7 +114,12 @@ const RoundRobin = () => {
       console.log("Escuelas encontradas:", escuelas);
       setEscuelas(escuelas);
     } catch (error) {
-      console.error("Error al buscar las escuelas:", error);
+      cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'No hay escuelas para esta categoria y nivel académico'
+            });
+      console.error(error);
       setEscuelas([]);
     }
   };
@@ -135,14 +155,22 @@ const RoundRobin = () => {
                     </GrupoInput>   
                 </div>
                 <div>
-                <button onClick={handleBuscarEscuelas}>Escuelas Disponibles</button>
-                {escuelas.length > 0 && (
-                  <ul>
-                    {escuelas.map((escuela) => (
-                      <li key={escuela.id}>{escuela.escuela}</li>
-                    ))}
-                  </ul>
-                )}
+                <ContenedorBotonCentrado>
+                <Boton  onClick={handleBuscarEscuelas}  > Escuelas Disponibles </Boton>  
+                </ContenedorBotonCentrado>
+                <Lista>
+                {escuelas.map((escuela) => {
+                  return(
+                    <ElementoLista key={escuela.id}>
+                      <Label> Escuela
+                        <Nombre>
+                            {escuela.escuela}
+                        </Nombre>
+                        </Label>
+                    </ElementoLista>
+                  );
+                })}
+                </Lista>
                 </div>
               </div>
               <Formulario onSubmit={handleGenerarCalendario}>
@@ -176,7 +204,7 @@ const RoundRobin = () => {
                 </div>
                 
               <ContenedorBotonCentrado>
-                <Boton  type = 'submit' > Generar Partidos </Boton>  
+                <Boton  type = 'submit' onClick={handleGenerarCalendario} > Generar Partidos </Boton>  
               </ContenedorBotonCentrado>
               <h2>Partidos</h2>
               {partidos.map((partido, index) => (
@@ -184,6 +212,12 @@ const RoundRobin = () => {
                   <p>Jornada {partido.jornada}: {partido.local} vs {partido.visitante}</p>
                 </div>
               ))}
+                <Alerta 
+                  tipo= {alerta.tipo}
+                  mensaje= {alerta.mensaje}
+                  estadoAlerta={estadoAlerta}
+                  cambiarEdoAlerta={cambiarEdoAlerta}
+                />
               </Formulario>
             </main>
           
