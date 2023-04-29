@@ -28,6 +28,7 @@ import EditarUsuario from './componentes/EditarUsuario';
 import Torneo from './componentes/Torneo';
 import ListaTorneos from './componentes/ListaTorneos';
 import RoundRobin from './componentes/RoundRobind';
+import Grupos from './componentes/Grupos';
 
 WebFont.load({
   google: {
@@ -120,6 +121,11 @@ const Index = () => {
             <Route path="/round-robin" element={
               <RutaPrivada>
                 <RoundRobin/>
+              </RutaPrivada>
+            }/>
+            <Route path="/grupos" element={
+              <RutaPrivada>
+                <Grupos/>
               </RutaPrivada>
             }/>
         </Routes>

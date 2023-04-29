@@ -38,10 +38,9 @@ const ListaTorneos = () => {
                         <Nombre> {torneo.sistemaCompetencia}</Nombre>
                         </Label>
                         <ContenedorBotones>
-                            <BotonAccion as={Link} to={'/round-robin'}>
+                            <BotonAccion as={Link} to={'/grupos'}>
                                 <IconoCalendar/>     
                             </BotonAccion>
-                            
                         </ContenedorBotones>
 
                     </ElementoLista>
