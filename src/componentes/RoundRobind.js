@@ -38,11 +38,16 @@ const RoundRobin = () => {
   const handleGenerarCalendario = (e) => {
     e.preventDefault();
     const nuevosPartidos = [];
-    const numPartidosPorJornada = numEquipos / 2;
+    const numPartidosPorJornada = Math.floor(numEquipos / 2);
   
     // Crea una lista de equipos
     const equiposList = equipos.map((equipo, index) => ({ nombre: equipo, index }));
-  
+
+    // Si numEquipos es impar, agrega un equipo ficticio con nombre "Equipo 0"
+    if (numEquipos % 2 !== 0) {
+      equiposList.push({ nombre: "Equipo 0", index: numEquipos });
+    }
+
     // Itera sobre cada jornada
     for (let j = 0; j < numEquipos - 1; j++) {
       const jornada = [];
@@ -50,9 +55,16 @@ const RoundRobin = () => {
       // Itera sobre cada partido en la jornada
       for (let i = 0; i < numPartidosPorJornada; i++) {
         const equipoLocal = equiposList[i];
-        const equipoVisitante = equiposList[numEquipos - 1 - i];
-  
-        // Asegúrate de que los equipos no se hayan enfrentado antes
+        let equipoVisitante;
+
+        // Si numEquipos es impar y estamos en la última jornada, el equipo extra se enfrenta a "Equipo 0"
+      if (numEquipos % 2 !== 0 && j === numEquipos - 2 && i === 0) {
+        equipoVisitante = equiposList[numEquipos - 1];
+      } else {
+        equipoVisitante = equiposList[numEquipos - 1 - i];
+      }
+
+          // Asegúrate de que los equipos no se hayan enfrentado antes
         if (partidos.some((partido) => (partido.local === equipoLocal.nombre && partido.visitante === equipoVisitante.nombre) || (partido.local === equipoVisitante.nombre && partido.visitante === equipoLocal.nombre))) {
           cambiarEdoAlerta(true); 
             cambiarAlerta({
@@ -61,7 +73,8 @@ const RoundRobin = () => {
             });
           return;
         }
-  
+      
+
         // Crea un objeto con la información del partido
         const partido = {
           local: equipoLocal.nombre,
@@ -206,6 +219,7 @@ const RoundRobin = () => {
               <ContenedorBotonCentrado>
                 <Boton  type = 'submit' onClick={handleGenerarCalendario} > Generar Partidos </Boton>  
               </ContenedorBotonCentrado>
+              </Formulario>
               <h2>Partidos</h2>
               {partidos.map((partido, index) => (
                 <div key={index}>
@@ -218,7 +232,7 @@ const RoundRobin = () => {
                   estadoAlerta={estadoAlerta}
                   cambiarEdoAlerta={cambiarEdoAlerta}
                 />
-              </Formulario>
+
             </main>
           
         </div>
