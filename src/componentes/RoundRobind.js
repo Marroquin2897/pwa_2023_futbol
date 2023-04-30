@@ -4,7 +4,7 @@ import {Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } f
 import {firebaseApp} from "../firebase/firebaseConfig";
 import {getFirestore, collection, addDoc,query,where, getDocs, doc,setDoc } from 'firebase/firestore';
 import {Lista,ElementoLista,Nombre } from './../elementos/ElementosListaRoundRobin';
-  import Alerta from '../elementos/Alerta';
+import Alerta from '../elementos/Alerta';
 
 const RoundRobin = () => {
   
