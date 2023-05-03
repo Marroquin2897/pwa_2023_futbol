@@ -42,9 +42,9 @@ const GrupoInput = styled.div `
     z-index: 90;
 `;
 
-const Input = styled.input`
+const Input = styled.input` 
     width: 100%;
-    background: #cacbcf;
+    background: #ffff;
     border-radius: 30px;
     height: 45px;
     line-height: 45px;

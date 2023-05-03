@@ -141,7 +141,7 @@ const ContenedorSubtitulo = styled.div`
 `;
  
 const Subtitulo = styled.h3`
-    color: ${theme.grisClaro2};
+    color: ${theme.negro};
     font-weight: 400;
     font-size: 40px;
     padding: 2.5rem 0; /* 40px */

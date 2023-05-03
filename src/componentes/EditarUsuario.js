@@ -13,8 +13,7 @@ const EditarUsuario = () => {
         <>
         <Helmet>
             <title>Editar Usuario</title>
-        </Helmet>
-        <h1> EDITAR Usuario </h1>
+        </Helmet> 
         <RegistroUsuario usuario={usuario}/>
         </>
      );

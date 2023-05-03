@@ -257,13 +257,14 @@ const BotonAccion = styled.button`
     border: none;
     width: 2.5rem; /* 40px */
     display: inline-block;
+    transition: 1s ease all;
+    box-shadow: 0px 5px 10px #560000;
     height: 2.5rem; /* 40px */
     line-height: 2.5rem; /* 40px */
     font-size: 16px;
     cursor: pointer;
     border-radius: 0.31rem; /* 5px */
     margin-left: 0.625rem; /* 10px */
-    transition: .3s ease all;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -291,7 +292,8 @@ const ContenedorSubtitulo = styled.div`
 `;
  
 const Subtitulo = styled.h3`
-    color: ${theme.grisClaro2};
+    color: ${theme.negro};
+    justify-content: center;
     font-weight: 400;
     font-size: 40px;
     padding: 2.5rem 0; /* 40px */

@@ -30,11 +30,16 @@ const ListaJugadores = () => {
     const [jugadores,obtenerMasJugadores,hayMasPorCargar] = useObtenerJugadores();
     const [ verPDF, setVerPDF] = useState(false);
     return ( 
-        <>
+        <div className="hero">
+      <nav>
+      <img src="https://tinyurl.com/2b2ek3ck"/>
+      <center><h2>Lista de Jugadores</h2></center> 
+        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+      </nav>
         <Helmet>
             <title>Lista de Jugadores</title>
         </Helmet>
-        <h1> LISTA DE JUGADORES </h1>
+        
         <Lista>
             {jugadores.map((jugador) => {
                 return(
@@ -87,7 +92,7 @@ const ListaJugadores = () => {
             {jugadores.length === 0 &&
                 <ContenedorSubtitulo>
                     <Subtitulo> No hay jugadores por mostrar</Subtitulo>
-                    <Boton as={Link} to='/registrar-jugador'>Agregar Jugador</Boton>
+                    <Boton as={Link} to='/registrar-jugador'>Agregar Jugador</Boton> 
                     <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorSubtitulo>
                 }
@@ -109,7 +114,7 @@ const ListaJugadores = () => {
                  null} 
         </Lista>
 
-        </>
+        </div>
      );
 }
  

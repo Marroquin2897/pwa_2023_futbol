@@ -14,7 +14,6 @@ const EditarJugadores = () => {
         <Helmet>
             <title>Editar Jugador</title>
         </Helmet>
-        <h1> EDITAR JUGADOR </h1>
         <BtnRegresar ruta = '/lista-jugadores'/>
         <RegistrarJugador jugador={jugador}/>
         </>

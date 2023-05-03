@@ -72,12 +72,8 @@ const Login = () => {
             tipo:'error',
             mensaje: mensaje
            });
-           
         }
-            
     }
-
-
     return ( 
        <div className="hero">
         <Helmet>
@@ -109,7 +105,6 @@ const Login = () => {
                     />
                     <div className='menu2'> <br/><br/><br/><br/>
                         <button type='submit'>Ingresar</button><br/><br/><br/>
-                        
                         <p>¿No tienes cuenta? <Link to='/crear-cuenta'><span> Regístrate</span></Link></p> <br/>
                         <p>¿Olvidaste tu contraseña? <Link to='/forgot-password'><br/><span> Restablecer contraseña</span></Link></p>
                     </div>

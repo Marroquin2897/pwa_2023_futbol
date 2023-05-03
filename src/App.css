@@ -28,7 +28,7 @@
     font-size: 20px;
     letter-spacing: 1px;
     border-radius: 30px;
-    background: #cacbcf; /*color de boton*/
+    background: #cacbcf; /*color de boton registrarse*/
     cursor: pointer;
     
   }
@@ -44,7 +44,7 @@
     
   }
   
-  .login .loginContainer { /*Tamaño y color del recuadro*/
+  .login .loginContainer { /*Tamaño y color del recuadro inicio Acceso*/
     padding: 40px;
     margin: auto;
     width: 100%;
@@ -199,7 +199,7 @@
   }
 
   label {
-    color: #fff;
+    color: #000000;
     margin: 14px 0;
     display: block;
     font-size: 22px;
@@ -217,7 +217,7 @@
 
 select {   /* Color del rol en crear cuenta */
     width: 100%;
-    background: #cacbcf;
+    background: #ffffff;
     border-radius: 30px;
     height: 45px;
     line-height: 45px;

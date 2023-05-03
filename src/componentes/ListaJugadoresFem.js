@@ -28,12 +28,15 @@ const ListaJugadoresFem = () => {
     const [femenil,obtenerMasFemenil,hayMasPorCargar] = useObtenerEquipoFemenil(escuelaID);
     const [ verPDF, setVerPDF] = useState(false);
     return ( 
-        <>
+        <div className="hero">
+        <nav>
+        <img src="https://tinyurl.com/2b2ek3ck"/>
+        <center><h2>Equipo Femenil</h2></center> 
+          <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+        </nav>
         <Helmet>
             <title> Equipo Femenil </title>
         </Helmet>
-        <h1> Equipo Femenil </h1>
-
         <Lista>
             {femenil.map((jugador) => {
                 return(
@@ -91,7 +94,7 @@ const ListaJugadoresFem = () => {
                  null}
         </Lista>
 
-        </>
+        </div>
         
      );
 }
