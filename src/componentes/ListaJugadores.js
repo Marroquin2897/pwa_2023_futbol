@@ -25,6 +25,7 @@ import { Lista,
         ContenedorSubtitulo,
         Subtitulo
  } from '../elementos/ElementosDeLista';
+import ListaExcel from './ListaExcel';
 
 const ListaJugadores = () => {
     const [jugadores,obtenerMasJugadores,hayMasPorCargar] = useObtenerJugadores();
@@ -105,7 +106,9 @@ const ListaJugadores = () => {
                 <a href={<ListaPDF listaJugadores={varonil}/>} download="listaJugadores.pdf">
                 Descargar PDFENLACE
                 </a>*/} 
+                <ListaExcel listaJugadores={jugadores}/>
             </ContenedorBotonCentral>
+            
             {verPDF ? 
                     <PDFViewer width="100%" height="600px">
                         <ListaPDF listaJugadores={jugadores}/>
