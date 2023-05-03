@@ -29,6 +29,9 @@ import Torneo from './componentes/Torneo';
 import ListaTorneos from './componentes/ListaTorneos';
 import RoundRobin from './componentes/RoundRobind';
 import Grupos from './componentes/Grupos';
+import EstadisticasFR from './componentes/EstadisticasFR';
+import RegistrarResultados from './componentes/RegistrarResultados';
+
 
 WebFont.load({
   google: {
@@ -126,6 +129,16 @@ const Index = () => {
             <Route path="/grupos" element={
               <RutaPrivada>
                 <Grupos/>
+              </RutaPrivada>
+            }/>
+            <Route path="/estadisticas-fr" element={
+              <RutaPrivada>
+                <EstadisticasFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/RR-FR-FemenilSuperior" element={
+              <RutaPrivada>
+                <RegistrarResultados/>
               </RutaPrivada>
             }/>
         </Routes>
