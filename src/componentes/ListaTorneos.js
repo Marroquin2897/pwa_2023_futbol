@@ -38,8 +38,10 @@ const ListaTorneos = () => {
                         <Nombre> {torneo.sistemaCompetencia}</Nombre>
                         </Label>
                         <ContenedorBotones>
-                            <BotonAccion as={Link} to={'/grupos'}>
-                                <IconoCalendar/>     
+                            <BotonAccion as={Link} to={
+                                torneo.sistemaCompetencia === "RoundRobin"
+                                ? '/round-robin'
+                                : '/grupos'}><IconoCalendar/>     
                             </BotonAccion>
                         </ContenedorBotones>
 
