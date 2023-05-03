@@ -61,6 +61,8 @@
     color: #ffffff;
     text-decoration: none;
     height: 50px;
+    text-align: center;
+
   }
   
   /* Styling of overlay background: rgba(0, 0, 0, 0.3); */
@@ -92,6 +94,7 @@
     background: #560000; /*Color boton cerrar sesion*/
     cursor: pointer;
     margin: 30px 10px 0;
+    text-align: center;
   }
 
 .saludosMenu{
