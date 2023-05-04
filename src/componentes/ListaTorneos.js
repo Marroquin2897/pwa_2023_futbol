@@ -54,7 +54,7 @@ const ListaTorneos = () => {
             {torneos.length === 0 &&
                 <ContenedorSubtitulo>
                     <Subtitulo> No hay torneos por mostrar</Subtitulo>
-                    <Boton as={Link} to='/nuevo-torneo'>Agregar Nuevo Torneo</Boton>
+                    <Boton as={Link} to='/nuevo-torneo'>Agregar Nuevo Torneo</Boton><br/>
                     <BtnRegresar ruta = '/menu-admin'/>
                 </ContenedorSubtitulo>
                 }

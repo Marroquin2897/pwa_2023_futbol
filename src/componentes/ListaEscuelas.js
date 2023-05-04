@@ -88,13 +88,12 @@ const ListaEscuelas = () => {
                             escuela.categoria === "varonil" 
                             ? `/equipo-varonil/${escuela.id}` 
                             : `/equipo-femenil/${escuela.id}`
-                        }><IconoVer/>   
+                        }><IconoVer/> 
                         </BotonAccion>
-                        </ContenedorBotones>
-                    
+                        </ContenedorBotones><br/>
                     </ElementoLista>
                 );
-            })}
+            })}<br/>
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasEscuelas()}> Cargas más </BotonCargarMas>
@@ -102,11 +101,11 @@ const ListaEscuelas = () => {
                 </ContenedorBotonCentral>
             }
             {escuelas.length === 0 &&
-                <ContenedorSubtitulo>
-                    <Subtitulo> No hay escuelas por mostrar</Subtitulo>
-                    <Boton as={Link} to='/registrar-escuela'>Registrar Escuela</Boton>
-                    <BtnRegresar ruta = '/menu-profe'/>
-                </ContenedorSubtitulo>
+                <center><ContenedorSubtitulo>
+                    <Subtitulo> No hay escuelas por mostrar</Subtitulo><br/><br/>
+                    <Boton as={Link} to='/registrar-escuela'>Registrar Escuela</Boton><br/>
+                    <BtnRegresar ruta = '/menu-admin'/><br/>
+                </ContenedorSubtitulo></center>
                 }
         </Lista>
         </div>

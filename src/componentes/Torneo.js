@@ -6,6 +6,8 @@ import {useAuth} from './../contextos/AuthContext';
 import {getFirestore, collection, addDoc,query,where, getDocs } from 'firebase/firestore';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import agregarTorneo from '../firebase/agregarTorneo';
+import BtnRegresar from '../elementos/BtnRegresar';
+
 
 const Torneo = () => {
 
@@ -148,8 +150,10 @@ const Torneo = () => {
                     </GrupoInput>   
             </div>
             <ContenedorBotonCentrado>
-                <Boton  type = 'submit' > Registrar </Boton>  
+                <Boton  type = 'submit' > Registrar </Boton>  <br/>
+                <BtnRegresar ruta = '/menu-admin'/>
             </ContenedorBotonCentrado>
+                    
             <Alerta 
                 tipo= {alerta.tipo}
                 mensaje= {alerta.mensaje}

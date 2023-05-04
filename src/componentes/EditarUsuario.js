@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import RegistroUsuario from './RegistroUsuario';
 import useObtenerUsuario from '../hooks/useObtenerUsuario';
 import BtnRegresar from '../elementos/BtnRegresar';
+import {ContenedorBotonCentral} from '../elementos/ElementosDeLista';
 
 const EditarUsuario = () => {
     const{id} = useParams();
@@ -15,6 +16,9 @@ const EditarUsuario = () => {
             <title>Editar Usuario</title>
         </Helmet> 
         <RegistroUsuario usuario={usuario}/>
+        <ContenedorBotonCentral>
+                    <BtnRegresar ruta = '/menu-profe'/>
+                </ContenedorBotonCentral>        
         </>
      );
 }
