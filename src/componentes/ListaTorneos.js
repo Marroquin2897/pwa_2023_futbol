@@ -39,7 +39,7 @@ const ListaTorneos = () => {
                         </Label>
                         <ContenedorBotones>
                             <BotonAccion as={Link} to={
-                                torneo.sistemaCompetencia === "RoundRobin"
+                                torneo.sistemaCompetencia === "Round Robin"
                                 ? '/round-robin'
                                 : '/grupos'}><IconoCalendar/>     
                             </BotonAccion>

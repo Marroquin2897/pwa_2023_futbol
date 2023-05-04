@@ -15,7 +15,7 @@ class MenuAdmin extends React.Component  {
     render () {
       return (
         <Menu >
-          <Link id="listaEscuela" className="menu-item" to="/lista-escuelas"> <FaUserPlus className='iconMenu'/>  Lista de Escuelas</Link>
+          <Link id="listaEscuela" className="menu-item" to="/lista-esc-adm"> <FaUserPlus className='iconMenu'/>  Lista de Escuelas</Link>
           <Link id="estadisticas" className="menu-item" to="/estadisticas-fr" > <FaRegChartBar  className='iconMenu'/>  Tabla General de Fútbol Rápido </Link>
           <Link id="estadisticas" className="menu-item" to="/RR-FR-FemenilSuperior" > <FaRegChartBar  className='iconMenu'/>  Registrar Resultados Fútbol Rápido Femenil Nivel Superior </Link>
           <Link id="estadisticas" className="menu-item" to="/registrar-resultado" > <FaRegChartBar  className='iconMenu'/>  Registrar Resultados Fútbol Rápido Femenil Media Superior </Link>

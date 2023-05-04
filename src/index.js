@@ -31,6 +31,7 @@ import RoundRobin from './componentes/RoundRobind';
 import Grupos from './componentes/Grupos';
 import EstadisticasFR from './componentes/EstadisticasFR';
 import RegistrarResultados from './componentes/RegistrarResultados';
+import ListaEscuelasAdm from './componentes/ListaEscuelasAdm';
 
 
 WebFont.load({
@@ -73,6 +74,11 @@ const Index = () => {
             <Route path="/lista-escuelas" element={
               <RutaPrivada>
                 <ListaEscuelas/>
+              </RutaPrivada>
+            }/>
+            <Route path="/lista-esc-adm" element={
+              <RutaPrivada>
+                <ListaEscuelasAdm/>
               </RutaPrivada>
             }/>
             <Route path="/equipo-femenil/:id" element={
