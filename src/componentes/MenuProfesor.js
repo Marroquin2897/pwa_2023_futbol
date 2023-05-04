@@ -4,6 +4,7 @@ import { slide as Menu } from 'react-burger-menu'
 import '../MenuSide.css';
 import { Link } from 'react-router-dom';
 import {FaUserEdit, FaPlusCircle, FaUserPlus, FaClipboardList, FaListUl, FaRegChartBar, FaCalendarAlt} from "react-icons/fa";
+import {TbSoccerField} from "react-icons/tb";
 import {firebaseApp} from "../firebase/firebaseConfig";
 
 
@@ -23,8 +24,8 @@ class MenuProfesor extends React.Component  {
           <Link id="listaJugador" className="menu-item" to="/lista-jugadores"> <FaClipboardList className='iconMenu'/>  Lista de Jugadores</Link><br/>
           <Link id="listaEscuela" className="menu-item" to="/lista-escuelas"> <FaListUl className='iconMenu'/>  Lista de Escuelas</Link><br/>
           <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar className='iconMenu'/>  Estadisticas</Link><br/>
-          <Link id="rolJuegos" className="menu-item" to="/" > <FaCalendarAlt className='iconMenu'/>  Rol de Juegos</Link><br/>
-          <button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesion</button><br/>
+          <Link id="rolJuegos" className="menu-item" to="/" > <TbSoccerField className='iconMenu'/>  Rol de Juegos</Link>
+          <center><button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesion</button></center>
         </Menu>
       );
     }       
