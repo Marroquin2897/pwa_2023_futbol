@@ -70,10 +70,6 @@
     background: red;
   }
 
-.menu-item :hover{ 
-    color: rgb(255, 255, 255);
-    height: 300px;
-  }
 
   /******************Estilos para registrar resultados**********************/
  /* .iconMenu{ Color de los iconos en menu
