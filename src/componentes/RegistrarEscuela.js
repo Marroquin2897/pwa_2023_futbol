@@ -2,7 +2,8 @@ import React, {useState,useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import { FormularioEscuela } from '../elementos/FormularioEscuela';
 import {useAuth} from './../contextos/AuthContext';
-import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormulario';
+import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input,} from '../elementos/ElementosFormulario';
+import BtnRegresar from '../elementos/BtnRegresar';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import {getFirestore, collection, addDoc,query,where, getDocs } from 'firebase/firestore';
 import agregarEscuela from '../firebase/agregarEscuela';
@@ -249,7 +250,8 @@ const RegistrarEscuela = ({escuelaData}) => {
                     </GrupoInput>   
                 </div>
                 <ContenedorBotonCentrado>
-                <Boton  type = 'submit' > Registrar </Boton>  
+                <Boton  type = 'submit' > Registrar </Boton><br/>
+                <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorBotonCentrado>
             <Alerta 
                 tipo= {alerta.tipo}

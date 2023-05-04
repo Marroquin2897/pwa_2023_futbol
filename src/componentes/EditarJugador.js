@@ -14,7 +14,6 @@ const EditarJugadores = () => {
         <Helmet>
             <title>Editar Jugador</title>
         </Helmet>
-        
         <RegistrarJugador jugador={jugador}/>
         </>
      );

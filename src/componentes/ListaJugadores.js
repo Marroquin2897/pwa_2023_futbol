@@ -84,18 +84,18 @@ const ListaJugadores = () => {
                 );
             })}
             {hayMasPorCargar && 
-                <ContenedorBotonCentral>
+                <center><ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasJugadores()}> Cargas más </BotonCargarMas>
                     <BtnRegresar ruta = '/menu-profe'/>
-                </ContenedorBotonCentral>
+                </ContenedorBotonCentral></center>
             }
             
             {jugadores.length === 0 &&
-                <ContenedorSubtitulo>
+                <center><ContenedorSubtitulo>
                     <Subtitulo> No hay jugadores por mostrar</Subtitulo>
-                    <Boton as={Link} to='/registrar-jugador'>Agregar Jugador</Boton> 
+                    <Boton as={Link} to='/registrar-jugador'>Agregar Jugador</Boton><br/>
                     <BtnRegresar ruta = '/menu-profe'/>
-                </ContenedorSubtitulo>
+                </ContenedorSubtitulo></center> 
                 }
             <ContenedorBotonCentral>
                 <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
