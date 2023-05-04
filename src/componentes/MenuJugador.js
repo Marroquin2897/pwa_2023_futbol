@@ -14,7 +14,7 @@ class MenuJugador extends React.Component  {
     render () {
       return (
         <Menu >
-          <Link id="editarPerfil" className="menu-item" to="/"><FaUserEdit  className='iconMenu'/>  Editar perfil</Link>
+          <Link id="editarPerfil" className="menu-item" to={`/editar-perfil/${auth.currentUser.uid}`}><FaUserEdit  className='iconMenu'/>  Editar perfil</Link>
           <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar  className='iconMenu'/>  Estadísticas</Link>
           <Link id="rolJuegos" className="menu-item" to="/" > <TbSoccerField  className='iconMenu'/>  Rol de juegos</Link>
           <Link id="noticias" className="menu-item" to="/" > <FaNewspaper  className='iconMenu'/>  Noticias</Link>

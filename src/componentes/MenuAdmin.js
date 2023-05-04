@@ -17,6 +17,7 @@ class MenuAdmin extends React.Component  {
       return (
         <Menu >
 
+
           <Link id="listaEscuela" className="menu-item" to="/lista-escuelas"> <FaUserPlus className='iconMenu'/>  Lista de Escuelas</Link>
           <Link id="estadisticas" className="menu-item" to="/estadisticas-fr" > <FaRegChartBar  className='iconMenu'/>  Tabla General de Fútbol Rápido </Link>
           <Link id="estadisticas" className="menu-item" to="/RR-FR-FemenilSuperior" > <FaRegChartBar  className='iconMenu'/>  Registrar Resultados Fútbol Rápido Femenil Nivel Superior </Link>
@@ -25,6 +26,9 @@ class MenuAdmin extends React.Component  {
           <Link id="rolJuegos" className="menu-item" to="/lista-torneos" > <FaCalendarAlt  className='iconMenu'/>  Lista de Torneos </Link>
 
           <Link id="listaEscuela" className="menu-item" to="/lista-escuelas"> <MdSchool className='iconMenu'/>  Lista de Escuelas</Link>
+
+          <Link id="listaEscuela" className="menu-item" to="/lista-esc-adm"> <MdSchool className='iconMenu'/>  Lista de Escuelas</Link>
+
           <Link id="estadisticas" className="menu-item" to="/estadisticas-fr" > <FaRegChartBar  className='iconMenu'/>  Tabla General de Fútbol Rápido </Link><br/>
           <Link id="estadisticas" className="menu-item" to="/RR-FR-FemenilSuperior" > <MdOutlineAppRegistration  className='iconMenu'/>  Registrar Resultados Fútbol Rápido Femenil Nivel Superior </Link><br/><br/><br/>
           <Link id="estadisticas" className="menu-item" to="/registrar-resultado" > <MdOutlineAppRegistration  className='iconMenu'/>  Registrar Resultados Fútbol Rápido Femenil Media Superior </Link><br/><br/><br/>

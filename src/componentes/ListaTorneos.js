@@ -25,7 +25,7 @@ const ListaTorneos = () => {
         </Helmet>
         
         <Lista>
-            {torneos.map((torneo) => {
+        {torneos.map((torneo) => {
                 return (
                     <ElementoLista key={torneo.id}>
                         <Label> Nombre Torneo 
@@ -38,7 +38,10 @@ const ListaTorneos = () => {
                         <Nombre> {torneo.sistemaCompetencia}</Nombre>
                         </Label>
                         <ContenedorBotones>
-                            <BotonAccion as={Link} to={"/round-robin"}><IconoCalendar/>     
+                            <BotonAccion as={Link} to={
+                                torneo.sistemaCompetencia === "RoundRobin"
+                                ? '/round-robin'
+                                : '/grupos'}><IconoCalendar/>     
                             </BotonAccion>
                         </ContenedorBotones>
 

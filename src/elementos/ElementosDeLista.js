@@ -157,6 +157,24 @@ const Categoria = styled.div`
         font-size: 1.12rem;
     }
 `;
+const Nivel = styled.div`
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 1.25rem; /* 20px */
+    display: flex;
+    align-items: center;
+    
+    svg {
+        width: 3.12rem; /* 50px */
+        height: auto;
+        margin-right: 1.25rem; /* 20px */
+        border-radius: 0.62rem; /* 10px */
+    }
+ 
+    @media (max-width: 50rem) { /* 80px */
+        font-size: 1.12rem;
+    }
+`;
 const Apellidos = styled.div`
     color: #FFFFFF;
     font-weight: 500;
@@ -337,6 +355,7 @@ export {
     Escuela,
     Modalidades,
     Categoria,
+    Nivel,
     Apellidos,
     Nss,
     Curp,
