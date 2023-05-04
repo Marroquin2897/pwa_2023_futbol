@@ -123,7 +123,7 @@ const Torneo = () => {
                         <select name="sistemacompetencia" onChange = {handleChange}>
                             <option value="Round Robin"> Todos contra todos </option>
                             <option value="Grupos"> Por Grupos </option>
-                            <option value="Eliminacion Directa"> Eliminación Directa </option>
+                            
                         </select> 
                     </GrupoInput>   
             </div>
