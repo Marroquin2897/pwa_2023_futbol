@@ -32,6 +32,7 @@ import Grupos from './componentes/Grupos';
 import EstadisticasFR from './componentes/EstadisticasFR';
 import RegistrarResultados from './componentes/RegistrarResultados';
 import ListaEscuelasAdm from './componentes/ListaEscuelasAdm';
+import TodosContraTodos from './componentes/RoundPrueba';
 
 
 WebFont.load({
@@ -130,6 +131,11 @@ const Index = () => {
             <Route path="/round-robin" element={
               <RutaPrivada>
                 <RoundRobin/>
+              </RutaPrivada>
+            }/>
+            <Route path="/round-prueba" element={
+              <RutaPrivada>
+                <TodosContraTodos/>
               </RutaPrivada>
             }/>
             <Route path="/grupos" element={

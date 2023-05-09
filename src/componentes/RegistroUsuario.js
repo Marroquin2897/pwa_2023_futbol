@@ -404,7 +404,7 @@ const RegistroUsuario = ({usuario}) => {
               <Label htmlFor='rol'> Rol </Label>
               <GrupoInput>
                 <select name="rol" disabled={usuario ? true : false }>                  
-                    <option value="jugador"> Jugador </option>
+                    <option value="alumno"> Alumno </option>
                     <option value="profesor"> Profesor </option>
                 </select> 
               </GrupoInput>   
