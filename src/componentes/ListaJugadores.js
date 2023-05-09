@@ -29,8 +29,8 @@ import ListaExcel from './ListaExcel';
 
 const ListaJugadores = () => {
     const [jugadores,obtenerMasJugadores,hayMasPorCargar] = useObtenerJugadores();
-    const [ verPDF, setVerPDF] = useState(false);
     const nameUsuario = sessionStorage.getItem("name")
+
     return ( 
         <div className="hero">
       <nav>
@@ -102,23 +102,8 @@ const ListaJugadores = () => {
                 </ContenedorSubtitulo></center> 
                 }
             <ContenedorBotonCentral>
-                <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
-               {/* <PDFDownloadLink document={<ListaPDF listaJugadores={varonil}/>} fileName='listaJugadores.pdf'>
-                    <Boton>Descargar PDF</Boton>
-                </PDFDownloadLink>    
-                <Boton onClick={downloadPDF}>Descargar PDForiginal</Boton>     
-                <a href={<ListaPDF listaJugadores={varonil}/>} download="listaJugadores.pdf">
-                Descargar PDFENLACE
-                </a>*/} 
                 <ListaExcel listaJugadores={jugadores}/>
             </ContenedorBotonCentral>
-            
-            {verPDF ? 
-                    <PDFViewer width="100%" height="600px">
-                        <ListaPDF listaJugadores={jugadores}/>
-                     </PDFViewer>
-                :
-                 null} 
         </Lista>
 
         </div>
