@@ -275,13 +275,21 @@ const RegistroUsuario = ({usuario}) => {
         
         
 	}
-	
+	const nameUsuario = sessionStorage.getItem("name")
 	return(
     <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
       <center><h2>{usuario ? 'Editar Usuario' : 'Crear Cuenta'}</h2></center> 
-        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+        { usuario ? 
+            <div>
+            <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+            <h2>{nameUsuario}</h2>
+            </div>
+        :
+            <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+        }
+        
       </nav>
         <Helmet>
             <title> Crear Cuenta </title>
