@@ -33,6 +33,7 @@ import EstadisticasFR from './componentes/EstadisticasFR';
 import RegistrarResultados from './componentes/RegistrarResultados';
 import ListaEscuelasAdm from './componentes/ListaEscuelasAdm';
 import TodosContraTodos from './componentes/RoundPrueba';
+import ListaJugadoresAdm from './componentes/ListaJugadoresAdm';
 
 
 WebFont.load({
@@ -70,6 +71,11 @@ const Index = () => {
             <Route path="/lista-jugadores" element={
               <RutaPrivada>
                 <ListaJugadores/>
+              </RutaPrivada>
+            }/>
+            <Route path="/lista-jugadores-adm" element={
+              <RutaPrivada>
+                <ListaJugadoresAdm/>
               </RutaPrivada>
             }/>
             <Route path="/lista-escuelas" element={

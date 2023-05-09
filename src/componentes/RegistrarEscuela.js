@@ -5,7 +5,7 @@ import {useAuth} from './../contextos/AuthContext';
 import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input,} from '../elementos/ElementosFormulario';
 import BtnRegresar from '../elementos/BtnRegresar';
 import {firebaseApp} from "../firebase/firebaseConfig";
-import {getFirestore, collection, addDoc,query,where, getDocs } from 'firebase/firestore';
+import {getFirestore, collection,query,where, getDocs } from 'firebase/firestore';
 import agregarEscuela from '../firebase/agregarEscuela';
 import {useNavigate} from 'react-router-dom';
 import Alerta from '../elementos/Alerta';
