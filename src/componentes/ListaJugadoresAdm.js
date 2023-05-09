@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import Boton from './../elementos/Boton';
 import {ReactComponent as IconoEditar} from './../imagenes/editar.svg';
 import {ReactComponent as IconoBorrar} from './../imagenes/borrar.svg';
-import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
-import useObtenerJugadores from '../hooks/useObtenerJugadores';
+import useObtenerColeJugadores from '../hooks/useObtenerColeJugadores';
 import borrarJugador from './../firebase/borrarJugador';
 import { Lista, 
         ElementoLista,
@@ -24,8 +24,18 @@ import { Lista,
  } from '../elementos/ElementosDeLista';
 import ListaExcel from './ListaExcel';
 
-const ListaJugadores = () => {
-    const [jugadores,obtenerMasJugadores,hayMasPorCargar] = useObtenerJugadores();
+const ListaJugadoresAdm = () => {
+    const [jugadores,obtenerMasJugadores,hayMasPorCargar] = useObtenerColeJugadores();
+    const [filtro, setFiltro] = useState("");
+    const filtrarJugadores = () => {
+        if (filtro === "Masculino") {
+          return jugadores.filter((jugador) => jugador.sexoJugador === "Masculino");
+        } else if (filtro === "Femenino") {
+            return jugadores.filter((jugador) => jugador.sexoJugador === "Femenino");
+        }else {
+          return jugadores;
+        }
+      };
     const nameUsuario = sessionStorage.getItem("name")
 
     return ( 
@@ -43,7 +53,7 @@ const ListaJugadores = () => {
         </Helmet>
         
         <Lista>
-            {jugadores.map((jugador) => {
+            {filtrarJugadores().map((jugador) => {
                 return(
                     <ElementoLista key={jugador.id}> 
                         <Label> Nombre (s) 
@@ -70,35 +80,32 @@ const ListaJugadores = () => {
                             <Semestre>
                                 {jugador.semestreJugador}
                             </Semestre>
-                        </Label>  
-                        
-
-                        <ContenedorBotones>
-                            <BotonAccion as={Link} to={`/editar-jugador/${jugador.id}`}>
-                                <IconoEditar/>     
-                            </BotonAccion>
-                            <BotonAccion onClick={() => borrarJugador(jugador.id)}>
-                                <IconoBorrar/>
-                            </BotonAccion>
-                        </ContenedorBotones>
+                        </Label>        
+                        <Label> Género 
+                            <Semestre>
+                                {jugador.sexoJugador}
+                            </Semestre>
+                        </Label>                 
                     </ElementoLista>
                 );
             })}
-            {hayMasPorCargar && 
+            {hayMasPorCargar && filtrarJugadores().length !== 0 && 
                 <center><ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasJugadores()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-profe'/>
+                    <BtnRegresar ruta = '/menu-admin'/>
                 </ContenedorBotonCentral></center>
             }
             
-            {jugadores.length === 0 &&
+            {filtrarJugadores().length === 0 &&
                 <center><ContenedorSubtitulo>
                     <Subtitulo> No hay jugadores por mostrar</Subtitulo>
-                    <Boton as={Link} to='/registrar-jugador'>Agregar Jugador</Boton><br/>
-                    <BtnRegresar ruta = '/menu-profe'/>
+                    <BtnRegresar ruta = '/menu-admin'/>
                 </ContenedorSubtitulo></center> 
                 }
             <ContenedorBotonCentral>
+                <Boton onClick={() => setFiltro("Masculino")}>Varonil</Boton>
+                <Boton onClick={() => setFiltro("Femenino")}>Femenil</Boton>
+                <Boton onClick={() => setFiltro("")}>Mostrar Jugadores</Boton>
                 <ListaExcel listaJugadores={jugadores}/>
             </ContenedorBotonCentral>
         </Lista>
@@ -107,4 +114,4 @@ const ListaJugadores = () => {
      );
 }
  
-export default ListaJugadores;
+export default ListaJugadoresAdm;

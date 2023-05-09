@@ -7,6 +7,10 @@ import '../MenuSide.css';
 
 
 function HomePrincipal({usuario}) {
+    
+    sessionStorage.setItem("name", usuario.rol);
+    console.log(usuario.rol);
+      
     return (  
         <>
         <div >   

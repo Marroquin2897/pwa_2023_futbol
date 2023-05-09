@@ -87,23 +87,21 @@ const styles = StyleSheet.create({
   }
 });
 const ListaPDF = ({listaJugadores}) => {
+  const jugadorPrimero = listaJugadores[1];
     return (
         <Document>
           <Page style={styles.page}>
             <View>
                 <Text style={styles.titulo}> Inscripción de Jugadores </Text>
-                <Text style={styles.estFecha} > Fecha: ___________  </Text> 
-                <view style={styles.divEtiquetas} >
-                  <Text style={styles.label}> Disciplina  </Text> 
-                  <Text style={styles.value}/> 
-                </view>
-                <view style={styles.divEtiquetas} >
-                  <Text style={styles.label}> Unidad Académica </Text>  
-                  <Text style={{width: "220px", height: "42px",border: "1", left: "60px"}}/> 
-                </view>
-                <view style={styles.divEtiquetas} >                
-                  <Text style={styles.label}> Categoría  </Text> 
-                  <Text style={styles.value}/> 
+                <Text style={styles.estFecha}> Fecha: ___________  </Text><view style={styles.divEtiquetas}>
+                <Text style={styles.label}> Disciplina  </Text>
+                <Text style={styles.value} />
+              </view><view style={styles.divEtiquetas}>
+                  <Text style={styles.label}> Unidad Académica </Text>
+                  <Text style={styles.value}>{jugadorPrimero ?  jugadorPrimero.escuelaJugador : "no existe"}</Text>
+                </view><view style={styles.divEtiquetas}>
+                  <Text style={styles.label}> Categoría  </Text>
+                  <Text style={styles.value}>{jugadorPrimero ?  jugadorPrimero.sexoJugador : "no existe"}</Text>
                 </view>
                 <Text style={styles.leyendaUno}>Por medio de la presente informo que los alumnos que a continuación se enlistan, representan a esta 
                 Unidad Académica en el TORNEO INTERPOLITÉCNICO.  </Text>   

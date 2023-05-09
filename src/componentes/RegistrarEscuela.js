@@ -5,7 +5,7 @@ import {useAuth} from './../contextos/AuthContext';
 import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input,} from '../elementos/ElementosFormulario';
 import BtnRegresar from '../elementos/BtnRegresar';
 import {firebaseApp} from "../firebase/firebaseConfig";
-import {getFirestore, collection, addDoc,query,where, getDocs } from 'firebase/firestore';
+import {getFirestore, collection,query,where, getDocs } from 'firebase/firestore';
 import agregarEscuela from '../firebase/agregarEscuela';
 import {useNavigate} from 'react-router-dom';
 import Alerta from '../elementos/Alerta';
@@ -133,14 +133,19 @@ const RegistrarEscuela = ({escuelaData}) => {
                 cambiarAlerta({tipo: 'error', mensaje: 'Completa todos los campos'});
             }
     }
-
+    const nameUsuario = sessionStorage.getItem("name")
     return ( 
         <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
-        <center><h2>Registrar Nueva Escuela</h2></center> 
-        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+        <center><h2>Registrar Nueva Escuela</h2></center>    
+        <div>
+            <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+            <h2>{nameUsuario}</h2>
+        </div>
+        
       </nav>
+      
         <Helmet>
             <title>Registrar Escuela</title>
         </Helmet>
