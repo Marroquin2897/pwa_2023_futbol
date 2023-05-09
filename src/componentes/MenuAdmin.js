@@ -19,7 +19,6 @@ class MenuAdmin extends React.Component  {
           
           <Link id="rolJuegos" className="menu-item" to="/nuevo-torneo" > <FaCalendarAlt  className='iconMenu'/>  Nuevo Torneo </Link>
           <Link id="rolJuegos" className="menu-item" to="/lista-torneos" > <FaListOl  className='iconMenu'/>  Lista de Torneos </Link>
-          <Link id="rolJuegos" className="menu-item" to="/round-prueba" > <FaListOl  className='iconMenu'/>  Round ROBIN </Link>
           <Link id="listaEscuela" className="menu-item" to="/lista-esc-adm"> <MdSchool className='iconMenu'/>  Lista de Escuelas</Link>
 
           <Link id="estadisticas" className="menu-item" to="/estadisticas-fr" > <FaRegChartBar  className='iconMenu'/>  Tabla General de Posiciones de Fútbol Rápido </Link><br/>
