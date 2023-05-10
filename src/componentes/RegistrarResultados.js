@@ -61,9 +61,6 @@ const RegistrarResultados = () => {
     }
   };
 
-    
-
-
     return (  
         <div className="hero">
             <nav>
@@ -99,5 +96,4 @@ const RegistrarResultados = () => {
         </div>
     );
 }
- 
 export default RegistrarResultados;
