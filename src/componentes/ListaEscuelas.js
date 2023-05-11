@@ -35,15 +35,6 @@ const ListaEscuelas = () => {
         setCategoriaSeleccionada(categoria);
     }
 
-    //Funcion para mandar a lista de jugadores varonil
-    const redireccionarVaronil = () => {
-        navigate('/equipo-varonil');
-    }
-
-    //Funcion para mandar a lista de jugadores femenil
-    const redireccionarFemenil = () => {
-        navigate('/equipo-femenil');
-    }
 
     const nameUsuario = sessionStorage.getItem("name")
     return ( 
