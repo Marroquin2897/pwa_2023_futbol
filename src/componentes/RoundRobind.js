@@ -37,7 +37,7 @@ const RoundRobin = () => {
     setEquipos(nuevosEquipos);
   };
 
-  async function generarPartidosImpar(equipos){
+  async function generarPartidosImpar(equipos,categoria,nivelAcademico){
     const nEquipos = equipos.length;
     const nJornadas = nEquipos;
     const nPartidosXJornada = (nEquipos+1)/2;
@@ -53,6 +53,8 @@ const RoundRobin = () => {
           jornada: i + 1,
           local: equipos[local],
           visitante: equipos[visitante],
+          categoria: categoria,
+          nivelAcademico: nivelAcademico
         };
         jornada.push(partido);
 
@@ -69,7 +71,7 @@ const RoundRobin = () => {
   }
 
   // Función para generar partidos equipos Par
-  function handleGenerarCalendario (numEquipos)  {
+  function handleGenerarCalendario (numEquipos,categoria,nivelAcademico)  {
     const nuevosPartidos = [];
     const numPartidosPorJornada = Math.floor(numEquipos / 2);
   
@@ -96,7 +98,9 @@ const RoundRobin = () => {
         const partido = {
           local: equipoLocal.nombre,
           visitante: equipoVisitante.nombre,
-          jornada: j + 1
+          jornada: j + 1,
+          categoria: categoria,
+          nivelAcademico: nivelAcademico
         };
   
         // Agrega el partido a la lista de partidos
@@ -133,21 +137,32 @@ const RoundRobin = () => {
   const handleBuscarEscuelas = async () => {
     try {
       const firestore = getFirestore(firebaseApp);
-      const consulta = await getDocs(query(collection(firestore,'escuelas'),where('nivelAcademico','==',nivelAcademico),where('categoria','==',categoria))); 
+      const escuelasSuperiorRef = collection(firestore, "Escuelas Superior");
+      const escuelasMediaSuperiorRef = collection(firestore, "Escuelas Media Superior");
+      
+      const consultaSuperior = query(escuelasSuperiorRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria));
+      const consultaMediaSuperior = query(escuelasMediaSuperiorRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria));
+  
+      const [resultadoSuperior, resultadoMediaSuperior] = await Promise.all([getDocs(consultaSuperior), getDocs(consultaMediaSuperior)]);
       
       const escuelas = [];
   
-      consulta.forEach((doc) => {
+      resultadoSuperior.forEach((doc) => {
         escuelas.push({ id: doc.id, ...doc.data() });
       });
+  
+      resultadoMediaSuperior.forEach((doc) => {
+        escuelas.push({ id: doc.id, ...doc.data() });
+      });
+  
       console.log("Escuelas encontradas:", escuelas);
       setEscuelas(escuelas);
     } catch (error) {
       cambiarEdoAlerta(true); 
-            cambiarAlerta({
-                tipo: 'error',
-                mensaje:'No hay escuelas para esta categoria y nivel académico'
-            });
+      cambiarAlerta({
+          tipo: 'error',
+          mensaje: 'No hay escuelas para esta categoría y nivel académico'
+      });
       console.error(error);
       setEscuelas([]);
     }
