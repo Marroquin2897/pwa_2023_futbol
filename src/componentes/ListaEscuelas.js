@@ -38,7 +38,7 @@ const ListaEscuelas = () => {
 
     const nameUsuario = sessionStorage.getItem("name")
     return ( 
-<div className="hero">
+    <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
         <center><h2>Lista de Escuelas</h2></center> 
