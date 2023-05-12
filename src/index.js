@@ -34,6 +34,7 @@ import RegistrarResultados from './componentes/RegistrarResultados';
 import ListaEscuelasAdm from './componentes/ListaEscuelasAdm';
 import TodosContraTodos from './componentes/RoundPrueba';
 import ListaJugadoresAdm from './componentes/ListaJugadoresAdm';
+import RegistrarResultadosFemenilSuperiorRapido from './componentes/RegistrarResultadosFemenilSuperiorRapido';
 
 
 WebFont.load({
@@ -156,7 +157,7 @@ const Index = () => {
             }/>
             <Route path="/RR-FR-FemenilSuperior" element={
               <RutaPrivada>
-                <RegistrarResultados/>
+                <RegistrarResultadosFemenilSuperiorRapido/>
               </RutaPrivada>
             }/>
         </Routes>
