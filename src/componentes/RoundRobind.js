@@ -171,9 +171,9 @@ const RoundRobin = () => {
   const handleGenerateMatches = (e) => {
     e.preventDefault();
     if (numEquipos % 2 === 0) {
-      handleGenerarCalendario(numEquipos);
+      handleGenerarCalendario(numEquipos,categoria,nivelAcademico);
     } else {
-      generarPartidosImpar(equipos);
+      generarPartidosImpar(equipos,categoria,nivelAcademico);
     }
   };
     return (
@@ -225,7 +225,7 @@ const RoundRobin = () => {
                 </Lista>
                 </div>
               </div>
-              <Formulario onSubmit={handleGenerateMatches}>
+              <Formulario type="submit" onSubmit={handleGenerateMatches}>
                 <div>
                 <Label> Número de Equipos </Label>
                   <GrupoInput>
