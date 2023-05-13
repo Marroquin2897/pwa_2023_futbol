@@ -30,7 +30,6 @@ import ListaTorneos from './componentes/ListaTorneos';
 import RoundRobin from './componentes/RoundRobind';
 import Grupos from './componentes/Grupos';
 import EstadisticasFR from './componentes/EstadisticasFR';
-import RegistrarResultados from './componentes/RegistrarResultados';
 import ListaEscuelasAdm from './componentes/ListaEscuelasAdm';
 import TodosContraTodos from './componentes/RoundPrueba';
 import ListaJugadoresAdm from './componentes/ListaJugadoresAdm';
