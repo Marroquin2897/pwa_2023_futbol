@@ -10,15 +10,16 @@ const EditarUsuario = () => {
     const { id } = useParams();
     const [usuario] = useObtenerUsuario(id);
     console.log({usuario});
-
+    const nameUsuario = sessionStorage.getItem("name")
     return (
         <>
             <Helmet>
                 <title>Editar Usuario</title>
             </Helmet> 
+            
             <RegistroUsuario usuario={usuario} />
             <ContenedorBotonCentral>
-                <BtnRegresar ruta={usuario.rol === "jugador" ? '/menu-profe' : '/rol'} />
+                <BtnRegresar ruta={nameUsuario === "alumno" ? '/menu-alumno' : '/menu-profe'} />
             </ContenedorBotonCentral>        
         </>
      );

@@ -255,15 +255,14 @@ const RegistroUsuario = ({usuario}) => {
         ){ 
             if(usuario){
                 actualizarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion).then(()=>{
-                    navigate('/rol');
+                    console.log(nameUsuario)
+                    navigate(nameUsuario === "alumno" ? '/menu-alumno' : '/menu-profe')
                 }).catch((error)=>{
                     console.log(error);
                 })
             }else if(!usuario) {
                 registrarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo, contrasenia, rol);
-            } else {
-                signInWithEmailAndPassword(auth,correo,contrasenia);
-            }        
+            }      
         }else{
             cambiarEdoAlerta(true);
             cambiarAlerta({
@@ -280,7 +279,8 @@ const RegistroUsuario = ({usuario}) => {
     <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
-      <center><h2>{usuario ? 'Editar Usuario' : 'Crear Cuenta'}<p></p>{nameUsuario}</h2></center> 
+      <center><h2>{nameUsuario ? 'Editar Usuario' : 'Crear Cuenta'}</h2>
+              <h2>{nameUsuario}</h2></center> 
                 <h3><img src="https://tinyurl.com/233pns5r"/></h3>      
       </nav>
         <Helmet>
