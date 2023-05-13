@@ -33,7 +33,7 @@ const ForgotPassword = () => {
     <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
-        <h2>Plataforma para la coordinacion de F7, FA Y FR del IPN</h2> 
+        <h2>PoliKickerFut7RA</h2> 
         <h3><img src="https://tinyurl.com/233pns5r"/></h3>
       </nav>
       <section className="login">
