@@ -10,10 +10,6 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
     const [jornada, setJornada] = useState('');
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({}); 
-    const [golesLocal, setGolesLocal] = useState('');
-    const [golesVisitante, setGolesVisitante] = useState('');
-    const [ganoPenales, setGanoPenales] = useState(false);
-    const [perdioPenales, setPerdioPenales] = useState(false);
     const firestore = getFirestore(firebaseApp);
 
     useEffect(() => {
@@ -30,7 +26,7 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
             querySnapshot.forEach((doc) => {
               const partido = { id: doc.id, ...doc.data() };
               partidos.push(partido);
-              resultados[partido.id] = { golesLocal: '', golesVisitante: '', ganoPenales: false, perdioPenales: false }; // Inicializa el resultado vacío para cada partido
+              resultados[partido.id] = { golesLocal: '', golesVisitante: '', ganadorPenalesLocal: false, ganadorPenalesVisitante: false }; // Inicializa el resultado vacío para cada partido
             });
     
             setPartidos(partidos);
@@ -41,11 +37,11 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
             setResultados({});
           }
         };
-    
         if (jornada) {
           fetchPartidos();
         }
       }, [jornada, firestore]);
+
     const handleVerPartidos = async () => {
         try {
             const firestore = getFirestore(firebaseApp);
@@ -77,43 +73,54 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
         }
       }, [jornada]);
 
-        const handleResultadoChange = (partidoId, campo, valor) => {
-            setResultados((prevState) => {
-                const nuevosResultados = { ...prevState };
-                if (!nuevosResultados[partidoId]) {
-                  nuevosResultados[partidoId] = {};
-                }
-                nuevosResultados[partidoId][campo] = valor;
-                return nuevosResultados;
-              });
-        };
-    const guardarResultados = () => {
+      const handleResultadoChange = (partidoId, campo, valor) => {
+        setResultados((prevState) => {
+          const nuevosResultados = { ...prevState };
+          if (!nuevosResultados[partidoId]) {
+            nuevosResultados[partidoId] = {};
+          }
+          nuevosResultados[partidoId][campo] = valor;
+          return nuevosResultados;
+        });
+      };
+      const handleGanadorPenalesChange = (partidoId, campo, valor) => {
+        setResultados((prevState) => {
+          const nuevosResultados = { ...prevState };
+          if (!nuevosResultados[partidoId]) {
+            nuevosResultados[partidoId] = {};
+          }
+          nuevosResultados[partidoId][campo] = valor;
+          return nuevosResultados;
+        });
+      };
+
+      const guardarResultados = () => {
         Object.entries(resultados).forEach(([partidoId, resultado]) => {
-            const partido = partidos.find((partido) => partido.id === partidoId);
-            if (partido) {
-              const resultadoPartido = {
-                jornada: partido.jornada,
-                local: partido.local,
-                visitante: partido.visitante,
-                golesLocal: resultado.golesLocal,
-                golesVisitante: resultado.golesVisitante,
-              };
-              setDoc(
-                doc(
-                  firestore,
-                  'resultadosFemenilSuperiorRapido',
-                  `${partido.local}-${partido.visitante}-${partido.jornada}`
-                ),
-                resultadoPartido
-              )
-                .then(() => {
-                  console.log('Resultado guardado exitosamente');
-                })
-                .catch((error) => {
-                  console.error('Error al guardar el resultado:', error);
-                });
-            }
-          });
+          const partido = partidos.find((partido) => partido.id === partidoId);
+          const golesPenalesLocal = resultado.ganadorPenalesLocal ? 1 : 0;
+          const golesPenalesVisitante= resultado.ganadorPenalesVisitante ? 1 : 0;
+          const resultadoPartido = {
+            jornada: partido.jornada,
+            local: partido.local,
+            visitante: partido.visitante,
+            golesLocal: resultado.golesLocal,
+            golesVisitante: resultado.golesVisitante,
+            golesPenalesLocal: golesPenalesLocal,
+            golesPenalesVisitante: golesPenalesVisitante,
+          };
+          const docRef = doc(
+            firestore,
+            'resultadosFemenilSuperiorRapido',
+            `${partido.local}-${partido.visitante}-${partido.jornada}`
+          );
+          setDoc(docRef, resultadoPartido)
+            .then(() => {
+              console.log('Resultado guardado exitosamente');
+            })
+            .catch((error) => {
+              console.error('Error al guardar el resultado:', error);
+            });
+        });
       };
 
     return ( 
@@ -143,20 +150,38 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
                         <div>
                         <label htmlFor="golesLocal">Goles Local</label>
                         <input
-                            type="number"
-                            id="golesLocal"
-                            value={resultados[partido.id]?.golesLocal || ''}
-                            onChange= {(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
+                        type="number"
+                        id="golesLocal"
+                        value={resultados[partido.id]?.golesLocal || ''}
+                        onChange={(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
                         />
+                        </div>
+                        <div>
+                            <label htmlFor="ganadorPenalesLocal">Ganador Penales Local:</label>
+                            <input
+                            type="checkbox"
+                            id="ganadorPenalesLocal"
+                            checked={resultados[partido.id]?.ganadorPenalesLocal || false}
+                            onChange={(e) =>handleGanadorPenalesChange(partido.id,'ganadorPenalesLocal',e.target.checked)}
+                            />
                         </div>
                         <div>
                         <label htmlFor="golesVisitante">Goles Visitante:</label>
                         <input
-                            type="number"
-                            id="golesVisitante"
-                            value={resultados[partido.id]?.golesVisitante || ''}
-                            onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
+                        type="number"
+                        id="golesVisitante"
+                        value={resultados[partido.id]?.golesVisitante || ''}
+                        onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
                         />
+                        </div>
+                        <div>
+                            <label htmlFor="ganadorPenalesVisitante">Ganó en penales Visitante:</label>
+                            <input
+                            type="checkbox"
+                            id="ganadorPenalesVisitante"
+                            checked={resultados[partido.id]?.ganadorPenalesVisitante || false}
+                            onChange={(e) =>handleGanadorPenalesChange(partido.id,'ganadorPenalesVisitante',e.target.checked)}
+                            />
                         </div>
                         <button onClick={guardarResultados}>Guardar Resultado</button>
                     </li>
