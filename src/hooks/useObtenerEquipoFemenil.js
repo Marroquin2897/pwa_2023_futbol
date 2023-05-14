@@ -12,7 +12,12 @@ const useObtenerEquipoFemenil = ({id}) => {
 
     const obtenerMasFemenil = ({id}) => { //Mostrar el resto de jugadores
         const obtenerEscuela = async () => {
-            const escuelaRef = doc(firestore, "escuelas", id);   
+            var escuelaRef=''
+            if (escuelaRef){
+                escuelaRef = doc(firestore, "Escuelas Media Superior", id);
+            }else{
+                escuelaRef = doc(firestore, "Escuelas Superior", id);
+            }  
             const escuelaSnap = await getDoc(escuelaRef);
             if (escuelaSnap.exists() && escuelaSnap.data()) {
                 const nombreEsc = escuelaSnap.data().escuela;
@@ -43,7 +48,12 @@ const useObtenerEquipoFemenil = ({id}) => {
     }
     useEffect (() => {
         const obtenerEscuela = async () => {
-            const escuelaRef = doc(firestore, "escuelas", id);   
+            var escuelaRef=''
+            if (escuelaRef){
+                escuelaRef = doc(firestore, "Escuelas Media Superior", id);
+            }else{
+                escuelaRef = doc(firestore, "Escuelas Superior", id);
+            }
             const escuelaSnap = await getDoc(escuelaRef);
             if (escuelaSnap.exists() && escuelaSnap.data()) {
               const nombreEsc = escuelaSnap.data().escuela; 

@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuJugador from '../componentes/MenuJugador';
 
-const JugadorVista = () => {
+const VistaJugador = () => {
     return ( 
         <div> 
             <MenuJugador/>
@@ -14,4 +14,4 @@ const JugadorVista = () => {
      );
 }
  
-export default JugadorVista;
+export default VistaJugador;

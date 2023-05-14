@@ -16,6 +16,7 @@ import RegistrarJugador from './componentes/RegistrarJugador';
 import ListaJugadores from './componentes/ListaJugadores';
 import ListaEscuelas from './componentes/ListaEscuelas';
 import EditarJugador from './componentes/EditarJugador';
+import EditarEscuela from './componentes/EditarEscuela';
 import Noticias from './componentes/Noticias';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/icono2-burrito.png';
@@ -34,6 +35,7 @@ import ListaEscuelasAdm from './componentes/ListaEscuelasAdm';
 import TodosContraTodos from './componentes/RoundPrueba';
 import ListaJugadoresAdm from './componentes/ListaJugadoresAdm';
 import RegistrarResultadosFemenilSuperiorRapido from './componentes/RegistrarResultadosFemenilSuperiorRapido';
+import VistaJugador from './vistas/VistaJugador';
 
 
 WebFont.load({
@@ -104,6 +106,11 @@ const Index = () => {
                 <EditarJugador/>
               </RutaPrivada>
             }/>
+            <Route path="/editar-escuela/:id" element={
+              <RutaPrivada>
+                <EditarEscuela/>
+              </RutaPrivada>
+            }/>
               <Route path="/noticias" element={
                 <RutaPrivada>
                   <Noticias/>
@@ -122,6 +129,11 @@ const Index = () => {
           <Route path="/menu-admin" element={
               <RutaPrivada>
                 <VistaAdmi/>
+              </RutaPrivada>
+            }/>
+            <Route path="/menu-alumno" element={
+              <RutaPrivada>
+                <VistaJugador/>
               </RutaPrivada>
             }/>
           <Route path="/nuevo-torneo" element={
