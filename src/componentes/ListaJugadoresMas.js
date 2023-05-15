@@ -28,11 +28,7 @@ const ListaJugadoresMas = () => {
     console.log(escuelaID)
     const [varonil,obtenerMasVaronil,hayMasPorCargar] = useObtenerEquipoVaronil(escuelaID);
     const [ verPDF, setVerPDF] = useState(false);
-    const [ verPDF, setVerPDF] = useState(false);
-    const downloadPDF = () => {
-        const blob = new Blob([<ListaPDF listaJugadores={varonil}/>], { type: 'application/pdf' });
-        saveAs(blob, 'listaJugadores.pdf');
-    };
+
     const nameUsuario = sessionStorage.getItem("name")
     return (  
         <div className="hero">
@@ -99,23 +95,7 @@ const ListaJugadoresMas = () => {
                 <a href={<ListaPDF listaJugadores={varonil}/>} download="listaJugadores.pdf">
                 Descargar PDFENLACE
                 </a>*/} 
-            <ContenedorBotonCentral>
-                <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
-                <PDFDownloadLink document={<ListaPDF listaJugadores={varonil}/>} fileName='listaJugadores.pdf'>
-                    <Boton>Descargar PDF</Boton>
-                </PDFDownloadLink>    
-                <Boton onClick={downloadPDF}>Descargar PDForiginal</Boton>     
-                <a href={<ListaPDF listaJugadores={varonil}/>} download="listaJugadores.pdf">
-                Descargar PDFENLACE
-                </a>
-
             </ContenedorBotonCentral>
-            {verPDF ? 
-                    <PDFViewer width="100%" height="600px">
-                        <ListaPDF listaJugadores={varonil}/>
-                     </PDFViewer>
-                :
-                 null}
             {verPDF ? 
                     <PDFViewer width="100%" height="600px">
                         <ListaPDF listaJugadores={varonil}/>
