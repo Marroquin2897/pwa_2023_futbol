@@ -131,7 +131,7 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
               <h3><img src="https://tinyurl.com/233pns5r"/></h3>
             </nav>
             <Helmet>
-                <title> Registro de Resultados Fútbol Rápido </title>
+                <title> Registro de Resultados Fútbol Rápido Femenil Nivel Superior </title>
             </Helmet>
             <main>
             <div>
