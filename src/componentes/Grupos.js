@@ -169,8 +169,8 @@ function crearEnfrentamientos(equipos) {
                     <Label htmlFor='nivelA'> Selecciona el nivel académico a jugar </Label>
                     <GrupoInput>
                         <select name="nivelA" value={nivelAcademico} onChange = {(e) => setNivelAcademico(e.target.value)}>
-                            <option value="Media Superior"> Media Superior </option>
-                            <option value="Superior"> Superior </option> 
+                            <option value="Media Superior"> Nivel Media Superior </option>
+                            <option value="Superior"> Nivel Superior </option> 
                         </select> 
                     </GrupoInput>   
                 </div>

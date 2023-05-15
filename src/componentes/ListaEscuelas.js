@@ -72,7 +72,7 @@ const ListaEscuelas = () => {
                             {escuela.modalidades}
                         </Modalidades>   
                         </Label>
-                        <Label> Categoria
+                        <Label> Categoría
                          <Categoria>
                             {escuela.categoria}
                         </Categoria>   

@@ -281,7 +281,7 @@ const RegistrarEscuela = ({escuelaData}) => {
                             <option value= "F7 FR"> Fútbol 7 / Fútbol Rápido </option> 
                             <option value= "F7 FA"> Fútbol 7 / Fútbol Asociación </option>
                             <option value= "FR FA"> Fútbol Rápido / Fútbol Asociación </option>
-                            <option value="F7 FR FA"> Fútbol 7/Fútbol Rápido Fútbol/Asociación</option>
+                            <option value="F7 FR FA"> Fútbol 7 / Fútbol Rápido Fútbol / Asociación</option>
                         </select> 
                     </GrupoInput>   
                 </div>
