@@ -2,24 +2,22 @@ import React, {useState,useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import { FormularioEscuela } from '../elementos/FormularioEscuela';
 import {useAuth} from './../contextos/AuthContext';
-import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormulario';
+import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input,} from '../elementos/ElementosFormulario';
+import BtnRegresar from '../elementos/BtnRegresar';
 import {firebaseApp} from "../firebase/firebaseConfig";
-import {getFirestore, collection, addDoc,query,where, getDocs } from 'firebase/firestore';
+import {getFirestore, collection,query,where, getDocs,addDoc } from 'firebase/firestore';
 import agregarEscuela from '../firebase/agregarEscuela';
 import {useNavigate} from 'react-router-dom';
 import Alerta from '../elementos/Alerta';
 
 
 const RegistrarEscuela = ({escuelaData}) => {
-    
-    
-   
     const firestore = getFirestore(firebaseApp);
     const navigate = useNavigate();  
     const{usuario} = useAuth();
     const [nombreEntrenador, cambiarNombreE] = useState('');
     const [nombreAsistente,cambiarNombreA] = useState('');
-    const [escuela,cambiarEscuela] = useState('');
+    const [nombreEscuela,cambiarEscuela] = useState('');
     const [modalidades,cambiarModalidaes] = useState('');
     const [categoria,cambiarCategoria ] = useState('');
     const [nivelAcademico,cambiarNivelA ] = useState('');
@@ -32,7 +30,7 @@ const RegistrarEscuela = ({escuelaData}) => {
             if(escuelaData.data().uidUsuario === usuario.uid){
                 cambiarNombreE(escuelaData.data().nombreEntrenador);
                 cambiarNombreA(escuelaData.data().nombreAsistente);
-                cambiarEscuela(escuelaData.data().escuela);
+                cambiarEscuela(escuelaData.data().nombreEscuela);
                 cambiarModalidaes(escuelaData.data().modalidades);
                 cambiarCategoria(escuelaData.data().categoria);
                 cambiarNivelA(escuelaData.data().nivelAcademico);
@@ -42,7 +40,6 @@ const RegistrarEscuela = ({escuelaData}) => {
         }
     },[escuelaData,usuario,navigate]);
 
-   
     const handleChange = (e) => {
         switch(e.target.name){
             case 'nombreEntrenador':
@@ -51,7 +48,7 @@ const RegistrarEscuela = ({escuelaData}) => {
             case 'nombreAsistente':
                 cambiarNombreA(e.target.value);
                 break;
-            case 'escuela':
+            case 'nombreEscuela':
                 cambiarEscuela(e.target.value);
                 break;
             case 'modalidades':
@@ -67,12 +64,52 @@ const RegistrarEscuela = ({escuelaData}) => {
                 break;
         }
     }
-
+    
+    const validarEscuelaExistente = async (escuela) => {
+        // Obtener todas las escuelas del nivel superior
+        const escuelasSuperiorRef = collection(firestore, "Escuelas Superior");
+        const querySuperior = query(
+          escuelasSuperiorRef,
+          where("escuela", "==", escuela.escuela),
+          where("categoria", "==", escuela.categoria)
+        );
+        const querySnapshotSuperior = await getDocs(querySuperior);
+      
+        // Verificar si existe una escuela con el mismo nombre y dirección en el nivel superior
+        if (!querySnapshotSuperior.empty) {
+          return true;
+        }
+      
+        // Obtener todas las escuelas del nivel medio superior
+        const escuelasMediaSuperiorRef = collection(firestore, "Escuelas Media Superior");
+        const queryMediaSuperior = query(
+          escuelasMediaSuperiorRef,
+          where("escuela", "==", escuela.escuela),
+          where("categoria", "==", escuela.categoria)
+        );
+        const querySnapshotMediaSuperior = await getDocs(queryMediaSuperior);
+      
+        // Verificar si existe una escuela con el mismo nombre y dirección en el nivel medio superior
+        if (!querySnapshotMediaSuperior.empty) {
+          return true;
+        }
+        // Si no se encontró ninguna escuela con el mismo nombre y dirección, retornar false
+        return false;
+      }
+    const guardarEscuela = async (escuela) => {
+        if (escuela.nivelAcademico === "Superior") {
+          const escuelasSuperiorRef = collection(firestore, "Escuelas Superior");
+          await addDoc(escuelasSuperiorRef, escuela);
+        } else if (escuela.nivelAcademico === "Media Superior") {
+          const escuelasMediaSuperiorRef = collection(firestore, "Escuelas Media Superior");
+          await addDoc(escuelasMediaSuperiorRef, escuela);
+        } else {
+          console.error("Nivel académico no reconocido");
+        }
+      };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-       
-        
        const nombreE = /^[a-zA-ZÀ-ÿ\s]{1,40}$/ ;// Letras y espacios, pueden llevar acentos.
        const nombreA = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
 
@@ -91,54 +128,76 @@ const RegistrarEscuela = ({escuelaData}) => {
                 mensaje:'Ingrese un nombre valido'
             });
             return;
+        } 
+  
+        if(nombreEntrenador === " " || nombreAsistente === " " || nombreEscuela === " " || modalidades === " " || categoria === " ") {
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+            tipo: "error",
+            mensaje: "Completa todos los campos",
+            });
+            return;
         }
+        // Definir la variable escuela antes de llamar a validarEscuelaExistente
+        const escuela = {
+            escuela: nombreEscuela,
+            categoria: categoria,
+            nivelAcademico: nivelAcademico,
+        };
+        const existeEscuela = await validarEscuelaExistente(escuela);
+        if (existeEscuela) {
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+              tipo: "error",
+              mensaje: "Esta escuela ya fue registrada",
+            });
+            return;
+        }
+        const nuevaEscuela = {
+            nombreEntrenador: nombreEntrenador,
+            nombreAsistente: nombreAsistente,
+            escuela: nombreEscuela,
+            modalidades: modalidades,
+            categoria: categoria,
+            nivelAcademico: nivelAcademico,
+            uidUsuario: usuario.uid,
+        };
+        await guardarEscuela(nuevaEscuela)
+        .then(() => {
+            cambiarNombreE("");
+            cambiarNombreA("");
+            cambiarEscuela("");
+            cambiarModalidaes("");
+            cambiarCategoria("");
+            cambiarNivelA("");
 
-        
-            if(nombreEntrenador !== '' && nombreAsistente !== '' && escuela !== '' && modalidades !== '' && categoria !== ''){
-             const consulta = await getDocs(query(collection(firestore,'escuelas'),where('escuela','==',escuela),where('categoria','==',categoria)));   
-                if(consulta.size > 0){
-                    cambiarEdoAlerta(true);
-                    cambiarAlerta({tipo: 'error', mensaje: 'Esta escuela ya existe'});
-                    console.log('Esta escuela ya existe');
-                } else {
-                    agregarEscuela({
-                        nombreEntrenador: nombreEntrenador,
-                        nombreAsistente: nombreAsistente,
-                        escuela: escuela,
-                        modalidades: modalidades,
-                        categoria: categoria,
-                        nivelAcademico: nivelAcademico,
-                        uidUsuario: usuario.uid
-                    })
-                    .then(() => {
-                        cambiarNombreE('');
-                        cambiarNombreA('');
-                        cambiarEscuela('');
-                        cambiarModalidaes('');
-                        cambiarCategoria('');
-                        cambiarNivelA('');
-
-
-                        cambiarEdoAlerta(true);
-                        cambiarAlerta({tipo: 'exito', mensaje: 'Escuela registrada exitosamente'});
-                    })
-                    .catch((error) => {
-                        cambiarEdoAlerta(true);
-                        cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar registrar la escuela.'});
-                    })
-                }
-            } else {
-                cambiarEdoAlerta(true);
-                cambiarAlerta({tipo: 'error', mensaje: 'Completa todos los campos'});
-            }
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: "exito",
+                mensaje: "Escuela registrada exitosamente",
+              });
+        })
+        .catch((error) => {
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: "error",
+                mensaje: "Hubo un problema al intentar registrar la escuela.",
+            });
+        })      
     }
-
+    const nameUsuario = sessionStorage.getItem("name")
     return ( 
-        <>
+        <div className="hero">
+      <nav>
+      <img src="https://tinyurl.com/2b2ek3ck"/>
+        <center><h2>Registrar Nueva Escuela</h2>
+        <h2>{nameUsuario}</h2></center>    
+        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+      </nav>
+      
         <Helmet>
             <title>Registrar Escuela</title>
         </Helmet>
-        <h1> REGISTRAR ESCUELA </h1>
         <main>
             <FormularioEscuela onSubmit={handleSubmit}>
                 <div>
@@ -167,7 +226,7 @@ const RegistrarEscuela = ({escuelaData}) => {
                 <div>
                     <Label htmlFor='escuela'> Escuela </Label>
                     <GrupoInput>
-                        <select name="escuela" onChange = {handleChange}>
+                        <select name="nombreEscuela" onChange = {handleChange}>
                             <option value="CET 1"> CET 1 Walter Cross Buchanan </option>
                             <option value="Cecyt 1"> CECyT No. 1 Gonzalo Vázquez Vela </option>
                             <option value="Cecyt 2"> CECyT No. 2 Miguel Bernard </option>
@@ -222,7 +281,7 @@ const RegistrarEscuela = ({escuelaData}) => {
                             <option value= "F7 FR"> Fútbol 7 / Fútbol Rápido </option> 
                             <option value= "F7 FA"> Fútbol 7 / Fútbol Asociación </option>
                             <option value= "FR FA"> Fútbol Rápido / Fútbol Asociación </option>
-                            <option value="F7 FR FA"> Fútbol 7/Fútbol Rápido Fútbol/Asociación</option>
+                            <option value="F7 FR FA"> Fútbol 7 / Fútbol Rápido Fútbol / Asociación</option>
                         </select> 
                     </GrupoInput>   
                 </div>
@@ -245,7 +304,8 @@ const RegistrarEscuela = ({escuelaData}) => {
                     </GrupoInput>   
                 </div>
                 <ContenedorBotonCentrado>
-                <Boton  type = 'submit' > Registrar </Boton>  
+                <Boton  type = 'submit' > Registrar </Boton><br/>
+                <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorBotonCentrado>
             <Alerta 
                 tipo= {alerta.tipo}
@@ -255,7 +315,7 @@ const RegistrarEscuela = ({escuelaData}) => {
             />
             </FormularioEscuela>
         </main>
-        </>
+        </div>
      );
 }
  

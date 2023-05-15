@@ -7,7 +7,7 @@ const VistaProfe = () => {
             <MenuProfesor/>
             <div className='hero'>
                 <nav>
-                    <h2 className='saludosMenu'>Hola, PROFESOR</h2>
+                    <h2 className='saludosMenu'>¡Hola Profesor!</h2>
                 </nav>
             </div>
             

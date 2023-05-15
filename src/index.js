@@ -16,6 +16,7 @@ import RegistrarJugador from './componentes/RegistrarJugador';
 import ListaJugadores from './componentes/ListaJugadores';
 import ListaEscuelas from './componentes/ListaEscuelas';
 import EditarJugador from './componentes/EditarJugador';
+import EditarEscuela from './componentes/EditarEscuela';
 import Noticias from './componentes/Noticias';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/icono2-burrito.png';
@@ -28,6 +29,14 @@ import EditarUsuario from './componentes/EditarUsuario';
 import Torneo from './componentes/Torneo';
 import ListaTorneos from './componentes/ListaTorneos';
 import RoundRobin from './componentes/RoundRobind';
+import Grupos from './componentes/Grupos';
+import EstadisticasFR from './componentes/EstadisticasFR';
+import ListaEscuelasAdm from './componentes/ListaEscuelasAdm';
+import TodosContraTodos from './componentes/RoundPrueba';
+import ListaJugadoresAdm from './componentes/ListaJugadoresAdm';
+import RegistrarResultadosFemenilSuperiorRapido from './componentes/RegistrarResultadosFemenilSuperiorRapido';
+import VistaJugador from './vistas/VistaJugador';
+
 
 WebFont.load({
   google: {
@@ -66,9 +75,19 @@ const Index = () => {
                 <ListaJugadores/>
               </RutaPrivada>
             }/>
+            <Route path="/lista-jugadores-adm" element={
+              <RutaPrivada>
+                <ListaJugadoresAdm/>
+              </RutaPrivada>
+            }/>
             <Route path="/lista-escuelas" element={
               <RutaPrivada>
                 <ListaEscuelas/>
+              </RutaPrivada>
+            }/>
+            <Route path="/lista-esc-adm" element={
+              <RutaPrivada>
+                <ListaEscuelasAdm/>
               </RutaPrivada>
             }/>
             <Route path="/equipo-femenil/:id" element={
@@ -85,6 +104,11 @@ const Index = () => {
               <Route path="/editar-jugador/:id" element={
               <RutaPrivada>
                 <EditarJugador/>
+              </RutaPrivada>
+            }/>
+            <Route path="/editar-escuela/:id" element={
+              <RutaPrivada>
+                <EditarEscuela/>
               </RutaPrivada>
             }/>
               <Route path="/noticias" element={
@@ -107,6 +131,11 @@ const Index = () => {
                 <VistaAdmi/>
               </RutaPrivada>
             }/>
+            <Route path="/menu-alumno" element={
+              <RutaPrivada>
+                <VistaJugador/>
+              </RutaPrivada>
+            }/>
           <Route path="/nuevo-torneo" element={
               <RutaPrivada>
                 <Torneo/>
@@ -120,6 +149,26 @@ const Index = () => {
             <Route path="/round-robin" element={
               <RutaPrivada>
                 <RoundRobin/>
+              </RutaPrivada>
+            }/>
+            <Route path="/round-prueba" element={
+              <RutaPrivada>
+                <TodosContraTodos/>
+              </RutaPrivada>
+            }/>
+            <Route path="/grupos" element={
+              <RutaPrivada>
+                <Grupos/>
+              </RutaPrivada>
+            }/>
+            <Route path="/estadisticas-fr" element={
+              <RutaPrivada>
+                <EstadisticasFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/RR-FR-FemenilSuperior" element={
+              <RutaPrivada>
+                <RegistrarResultadosFemenilSuperiorRapido/>
               </RutaPrivada>
             }/>
         </Routes>

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerEquipoFemenil from '../hooks/useObtenerEquipoFemenil';
+import ListaPDF from './ListaPDF';
+import { useParams } from 'react-router-dom';
+import { PDFViewer } from "@react-pdf/renderer";
 import { Lista, 
     ElementoLista,
     Label,
@@ -20,15 +23,22 @@ import { Lista,
 } from '../elementos/ElementosDeLista';
 
 const ListaJugadoresFem = () => {
-    const [femenil,obtenerMasFemenil,hayMasPorCargar] = useObtenerEquipoFemenil();
-
+    const escuelaID = useParams()
+    console.log(escuelaID)
+    const [femenil,obtenerMasFemenil,hayMasPorCargar] = useObtenerEquipoFemenil(escuelaID);
+    const [ verPDF, setVerPDF] = useState(false);
+    const nameUsuario = sessionStorage.getItem("name")
     return ( 
-        <>
+        <div className="hero">
+        <nav>
+        <img src="https://tinyurl.com/2b2ek3ck"/>
+        <center><h2>Equipo Femenil</h2>
+        <h2>{nameUsuario}</h2></center>  
+          <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+        </nav>
         <Helmet>
             <title> Equipo Femenil </title>
         </Helmet>
-        <h1> Equipo Femenil </h1>
-
         <Lista>
             {femenil.map((jugador) => {
                 return(
@@ -63,8 +73,8 @@ const ListaJugadoresFem = () => {
             })}
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
-                    <BotonCargarMas onClick={() => obtenerMasFemenil()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-profe'/>
+                    <BotonCargarMas onClick={() => obtenerMasFemenil(escuelaID)}> Cargas más </BotonCargarMas>
+                    <BtnRegresar ruta = '/lista-escuelas'/>
                 </ContenedorBotonCentral>
             }
             
@@ -75,14 +85,18 @@ const ListaJugadoresFem = () => {
                     <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorSubtitulo>
                 }
-
-                <ContenedorBotonCentral>
-                    <Boton> Exportar lista </Boton>
-                    
-                </ContenedorBotonCentral>
+            <ContenedorBotonCentral>
+                <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
+            </ContenedorBotonCentral>
+            {verPDF ? 
+                    <PDFViewer width="100%" height="600px">
+                        <ListaPDF listaJugadores={femenil}/>
+                     </PDFViewer>
+                :
+                 null}
         </Lista>
 
-        </>
+        </div>
         
      );
 }

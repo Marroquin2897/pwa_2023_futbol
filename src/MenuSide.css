@@ -1,10 +1,10 @@
 /* Position and sizing of burger button */
 .bm-burger-button {
     position: fixed;
-    width: 80px;
+    width: 50px;
     height: 50px;
-    left: 36px;
-    top: 10px;
+    left: 35px;
+    top: 20px;
   }
   
   /* Color/shape of burger icon bars #373a47; background: #560000; */
@@ -18,7 +18,7 @@
   */
   .bm-burger-bars-hover {
     background: #fff;
-    box-shadow: 6px 0px 60px rgba(163,163,163,1);
+    box-shadow: 6px 0px 60px rgb(0, 0, 0);
   }
   
   /* Position and sizing of clickable cross button */
@@ -29,7 +29,7 @@
   
   /* Color/shape of close button cross */
   .bm-cross {
-    background: #bdc3c7;
+    background: #ffffff;
   }
 
   /*
@@ -45,23 +45,24 @@
   /* General sidebar styles background: #373a47; */
   .bm-menu {
     background:  #011230;
-    padding: 2.5em 0.5em 0;
-    font-size: 1.15em;
+    padding: 3em 1em 0;
+    font-size: 1em;
     width: 300px;
   }
   
   /* Wrapper for item list */
   .bm-item-list {
-    color: #b8b7ad;
-    padding: 0.8em;
+    color: #ffffff;
+    padding: 1em;
   }
   
   /* Individual item */
   .bm-item {
-    display: inline-block;
-    color: #b8b7ad;
+    color: #ffffff;
     text-decoration: none;
-    height: 60px;
+    height: 50px;
+    text-align: center;
+
   }
   
   /* Styling of overlay background: rgba(0, 0, 0, 0.3); */
@@ -69,16 +70,15 @@
     background: red;
   }
 
-.menu-item :hover{ 
-    color: rgba(163,163,163,1);
-  }
 
   /******************Estilos para registrar resultados**********************/
-  .iconMenu{ /*Color de los iconos en menu*/
+ /* .iconMenu{ Color de los iconos en menu
     color: #fff;
-    width: 50px;
-    height: 60px;
-  }
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    display: inline-table;
+  }*/
 
   .btn-cerrarSesion{
     border: none;
@@ -91,11 +91,12 @@
     background: #560000; /*Color boton cerrar sesion*/
     cursor: pointer;
     margin: 30px 10px 0;
+    text-align: center;
   }
 
 .saludosMenu{
   color: #ffffff;
-  margin-left: 70%;
+  text-align: right;
 }
 
   table {

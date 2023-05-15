@@ -157,6 +157,24 @@ const Categoria = styled.div`
         font-size: 1.12rem;
     }
 `;
+const Nivel = styled.div`
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 1.25rem; /* 20px */
+    display: flex;
+    align-items: center;
+    
+    svg {
+        width: 3.12rem; /* 50px */
+        height: auto;
+        margin-right: 1.25rem; /* 20px */
+        border-radius: 0.62rem; /* 10px */
+    }
+ 
+    @media (max-width: 50rem) { /* 80px */
+        font-size: 1.12rem;
+    }
+`;
 const Apellidos = styled.div`
     color: #FFFFFF;
     font-weight: 500;
@@ -247,6 +265,7 @@ const Fecha = styled.div`
 const ContenedorBotones = styled.div`
     @media (max-width: 50rem) { /* 80px */
         justify-content: end;
+       
     }
 `;
  
@@ -256,18 +275,19 @@ const BotonAccion = styled.button`
     border: none;
     width: 2.5rem; /* 40px */
     display: inline-block;
+    transition: 1s ease all;
+    box-shadow: 0px 5px 10px #560000;
     height: 2.5rem; /* 40px */
     line-height: 2.5rem; /* 40px */
     font-size: 16px;
     cursor: pointer;
     border-radius: 0.31rem; /* 5px */
     margin-left: 0.625rem; /* 10px */
-    transition: .3s ease all;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
- 
+    overflow: hidden;
     &:hover {
         background: ${theme.grisClaro2};
     }
@@ -290,7 +310,8 @@ const ContenedorSubtitulo = styled.div`
 `;
  
 const Subtitulo = styled.h3`
-    color: ${theme.grisClaro2};
+    color: ${theme.negro};
+    justify-content: center;
     font-weight: 400;
     font-size: 40px;
     padding: 2.5rem 0; /* 40px */
@@ -334,6 +355,7 @@ export {
     Escuela,
     Modalidades,
     Categoria,
+    Nivel,
     Apellidos,
     Nss,
     Curp,

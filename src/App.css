@@ -28,7 +28,7 @@
     font-size: 20px;
     letter-spacing: 1px;
     border-radius: 30px;
-    background: #cacbcf; /*color de boton*/
+    background: #cacbcf; /*color de boton registrarse*/
     cursor: pointer;
     
   }
@@ -44,7 +44,7 @@
     
   }
   
-  .login .loginContainer { /*Tamaño y color del recuadro*/
+  .login .loginContainer { /*Tamaño y color del recuadro inicio Acceso*/
     padding: 40px;
     margin: auto;
     width: 100%;
@@ -199,7 +199,7 @@
   }
 
   label {
-    color: #fff;
+    color: #000000;
     margin: 14px 0;
     display: block;
     font-size: 22px;
@@ -215,9 +215,11 @@
   }
 
 
+
+
 select {   /* Color del rol en crear cuenta */
     width: 100%;
-    background: #cacbcf;
+    background: #ffffff;
     border-radius: 30px;
     height: 45px;
     line-height: 45px;
@@ -225,3 +227,54 @@ select {   /* Color del rol en crear cuenta */
     transition: .3s ease all;
     border: 15px solid transparent;
 }
+
+
+/*<<<<<<< Updated upstream*/
+
+.school {   /* Color del school en round robin */
+  width: 35%;
+  background: #cacbcf;
+  border-radius: 30px;
+  height: 45px;
+  line-height: 45px;
+  padding: 0 40px 0 10px;
+  transition: .3s ease all;
+  border: 15px solid transparent;
+}
+
+/*=======*/
+
+.hero nav button a:hover {
+  color: #011230;
+}
+ 
+.hero img{
+  width: 42px;
+  height: 62px;
+}
+
+h1{
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+
+.hero .login .loginContainer .menu button:hover  {
+  transition: 1s ease all;
+  box-shadow: 0px 5px 10px #560000;
+}
+
+.hero .login .loginContainer .menu2 button {
+color: rgb(255, 255, 255);
+margin: 8px 0;
+display: block;
+font-size: 20px;
+line-height: 1;
+border-radius: 30px;
+border: none;
+outline: none;
+cursor: pointer;
+background: #560000 ;
+} 
+

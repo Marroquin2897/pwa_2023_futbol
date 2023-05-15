@@ -4,9 +4,8 @@ import {firebaseApp} from '../firebase/firebaseConfig';
 import {getFirestore,collection, getDocs, query, where, limit,startAfter} from "firebase/firestore"
 import {useAuth} from './../contextos/AuthContext';
 
-const useObtenerEscuelas = () => {
+const useObtenerTodaCEscuelas = () => {
     const firestore = getFirestore(firebaseApp);
-    const { usuario } = useAuth();
     const [escuelas, cambiarEscuelas] = useState([]);
     const [ultimoEscuela, cambiarUltimoEscuela] = useState(null);
     const [hayMasPorCargar, cambiarHayMasPorCargar] = useState(false);
@@ -14,14 +13,12 @@ const useObtenerEscuelas = () => {
     const obtenerMasEscuelas = () => {
       const consultaSuperior = query(
         collection(firestore, "Escuelas Superior"),
-        where("uidUsuario", "==", usuario.uid),
         limit(10),
         startAfter(ultimoEscuela)
       );
   
       const consultaMediaSuperior = query(
         collection(firestore, "Escuelas Media Superior"),
-        where("uidUsuario", "==", usuario.uid),
         limit(10),
         startAfter(ultimoEscuela)
       );
@@ -60,13 +57,11 @@ const useObtenerEscuelas = () => {
     useEffect(() => {
       const consultaSuperior = query(
         collection(firestore, "Escuelas Superior"),
-        where("uidUsuario", "==", usuario.uid),
         limit(10)
       );
   
       const consultaMediaSuperior = query(
         collection(firestore, "Escuelas Media Superior"),
-        where("uidUsuario", "==", usuario.uid),
         limit(10)
       );
   
@@ -98,9 +93,10 @@ const useObtenerEscuelas = () => {
         .catch((error) => {
           console.log(error);
         });
-    }, [usuario]);
+    }, []);
   
     return [escuelas, obtenerMasEscuelas, hayMasPorCargar];
   };
-export default useObtenerEscuelas;
+  
+  export default useObtenerTodaCEscuelas;
   

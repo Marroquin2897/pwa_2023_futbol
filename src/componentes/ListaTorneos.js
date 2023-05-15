@@ -12,20 +12,24 @@ Subtitulo} from './../elementos/ElementosListaT';
 
 const ListaTorneos = () => {
     const [torneos,obtenerMasTorneos,hayMasPorCargar] = useObtenerTorneos();
-    
+    const nameUsuario = sessionStorage.getItem("name")
     return ( 
     <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
         <center><h2>Lista de Torneos</h2></center> 
-        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+        <div>
+            <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+            <h2>{nameUsuario}</h2>
+        </div>
+        
       </nav>
         <Helmet>
             <title>Lista de Torneos</title>
         </Helmet>
         
         <Lista>
-            {torneos.map((torneo) => {
+        {torneos.map((torneo) => {
                 return (
                     <ElementoLista key={torneo.id}>
                         <Label> Nombre Torneo 
@@ -37,17 +41,12 @@ const ListaTorneos = () => {
                         <Label> Sistema Competencia 
                         <Nombre> {torneo.sistemaCompetencia}</Nombre>
                         </Label>
-                        <Label> Rama
-                        <Nombre> {torneo.rama}</Nombre>
-                        </Label>
-                        <Label> Nivel Académico
-                        <Nombre> {torneo.nivelAcademico}</Nombre>
-                        </Label>
                         <ContenedorBotones>
-                            <BotonAccion as={Link} to={'/round-robin'}>
-                                <IconoCalendar/>     
+                            <BotonAccion as={Link} to={
+                                torneo.sistemaCompetencia === "Round Robin"
+                                ? '/round-robin'
+                                : '/grupos'}><IconoCalendar/>     
                             </BotonAccion>
-                            
                         </ContenedorBotones>
 
                     </ElementoLista>
@@ -62,7 +61,7 @@ const ListaTorneos = () => {
             {torneos.length === 0 &&
                 <ContenedorSubtitulo>
                     <Subtitulo> No hay torneos por mostrar</Subtitulo>
-                    <Boton as={Link} to='/nuevo-torneo'>Agregar Nuevo Torneo</Boton>
+                    <Boton as={Link} to='/nuevo-torneo'>Agregar Nuevo Torneo</Boton><br/>
                     <BtnRegresar ruta = '/menu-admin'/>
                 </ContenedorSubtitulo>
                 }

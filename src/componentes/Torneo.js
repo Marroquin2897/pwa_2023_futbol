@@ -6,6 +6,8 @@ import {useAuth} from './../contextos/AuthContext';
 import {getFirestore, collection, addDoc,query,where, getDocs } from 'firebase/firestore';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import agregarTorneo from '../firebase/agregarTorneo';
+import BtnRegresar from '../elementos/BtnRegresar';
+
 
 const Torneo = () => {
 
@@ -83,12 +85,17 @@ const Torneo = () => {
             cambiarAlerta({tipo: 'error', mensaje: 'Completa todos los campos'});
         }
     }
+    const nameUsuario = sessionStorage.getItem("name")
     return ( 
 <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
         <center><h2>Nuevo Torneo</h2></center> 
-        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+        <div>
+            <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+            <h2>{nameUsuario}</h2>
+        </div>
+        
       </nav>
         <Helmet>
             <title> Nuevo Torneo </title>
@@ -123,7 +130,7 @@ const Torneo = () => {
                         <select name="sistemacompetencia" onChange = {handleChange}>
                             <option value="Round Robin"> Todos contra todos </option>
                             <option value="Grupos"> Por Grupos </option>
-                            <option value="Eliminacion Directa"> Eliminación Directa </option>
+                            
                         </select> 
                     </GrupoInput>   
             </div>
@@ -139,19 +146,19 @@ const Torneo = () => {
                     </GrupoInput>   
             </div>
             <div>
-                    <Label htmlFor='nivelA'> Rama </Label>
+                    <Label htmlFor='nivelA'> Nivel Académico </Label>
                     <GrupoInput>
                         <select name="nivelA" onChange = {handleChange}>
-                            
                             <option value="Media Superior"> Media Superior </option>
-                            <option value="Superior"> Superior </option>
-                            
+                            <option value="Superior"> Superior </option> 
                         </select> 
                     </GrupoInput>   
             </div>
             <ContenedorBotonCentrado>
-                <Boton  type = 'submit' > Registrar </Boton>  
-                </ContenedorBotonCentrado>
+                <Boton  type = 'submit' > Registrar </Boton>  <br/>
+                <BtnRegresar ruta = '/menu-admin'/>
+            </ContenedorBotonCentrado>
+                    
             <Alerta 
                 tipo= {alerta.tipo}
                 mensaje= {alerta.mensaje}

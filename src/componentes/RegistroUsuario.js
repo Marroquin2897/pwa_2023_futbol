@@ -255,15 +255,14 @@ const RegistroUsuario = ({usuario}) => {
         ){ 
             if(usuario){
                 actualizarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion).then(()=>{
-                    navigate('/rol');
+                    console.log(nameUsuario)
+                    navigate(nameUsuario === "alumno" ? '/menu-alumno' : '/menu-profe')
                 }).catch((error)=>{
                     console.log(error);
                 })
             }else if(!usuario) {
                 registrarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo, contrasenia, rol);
-            } else {
-                signInWithEmailAndPassword(auth,correo,contrasenia);
-            }        
+            }      
         }else{
             cambiarEdoAlerta(true);
             cambiarAlerta({
@@ -275,22 +274,23 @@ const RegistroUsuario = ({usuario}) => {
         
         
 	}
-	
+	const nameUsuario = sessionStorage.getItem("name")
 	return(
     <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
-        <h2>Plataforma para la coordinacion de F7, FA Y FR del IPN</h2> 
-        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+      <center><h2>{nameUsuario ? 'Editar Usuario' : 'Crear Cuenta'}</h2>
+              <h2>{nameUsuario}</h2></center> 
+                <h3><img src="https://tinyurl.com/233pns5r"/></h3>      
       </nav>
         <Helmet>
             <title> Crear Cuenta </title>
         </Helmet>
-        <h1> {usuario ? 'Editar Usuario' : 'Crear Cuenta'}  </h1>
+        
 		<main>
         <Formulario onSubmit={handleSubmit}>
             <div>
-				<Label> Nombre(s) </Label>
+				<Label> Nombre(s) *</Label>
 				<GrupoInput>
 					<Input
 						type='text'
@@ -302,7 +302,7 @@ const RegistroUsuario = ({usuario}) => {
 				</GrupoInput>
 			</div>
 			<div>
-				<Label> Apellido(s) </Label>
+				<Label> Apellido(s) *</Label>
 				<GrupoInput>
 					<Input
 						type='text'
@@ -314,7 +314,7 @@ const RegistroUsuario = ({usuario}) => {
 				</GrupoInput>
 			</div>
 			<div>
-                <Label> Fecha de Nacimiento </Label>
+                <Label> Fecha de Nacimiento *</Label>
                 <GrupoInput>
                         <Input
                         type='date'
@@ -325,19 +325,19 @@ const RegistroUsuario = ({usuario}) => {
                 </GrupoInput>
 			</div>
 			<div>
-				<Label> Telefono </Label>
+				<Label> Teléfono *</Label>
 				<GrupoInput>
 					 <Input
 						type='text'
-						name='telefono'
-						placeholder='Ingresa tu telefono 10 digitos'
+						name='teléfono'
+						placeholder='Ingresa tu teléfono 10 digitos'
 						value={telefono}
 						onChange={handleChange}
 					/>
 				</GrupoInput>
 			</div>
 			<div>
-				<Label> Dirección </Label>
+				<Label> Dirección *</Label>
 				<GrupoInput>
 					<Input
 						type='text'
@@ -349,7 +349,7 @@ const RegistroUsuario = ({usuario}) => {
 				</GrupoInput>
 			</div>
 			<div>
-				<Label> Boleta o No. Empleado </Label>
+				<Label> Boleta o No. Empleado *</Label>
 				<GrupoInput>
 					 <Input
 						type='text'
@@ -362,7 +362,7 @@ const RegistroUsuario = ({usuario}) => {
 				</GrupoInput>
 			</div>
 			<div>
-				<Label> Correo Electrónico </Label>
+				<Label> Correo Electrónico *</Label>
 				<GrupoInput>
 					<Input
 						type='email'
@@ -375,7 +375,7 @@ const RegistroUsuario = ({usuario}) => {
 				</GrupoInput>
 			</div>
 			<div>
-				<Label> Contraseña </Label>
+				<Label> Contraseña *</Label>
 				<GrupoInput>
 					<Input
 						type='password'
@@ -388,7 +388,7 @@ const RegistroUsuario = ({usuario}) => {
 				</GrupoInput>
 			</div>
 			<div>
-				<Label> Confirmar Contraseña </Label>
+				<Label> Confirmar Contraseña *</Label>
 				<GrupoInput>
 					<Input
 						type='password'
@@ -401,14 +401,16 @@ const RegistroUsuario = ({usuario}) => {
 				</GrupoInput>
 			</div>
 			<div>
-              <Label htmlFor='rol'> Rol </Label>
+              <Label htmlFor='rol'> Rol *</Label>
               <GrupoInput>
                 <select name="rol" disabled={usuario ? true : false }>                  
-                    <option value="jugador"> Jugador </option>
+                    <option value="alumno"> Alumno </option>
                     <option value="profesor"> Profesor </option>
                 </select> 
               </GrupoInput>   
             </div>
+
+            <center><h5> * TODOS LOS CAMPOS SON OBLIGATORIOS </h5></center>
 
             <ContenedorBotonCentrado>
                 <Boton as="button"  type = 'submit' >  {usuario ? 'Editar Usuario' : 'Crear Cuenta'} </Boton>

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerEquipoVaronil from '../hooks/useObtenerEquipoVaronil';
-import { PDFViewer,PDFDownloadLink } from "@react-pdf/renderer";
-import { saveAs } from 'file-saver';
+import ListaPDF from './ListaPDF';
+import { useParams } from 'react-router-dom';
+import { PDFViewer } from "@react-pdf/renderer";
 import { Lista, 
     ElementoLista,
     Label,
@@ -20,22 +21,30 @@ import { Lista,
     ContenedorSubtitulo,
     Subtitulo
 } from '../elementos/ElementosDeLista';
-import ListaPDF from './ListaPDF';
+
 
 const ListaJugadoresMas = () => {
-    const [varonil,obtenerMasVaronil,hayMasPorCargar] = useObtenerEquipoVaronil();
+    const escuelaID = useParams()
+    console.log(escuelaID)
+    const [varonil,obtenerMasVaronil,hayMasPorCargar] = useObtenerEquipoVaronil(escuelaID);
+    const [ verPDF, setVerPDF] = useState(false);
     const [ verPDF, setVerPDF] = useState(false);
     const downloadPDF = () => {
         const blob = new Blob([<ListaPDF listaJugadores={varonil}/>], { type: 'application/pdf' });
         saveAs(blob, 'listaJugadores.pdf');
     };
+    const nameUsuario = sessionStorage.getItem("name")
     return (  
-        <>
+        <div className="hero">
+      <nav>
+      <img src="https://tinyurl.com/2b2ek3ck"/>
+      <center><h2>Equipo Varonil</h2>
+      <h2>{nameUsuario}</h2></center>
+        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+      </nav>
         <Helmet>
             <title> Equipo Varonil </title>
         </Helmet>
-        <h1> Equipo Varonil </h1>
-
         <Lista>
             {varonil.map((jugador) => {
                 return (
@@ -70,8 +79,8 @@ const ListaJugadoresMas = () => {
             })}
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
-                    <BotonCargarMas onClick={() => obtenerMasVaronil()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-profe'/>
+                    <BotonCargarMas onClick={() => obtenerMasVaronil(escuelaID)}> Cargas más </BotonCargarMas>
+                    <BtnRegresar ruta = '/lista-escuelas'/>
                 </ContenedorBotonCentral>
             }
             {varonil.length === 0 &&
@@ -81,6 +90,15 @@ const ListaJugadoresMas = () => {
                     <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorSubtitulo>
                 }
+             <ContenedorBotonCentral>
+                <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
+               {/* <PDFDownloadLink document={<ListaPDF listaJugadores={varonil}/>} fileName='listaJugadores.pdf'>
+                    <Boton>Descargar PDF</Boton>
+                </PDFDownloadLink>    
+                <Boton onClick={downloadPDF}>Descargar PDForiginal</Boton>     
+                <a href={<ListaPDF listaJugadores={varonil}/>} download="listaJugadores.pdf">
+                Descargar PDFENLACE
+                </a>*/} 
             <ContenedorBotonCentral>
                 <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
                 <PDFDownloadLink document={<ListaPDF listaJugadores={varonil}/>} fileName='listaJugadores.pdf'>
@@ -98,8 +116,14 @@ const ListaJugadoresMas = () => {
                      </PDFViewer>
                 :
                  null}
+            {verPDF ? 
+                    <PDFViewer width="100%" height="600px">
+                        <ListaPDF listaJugadores={varonil}/>
+                     </PDFViewer>
+                :
+                 null}
         </Lista>
-        </>
+        </div>
     );
 }
  

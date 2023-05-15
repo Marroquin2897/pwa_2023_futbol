@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
 import {ReactComponent as IconoVer} from './../imagenes/ojo.svg';
+import {ReactComponent as IconoEditar} from './../imagenes/editar.svg';
+import {ReactComponent as IconoBorrar} from './../imagenes/borrar.svg';
 import {ReactComponent as IconoRegresar} from './../imagenes/flecha.svg';
 import useObtenerEscuelas from '../hooks/useObtenerEscuelas';
 import ListaJugadoresFem from './ListaJugadoresFem';
@@ -25,6 +27,7 @@ import { Lista,
     ContenedorSubtitulo,
     Subtitulo
 } from '../elementos/ElementosDeLista';
+import borrarEscuela from '../firebase/borrarEscuela';
 
 const ListaEscuelas = () => {
     const [escuelas,obtenerMasEscuelas,hayMasPorCargar] = useObtenerEscuelas();
@@ -35,23 +38,14 @@ const ListaEscuelas = () => {
         setCategoriaSeleccionada(categoria);
     }
 
-    //Funcion para mandar a lista de jugadores varonil
-    const redireccionarVaronil = () => {
-        navigate('/equipo-varonil');
-    }
 
-    //Funcion para mandar a lista de jugadores femenil
-    const redireccionarFemenil = () => {
-        navigate('/equipo-femenil');
-    }
-
-
+    const nameUsuario = sessionStorage.getItem("name")
     return ( 
-<div className="hero">
+    <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
-        <center><h2>Lista de Escuelas</h2></center> 
-        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+        <center><h2>Lista de Escuelas</h2> <h2>{nameUsuario}</h2></center> 
+       <h3><img src="https://tinyurl.com/233pns5r"/></h3>
       </nav>
         <Helmet>
             <title>Lista de Escuelas</title>
@@ -60,7 +54,7 @@ const ListaEscuelas = () => {
             {escuelas.map((escuela) => {
                 return (
                     <ElementoLista key={escuela.id}>
-                        <Label> Entrenador 
+                        <Label> Entrenador
                         <Entrenador> {escuela.nombreEntrenador}</Entrenador>
                         </Label>
                         <Label> Auxiliar
@@ -78,23 +72,28 @@ const ListaEscuelas = () => {
                             {escuela.modalidades}
                         </Modalidades>   
                         </Label>
-                        <Label> Categoria
+                        <Label> Categoría
                          <Categoria>
                             {escuela.categoria}
                         </Categoria>   
                         </Label>
                         <ContenedorBotones>
-                        <BotonAccion as={Link} to={`/equipo-femenil/${escuela.id}`}>
-                            <IconoVer/>     
+                        <BotonAccion as={Link} to={
+                            escuela.categoria === "varonil" 
+                            ? `/equipo-varonil/${escuela.id}` 
+                            : `/equipo-femenil/${escuela.id}`
+                        }><IconoVer/> 
                         </BotonAccion>
-                        <BotonAccion as={Link} to={`/equipo-varonil/${escuela.id}`}>
-                            <IconoVer/>     
-                        </BotonAccion>
-                        </ContenedorBotones>
-                    
+                        <BotonAccion as={Link} to={`/editar-escuela/${escuela.id}`}>
+                                <IconoEditar/>     
+                            </BotonAccion>
+                            <BotonAccion onClick={() => borrarEscuela(escuela.id)}>
+                                <IconoBorrar/>
+                            </BotonAccion>
+                        </ContenedorBotones><br/>
                     </ElementoLista>
                 );
-            })}
+            })}<br/>
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasEscuelas()}> Cargas más </BotonCargarMas>
@@ -102,11 +101,11 @@ const ListaEscuelas = () => {
                 </ContenedorBotonCentral>
             }
             {escuelas.length === 0 &&
-                <ContenedorSubtitulo>
-                    <Subtitulo> No hay escuelas por mostrar</Subtitulo>
-                    <Boton as={Link} to='/registrar-escuela'>Registrar Escuela</Boton>
-                    <BtnRegresar ruta = '/menu-profe'/>
-                </ContenedorSubtitulo>
+                <center><ContenedorSubtitulo>
+                    <Subtitulo> No hay escuelas por mostrar</Subtitulo><br/><br/>
+                    <Boton as={Link} to='/registrar-escuela'>Registrar Escuela</Boton><br/>
+                    <BtnRegresar ruta = '/menu-admin'/><br/>
+                </ContenedorSubtitulo></center>
                 }
         </Lista>
         </div>

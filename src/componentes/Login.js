@@ -72,12 +72,8 @@ const Login = () => {
             tipo:'error',
             mensaje: mensaje
            });
-           
         }
-            
     }
-
-
     return ( 
        <div className="hero">
         <Helmet>
@@ -85,7 +81,7 @@ const Login = () => {
         </Helmet>  
       <nav>
         <img src="https://tinyurl.com/2b2ek3ck"/>
-        <h2>Plataforma para la coordinacion de F7, FA Y FR del IPN</h2> 
+        <h2>PoliKickerFut7RA</h2> 
         <h3><img src="https://tinyurl.com/233pns5r"/></h3>
 
       </nav>
@@ -109,7 +105,6 @@ const Login = () => {
                     />
                     <div className='menu2'> <br/><br/><br/><br/>
                         <button type='submit'>Ingresar</button><br/><br/><br/>
-                        
                         <p>¿No tienes cuenta? <Link to='/crear-cuenta'><span> Regístrate</span></Link></p> <br/>
                         <p>¿Olvidaste tu contraseña? <Link to='/forgot-password'><br/><span> Restablecer contraseña</span></Link></p>
                     </div>

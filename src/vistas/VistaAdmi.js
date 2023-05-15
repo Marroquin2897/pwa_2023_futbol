@@ -15,7 +15,7 @@ const VistaAdmi = () => {
             <MenuAdmin/>
             <div className='hero'>
                 <nav>
-                    <h2 className='saludosMenu'>¡Hola administrador!</h2>
+                    <h2 className='saludosMenu'>¡Hola Administrador!</h2>
                 </nav>
             </div>  
         </div>
