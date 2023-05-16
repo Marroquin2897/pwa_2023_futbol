@@ -10,6 +10,7 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
     const [jornada, setJornada] = useState('');
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({}); 
+    const [guardado, setGuardado] = useState(false);
     const firestore = getFirestore(firebaseApp);
 
     useEffect(() => {
@@ -121,6 +122,7 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
               console.error('Error al guardar el resultado:', error);
             });
         });
+        setGuardado(true);
       };
 
     return ( 
@@ -183,11 +185,13 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
                             onChange={(e) =>handleGanadorPenalesChange(partido.id,'ganadorPenalesVisitante',e.target.checked)}
                             />
                         </div>
-                        <button onClick={guardarResultados}>Guardar Resultado</button>
                     </li>
                     ))}  
                 </ul>
                 </div>
+                {partidos.length > 0 && (
+                  <button onClick={guardarResultados}>Guardar Resultado</button>
+                )}
             </main>
         </div>
      );

@@ -329,7 +329,7 @@ const RegistroUsuario = ({usuario}) => {
 				<GrupoInput>
 					 <Input
 						type='text'
-						name='teléfono'
+						name='telefono'
 						placeholder='Ingresa tu teléfono 10 digitos'
 						value={telefono}
 						onChange={handleChange}
