@@ -12,12 +12,8 @@ const useObtenerEquipoFemenil = ({id}) => {
 
     const obtenerMasFemenil = ({id}) => { //Mostrar el resto de jugadores
         const obtenerEscuela = async () => {
-            var escuelaRef=''
-            if (escuelaRef){
-                escuelaRef = doc(firestore, "Escuelas Media Superior", id);
-            }else{
-                escuelaRef = doc(firestore, "Escuelas Superior", id);
-            }  
+            const escuelaRef = doc(firestore, "escuelasS", id);
+            const escuelaReprsentada = doc(firestore, "esc-repre", id)
             const escuelaSnap = await getDoc(escuelaRef);
             if (escuelaSnap.exists() && escuelaSnap.data()) {
                 const nombreEsc = escuelaSnap.data().escuela;
