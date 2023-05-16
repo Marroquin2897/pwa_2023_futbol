@@ -51,21 +51,25 @@ const EstadisticasFR = () => {
                 };
               }
     
-              equipos[local].juegosJugados += 1;
-              equipos[visitante].juegosJugados += 1;
-    
-              equipos[local].golesAFavor += golesLocal;
-              equipos[local].golesEnContra += golesVisitante;
-    
-              equipos[visitante].golesAFavor += golesVisitante;
-              equipos[visitante].golesEnContra += golesLocal;
+                equipos[local].juegosJugados += 1;
+                equipos[visitante].juegosJugados += 1;
+
+                equipos[local].golesAFavor += parseInt(golesLocal, 10);
+                equipos[local].golesEnContra += parseInt(golesVisitante, 10);
+
+                equipos[visitante].golesAFavor += parseInt(golesVisitante, 10);
+                equipos[visitante].golesEnContra += parseInt(golesLocal, 10);
     
               if (golesLocal > golesVisitante) {
                 equipos[local].juegosGanados += 1;
+                equipos[local].puntos += 3;
                 equipos[visitante].juegosPerdidos += 1;
+                equipos[visitante].puntos += 0;
               } else if (golesLocal < golesVisitante) {
                 equipos[local].juegosPerdidos += 1;
+                equipos[local].puntos += 0;
                 equipos[visitante].juegosGanados += 1;
+                equipos[visitante].puntos += 3;
               } else {
                 if (golesPenalesLocal > golesPenalesVisitante) {
                   equipos[local].juegosGanadosPenales += 1;
@@ -126,43 +130,25 @@ const EstadisticasFR = () => {
             
             <div>
             <h2>Tabla General de Posiciones</h2>
-                <table>
-                <thead>
-                <tr>
-                <th>Equipo</th>
-                <th>Juegos Jugados</th>
-                <th>Juegos Ganados</th>
-                <th>Juegos Perdidos</th>
-                <th>Juegos Ganados Penales</th>
-                <th>Juegos Perdidos Penales</th>
-                <th>Goles a Favor</th>
-                <th>Goles en Contra</th>
-                <th>Diferencia de Goles</th>
-                <th>Puntos</th>
-                <th>Posición</th>
-                </tr>
-                </thead>
-                <tbody>
-                {estadisticasEquipos.map((equipo, index) => (
-                <tr key={index}>
-                <td>{equipo.equipo}</td>
-                <td>{equipo.juegosJugados}</td>
-                <td>{equipo.juegosGanados}</td>
-                <td>{equipo.juegosPerdidos}</td>
-                <td>{equipo.juegosGanadosPenales}</td>
-                <td>{equipo.juegosPerdidosPenales}</td>
-                <td>{equipo.golesAFavor}</td>
-                <td>{equipo.golesEnContra}</td>
-                <td>{equipo.diferenciaGoles}</td>
-                <td>{equipo.puntos}</td>
-                <td>{equipo.posicion}</td>
-                </tr>
+            <h2>Tabla de Posiciones</h2>
+                <ul>
+                {Array.isArray(estadisticasEquipos) && estadisticasEquipos.map((equipo, index) => (
+                <li key={equipo.equipo}>
+                    <h3>Equipo: {equipo.equipo}</h3>
+                    <p>Juegos Jugados: {equipo.juegosJugados}</p>
+                    <p>Juegos Ganados: {equipo.juegosGanados}</p>
+                    <p>Juegos Perdidos: {equipo.juegosPerdidos}</p>
+                    <p>Juegos Ganados Penales: {equipo.juegosGanadosPenales}</p>
+                    <p>Juegos Perdidos Penales: {equipo.juegosPerdidosPenales}</p>
+                    <p>Goles a Favor: {equipo.golesAFavor}</p>
+                    <p>Goles en Contra: {equipo.golesEnContra}</p>
+                    <p>Diferencia de Goles: {equipo.diferenciaGoles}</p>
+                    <p>Puntos: {equipo.puntos}</p>
+                    <p>Posición: {index + 1}</p>
+                </li>
                 ))}
-                </tbody>
-                </table>  
+                </ul>  
             </div>  
-             
-            
         </div>
     );
 }
