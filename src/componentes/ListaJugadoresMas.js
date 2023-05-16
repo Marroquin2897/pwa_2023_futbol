@@ -97,7 +97,7 @@ const ListaJugadoresMas = () => {
             </ContenedorBotonCentral>
             {verPDF ? 
                     <PDFViewer width="100%" height="600px">
-                        <ListaPDF listaJugadores={varonil}/>
+                        <ListaPDF listaJugadores={varonil} idEscuela={escuelaID}/>
                      </PDFViewer>
                 :
                  null}

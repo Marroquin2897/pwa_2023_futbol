@@ -1,7 +1,7 @@
 import React from 'react';
 import 'jspdf-autotable';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'; //para crear nuestro PDF
-
+import useObtenerEscuela from '../hooks/useObtenerEscuela';
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     margin: '10px 30px 0 60px '
   }
 });
-const ListaPDF = ({listaJugadores}) => {
-  const jugadorPrimero = listaJugadores[1];
+const ListaPDF = ({listaJugadores, idEscuela}) => {
+  const [escuela] = useObtenerEscuela(idEscuela)
     return (
         <Document>
           <Page style={styles.page}>
@@ -95,13 +95,13 @@ const ListaPDF = ({listaJugadores}) => {
                 <Text style={styles.titulo}> Inscripción de Jugadores </Text>
                 <Text style={styles.estFecha}> Fecha: ___________  </Text><view style={styles.divEtiquetas}>
                 <Text style={styles.label}> Disciplina  </Text>
-                <Text style={styles.value} />
+                <Text style={styles.value}>{escuela ? escuela.modalidades : "No existe"}</Text>
               </view><view style={styles.divEtiquetas}>
                   <Text style={styles.label}> Unidad Académica </Text>
-                  <Text style={styles.value}>{jugadorPrimero ?  jugadorPrimero.escuelaJugador : "no existe"}</Text>
+                  <Text style={styles.value}>{escuela ? escuela.escuela : "No existe"}</Text>
                 </view><view style={styles.divEtiquetas}>
                   <Text style={styles.label}> Categoría  </Text>
-                  <Text style={styles.value}>{jugadorPrimero ?  jugadorPrimero.sexoJugador : "no existe"}</Text>
+                  <Text style={styles.value}>{escuela ? escuela.categoria : "No existe"}</Text>
                 </view>
                 <Text style={styles.leyendaUno}>Por medio de la presente informo que los alumnos que a continuación se enlistan, representan a esta 
                 Unidad Académica en el TORNEO INTERPOLITÉCNICO.  </Text>   

@@ -84,14 +84,17 @@ const ListaJugadoresFem = () => {
                     <Boton as={Link} to='/registrar-jugador'>Agregar Jugador</Boton>
                     <BtnRegresar ruta = '/menu-profe'/>
                 </ContenedorSubtitulo>
+                
                 }
             <ContenedorBotonCentral>
                 <Boton onClick={() => {setVerPDF(!verPDF)}}>{verPDF ? "Ocultar PDF" : "Ver PDF"} </Boton>         
             </ContenedorBotonCentral>
+            {console.log("este es el ID", escuelaID)}
             {verPDF ? 
                     <PDFViewer width="100%" height="600px">
-                        <ListaPDF listaJugadores={femenil}/>
+                        <ListaPDF  listaJugadores={femenil} idEscuela={escuelaID}/>
                      </PDFViewer>
+                     
                 :
                  null}
         </Lista>
