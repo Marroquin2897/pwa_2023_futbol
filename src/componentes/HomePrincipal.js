@@ -10,7 +10,12 @@ import '../MenuSide.css';
 function HomePrincipal({usuario}) {
     
     sessionStorage.setItem("name", usuario.rol);
-    console.log(usuario.rol);
+    let infoUser={
+        uid: usuario.id,
+        email: usuario.correo,
+        rol: usuario.rol,
+    }
+    sessionStorage.setItem("infoUser",JSON.stringify(infoUser))
       
     return (  
         <>

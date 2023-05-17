@@ -146,28 +146,44 @@ const EstadisticasFR = () => {
             <Helmet>
                 <title> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Superior</title>
             </Helmet>
-            
             <div>
             <h2>Tabla General de Posiciones</h2>
             <h2>Tabla de Posiciones</h2>
-                <ul>
+            <table>
+				        <thead>
+                    <tr>
+                        <th>Equipo</th>
+                        <th>Juegos Jugados</th>
+                        <th>Juegos Ganados</th>
+                        <th>Juegos Perdidos</th>
+                        <th>Juegos Ganados Penales</th>
+                        <th>Juegos Perdidos Penales</th>
+                        <th>Goles a Favor</th>
+                        <th>Goles en Contra</th>
+                        <th>Diferencia de Goles</th>
+                        <th>Puntos</th>
+                        <th>Posición</th>
+                    </tr>
+				        </thead>
+                <tbody>
                 {Array.isArray(estadisticasEquipos) && estadisticasEquipos.map((equipo, index) => (
-                <li key={equipo.equipo}>
-                    <h3>Equipo: {equipo.equipo}</h3>
-                    <p>Juegos Jugados: {equipo.juegosJugados}</p>
-                    <p>Juegos Ganados: {equipo.juegosGanados}</p>
-                    <p>Juegos Perdidos: {equipo.juegosPerdidos}</p>
-                    <p>Juegos Ganados Penales: {equipo.juegosGanadosPenales}</p>
-                    <p>Juegos Perdidos Penales: {equipo.juegosPerdidosPenales}</p>
-                    <p>Goles a Favor: {equipo.golesAFavor}</p>
-                    <p>Goles en Contra: {equipo.golesEnContra}</p>
-                    <p>Diferencia de Goles: {equipo.diferenciaGoles}</p>
-                    <p>Puntos: {equipo.puntos}</p>
-                    <p>Posición: {index + 1}</p>
-                </li>
+                <tr key={equipo.equipo}>
+                        <td>{equipo.equipo}</td>
+                        <td>{equipo.juegosJugados}</td>
+                        <td>{equipo.juegosGanados}</td>
+                        <td>{equipo.juegosPerdidos}</td>
+                        <td>{equipo.juegosGanadosPenales}</td>
+                        <td>{equipo.juegosPerdidosPenales}</td>
+                        <td>{equipo.golesAFavor}</td>
+                        <td>{equipo.golesEnContra}</td>
+                        <td>{equipo.diferenciaGoles}</td>
+                        <td>{equipo.puntos}</td>
+                        <td>{equipo.posicion}</td>
+                        </tr>
                 ))}
-                </ul>  
-            </div>  
+				        </tbody>
+            </table>    
+            </div>  
         </div>
     );
 }

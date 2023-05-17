@@ -11,7 +11,8 @@ const firestore = getFirestore(firebaseApp);
 
 const Rol = () => {
   
-  const [usuario, setUsuario] = useState (null);
+  let initialUserValue= sessionStorage.getItem("infoUser") ? JSON.parse( sessionStorage.getItem("infoUser")) : null;
+  const [usuario, setUsuario] = useState (initialUserValue);
   
 
   async function getRol(uid){

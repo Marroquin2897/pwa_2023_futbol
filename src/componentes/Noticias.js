@@ -32,7 +32,7 @@ const Noticias = () => {
             </table> 
                 <script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
             <ContenedorBotonCentrado>
-                <BtnRegresar ruta = {nameUsuario === "alumno" ? '/menu-alumno' : nameUsuario === "administrador" ? '/menu-admin' : 'menu-profe'}/>
+                <BtnRegresar ruta = '/rol'/>
             </ContenedorBotonCentrado>
         </main>                 
     </div>
