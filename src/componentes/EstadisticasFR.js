@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
-import { getFirestore,collection, getDocs } from 'firebase/firestore';
+import { getFirestore,collection, getDocs,addDoc, setDoc,doc } from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
 
 const EstadisticasFR = () => {
@@ -110,6 +110,25 @@ const EstadisticasFR = () => {
                 equipo.posicion = index + 1;
                 });
                 setEstadisticasEquipos(equiposArray);
+                // Guardar estadísticas en la colección "tablaposicionesFRFemenilSuperior"
+                equiposArray.forEach(async (equipo) => {
+                  const docRef = doc(firestore, 'tablaposicionesFRFemenilSuperior', equipo.equipo);
+                  const data = {
+                      equipo: equipo.equipo,
+                      juegosJugados: equipo.juegosJugados,
+                      juegosGanados: equipo.juegosGanados,
+                      juegosPerdidos: equipo.juegosPerdidos,
+                      juegosGanadosPenales: equipo.juegosGanadosPenales,
+                      juegosPerdidosPenales: equipo.juegosPerdidosPenales,
+                      golesAFavor: equipo.golesAFavor,
+                      golesEnContra: equipo.golesEnContra,
+                      diferenciaGoles: equipo.diferenciaGoles,
+                      puntos: equipo.puntos,
+                      posicion: equipo.posicion,
+                  };
+
+                  await setDoc(docRef, data);
+              });
             } catch (error) {
                 console.error('Error al obtener las estadísticas de los equipos:', error);
             }
@@ -152,5 +171,4 @@ const EstadisticasFR = () => {
         </div>
     );
 }
- 
 export default EstadisticasFR;
