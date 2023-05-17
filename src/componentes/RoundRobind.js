@@ -19,7 +19,6 @@ const RoundRobin = () => {
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
   const[alerta,cambiarAlerta] = useState({});
 
-
   // Función que se ejecuta cuando se cambia el número de equipos
   const handleNumEquiposChange = (event) => {
     const num = parseInt(event.target.value);
@@ -31,10 +30,20 @@ const RoundRobin = () => {
   };
 
   // Función que se ejecuta cuando se cambia el nombre de un equipo
-  const handleEquipoChange = (index, nombre) => {
+  const handleEquipoChange = (index, nombre) => {   
     const nuevosEquipos = [...equipos];
-    nuevosEquipos[index] = nombre;
-    setEquipos(nuevosEquipos);
+    if (nuevosEquipos.includes(nombre)) {
+      console.log('El nombre ya ha sido seleccionado previamente.');
+      cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'El nombre ya ha sido seleccionado previamente.'
+            });
+    } else {
+      nuevosEquipos[index] = nombre;
+      console.log(nuevosEquipos)
+      setEquipos(nuevosEquipos);
+    }
   };
 
   async function generarPartidosImpar(equipos,categoria,nivelAcademico){
@@ -154,9 +163,10 @@ const RoundRobin = () => {
       resultadoMediaSuperior.forEach((doc) => {
         escuelas.push({ id: doc.id, ...doc.data() });
       });
-  
+      
       console.log("Escuelas encontradas:", escuelas);
       setEscuelas(escuelas);
+     
     } catch (error) {
       cambiarEdoAlerta(true); 
       cambiarAlerta({
@@ -242,7 +252,8 @@ const RoundRobin = () => {
                 <div>
                     {equipos.map((equipo, index) => (
                     <div key={index}>
-                      <Label>
+                      {/*
+                           <Label>
                         Equipo {index + 1}:
                         <Input
                           type="text"
@@ -250,6 +261,19 @@ const RoundRobin = () => {
                           onChange={(event) => handleEquipoChange(index, event.target.value)}
                         />
                       </Label>
+                     */}
+                      <Label htmlFor='escuelasDisponibles'> Equipo {index + 1}: </Label>
+                      <GrupoInput>
+                      <select name="idEscuela" onChange = {(event) => handleEquipoChange(index, event.target.value)}>
+                            <option value="opcionPredeterminada">Elige una escuela </option>
+                      {escuelas.map((escuela) => (
+
+                            <option key={escuela.id} value={escuela ? escuela.escuela : "no existe"}> {escuela.escuela}  </option>
+                     ))} 
+                     </select> 
+                      </GrupoInput>  
+                      
+                      
                     </div>
                   ))}
                 </div>   

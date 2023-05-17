@@ -149,36 +149,36 @@ const EstadisticasFR = () => {
             <div>
             <h2>Tabla General de Posiciones</h2>
             <h2>Tabla de Posiciones</h2>
-            <table>
+            <table className='TablaGeneralPos'>
 				        <thead>
                     <tr>
-                        <th>Equipo</th>
-                        <th>Juegos Jugados</th>
-                        <th>Juegos Ganados</th>
-                        <th>Juegos Perdidos</th>
-                        <th>Juegos Ganados Penales</th>
-                        <th>Juegos Perdidos Penales</th>
-                        <th>Goles a Favor</th>
-                        <th>Goles en Contra</th>
-                        <th>Diferencia de Goles</th>
-                        <th>Puntos</th>
-                        <th>Posición</th>
+                        <th className='encabezado'>Equipo</th>
+                        <th className='encabezado'>Juegos Jugados</th>
+                        <th className='encabezado'>Juegos Ganados</th>
+                        <th className='encabezado'>Juegos Perdidos</th>
+                        <th className='encabezado' >Juegos Ganados Penales</th>
+                        <th className='encabezado'>Juegos Perdidos Penales</th>
+                        <th className='encabezado'>Goles a Favor</th>
+                        <th className='encabezado'>Goles en Contra</th>
+                        <th className='encabezado'>Diferencia de Goles</th>
+                        <th className='encabezado'>Puntos</th>
+                        <th className='encabezado'>Posición</th>
                     </tr>
 				        </thead>
                 <tbody>
                 {Array.isArray(estadisticasEquipos) && estadisticasEquipos.map((equipo, index) => (
                 <tr key={equipo.equipo}>
-                        <td>{equipo.equipo}</td>
-                        <td>{equipo.juegosJugados}</td>
-                        <td>{equipo.juegosGanados}</td>
-                        <td>{equipo.juegosPerdidos}</td>
-                        <td>{equipo.juegosGanadosPenales}</td>
-                        <td>{equipo.juegosPerdidosPenales}</td>
-                        <td>{equipo.golesAFavor}</td>
-                        <td>{equipo.golesEnContra}</td>
-                        <td>{equipo.diferenciaGoles}</td>
-                        <td>{equipo.puntos}</td>
-                        <td>{equipo.posicion}</td>
+                        <td className='descripcion'>{equipo.equipo}</td>
+                        <td className='descripcion'>{equipo.juegosJugados}</td>
+                        <td className='descripcion'>{equipo.juegosGanados}</td>
+                        <td className='descripcion'>{equipo.juegosPerdidos}</td>
+                        <td className='descripcion'>{equipo.juegosGanadosPenales}</td>
+                        <td className='descripcion'>{equipo.juegosPerdidosPenales}</td>
+                        <td className='descripcion'>{equipo.golesAFavor}</td>
+                        <td className='descripcion'>{equipo.golesEnContra}</td>
+                        <td className='descripcion'>{equipo.diferenciaGoles}</td>
+                        <td className='descripcion'>{equipo.puntos}</td>
+                        <td className='descripcion'>{equipo.posicion}</td>
                         </tr>
                 ))}
 				        </tbody>

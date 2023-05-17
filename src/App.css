@@ -279,11 +279,11 @@ background: #560000 ;
 } 
 
 /*ESTILOS PARA LA TABLA MOSTRADA EN LAS ESTADISTICAS*/
-table{
+.TablaGeneralPos{
   border-collapse: collapse; /*permite que los bordes de las celdas se fusionen en una línea continua*/
   margin: 10px 20px 10px;
 }
-th, td {
+.encabezado, .descripcion {
     
     border: 2px solid black;
     padding: 8px; /*agrega un espacio de relleno alrededor del contenido de las celdas.*/
