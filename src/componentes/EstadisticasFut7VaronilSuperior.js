@@ -4,15 +4,15 @@ import { Helmet } from 'react-helmet';
 import { getFirestore,collection, getDocs,addDoc, setDoc,doc } from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
 
-const EstadisticasFR = () => {
+const EstadisticasFut7VaronilSuperior = () => {
     const nameUsuario = sessionStorage.getItem("name")
     const [estadisticasEquipos, setEstadisticasEquipos] = useState({});
     const firestore = getFirestore(firebaseApp);
-    
+
     useEffect(() => {
         const fetchEstadisticasEquipos = async () => {
           try {
-            const resultadosRef = collection(firestore, 'resultadosFemenilSuperiorRapido');
+            const resultadosRef = collection(firestore, 'resultadosVaronilSuperiorFut7');
             const querySnapshot = await getDocs(resultadosRef);
     
             const equipos = {};
@@ -113,7 +113,7 @@ const EstadisticasFR = () => {
                 setEstadisticasEquipos(equiposArray);
                 // Guardar estadísticas en la colección "tablaposicionesFRFemenilSuperior"
                 equiposArray.forEach(async (equipo) => {
-                  const docRef = doc(firestore, 'tablaposicionesFRFemenilSuperior', equipo.equipo);
+                  const docRef = doc(firestore, 'tablaposicionesVaronilSuperiorFut7', equipo.equipo);
                   const data = {
                       equipo: equipo.equipo,
                       juegosJugados: equipo.juegosJugados,
@@ -136,7 +136,6 @@ const EstadisticasFR = () => {
             };
             fetchEstadisticasEquipos();
             }, []);
-           
     return (  
         <div className="hero">
             <nav>
@@ -148,8 +147,6 @@ const EstadisticasFR = () => {
                 <title> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Superior</title>
             </Helmet>
             <div>
-            <h2>Tabla General de Posiciones</h2>
-            <h2>Tabla de Posiciones</h2>
             <table className='TablaGeneralPos'>
 				        <thead>
                     <tr>
@@ -188,4 +185,5 @@ const EstadisticasFR = () => {
         </div>
     );
 }
-export default EstadisticasFR;
+ 
+export default EstadisticasFut7VaronilSuperior;

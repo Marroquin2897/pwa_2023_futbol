@@ -21,8 +21,10 @@ class MenuAdmin extends React.Component  {
           <Link id="rolJuegos" className="menu-item" to="/lista-torneos" > <FaListOl  className='iconMenu'/>  Lista de Torneos </Link>
           <Link id="listaEscuela" className="menu-item" to="/lista-esc-adm"> <MdSchool className='iconMenu'/>  Lista de Escuelas</Link>
           <Link id="listaJugadores" className="menu-item" to="/lista-jugadores-adm"> <MdSchool className='iconMenu'/>  Lista de Jugadores</Link>
-          <Link id="estadisticas" className="menu-item" to="/estadisticas-fr" > <FaRegChartBar  className='iconMenu'/>  Tabla General de Posiciones de Fútbol Rápido </Link><br/>
-          <Link id="estadisticas" className="menu-item" to="/RR-FR-FemenilSuperior" > <MdOutlineAppRegistration  className='iconMenu'/>  Registrar Resultados Fútbol Rápido Femenil Nivel Superior </Link><br/><br/><br/>
+          <Link id="estadisticas" className="menu-item" to="/estadisticas-fr" > <FaRegChartBar  className='iconMenu'/>  Tabla General de Posiciones de Fútbol Rápido Femenil Nivel Superior </Link><br/><br/>
+          <Link id="estadisticas" className="menu-item" to="/estadisticas-f7" > <FaRegChartBar  className='iconMenu'/>  Tabla General de Posiciones de Fútbol 7 Varonil Nivel Superior </Link><br/><br/>
+          <Link id="resultadosFemenilRapidoSuperior" className="menu-item" to="/RR-FR-FemenilSuperior" > <MdOutlineAppRegistration  className='iconMenu'/>  Registrar Resultados Fútbol Rápido Femenil Nivel Superior </Link><br/><br/>
+          <Link id="resultadosVaronilFut7Superior" className="menu-item" to="/RR-F7-VaronilSuperior" > <MdOutlineAppRegistration  className='iconMenu'/>  Registrar Resultados Fútbol 7 Varonil Nivel Superior </Link><br/><br/>
 
           <Link id="noticias" className="menu-item" to="/noticias" > <FaNewspaper  className='iconMenu'/>  Noticias</Link>
           <center><button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesión</button></center>

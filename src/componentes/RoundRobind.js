@@ -15,7 +15,7 @@ const RoundRobin = () => {
   const [categoria, setCategoria] = useState("");
   const [escuelas, setEscuelas] = useState([]);
   const firestore = getFirestore(firebaseApp);
-  const partidosCollection = collection(firestore, 'partidos');
+  const [modalidadTorneo, setModalidadTorneo] = useState("");
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
   const[alerta,cambiarAlerta] = useState({});
 
@@ -80,7 +80,7 @@ const RoundRobin = () => {
   }
 
   // Función para generar partidos equipos Par
-  function handleGenerarCalendario (numEquipos,categoria,nivelAcademico)  {
+  function handleGenerarCalendario (numEquipos,categoria,nivelAcademico,modalidadTorneo)  {
     const nuevosPartidos = [];
     const numPartidosPorJornada = Math.floor(numEquipos / 2);
   
@@ -109,7 +109,8 @@ const RoundRobin = () => {
           visitante: equipoVisitante.nombre,
           jornada: j + 1,
           categoria: categoria,
-          nivelAcademico: nivelAcademico
+          nivelAcademico: nivelAcademico,
+          modalidadTorneo: modalidadTorneo
         };
   
         // Agrega el partido a la lista de partidos
@@ -149,8 +150,8 @@ const RoundRobin = () => {
       const escuelasSuperiorRef = collection(firestore, "Escuelas Superior");
       const escuelasMediaSuperiorRef = collection(firestore, "Escuelas Media Superior");
       
-      const consultaSuperior = query(escuelasSuperiorRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria));
-      const consultaMediaSuperior = query(escuelasMediaSuperiorRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria));
+      const consultaSuperior = query(escuelasSuperiorRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria),where("modalidades", "==", modalidadTorneo));
+      const consultaMediaSuperior = query(escuelasMediaSuperiorRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria),where("modalidades", "==", modalidadTorneo));
   
       const [resultadoSuperior, resultadoMediaSuperior] = await Promise.all([getDocs(consultaSuperior), getDocs(consultaMediaSuperior)]);
       
@@ -180,10 +181,11 @@ const RoundRobin = () => {
 
   const handleGenerateMatches = (e) => {
     e.preventDefault();
+    
     if (numEquipos % 2 === 0) {
-      handleGenerarCalendario(numEquipos,categoria,nivelAcademico);
+      handleGenerarCalendario(numEquipos,categoria,nivelAcademico,modalidadTorneo);
     } else {
-      generarPartidosImpar(equipos,categoria,nivelAcademico);
+      generarPartidosImpar(equipos,categoria,nivelAcademico,modalidadTorneo);
     }
   };
     return (
@@ -213,6 +215,16 @@ const RoundRobin = () => {
                         <select name="nivelA" value={nivelAcademico} onChange = {(e) => setNivelAcademico(e.target.value)}>
                             <option value="Media Superior"> Media Superior </option>
                             <option value="Superior"> Superior </option> 
+                        </select> 
+                    </GrupoInput>   
+                </div>
+                <div>
+                    <Label htmlFor='modalidad'> Selecciona la modalidad a jugar </Label>
+                    <GrupoInput>
+                        <select name="modalidad" value={modalidadTorneo} onChange = {(e) => setModalidadTorneo(e.target.value)}>
+                            <option value="Futbol Rapido"> Fútbol Rápido</option>
+                            <option value="Futbol 7"> Fútbol 7 </option>
+                            <option value="Futbol Asociacion"> Fútbol Asociación</option> 
                         </select> 
                     </GrupoInput>   
                 </div>
