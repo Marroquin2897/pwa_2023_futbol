@@ -157,8 +157,8 @@ const EstadisticasFR = () => {
                         <th className='encabezado'>Juegos Jugados</th>
                         <th className='encabezado'>Juegos Ganados</th>
                         <th className='encabezado'>Juegos Perdidos</th>
-                        <th className='encabezado' >Juegos Ganados Penales</th>
-                        <th className='encabezado'>Juegos Perdidos Penales</th>
+                        <th className='encabezado' >Juegos Ganados en ShootOut</th>
+                        <th className='encabezado'>Juegos Perdidos en ShootOut</th>
                         <th className='encabezado'>Goles a Favor</th>
                         <th className='encabezado'>Goles en Contra</th>
                         <th className='encabezado'>Diferencia de Goles</th>

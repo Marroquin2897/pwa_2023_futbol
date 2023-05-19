@@ -207,7 +207,7 @@ const Categoria = styled.div`
     }
 `;
 const Nivel = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
