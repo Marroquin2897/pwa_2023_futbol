@@ -279,14 +279,38 @@ background: #560000 ;
 } 
 
 /*ESTILOS PARA LA TABLA MOSTRADA EN LAS ESTADISTICAS*/
-.TablaGeneralPos{
-  border-collapse: collapse; /*permite que los bordes de las celdas se fusionen en una línea continua*/
+
+.TablaGeneralPos {
+  border-collapse: collapse; /* permite que los bordes de las celdas se fusionen en una línea continua */
   margin: 10px 20px 10px;
+  width: 90%;
 }
+
 .encabezado, .descripcion {
-    
-    border: 2px solid black;
-    padding: 8px; /*agrega un espacio de relleno alrededor del contenido de las celdas.*/
-    text-align: left;
-    width: 130px;
+  border: 2px solid black;
+  padding: 8px; /* agrega un espacio de relleno alrededor del contenido de las celdas */
+  text-align: left;
+  width: 130px;
+}
+
+.encabezado {
+  text-align: center;
+  color: #ffffff; /* Cambia el color del texto aquí */
+  font-weight: bold; /* Cambia el estilo de fuente aquí, por ejemplo: bold, italic, etc. */
+  padding: 8px;
+  text-align: center;
+  background-image: linear-gradient(to right, #011230, #011250, #011280); /* Cambia los colores aquí */
+  font-weight: bold;
+  width: auto;
+}
+
+.TablaGeneralPos td {
+  /* Estilos para el contenido de las celdas */
+  background-image: linear-gradient(to right, #a5a5a5, #a5a5a576, #a5a5a500); 
+  color: #000000; /* Cambia el color del texto del contenido aquí */
+  font-weight: normal; /* Cambia el estilo de fuente del contenido aquí */
+  width: auto;
+}
+.TablaGeneralPos td:first-child {
+  text-align: center; /* Alinea al centro solo la primera columna */
 }

@@ -1,5 +1,54 @@
 import styled from 'styled-components';
 import theme from './../theme';
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`;
+
+const TableRow = styled.tr``;
+
+const TableCell = styled.td`
+  color: #000000;
+  font-weight: 500;
+  font-size: 1.25rem; /* 20px */
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 3.12rem; /* 50px */
+    height: auto;
+    margin-right: 1.25rem; /* 20px */
+    border-radius: 0.62rem; /* 10px */
+  }
+
+  @media (max-width: 50rem) { /* 80px */
+    font-size: 1.12rem;
+  }
+`;
+
+const MyComponent = () => {
+  return (
+    <Table>
+      <tbody>
+        <TableRow>
+          <TableCell>
+            {/* Contenido de la primera columna */}
+            {/* Agrega aquí tus elementos o componentes */}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            {/* Contenido de la segunda columna */}
+            {/* Agrega aquí tus elementos o componentes */}
+          </TableCell>
+        </TableRow>
+        {/* Repite las filas y celdas según sea necesario */}
+      </tbody>
+    </Table>
+  );
+};
+
  
 const Lista = styled.ul`
     list-style: none;
@@ -68,7 +117,7 @@ const Nombre = styled.div`
     }
 `;
 const Entrenador = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -86,7 +135,7 @@ const Entrenador = styled.div`
     }
 `;
 const Asistente = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -104,7 +153,7 @@ const Asistente = styled.div`
     }
 `;
 const Escuela = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -122,7 +171,7 @@ const Escuela = styled.div`
     }
 `;
 const Modalidades = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -140,7 +189,7 @@ const Modalidades = styled.div`
     }
 `;
 const Categoria = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -343,6 +392,11 @@ const BotonCargarMas = styled.button`
     &:hover {
         box-shadow: 3px 0px 30px rgba(163,163,163,1);
     }
+
+
+
+
+    
 `;
  
 export {

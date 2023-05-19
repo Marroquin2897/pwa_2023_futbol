@@ -1,4 +1,4 @@
-    import React from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import BtnRegresar from '../elementos/BtnRegresar';
 import { ContenedorBotonCentrado } from '../elementos/ElementosFormulario';

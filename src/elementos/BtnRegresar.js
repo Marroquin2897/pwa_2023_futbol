@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 
 const Btn = styled.button`
     display: block;
-    width: 3.12rem; /* 50px */
+    width: 5.12rem; /* 50px */
     height: 3.12rem; /* 50px */
     line-height: 3.12rem; /* 50px */
     text-align: center;
@@ -16,7 +16,7 @@ const Btn = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0.31rem; /* 5px */
+    border-radius: 5.31rem; /* 5px */
     cursor: pointer;
  
     @media(max-width: 60rem){ /* 950px */
