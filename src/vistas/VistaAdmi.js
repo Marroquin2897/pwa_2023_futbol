@@ -28,7 +28,7 @@ const VistaAdmi = () => {
         <Carousel selectedItem={currentSlide} onChange={setCurrentSlide} autoPlay infiniteLoop showThumbs={false}>
           <div>
             {/* Contenido de la primera fotografía */}
-            <img src="https://media.admagazine.com/photos/623239bb3d27b630fcc295a7/4:3/w_2247,h_1685,c_limit/BLACKPINK.jpg" alt="Descripción de la imagen 1" style={{ width: '500px', height: '300px' }} />
+            <img src="https://scontent.fmex28-1.fna.fbcdn.net/v/t39.30808-6/343933790_960404308426629_4877648574252264772_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeH1fTNB22lymyVfvUKqXLxkT-23TPP5usFP7bdM8_m6wXv1PCJkGQeO5VeDWxqr7zcKK0tFG4IBJvQ5r96NgwVY&_nc_ohc=ugRrWdguhqYAX_lHajI&_nc_ht=scontent.fmex28-1.fna&oh=00_AfAfSg9AvaBQ1PEmOj694Cozcxov1dGF1gQ6XSxlXgJ1Uw&oe=646CD53F" alt="Descripción de la imagen 1" style={{ width: '500px', height: '300px' }} />
           </div>
           <div>
             {/* Contenido de la segunda fotografía */}
