@@ -37,6 +37,8 @@ import ListaJugadoresAdm from './componentes/ListaJugadoresAdm';
 import RegistrarResultadosFemenilSuperiorRapido from './componentes/RegistrarResultadosFemenilSuperiorRapido';
 import VistaJugador from './vistas/VistaJugador';
 import TGFemenilSuperiorRapido from './componentes/TGFemenilSuperiorRapido';
+import RegistrarResultadosVaronilSuperiorFut7 from './componentes/RegistrarResultadosVaronilSuperiorFut7';
+import EstadisticasFut7VaronilSuperior from './componentes/EstadisticasFut7VaronilSuperior';
 
 
 WebFont.load({
@@ -172,9 +174,19 @@ const Index = () => {
                 <RegistrarResultadosFemenilSuperiorRapido/>
               </RutaPrivada>
             }/>
+            <Route path="/RR-F7-VaronilSuperior" element={
+              <RutaPrivada>
+                <RegistrarResultadosVaronilSuperiorFut7/>
+              </RutaPrivada>
+            }/>
             <Route path="/TG-FR-Femenil-NS" element={
               <RutaPrivada>
                 <TGFemenilSuperiorRapido/>
+              </RutaPrivada>
+            }/>
+            <Route path="/estadisticas-f7" element={
+              <RutaPrivada>
+                <EstadisticasFut7VaronilSuperior/>
               </RutaPrivada>
             }/>
         </Routes>

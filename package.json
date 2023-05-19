@@ -27,6 +27,7 @@
     "react-firebase9-hooks": "^4.0.0-alpha.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.8.0",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
     "react-table": "^7.8.0",
