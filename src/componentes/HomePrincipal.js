@@ -9,7 +9,7 @@ import '../MenuSide.css';
 
 function HomePrincipal({usuario}) {
     
-    sessionStorage.setItem("name", usuario.rol);
+    sessionStorage.setItem("rolUsuario", usuario.rol);
     let infoUser={
         uid: usuario.id,
         email: usuario.correo,

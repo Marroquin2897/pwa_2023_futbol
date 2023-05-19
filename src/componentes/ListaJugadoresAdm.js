@@ -36,7 +36,7 @@ const ListaJugadoresAdm = () => {
           return jugadores;
         }
       };
-    const nameUsuario = sessionStorage.getItem("name")
+      const rolUsuario = sessionStorage.getItem("rolUsuario")
 
     return ( 
         <div className="hero">
@@ -45,7 +45,7 @@ const ListaJugadoresAdm = () => {
       <center><h2>Lista de Jugadores</h2></center> 
        <div>
             <h3><img src="https://tinyurl.com/233pns5r"/></h3>
-            <h2>{nameUsuario}</h2>
+            <h2>{rolUsuario}</h2>
         </div>
       </nav>
         <Helmet>

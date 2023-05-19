@@ -10,9 +10,20 @@ import {firebaseApp} from "../firebase/firebaseConfig";
 
 
 const auth=getAuth(firebaseApp);
-
 class MenuAdmin extends React.Component  {
-    
+  handleCerrarSesion = () => {
+    signOut(auth)
+      .then(() => {
+        sessionStorage.removeItem('name');
+        sessionStorage.removeItem('infoUser');
+        console.log('Sesión cerrada');
+        // Realiza otras acciones después de cerrar sesión, como redirigir a la página de inicio de sesión, mostrar un mensaje, etc.
+      })
+      .catch((error) => {
+        console.error('Error al cerrar sesión:', error);
+        // Manejo de errores al cerrar sesión
+      });
+  };
     render () {
       return (
         <Menu >
@@ -27,7 +38,7 @@ class MenuAdmin extends React.Component  {
           <Link id="resultadosVaronilFut7Superior" className="menu-item" to="/RR-F7-VaronilSuperior" > <MdOutlineAppRegistration  className='iconMenu'/>  Registrar Resultados Fútbol 7 Varonil Nivel Superior </Link><br/><br/>
 
           <Link id="noticias" className="menu-item" to="/noticias" > <FaNewspaper  className='iconMenu'/>  Noticias</Link>
-          <center><button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesión</button></center>
+          <center><button className='btn-cerrarSesion' onClick={this.handleCerrarSesion}> Cerrar sesión</button></center>
         </Menu>
       );
     }

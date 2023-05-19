@@ -12,7 +12,7 @@ Subtitulo} from './../elementos/ElementosListaT';
 
 const ListaTorneos = () => {
     const [torneos,obtenerMasTorneos,hayMasPorCargar] = useObtenerTorneos();
-    const nameUsuario = sessionStorage.getItem("name")
+    const rolUsuario = sessionStorage.getItem("rolUsuario")
     return ( 
     <div className="hero">
       <nav>
@@ -20,7 +20,7 @@ const ListaTorneos = () => {
         <center><h2>Lista de Torneos</h2></center> 
         <div>
             <h3><img src="https://tinyurl.com/233pns5r"/></h3>
-            <h2>{nameUsuario}</h2>
+            <h2>{rolUsuario}</h2>
         </div>
         
       </nav>

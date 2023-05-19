@@ -18,7 +18,7 @@ const Grupos = () => {
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
   const[alerta,cambiarAlerta] = useState({});
   const firestore = getFirestore(firebaseApp);
-
+  const rolUsuario = sessionStorage.getItem("rolUsuario")
   //Funcion para buscar escuelas disponible para jugar torneo
   const handleBuscarEscuelas = async () => {
     try {
@@ -148,7 +148,7 @@ function crearEnfrentamientos(equipos) {
         <div className="hero">
             <nav>
             <img src="https://tinyurl.com/2b2ek3ck"/>
-              <center><h2>Grupos</h2></center> 
+              <center><h2>Grupos</h2><h2>{rolUsuario}</h2></center> 
               <h3><img src="https://tinyurl.com/233pns5r"/></h3>
             </nav>
             <Helmet>

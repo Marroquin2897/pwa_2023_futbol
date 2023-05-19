@@ -255,8 +255,7 @@ const RegistroUsuario = ({usuario}) => {
         ){ 
             if(usuario){
                 actualizarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion).then(()=>{
-                    console.log(nameUsuario)
-                    navigate(nameUsuario === "alumno" ? '/menu-alumno' : '/menu-profe')
+                    navigate('/rol')
                 }).catch((error)=>{
                     console.log(error);
                 })
@@ -274,13 +273,13 @@ const RegistroUsuario = ({usuario}) => {
         
         
 	}
-	const nameUsuario = sessionStorage.getItem("name")
+	const rolUsuario = sessionStorage.getItem("rolUsuario")
 	return(
     <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
-      <center><h2>{nameUsuario ? 'Editar Usuario' : 'Crear Cuenta'}</h2>
-              <h2>{nameUsuario}</h2></center> 
+      <center><h2>{rolUsuario ? 'Editar Usuario' : 'Crear Cuenta'}</h2>
+              <h2>{rolUsuario}</h2></center> 
                 <h3><img src="https://tinyurl.com/233pns5r"/></h3>      
       </nav>
         <Helmet>
