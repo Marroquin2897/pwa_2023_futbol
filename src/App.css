@@ -163,6 +163,7 @@
   .hero nav h2 {
     color: #ffffff; /* color letra barra superior */
     width: 100%;
+    text-align: center;
     padding: 10px;
     font-size: 32px;
   }
