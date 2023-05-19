@@ -207,7 +207,7 @@ const Categoria = styled.div`
     }
 `;
 const Nivel = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -216,7 +216,7 @@ const Nivel = styled.div`
     svg {
         width: 3.12rem; /* 50px */
         height: auto;
-        margin-right: 1.25rem; /* 20px */
+        margin-right: 0.25rem; /* 20px */
         border-radius: 0.62rem; /* 10px */
     }
  
