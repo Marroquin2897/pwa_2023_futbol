@@ -89,7 +89,7 @@ const Torneo = () => {
     return ( 
 <div className="hero">
       <nav>
-      <img src="https://tinyurl.com/2b2ek3ck"/>
+      <img src="https://tinyurl.com/2obtocwe"/>
         <center><h2>Nuevo Torneo</h2></center> 
         <div>
             <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
