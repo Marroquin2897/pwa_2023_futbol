@@ -147,9 +147,9 @@ function crearEnfrentamientos(equipos) {
     return ( 
         <div className="hero">
             <nav>
-            <img src="https://tinyurl.com/2b2ek3ck"/>
+            <img src="https://tinyurl.com/2obtocwe"/>
               <center><h2>Grupos</h2></center> 
-              <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+              <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>
                 <title> Grupos </title>
