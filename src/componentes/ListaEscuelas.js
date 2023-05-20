@@ -39,13 +39,13 @@ const ListaEscuelas = () => {
     }
 
 
-    const nameUsuario = sessionStorage.getItem("name")
+    const rolUsuario = sessionStorage.getItem("rolUsuario")
     return ( 
     <div className="hero">
       <nav>
-      <img src="https://tinyurl.com/2obtocwe"/>
+      <img src="https://tinyurl.com/2b2ek3ck"/>
         <center><h2>Lista de Escuelas</h2> <h2>{nameUsuario}</h2></center> 
-       <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+       <h3><img src="https://tinyurl.com/233pns5r"/></h3>
       </nav>
         <Helmet>
             <title>Lista de Escuelas</title>

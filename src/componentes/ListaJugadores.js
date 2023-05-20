@@ -26,7 +26,7 @@ import ListaExcel from './ListaExcel';
 
 const ListaJugadores = () => {
     const [jugadores,obtenerMasJugadores,hayMasPorCargar] = useObtenerJugadores();
-    const nameUsuario = sessionStorage.getItem("name")
+    const rolUsuario = sessionStorage.getItem("rolUsuario")
 
     return ( 
         <div className="hero">
@@ -34,7 +34,7 @@ const ListaJugadores = () => {
       <img src="https://tinyurl.com/2obtocwe"/>
       <center><h2>Lista de Jugadores</h2>
       <h2>{nameUsuario}</h2></center>    
-      <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+      <h3><img src="https://tinyurl.com/233pns5r"/></h3>
             
       </nav>
         <Helmet>
