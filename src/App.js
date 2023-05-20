@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import {Helmet} from 'react-helmet';
-
+import Layout from './componentes/Layout';
 
 const App = () => {
   return ( 
@@ -14,6 +14,9 @@ const App = () => {
       <Helmet>
         <title>PoliKickerFut7RA</title>
       </Helmet>  
+      <Layout>
+        
+      </Layout>
       <section className='login'>
         <div className='loginContainer'> 
             <h1>Acceso</h1> <br/><br/>
