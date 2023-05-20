@@ -80,9 +80,9 @@ const Login = () => {
           <title>Iniciar Sesión</title>
         </Helmet>  
       <nav>
-        <img src="https://tinyurl.com/2obtocwe"/>
+        <img src="https://tinyurl.com/2b2ek3ck"/>
         <h2>PoliKickerFut7RA</h2> 
-        <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
 
       </nav>
         <section className='login'>
