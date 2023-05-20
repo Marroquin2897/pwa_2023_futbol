@@ -10,7 +10,6 @@ import agregarEscuela from '../firebase/agregarEscuela';
 import {useNavigate} from 'react-router-dom';
 import Alerta from '../elementos/Alerta';
 import useObtenerEscuela from '../hooks/useObtenerEscuela';
-import { TbRollercoaster } from 'react-icons/tb';
 
 
 const RegistrarEscuela = ({escuelaExistente}) => {
@@ -235,14 +234,14 @@ const RegistrarEscuela = ({escuelaExistente}) => {
         } 
            
     }
-    const rolUsuario = sessionStorage.getItem("rolUsuario")
+    const nameUsuario = sessionStorage.getItem("name")
     return ( 
         <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
         <center><h2> {escuelaExistente ? 'Editar Escuela' : 'Registrar Nueva Escuela'}</h2>
         <h2>{nameUsuario}</h2></center>    
-        <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+        <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
       </nav>
       
         <Helmet>

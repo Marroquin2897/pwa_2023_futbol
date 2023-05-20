@@ -11,22 +11,10 @@ import {firebaseApp} from "../firebase/firebaseConfig";
 
 
 const auth=getAuth(firebaseApp);
-class MenuProfesor extends React.Component  {
-  handleCerrarSesion = () => {
-    signOut(auth)
-      .then(() => {
-        sessionStorage.removeItem('name');
-        sessionStorage.removeItem('infoUser');
-        console.log('Sesión cerrada');
-        // Realiza otras acciones después de cerrar sesión, como redirigir a la página de inicio de sesión, mostrar un mensaje, etc.
-      })
-      .catch((error) => {
-        console.error('Error al cerrar sesión:', error);
-        // Manejo de errores al cerrar sesión
-      });
-  };
-    render() {
 
+class MenuProfesor extends React.Component  {
+    
+    render() {
       return (
          
         <Menu id="menuProfesor" >            
@@ -37,7 +25,7 @@ class MenuProfesor extends React.Component  {
           <Link id="listaEscuela" className="menu-item" to="/lista-escuelas"> <FaListUl className='iconMenu'/>  Lista de Escuelas</Link><br/>
           <Link id="estadisticas" className="menu-item" to="/estadisticas-fr" > <FaRegChartBar className='iconMenu'/>  Estadisticas</Link><br/>
           <Link id="rolJuegos" className="menu-item" to="/" > <TbSoccerField className='iconMenu'/>  Rol de Juegos</Link>
-          <center><button className='btn-cerrarSesion' onClick={this.handleCerrarSesion}> Cerrar sesion</button></center>
+          <center><button className='btn-cerrarSesion' onClick={()=>signOut(auth)}> Cerrar sesion</button></center>
         </Menu>
       );
     }       

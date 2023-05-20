@@ -27,14 +27,14 @@ const ListaJugadoresFem = () => {
     console.log(escuelaID)
     const [femenil,obtenerMasFemenil,hayMasPorCargar] = useObtenerEquipoFemenil(escuelaID);
     const [ verPDF, setVerPDF] = useState(false);
-    const rolUsuario = sessionStorage.getItem("rolUsuario")
+    const nameUsuario = sessionStorage.getItem("name")
     return ( 
         <div className="hero">
         <nav>
         <img src="https://tinyurl.com/2b2ek3ck"/>
         <center><h2>Equipo Femenil</h2>
         <h2>{nameUsuario}</h2></center>  
-          <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+          <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
         </nav>
         <Helmet>
             <title> Equipo Femenil </title>

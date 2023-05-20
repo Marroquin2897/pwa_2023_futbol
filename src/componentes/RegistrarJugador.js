@@ -202,14 +202,14 @@ const RegistrarJugador = ({jugador}) => {
         }
          
     }
-    const rolUsuario = sessionStorage.getItem("rolUsuario")
+    const nameUsuario = sessionStorage.getItem("name")
     return ( 
         <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2b2ek3ck"/>
       <center><h2>{jugador ? 'Editar Jugador' : 'Registrar Nuevo Jugador'}</h2>
       <h2>{nameUsuario}</h2></center> 
-    <h3><img src="https://tinyurl.com/233pns5r"/></h3>
+    <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
 
       </nav>
         <Helmet>
