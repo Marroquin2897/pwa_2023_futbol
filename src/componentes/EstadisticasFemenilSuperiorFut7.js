@@ -4,15 +4,15 @@ import { Helmet } from 'react-helmet';
 import { getFirestore,collection, getDocs,addDoc, setDoc,doc } from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
 
-const EstadisticasFR = () => {
+const EstadisticasFemenilSuperiorFut7 = () => {
     const nameUsuario = sessionStorage.getItem("name")
     const [estadisticasEquipos, setEstadisticasEquipos] = useState({});
     const firestore = getFirestore(firebaseApp);
-    
+
     useEffect(() => {
         const fetchEstadisticasEquipos = async () => {
           try {
-            const resultadosRef = collection(firestore, 'resultadosFemenilSuperiorRapido');
+            const resultadosRef = collection(firestore, 'resultadosFemenilSuperiorFut7');
             const querySnapshot = await getDocs(resultadosRef);
     
             const equipos = {};
@@ -113,7 +113,7 @@ const EstadisticasFR = () => {
                 setEstadisticasEquipos(equiposArray);
                 // Guardar estadísticas en la colección "tablaposicionesFRFemenilSuperior"
                 equiposArray.forEach(async (equipo) => {
-                  const docRef = doc(firestore, 'tablaposicionesFRFemenilSuperior', equipo.equipo);
+                  const docRef = doc(firestore, 'tablaposicionesFemenilSuperiorFut7', equipo.equipo);
                   const data = {
                       equipo: equipo.equipo,
                       juegosJugados: equipo.juegosJugados,
@@ -136,18 +136,15 @@ const EstadisticasFR = () => {
             };
             fetchEstadisticasEquipos();
             }, []);
-           
     return (  
         <div className="hero">
             <nav>
             <img src="https://tinyurl.com/2obtocwe"/>
-              <center><h2> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Superior </h2>
-              <h2>{nameUsuario}</h2>
-              </center> 
+              <center><h2> Tabla General de Posiciones Fútbol 7 Femenil Nivel Superior </h2><h2>{nameUsuario}</h2></center> 
             <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>
-                <title> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Superior</title>
+                <title> Tabla General de Posiciones Fútbol 7 Femenil Nivel Superior</title>
             </Helmet>
             <div>
             <table className='TablaGeneralPos'>
@@ -157,8 +154,8 @@ const EstadisticasFR = () => {
                         <th className='encabezado'>Juegos Jugados</th>
                         <th className='encabezado'>Juegos Ganados</th>
                         <th className='encabezado'>Juegos Perdidos</th>
-                        <th className='encabezado' >Juegos Ganados en ShootOut</th>
-                        <th className='encabezado'>Juegos Perdidos en ShootOut</th>
+                        <th className='encabezado' >Juegos Ganados Penales</th>
+                        <th className='encabezado'>Juegos Perdidos Penales</th>
                         <th className='encabezado'>Goles a Favor</th>
                         <th className='encabezado'>Goles en Contra</th>
                         <th className='encabezado'>Diferencia de Goles</th>
@@ -188,4 +185,4 @@ const EstadisticasFR = () => {
         </div>
     );
 }
-export default EstadisticasFR;
+export default EstadisticasFemenilSuperiorFut7;

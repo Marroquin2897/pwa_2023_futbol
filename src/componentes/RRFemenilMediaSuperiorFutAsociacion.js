@@ -3,26 +3,27 @@ import { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import { getFirestore, collection, addDoc,where,updateDoc,getDocs,doc,query,setDoc} from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
-import { Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
+import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
 import Alerta from '../elementos/Alerta';
 
-const RRFemenilSuperiorFutAsociacion = () => {
+const RRFemenilMediaSuperiorFutAsociacion = () => {
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({});
     const [jornada, setJornada] = useState('');
     const [guardado, setGuardado] = useState(false);
-    const[estadoAlerta,cambiarEdoAlerta] = useState(false);
+    const[estadoAlerta,cambiarEdoAlerta] = useState(false); 
     const[alerta,cambiarAlerta] = useState({});
+    const [mostrarPartidos, setMostrarPartidos] = useState(false);
     const firestore = getFirestore(firebaseApp);
     const partidosCollection = collection(firestore, 'partidos');
-    const resultadosCollection = collection(firestore, 'resultadosFemenilSuperiorAsociacion');
+    const resultadosCollection = collection(firestore, 'resultadosFemenilMediaSuperiorAsociacion');
 
     useEffect(() => {
-        const fetchPartidos = async () => {
-          try {
+        const fetchPartidos = async () => { 
+          try { 
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Futbol Asociacion'))
+              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Futbol Asociacion'))
             );
     
             const partidos = [];
@@ -55,8 +56,8 @@ const RRFemenilSuperiorFutAsociacion = () => {
               partidosCollection,
               where('jornada', '==', parseInt(jornada)),
               where('categoria', '==', 'femenil'),
-              where('nivelAcademico', '==', 'Superior'),
-              where('modalidadTorneo','==','Futbol Asociacion')
+              where('nivelAcademico', '==', 'Media Superior'),
+              where('modalidadTorneo', '==', 'Futbol Asociacion')
             )
           );
     
@@ -64,7 +65,7 @@ const RRFemenilSuperiorFutAsociacion = () => {
           querySnapshot.forEach((doc) => {
             partidos.push({ id: doc.id, ...doc.data() });
           });
-    
+          setMostrarPartidos(true);
           console.log('Partidos encontrados:', partidos);
           setPartidos(partidos);
         } catch (error) {
@@ -104,89 +105,96 @@ const RRFemenilSuperiorFutAsociacion = () => {
             .then(() => {
               cambiarEdoAlerta(true); 
               cambiarAlerta({
-                tipo: 'exito',
-                mensaje:'Resultado Guardado Exitosamente'
-            });
+                  tipo: 'exito',
+                  mensaje:'Resultado Guardado Exitosamente'
+              });
             })
             .catch((error) => {
               cambiarEdoAlerta(true); 
               cambiarAlerta({
-                tipo: 'error',
-                mensaje:'Error al Guardar el Resultado'
+                  tipo: 'error',
+                  mensaje:'Error al Guardar el Resultado'
               });
-              
             });
         });
         setGuardado(true);
       };
-
-
-
-
-  return (
-    <div className='hero'>
-            <nav>
-            <img src="https://tinyurl.com/2obtocwe"/>
-              <center><h2>Registro de Resultados Fútbol Asociación Femenil Nivel Superior </h2></center> 
+    return ( 
+        <div className='hero'>
+        <nav>
+            <img src="https://tinyurl.com/2b2ek3ck"/>
+              <center><h2> Registro de Resultados Fútbol Asociación Femenil Nivel Media Superior</h2></center> 
               <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>
-                <title> Round Robin </title>
+                <title> Registro de Resultados Fútbol Asociación Femenil Nivel Media Superior</title>
             </Helmet>
+            <main>
+            <Label htmlFor="jornada">Jornada:</Label>
+            <GrupoInput>
+              <Input type="text" id="jornada" value={jornada} onChange={(e) => setJornada(e.target.value)} />
+            </GrupoInput>
+            <br/>
+            <ContenedorBotonCentrado>
+              <Boton  onClick={handleVerPartidos} > Ver Partidos </Boton> <br/>
+            </ContenedorBotonCentrado>
 
-      <label htmlFor="jornada">Jornada:</label>
-      <input type="text" id="jornada" value={jornada} onChange={(e) => setJornada(e.target.value)} />
-      <button onClick={handleVerPartidos}>Ver Partidos</button>
+            {mostrarPartidos && (
+            <div>
+              <Label> <h3> Partidos </h3></Label>
+              <ul>
+                {partidos.map((partido) => (
+                  <li key={partido.id}>
+                    <div>
+                      <Label>
+                        <span>{partido.local}</span> vs <span>{partido.visitante}</span>
+                      </Label>
+                    </div>
+                    <div className="golesContainer">
+                    <div>
+                      <Label htmlFor="golesLocal">Goles Local</Label>
+                      <Input
+                        type="number"
+                        id="golesLocal"
+                        value={resultados[partido.id]?.golesLocal || ''}
+                        onChange={(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="golesVisitante">Goles Visitante:</Label>
+                      <Input
+                        type="number"
+                        id="golesVisitante"
+                        value={resultados[partido.id]?.golesVisitante || ''}
+                        onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
+                      />
+                    </div>
+                    </div>            
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <br/>
+          {partidos.length > 0 && (
+              <ContenedorBotonCentrado>
+                <Boton onClick={guardarResultados}>Guardar Resultado</Boton>
+              </ContenedorBotonCentrado>
+            )}
 
-      <div>
-        <h3>Partidos</h3>
-        <ul>
-          {partidos.map((partido) => (
-            <li key={partido.id}>
-              <div>
-                <span>{partido.local}</span> vs <span>{partido.visitante}</span>
-              </div>
-              <div>
-                <label htmlFor="golesLocal">Goles Local</label>
-                <input
-                  type="number"
-                  id="golesLocal"
-                  value={resultados[partido.id]?.golesLocal || ''}
-                  onChange={(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="golesVisitante">Goles Visitante:</label>
-                <input
-                  type="number"
-                  id="golesVisitante"
-                  value={resultados[partido.id]?.golesVisitante || ''}
-                  onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {partidos.length > 0 && (
-        <button onClick={guardarResultados}>Guardar Resultado</button>
-      )}
-
-      {guardado && (
-        <div>
-          <p>Resultados guardados exitosamente.</p>
-        </div>
-      )}
-
+            {guardado && (
+                <div>
+                <p>Resultados guardados exitosamente.</p>
+                </div>
+            )}
+            </main>
         <Alerta 
             tipo= {alerta.tipo}
             mensaje= {alerta.mensaje}
             estadoAlerta={estadoAlerta}
             cambiarEdoAlerta={cambiarEdoAlerta}
-          />
-    </div>
-  );
-};
-
-export default RRFemenilSuperiorFutAsociacion;
+            />
+        </div>
+     );
+}
+export default RRFemenilMediaSuperiorFutAsociacion;

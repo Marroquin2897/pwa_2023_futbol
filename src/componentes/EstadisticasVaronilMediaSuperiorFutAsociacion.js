@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { getFirestore,collection, getDocs,addDoc, setDoc,doc } from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
 
-const EstadisticasFemenilMediaSuperiorAsociación = () => {
+const EstadisticasVaronilMediaSuperiorAsociación = () => {
   const nameUsuario = sessionStorage.getItem("name")
     const [estadisticasEquipos, setEstadisticasEquipos] = useState([]);
     const firestore = getFirestore(firebaseApp); 
@@ -12,7 +12,7 @@ const EstadisticasFemenilMediaSuperiorAsociación = () => {
     useEffect(() => {
         const fetchEstadisticasEquipos = async () => {
           try {
-            const resultadosRef = collection(firestore, 'resultadosFemenilMediaSuperiorAsociacion');
+            const resultadosRef = collection(firestore, 'resultadosVaronilMediaSuperiorAsociacion');
             const querySnapshot = await getDocs(resultadosRef);
     
             const equipos = {};
@@ -105,7 +105,7 @@ const EstadisticasFemenilMediaSuperiorAsociación = () => {
     
             // Guardar estadísticas en la colección "tablaposicionesFemenilSuperior"
             equiposArray.forEach(async (equipo) => {
-              const docRef = doc(firestore, 'tablaposicionesFemenilMediaSuperiorFutAsociacion', equipo.equipo);
+              const docRef = doc(firestore, 'tablaposicionesVaronilMediaSuperiorFutAsociacion', equipo.equipo);
               const data = {
                 equipo: equipo.equipo,
                 juegosJugados: equipo.juegosJugados,
@@ -135,13 +135,13 @@ const EstadisticasFemenilMediaSuperiorAsociación = () => {
         <div className='hero'>
             <nav>
             <img src="https://tinyurl.com/2b2ek3ck"/>
-              <center><h2> Tabla General de Posiciones Fútbol Asociación Femenil Nivel Media Superior </h2>
+              <center><h2> Tabla General de Posiciones Fútbol Asociación Varonil Nivel Media Superior </h2>
               <h2>{nameUsuario}</h2>
               </center> 
             <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>
-                <title> Tabla General de Posiciones Fútbol Asociación Femenil Nivel Media Superior</title>
+                <title> Tabla General de Posiciones Fútbol Asociación Varonil Nivel Media Superior</title>
             </Helmet>
             <table className='TablaGeneralPos'>
             <thead>
@@ -177,4 +177,4 @@ const EstadisticasFemenilMediaSuperiorAsociación = () => {
      );
 }
  
-export default EstadisticasFemenilMediaSuperiorAsociación;
+export default EstadisticasVaronilMediaSuperiorAsociación;

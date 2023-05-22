@@ -6,23 +6,25 @@ import { firebaseApp } from '../firebase/firebaseConfig';
 import { Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
 import Alerta from '../elementos/Alerta';
 
-const RRFemenilSuperiorFutAsociacion = () => {
+const RRVaronilSuperiorFutAsociacion = () => {
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({});
     const [jornada, setJornada] = useState('');
     const [guardado, setGuardado] = useState(false);
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
+    
+
     const firestore = getFirestore(firebaseApp);
     const partidosCollection = collection(firestore, 'partidos');
-    const resultadosCollection = collection(firestore, 'resultadosFemenilSuperiorAsociacion');
+    const resultadosCollection = collection(firestore, 'resultadosVaronilSuperiorAsociacion');
 
     useEffect(() => {
         const fetchPartidos = async () => {
           try {
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Futbol Asociacion'))
+              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'varonil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Futbol Asociacion'))
             );
     
             const partidos = [];
@@ -54,7 +56,7 @@ const RRFemenilSuperiorFutAsociacion = () => {
             query(
               partidosCollection,
               where('jornada', '==', parseInt(jornada)),
-              where('categoria', '==', 'femenil'),
+              where('categoria', '==', 'varonil'),
               where('nivelAcademico', '==', 'Superior'),
               where('modalidadTorneo','==','Futbol Asociacion')
             )
@@ -104,34 +106,29 @@ const RRFemenilSuperiorFutAsociacion = () => {
             .then(() => {
               cambiarEdoAlerta(true); 
               cambiarAlerta({
-                tipo: 'exito',
-                mensaje:'Resultado Guardado Exitosamente'
-            });
+                  tipo: 'exito',
+                  mensaje:'Resultado Guardado Exitosamente'
+              });
             })
             .catch((error) => {
               cambiarEdoAlerta(true); 
               cambiarAlerta({
-                tipo: 'error',
-                mensaje:'Error al Guardar el Resultado'
+                  tipo: 'error',
+                  mensaje:'Error al Guardar el Resultado'
               });
-              
             });
         });
         setGuardado(true);
       };
-
-
-
-
-  return (
-    <div className='hero'>
-            <nav>
-            <img src="https://tinyurl.com/2obtocwe"/>
-              <center><h2>Registro de Resultados Fútbol Asociación Femenil Nivel Superior </h2></center> 
+    return ( 
+        <div className='hero'>
+          <nav>
+            <img src="https://tinyurl.com/2b2ek3ck"/>
+              <center><h2> Registro de Resultados Fútbol Asociación Varonil Nivel Superior</h2></center> 
               <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>
-                <title> Round Robin </title>
+                <title> Registro de Resultados Fútbol Asociación Varonil Nivel Superior </title>
             </Helmet>
 
       <label htmlFor="jornada">Jornada:</label>
@@ -169,24 +166,23 @@ const RRFemenilSuperiorFutAsociacion = () => {
         </ul>
       </div>
 
-      {partidos.length > 0 && (
-        <button onClick={guardarResultados}>Guardar Resultado</button>
-      )}
+        {partidos.length > 0 && (
+            <button onClick={guardarResultados}>Guardar Resultado</button>
+        )}
 
-      {guardado && (
-        <div>
-          <p>Resultados guardados exitosamente.</p>
-        </div>
-      )}
-
+        {guardado && (
+            <div>
+            <p>Resultados guardados exitosamente.</p>
+            </div>
+        )}
         <Alerta 
             tipo= {alerta.tipo}
             mensaje= {alerta.mensaje}
             estadoAlerta={estadoAlerta}
             cambiarEdoAlerta={cambiarEdoAlerta}
-          />
-    </div>
-  );
-};
-
-export default RRFemenilSuperiorFutAsociacion;
+            />
+        </div>
+     );
+}
+ 
+export default RRVaronilSuperiorFutAsociacion;

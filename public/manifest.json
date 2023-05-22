@@ -1,6 +1,10 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "PWA Futbol",
+  
+  "categories": [ "sports", "education"],
+  "description": "Aplicación Web Progresiva para Administrar los Torneos Interpolitécnicos de Fútbol del IPN.",
+  "display_override": ["standalone", "fullscreen"],
+  "display": "standalone",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,7 +12,7 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "icono2-burrito.png",
       "type": "image/png",
       "sizes": "192x192"
     },
@@ -19,7 +23,9 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "lang": "es-MX",
+  "name": "PoliKickerFut7RA",
+  "orientation": "portrait",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }

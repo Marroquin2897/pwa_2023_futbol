@@ -3,12 +3,15 @@ import { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import { getFirestore, collection, addDoc,where,updateDoc,getDocs,doc,query,setDoc} from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
+import Alerta from '../elementos/Alerta';
 
 const RegistrarResultadosVaronilSuperiorFut7 = () => {
     const [jornada, setJornada] = useState('');
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({}); 
     const [guardado, setGuardado] = useState(false);
+    const[estadoAlerta,cambiarEdoAlerta] = useState(false);
+    const[alerta,cambiarAlerta] = useState({});
     const firestore = getFirestore(firebaseApp);
 
     useEffect(() => {
@@ -115,9 +118,19 @@ const RegistrarResultadosVaronilSuperiorFut7 = () => {
           );
           setDoc(docRef, resultadoPartido)
             .then(() => {
+              cambiarEdoAlerta(true); 
+              cambiarAlerta({
+                  tipo: 'exito',
+                  mensaje:'Resultado Guardado Exitosamente'
+              });
               console.log('Resultado guardado exitosamente');
             })
             .catch((error) => {
+              cambiarEdoAlerta(true); 
+              cambiarAlerta({
+                  tipo: 'error',
+                  mensaje:'Error al Guardar el Resultado'
+              });
               console.error('Error al guardar el resultado:', error);
             });
         });
@@ -192,6 +205,12 @@ const RegistrarResultadosVaronilSuperiorFut7 = () => {
                   <button onClick={guardarResultados}>Guardar Resultado</button>
                 )}
             </main>
+            <Alerta 
+            tipo= {alerta.tipo}
+            mensaje= {alerta.mensaje}
+            estadoAlerta={estadoAlerta}
+            cambiarEdoAlerta={cambiarEdoAlerta}
+            />
         </div>
       );
 }

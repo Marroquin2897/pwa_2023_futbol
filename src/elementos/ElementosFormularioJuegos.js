@@ -35,8 +35,8 @@ const GrupoInput = styled.div `
 `;
 
 const Input = styled.input`
-    width: 100%;
-    background: #cacbcf;
+    width: 30%;
+    background: #ffff;
     border-radius: 30px;
     height: 45px;
     line-height: 45px;
