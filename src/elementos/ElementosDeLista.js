@@ -99,7 +99,7 @@ const Label = styled.th`
 `;
  
 const Nombre = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -225,7 +225,7 @@ const Nivel = styled.div`
     }
 `;
 const Apellidos = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -243,7 +243,7 @@ const Apellidos = styled.div`
     }
 `;
 const Nss = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -261,7 +261,7 @@ const Nss = styled.div`
     }
 `;
 const Curp = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-weight: 500;
     font-size: 1.25rem; /* 20px */
     display: flex;
@@ -280,7 +280,7 @@ const Curp = styled.div`
 `;
  
 const Boleta = styled.div`
-    color: #FFFFFF;
+    color: #000000;
     font-size: 1.25rem; /* 20px */
     font-weight: 700;
     justify-content: end;
@@ -290,7 +290,7 @@ const Boleta = styled.div`
     }
 `;
 const Semestre = styled.div`
-color: #FFFFFF;
+color: #000000;
 font-size: 1.25rem; /* 20px */
 font-weight: 700;
 justify-content: end;
