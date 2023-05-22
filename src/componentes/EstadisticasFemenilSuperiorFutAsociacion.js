@@ -134,7 +134,7 @@ const EstadisticasFemenilSuperiorFutAsociación = () => {
     return ( 
         <div className='hero'>
             <nav>
-            <img src="https://tinyurl.com/2b2ek3ck"/>
+            <img src="https://tinyurl.com/2obtocwe"/>
               <center><h2> Tabla General de Posiciones Fútbol Asociación Femenil Nivel Superior </h2>
               <h2>{nameUsuario}</h2>
               </center> 

@@ -139,7 +139,7 @@ const RRFemenilFut7MediaSuperior = () => {
     return ( 
         <div className='hero'>
             <nav>
-            <img src="https://tinyurl.com/2b2ek3ck"/>
+            <img src="https://tinyurl.com/2obtocwe"/>
               <center><h2> Registro de Resultados Fútbol 7 Femenil Nivel Media Superior</h2></center> 
               <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
