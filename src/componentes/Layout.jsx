@@ -38,27 +38,9 @@ export default function Layout(props) {
 
   return (
     <div className="App">
-      <header>
-        <h1> PWA</h1>
         {isReadyForInstall && (
           <button onClick={downloadApp}> Descargar </button>
         )}
-      </header>
-
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Inicio</Link>
-          </li>
-          <li>
-            <Link to="/acerca">Acerca</Link>
-          </li>
-          <li>
-            <Link to="/galeria">Galería</Link>
-          </li>
-        </ul>
-      </nav>
-
       {props.children}
     </div>
   );

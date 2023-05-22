@@ -5,7 +5,7 @@ import { getFirestore, collection, addDoc,where,updateDoc,getDocs,doc,query,setD
 import { firebaseApp } from '../firebase/firebaseConfig';
 import Alerta from '../elementos/Alerta';
 
-const RRFemenilRapidoMediaSuperior = () => {
+const RRFemenilFut7MediaSuperior = () => {
     const [jornada, setJornada] = useState('');
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({}); 
@@ -13,13 +13,13 @@ const RRFemenilRapidoMediaSuperior = () => {
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
     const firestore = getFirestore(firebaseApp);
-  
+
     useEffect(() => {
         const fetchPartidos = async () => {
           try {
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Futbol Rapido'))
+              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Futbol 7'))
             );
     
             const partidos = [];
@@ -43,6 +43,8 @@ const RRFemenilRapidoMediaSuperior = () => {
           fetchPartidos();
         }
       }, [jornada, firestore]);
+    
+      
       const handleVerPartidos = async () => {
         try {
             const firestore = getFirestore(firebaseApp);
@@ -53,7 +55,7 @@ const RRFemenilRapidoMediaSuperior = () => {
                 where('jornada', '==', parseInt(jornada)),
                 where('categoria', '==', 'femenil'),
                 where('nivelAcademico', '==', 'Media Superior'),
-                where('modalidadTorneo', '==', 'Futbol Rapido')
+                where('modalidadTorneo', '==', 'Futbol 7')
               )
             );
         
@@ -74,6 +76,7 @@ const RRFemenilRapidoMediaSuperior = () => {
           handleVerPartidos();
         }
       }, [jornada]);
+    
       const handleResultadoChange = (partidoId, campo, valor) => {
         setResultados((prevState) => {
           const nuevosResultados = { ...prevState };
@@ -105,41 +108,43 @@ const RRFemenilRapidoMediaSuperior = () => {
             visitante: partido.visitante,
             golesLocal: resultado.golesLocal,
             golesVisitante: resultado.golesVisitante,
-            golesPenalesLocal: golesPenalesLocal, 
+            golesPenalesLocal: golesPenalesLocal,
             golesPenalesVisitante: golesPenalesVisitante,
           };
           const docRef = doc(
             firestore,
-            'resultadosFemenilMediaSuperiorRapido',
+            'resultadosFemenilMediaSuperiorFut7',
             `${partido.local}-${partido.visitante}-${partido.jornada}`
           );
           setDoc(docRef, resultadoPartido)
             .then(() => {
               cambiarEdoAlerta(true); 
               cambiarAlerta({
-                tipo: 'exito',
-                mensaje: 'Resultado Guardado Exitosamente'
-            });
+                  tipo: 'exito',
+                  mensaje:'Resultado Guardado Exitosamente'
+              });
+              console.log('Resultado guardado exitosamente');
             })
             .catch((error) => {
               cambiarEdoAlerta(true); 
               cambiarAlerta({
                   tipo: 'error',
-                  mensaje: 'Error al Guardar el Resultado'
+                  mensaje:'Error al Guardar el Resultado'
               });
+              console.error('Error al guardar el resultado:', error);
             });
         });
         setGuardado(true);
-      };
+      };  
     return ( 
-        <div className="hero">
+        <div className='hero'>
             <nav>
             <img src="https://tinyurl.com/2b2ek3ck"/>
-              <center><h2> Registro de Resultados Fútbol Rápido Femenil Nivel Media Superior</h2></center> 
+              <center><h2> Registro de Resultados Fútbol 7 Femenil Nivel Media Superior</h2></center> 
               <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>
-                <title> Registro de Resultados Fútbol Rápido Femenil Nivel Media Superior </title>
+                <title> Registro de Resultados Fútbol 7 Femenil Nivel Media Superior</title>
             </Helmet>
             <main>
             <div>
@@ -209,4 +214,4 @@ const RRFemenilRapidoMediaSuperior = () => {
      );
 }
  
-export default RRFemenilRapidoMediaSuperior;
+export default RRFemenilFut7MediaSuperior;

@@ -5,7 +5,7 @@ import { getFirestore, collection, addDoc,where,updateDoc,getDocs,doc,query,setD
 import { firebaseApp } from '../firebase/firebaseConfig';
 import Alerta from '../elementos/Alerta';
 
-const RRFemenilRapidoMediaSuperior = () => {
+const RRVaronilMediaSuperiorFutRapido = () => {
     const [jornada, setJornada] = useState('');
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({}); 
@@ -13,13 +13,13 @@ const RRFemenilRapidoMediaSuperior = () => {
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
     const firestore = getFirestore(firebaseApp);
-  
+
     useEffect(() => {
         const fetchPartidos = async () => {
           try {
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Futbol Rapido'))
+              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'varonil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Futbol Rapido'))
             );
     
             const partidos = [];
@@ -51,7 +51,7 @@ const RRFemenilRapidoMediaSuperior = () => {
               query(
                 partidosRef,
                 where('jornada', '==', parseInt(jornada)),
-                where('categoria', '==', 'femenil'),
+                where('categoria', '==', 'varonil'),
                 where('nivelAcademico', '==', 'Media Superior'),
                 where('modalidadTorneo', '==', 'Futbol Rapido')
               )
@@ -105,12 +105,12 @@ const RRFemenilRapidoMediaSuperior = () => {
             visitante: partido.visitante,
             golesLocal: resultado.golesLocal,
             golesVisitante: resultado.golesVisitante,
-            golesPenalesLocal: golesPenalesLocal, 
+            golesPenalesLocal: golesPenalesLocal,
             golesPenalesVisitante: golesPenalesVisitante,
           };
           const docRef = doc(
             firestore,
-            'resultadosFemenilMediaSuperiorRapido',
+            'resultadosVaronilMediaSuperiorRapido',
             `${partido.local}-${partido.visitante}-${partido.jornada}`
           );
           setDoc(docRef, resultadoPartido)
@@ -135,11 +135,11 @@ const RRFemenilRapidoMediaSuperior = () => {
         <div className="hero">
             <nav>
             <img src="https://tinyurl.com/2b2ek3ck"/>
-              <center><h2> Registro de Resultados Fútbol Rápido Femenil Nivel Media Superior</h2></center> 
+              <center><h2> Registro de Resultados Fútbol Rápido Varonil Nivel Media Superior</h2></center> 
               <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>
-                <title> Registro de Resultados Fútbol Rápido Femenil Nivel Media Superior </title>
+                <title> Registro de Resultados Fútbol Rápido Varonil Nivel Media Superior </title>
             </Helmet>
             <main>
             <div>
@@ -209,4 +209,4 @@ const RRFemenilRapidoMediaSuperior = () => {
      );
 }
  
-export default RRFemenilRapidoMediaSuperior;
+export default RRVaronilMediaSuperiorFutRapido;

@@ -214,7 +214,15 @@
   h5{
     color: #560000;   
   }
-
+  .golesContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .golesContainer > div {
+    flex-basis: 65%;
+  }
 
 
 

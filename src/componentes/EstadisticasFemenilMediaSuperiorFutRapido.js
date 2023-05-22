@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { getFirestore,collection, getDocs,addDoc, setDoc,doc } from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
 
-const EstadisticasFR = () => {
+const EstadisticasFemenilMediaSuperiorFutRapido = () => {
     const nameUsuario = sessionStorage.getItem("name")
     const [estadisticasEquipos, setEstadisticasEquipos] = useState({});
     const firestore = getFirestore(firebaseApp);
@@ -12,7 +12,7 @@ const EstadisticasFR = () => {
     useEffect(() => {
         const fetchEstadisticasEquipos = async () => {
           try {
-            const resultadosRef = collection(firestore, 'resultadosFemenilSuperiorRapido');
+            const resultadosRef = collection(firestore, 'resultadosFemenilMediaSuperiorRapido');
             const querySnapshot = await getDocs(resultadosRef);
     
             const equipos = {};
@@ -113,7 +113,7 @@ const EstadisticasFR = () => {
                 setEstadisticasEquipos(equiposArray);
                 // Guardar estadísticas en la colección "tablaposicionesFRFemenilSuperior"
                 equiposArray.forEach(async (equipo) => {
-                  const docRef = doc(firestore, 'tablaposicionesFRFemenilSuperior', equipo.equipo);
+                  const docRef = doc(firestore, 'tablaposicionesFRFemenilMediaSuperior', equipo.equipo);
                   const data = {
                       equipo: equipo.equipo,
                       juegosJugados: equipo.juegosJugados,
@@ -141,13 +141,11 @@ const EstadisticasFR = () => {
         <div className="hero">
             <nav>
             <img src="https://tinyurl.com/2obtocwe"/>
-              <center><h2> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Superior </h2>
-              <h2>{nameUsuario}</h2>
-              </center> 
+              <center><h2> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Media Superior </h2><h2>{nameUsuario}</h2></center> 
             <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>
-                <title> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Superior</title>
+                <title> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Media Superior</title>
             </Helmet>
             <div>
             <table className='TablaGeneralPos'>
@@ -188,4 +186,4 @@ const EstadisticasFR = () => {
         </div>
     );
 }
-export default EstadisticasFR;
+export default EstadisticasFemenilMediaSuperiorFutRapido;

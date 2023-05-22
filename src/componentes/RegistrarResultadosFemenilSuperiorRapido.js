@@ -11,6 +11,8 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({}); 
     const [guardado, setGuardado] = useState(false);
+    const[estadoAlerta,cambiarEdoAlerta] = useState(false);
+    const[alerta,cambiarAlerta] = useState({});
     const firestore = getFirestore(firebaseApp);
 
     useEffect(() => {
@@ -18,7 +20,7 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
           try {
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Superior'))
+              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Futbol Rapido'))
             );
     
             const partidos = [];
@@ -52,7 +54,8 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
                 partidosRef,
                 where('jornada', '==', parseInt(jornada)),
                 where('categoria', '==', 'femenil'),
-                where('nivelAcademico', '==', 'Superior')
+                where('nivelAcademico', '==', 'Superior'),
+                where('modalidadTorneo','==','Futbol Rapido')
               )
             );
         
@@ -116,9 +119,19 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
           );
           setDoc(docRef, resultadoPartido)
             .then(() => {
+              cambiarEdoAlerta(true); 
+              cambiarAlerta({
+                tipo: 'exito',
+                mensaje:'Resultado Guardado Exitosamente'
+              });
               console.log('Resultado guardado exitosamente');
             })
             .catch((error) => {
+              cambiarEdoAlerta(true); 
+              cambiarAlerta({
+                  tipo: 'error',
+                  mensaje:'Error al Guardar el Resultado'
+              });
               console.error('Error al guardar el resultado:', error);
             });
         });
@@ -193,6 +206,12 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
                   <button onClick={guardarResultados}>Guardar Resultado</button>
                 )}
             </main>
+            <Alerta 
+            tipo= {alerta.tipo}
+            mensaje= {alerta.mensaje}
+            estadoAlerta={estadoAlerta}
+            cambiarEdoAlerta={cambiarEdoAlerta}
+            />
         </div>
      );
 }
