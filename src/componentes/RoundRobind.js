@@ -1,9 +1,9 @@
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import { Helmet } from 'react-helmet';
 import {Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import {getFirestore, collection, addDoc,query,where, getDocs, doc,setDoc } from 'firebase/firestore';
-import {Lista,ElementoLista,Nombre } from './../elementos/ElementosListaRoundRobin';
+import BtnRegresar from '../elementos/BtnRegresar';
 import Alerta from '../elementos/Alerta';
 
 const RoundRobin = () => {
@@ -14,6 +14,7 @@ const RoundRobin = () => {
   const [nivelAcademico, setNivelAcademico] = useState("");
   const [categoria, setCategoria] = useState("");
   const [escuelas, setEscuelas] = useState([]);
+  const [mostrarPartidos, setMostrarPartidos] = useState(false); 
   const firestore = getFirestore(firebaseApp);
   const [modalidadTorneo, setModalidadTorneo] = useState("");
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
@@ -81,7 +82,7 @@ const RoundRobin = () => {
 
   // Función para generar partidos equipos Par
   function handleGenerarCalendario (numEquipos,categoria,nivelAcademico,modalidadTorneo)  {
-    const nuevosPartidos = [];
+    
     const numPartidosPorJornada = Math.floor(numEquipos / 2);
   
     // Crea una lista de equipos
@@ -187,13 +188,14 @@ const RoundRobin = () => {
     } else {
       generarPartidosImpar(equipos,categoria,nivelAcademico,modalidadTorneo);
     }
+    setMostrarPartidos(true);
   };
     return (
         <div className="hero"> 
             <nav>
-            <img src="https://tinyurl.com/2obtocwe"/>
+            <img src="https://tinyurl.com/2obtocwe" alt=""/>
               <center><h2>Round Robin</h2></center> 
-              <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+              <h3><img src="https://tinyurl.com/2kaldmbh" alt=""/></h3>
             </nav>
             <Helmet>
                 <title> Round Robin </title>
@@ -228,23 +230,12 @@ const RoundRobin = () => {
                         </select> 
                     </GrupoInput>   
                 </div>
+                <br/>
                 <div>
                 <ContenedorBotonCentrado>
                 <Boton  onClick={handleBuscarEscuelas}  > Escuelas Disponibles </Boton>  
                 </ContenedorBotonCentrado>
-                <Lista>
-                {escuelas.map((escuela) => {
-                  return(
-                    <ElementoLista key={escuela.id}>
-                      <Label> Escuela
-                        <Nombre>
-                            {escuela.escuela}
-                        </Nombre>
-                        </Label>
-                    </ElementoLista>
-                  );
-                })}
-                </Lista>
+                
                 </div>
               </div>
               <Formulario type="submit" onSubmit={handleGenerateMatches}>
@@ -264,51 +255,51 @@ const RoundRobin = () => {
                 <div>
                     {equipos.map((equipo, index) => (
                     <div key={index}>
-                      {/*
-                           <Label>
-                        Equipo {index + 1}:
-                        <Input
-                          type="text"
-                          value={equipo}
-                          onChange={(event) => handleEquipoChange(index, event.target.value)}
-                        />
-                      </Label>
-                     */}
                       <Label htmlFor='escuelasDisponibles'> Equipo {index + 1}: </Label>
                       <GrupoInput>
                       <select name="idEscuela" onChange = {(event) => handleEquipoChange(index, event.target.value)}>
                             <option value="opcionPredeterminada">Elige una escuela </option>
                       {escuelas.map((escuela) => (
 
-                            <option key={escuela.id} value={escuela ? escuela.escuela : "no existe"}> {escuela.escuela}  </option>
+                            <option key={escuela.id} value={escuela ? escuela.escuela : "No Existe"}> {escuela.escuela}  </option>
                      ))} 
                      </select> 
-                      </GrupoInput>  
-                      
-                      
+                      </GrupoInput>        
                     </div>
                   ))}
                 </div>   
               <ContenedorBotonCentrado>
-              <Boton type="submit" onClick={handleGenerateMatches} >Generar Partidos</Boton>
+              <Boton type="submit" onClick={handleGenerateMatches}> Generar Partidos</Boton>
               </ContenedorBotonCentrado>
               </Formulario>
-              <h2>Partidos</h2>
-              <ul>
-                {partidos.map((jornada, index) => (
-                  <li key={index}>
-                    <h3>Jornada {index + 1}</h3>
-                    <ul>
-                      {jornada.map((partido, index) => (
-                        <li key={index}>
-                          {partido.local} vs. {partido.visitante}
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-
+              <br/>
+              {mostrarPartidos && (
+                <div>
+                  <Label>
+                    <h2>Partidos</h2>
+                  </Label>
+                  <ul>
+                    {partidos.map((jornada, index) => (
+                      <li key={index}>
+                        <Label>
+                          <h3>Jornada {index + 1}</h3> 
+                        </Label>             
+                        <ul>
+                          {jornada.map((partido, index) => (
+                            <li key={index}>
+                              <Label> <span> {partido.local}   </span> VS <span> {partido.visitante} </span>
+                              </Label> 
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <ContenedorBotonCentrado>
+              <BtnRegresar ruta = '/menu-admin'/>
+              </ContenedorBotonCentrado>
                 <Alerta 
                   tipo= {alerta.tipo}
                   mensaje= {alerta.mensaje}

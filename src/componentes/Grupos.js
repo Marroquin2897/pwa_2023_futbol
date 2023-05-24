@@ -1,12 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import {useState} from 'react';
-import {getFirestore, collection, addDoc,query,where, getDocs, doc,setDoc } from 'firebase/firestore';
+import {getFirestore, collection,query,where, getDocs, doc,setDoc } from 'firebase/firestore';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import {Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
-import {Lista,ElementoLista,Nombre } from './../elementos/ElementosListaRoundRobin';
 import Alerta from '../elementos/Alerta';
-
+import BtnRegresar from '../elementos/BtnRegresar';
 const Grupos = () => {
   const [numEquipos, setNumEquipos] = useState(0);
   const [equipos, setEquipos] = useState([]);
@@ -15,6 +14,8 @@ const Grupos = () => {
   const [nivelAcademico, setNivelAcademico] = useState("");
   const [categoria, setCategoria] = useState("");
   const [escuelas, setEscuelas] = useState([]);
+  const [mostrarPartidos, setMostrarPartidos] = useState(false); 
+  const [modalidadTorneo, setModalidadTorneo] = useState("");
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
   const[alerta,cambiarAlerta] = useState({});
   const firestore = getFirestore(firebaseApp);
@@ -23,7 +24,7 @@ const Grupos = () => {
   const handleBuscarEscuelas = async () => {
     try {
       const firestore = getFirestore(firebaseApp);
-      const consulta = await getDocs(query(collection(firestore,'escuelas'),where('nivelAcademico','==',nivelAcademico),where('categoria','==',categoria))); 
+      const consulta = await getDocs(query(collection(firestore,'escuelas'),where('nivelAcademico','==',nivelAcademico),where('categoria','==',categoria),where('modalidadTorneo','==',modalidadTorneo))); 
       
       const escuelas = [];
   
@@ -108,6 +109,7 @@ const Grupos = () => {
       },
     ]);
   });
+  setMostrarPartidos(true);
   };
       // Función para dividir los equipos en grupos
     function dividirEnGrupos(equipos, numGrupos) {
@@ -147,9 +149,9 @@ function crearEnfrentamientos(equipos) {
     return ( 
         <div className="hero">
             <nav>
-            <img src="https://tinyurl.com/2obtocwe"/>
+            <img src="https://tinyurl.com/2obtocwe" alt=""/>
               <center><h2>Grupos</h2></center> 
-              <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+              <h3><img src="https://tinyurl.com/2kaldmbh" alt=""/></h3>
             </nav>
             <Helmet>
                 <title> Grupos </title>
@@ -175,22 +177,20 @@ function crearEnfrentamientos(equipos) {
                     </GrupoInput>   
                 </div>
                 <div>
+                    <Label htmlFor='modalidad'> Selecciona la modalidad a jugar </Label>
+                    <GrupoInput>
+                        <select name="modalidad" value={modalidadTorneo} onChange = {(e) => setModalidadTorneo(e.target.value)}>
+                            <option value="Futbol Rapido"> Fútbol Rápido</option>
+                            <option value="Futbol 7"> Fútbol 7 </option>
+                            <option value="Futbol Asociacion"> Fútbol Asociación</option> 
+                        </select> 
+                    </GrupoInput>   
+                </div>
+                <br/>
+                <div>
                 <ContenedorBotonCentrado>
                 <Boton  onClick={handleBuscarEscuelas}  > Escuelas Disponibles </Boton>  
                 </ContenedorBotonCentrado>
-                <Lista>
-                {escuelas.map((escuela) => {
-                  return(
-                    <ElementoLista key={escuela.id}>
-                      <Label> Escuela
-                        <Nombre>
-                            {escuela.escuela}
-                        </Nombre>
-                        </Label>
-                    </ElementoLista>
-                  );
-                })}
-                </Lista>
                 </div>
               </div>
               <Formulario onSubmit={handleCrearCalendario}>
@@ -230,33 +230,41 @@ function crearEnfrentamientos(equipos) {
                     </GrupoInput>
                  </div>
                  <ContenedorBotonCentrado>
-                <Boton  type = 'submit' onClick={handleCrearCalendario} > Generar Partidos </Boton>  
+                <Boton  type = 'submit' onClick={handleCrearCalendario} > Generar Partidos </Boton> 
+                <br/> 
               </ContenedorBotonCentrado>
               </Formulario>
-              <h2>Partidos</h2>
-              {grupos.map((grupo) => (
-              <div key={grupo.numGrupo}>
-                <h2>Grupo {grupo.numGrupo}</h2>
-                <ul>
-                  {grupo.enfrentamientos.map((enfrentamiento, numEnfrentamiento) => (
-                    <li key={numEnfrentamiento}>
-                      {enfrentamiento.equipo1} vs. {enfrentamiento.equipo2}
-                    </li>
+             
+              {mostrarPartidos && (
+                <>
+                  <Label>
+                    <h2>Partidos</h2>
+                  </Label>
+                  {grupos.map((grupo) => (
+                    <div key={grupo.numGrupo}>
+                      <Label> Grupo {grupo.numGrupo} </Label>       
+                      <ul>
+                        {grupo.enfrentamientos.map((enfrentamiento, numEnfrentamiento) => (
+                          <li key={numEnfrentamiento}>
+                           <Label> <span> {enfrentamiento.equipo1} </span> VS <span>{enfrentamiento.equipo2} </span> </Label> 
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))}
-                </ul>
-              </div>
-            ))}
+                </>
+              )}
+              <ContenedorBotonCentrado>
+                <BtnRegresar ruta = '/menu-admin'/>
+              </ContenedorBotonCentrado>
             <Alerta 
                   tipo= {alerta.tipo}
                   mensaje= {alerta.mensaje}
                   estadoAlerta={estadoAlerta}
                   cambiarEdoAlerta={cambiarEdoAlerta}
                 />
-            </main>
-      
-            
+            </main>     
         </div>
      );
 }
- 
 export default Grupos;

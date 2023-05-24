@@ -1,15 +1,17 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
-import { getFirestore, collection, addDoc,where,updateDoc,getDocs,doc,query,setDoc} from 'firebase/firestore';
+import { getFirestore, collection, addDoc,where,getDocs,doc,query,setDoc} from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
-import { Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
+import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
 import Alerta from '../elementos/Alerta';
+import BtnRegresar from '../elementos/BtnRegresar';
 
 const RRVaronilSuperiorFutAsociacion = () => {
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({});
     const [jornada, setJornada] = useState('');
+    const [mostrarPartidos, setMostrarPartidos] = useState(false);
     const [guardado, setGuardado] = useState(false);
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
@@ -66,7 +68,7 @@ const RRVaronilSuperiorFutAsociacion = () => {
           querySnapshot.forEach((doc) => {
             partidos.push({ id: doc.id, ...doc.data() });
           });
-    
+          setMostrarPartidos(true);
           console.log('Partidos encontrados:', partidos);
           setPartidos(partidos);
         } catch (error) {
@@ -130,51 +132,76 @@ const RRVaronilSuperiorFutAsociacion = () => {
             <Helmet>
                 <title> Registro de Resultados Fútbol Asociación Varonil Nivel Superior </title>
             </Helmet>
+        <main>
+          <Label htmlFor="jornada">Jornada:</Label>
+          <GrupoInput>
+            <Input type="text" id="jornada" value={jornada} onChange={(e) => setJornada(e.target.value)} />
+          </GrupoInput>
+          <br/>
+          <ContenedorBotonCentrado>
+            <Boton onClick={handleVerPartidos}> Ver Partidos </Boton>
+          </ContenedorBotonCentrado>
 
-      <label htmlFor="jornada">Jornada:</label>
-      <input type="text" id="jornada" value={jornada} onChange={(e) => setJornada(e.target.value)} />
-      <button onClick={handleVerPartidos}>Ver Partidos</button>
-
-      <div>
-        <h3>Partidos</h3>
-        <ul>
-          {partidos.map((partido) => (
-            <li key={partido.id}>
-              <div>
-                <span>{partido.local}</span> vs <span>{partido.visitante}</span>
-              </div>
-              <div>
-                <label htmlFor="golesLocal">Goles Local</label>
-                <input
-                  type="number"
-                  id="golesLocal"
-                  value={resultados[partido.id]?.golesLocal || ''}
-                  onChange={(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="golesVisitante">Goles Visitante:</label>
-                <input
-                  type="number"
-                  id="golesVisitante"
-                  value={resultados[partido.id]?.golesVisitante || ''}
-                  onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-        {partidos.length > 0 && (
-            <button onClick={guardarResultados}>Guardar Resultado</button>
-        )}
-
-        {guardado && (
+          {mostrarPartidos && (
+                  <div>
+                    {partidos.length === 0 ? (
+                      <p> No hay partidos para esta modalidad.</p>
+                    ) : (
+                      <div>
+                        <Label>
+                          <h3>Partidos</h3>
+                        </Label>
+                        <ul>
+                          {partidos.map((partido) => (
+                            <li key={partido.id}>
+                              <div>
+                                <Label>
+                                  <span>{partido.local}</span> vs <span>{partido.visitante}</span>
+                                </Label>
+                              </div>
+                              <div className="golesContainer">
+                                <div>
+                                  <Label htmlFor="golesLocal">Goles Local</Label>
+                                  <Input
+                                    type="number"
+                                    id="golesLocal"
+                                    value={resultados[partido.id]?.golesLocal || ''}
+                                    onChange={(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
+                                  />
+                                </div>
+                                <div>
+                                  <Label htmlFor="golesVisitante">Goles Visitante:</Label>
+                                  <Input
+                                    type="number"
+                                    id="golesVisitante"
+                                    value={resultados[partido.id]?.golesVisitante || ''}
+                                    onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
+          <br/>
+          {partidos.length > 0 && (
+            <ContenedorBotonCentrado>
+              <Boton onClick={guardarResultados}> Guardar Resultado </Boton>
+            </ContenedorBotonCentrado>
+          )}
+          <ContenedorBotonCentrado>
+              <BtnRegresar ruta = '/menu-admin'/>
+            </ContenedorBotonCentrado>
+          {guardado && (
             <div>
-            <p>Resultados guardados exitosamente.</p>
+              <p>Resultados guardados exitosamente.</p>
             </div>
-        )}
+          )}
+      </main>
+      
         <Alerta 
             tipo= {alerta.tipo}
             mensaje= {alerta.mensaje}

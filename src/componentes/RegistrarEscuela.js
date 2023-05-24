@@ -277,21 +277,21 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                     <GrupoInput>
                         <select name="nombreEscuela" onChange = {handleChange}>
                             <option value="CET 1"> CET 1 Walter Cross Buchanan </option>
-                            <option value="Cecyt 1"> CECyT No. 1 Gonzalo Vázquez Vela </option>
-                            <option value="Cecyt 2"> CECyT No. 2 Miguel Bernard </option>
-                            <option value="Cecyt 3"> CECyT No. 3 Estanislao Ramírez Ruiz </option>
-                            <option value="Cecyt 4"> CECyT No. 4 Lázaro Cárdenas </option>
-                            <option value="Cecyt 5"> CECyT No. 5 Benito Juárez </option>
-                            <option value="Cecyt 6"> CECyT No. 6 Miguel Othón de Mendizábal </option>
-                            <option value="Cecyt 7"> CECyT No. 7 Cuauhtémoc </option>
-                            <option value="Cecyt 8"> CECyT No. 8 Narciso Bassols </option>
-                            <option value="Cecyt 9"> CECyT No. 9 Juan de Dios Bátiz </option>
-                            <option value="Cecyt 10"> CECyT No. 10 Carlos Vallejo Márquez </option>
-                            <option value="Cecyt 11"> CECyT No. 11 Wilfrido Massieu </option>
-                            <option value="Cecyt 12"> CECyT No. 12 José María Morelos </option>
-                            <option value="Cecyt 13"> CECyT No. 13 Ricardo Flores Magón </option>
-                            <option value="Cecyt 14"> CECyT No. 14 Luis Enrique Erro </option>
-                            <option value="Cecyt 15"> CECyT No. 15 Diódoro Antúnez Echegaray </option>
+                            <option value="CECyT 1"> CECyT No. 1 Gonzalo Vázquez Vela </option>
+                            <option value="CECyT 2"> CECyT No. 2 Miguel Bernard </option>
+                            <option value="CECyT 3"> CECyT No. 3 Estanislao Ramírez Ruiz </option>
+                            <option value="CECyT 4"> CECyT No. 4 Lázaro Cárdenas </option>
+                            <option value="CECyT 5"> CECyT No. 5 Benito Juárez </option>
+                            <option value="CECyT 6"> CECyT No. 6 Miguel Othón de Mendizábal </option>
+                            <option value="CECyT 7"> CECyT No. 7 Cuauhtémoc </option>
+                            <option value="CECyT 8"> CECyT No. 8 Narciso Bassols </option>
+                            <option value="CECyT 9"> CECyT No. 9 Juan de Dios Bátiz </option>
+                            <option value="CECyT 10"> CECyT No. 10 Carlos Vallejo Márquez </option>
+                            <option value="CECyT 11"> CECyT No. 11 Wilfrido Massieu </option>
+                            <option value="CECyT 12"> CECyT No. 12 José María Morelos </option>
+                            <option value="CECyT 13"> CECyT No. 13 Ricardo Flores Magón </option>
+                            <option value="CECyT 14"> CECyT No. 14 Luis Enrique Erro </option>
+                            <option value="CECyT 15"> CECyT No. 15 Diódoro Antúnez Echegaray </option>
                             <option value="CICS Sto Tomas"> CICS Unidad Santo Tomás </option>
                             <option value="CICS Milpa Alta"> CICS Unidad Milpa Alta </option>
                             <option value="ENCB"> ENCB </option>
@@ -322,15 +322,10 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 <div>
                     <Label htmlFor='modalidades'> Modalidades </Label>
                     <GrupoInput>
-                        <select name="modalidades" onChange = {handleChange}>
-                            
+                        <select name="modalidades" onChange = {handleChange}> 
                             <option value="Futbol 7"> Fútbol 7 </option>
                             <option value="Futbol Rapido"> Fútbol Rápido </option>
                             <option value="Futbol Asociacion"> Fútbol Asociación </option>
-                            <option value= "F7 FR"> Fútbol 7 / Fútbol Rápido </option> 
-                            <option value= "F7 FA"> Fútbol 7 / Fútbol Asociación </option>
-                            <option value= "FR FA"> Fútbol Rápido / Fútbol Asociación </option>
-                            <option value="F7 FR FA"> Fútbol 7 / Fútbol Rápido Fútbol / Asociación</option>
                         </select> 
                     </GrupoInput>   
                 </div>
