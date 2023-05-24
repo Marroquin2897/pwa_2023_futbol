@@ -2,7 +2,7 @@ import  {useEffect,useState} from 'react';
 import {firebaseApp} from '../firebase/firebaseConfig';
 import {useAuth} from './../contextos/AuthContext';
 import {getFirestore,collection, onSnapshot, query, where, limit,startAfter,doc,getDoc} from "firebase/firestore"
-import { Escuela } from '../elementos/ElementosDeLista';
+
 
 const useObtenerEquipoVaronil = ({id}) => {
     const firestore = getFirestore(firebaseApp);

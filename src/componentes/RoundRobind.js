@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import { Helmet } from 'react-helmet';
 import {Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
 import {firebaseApp} from "../firebase/firebaseConfig";
@@ -81,7 +81,6 @@ const RoundRobin = () => {
 
   // Función para generar partidos equipos Par
   function handleGenerarCalendario (numEquipos,categoria,nivelAcademico,modalidadTorneo)  {
-    const nuevosPartidos = [];
     const numPartidosPorJornada = Math.floor(numEquipos / 2);
   
     // Crea una lista de equipos

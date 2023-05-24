@@ -1,6 +1,6 @@
-import  {useEffect,useState} from 'react';
+import {useEffect,useState} from 'react';
 import {firebaseApp} from '../firebase/firebaseConfig';
-import {getFirestore,collection, onSnapshot, query, limit,startAfter,orderBy} from "firebase/firestore"
+import {getFirestore,collection, onSnapshot, query, limit,startAfter} from "firebase/firestore"
 
 import {useAuth} from './../contextos/AuthContext';
 

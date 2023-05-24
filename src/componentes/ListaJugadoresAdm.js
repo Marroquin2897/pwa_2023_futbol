@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
 import Boton from './../elementos/Boton';
-import {ReactComponent as IconoEditar} from './../imagenes/editar.svg';
-import {ReactComponent as IconoBorrar} from './../imagenes/borrar.svg';
 import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerColeJugadores from '../hooks/useObtenerColeJugadores';
-import borrarJugador from './../firebase/borrarJugador';
 import { Lista, 
         ElementoLista,
         Label,
@@ -15,8 +11,6 @@ import { Lista,
         Escuela,
         Boleta,
         Semestre,
-        ContenedorBotones,
-        BotonAccion,
         BotonCargarMas,
         ContenedorBotonCentral,
         ContenedorSubtitulo,

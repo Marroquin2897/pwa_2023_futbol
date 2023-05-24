@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Formulario, Label, GrupoInput, Input, ContenedorBotonCentrado, Boton} from '../elementos/ElementosFormulario';
 import Alerta from '../elementos/Alerta';
 import {useAuth} from './../contextos/AuthContext';
-import {getFirestore, collection, addDoc,query,where, getDocs } from 'firebase/firestore';
+import {getFirestore} from 'firebase/firestore';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import agregarTorneo from '../firebase/agregarTorneo';
 import BtnRegresar from '../elementos/BtnRegresar';

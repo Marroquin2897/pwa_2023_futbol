@@ -323,3 +323,28 @@ background: #560000 ;
 .TablaGeneralPos td:first-child {
   text-align: center; /* Alinea al centro solo la primera columna */
 }
+
+.carousel {
+  background: linear-gradient(to right, #011230, #072e4b, #0d3b67, #134983, #1957a0);
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: auto; /* Centra el carrusel horizontalmente */
+  padding: 10px;
+  max-width: 800px; /* Ajusta el ancho del carrusel según tus necesidades */
+}
+
+
+.carousel .slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: linear-gradient(to right, #011230, #072e4b, #0d3b67, #134983, #1957a0);
+  border-radius: 8px;
+}
+
+.carousel .slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

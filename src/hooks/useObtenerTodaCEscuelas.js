@@ -1,8 +1,8 @@
 import  {useEffect,useState} from 'react';
 import {firebaseApp} from '../firebase/firebaseConfig';
 
-import {getFirestore,collection, getDocs, query, where, limit,startAfter} from "firebase/firestore"
-import {useAuth} from './../contextos/AuthContext';
+import {getFirestore,collection, getDocs, query, limit,startAfter} from "firebase/firestore"
+
 
 const useObtenerTodaCEscuelas = () => {
     const firestore = getFirestore(firebaseApp);
