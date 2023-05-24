@@ -90,12 +90,8 @@ const Torneo = () => {
 <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2obtocwe"/>
-        <center><h2>Nuevo Torneo</h2></center> 
-        <div>
-            <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
-            <h2>{nameUsuario}</h2>
-        </div>
-        
+        <center><h2>Nuevo Torneo</h2><h2><h2>{nameUsuario}</h2></h2></center> 
+       <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
       </nav>
         <Helmet>
             <title> Nuevo Torneo </title>

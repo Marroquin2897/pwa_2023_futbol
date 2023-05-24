@@ -24,11 +24,21 @@ const Grupos = () => {
   const handleBuscarEscuelas = async () => {
     try {
       const firestore = getFirestore(firebaseApp);
-      const consulta = await getDocs(query(collection(firestore,'escuelas'),where('nivelAcademico','==',nivelAcademico),where('categoria','==',categoria),where('modalidadTorneo','==',modalidadTorneo))); 
+      const escuelasSuperiorRef = collection(firestore, "Escuelas Superior");
+      const escuelasMediaSuperiorRef = collection(firestore, "Escuelas Media Superior");
+      
+      const consultaSuperior = query(escuelasSuperiorRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria),where("modalidades", "==", modalidadTorneo));
+      const consultaMediaSuperior = query(escuelasMediaSuperiorRef, where("nivelAcademico", "==", nivelAcademico), where("categoria", "==", categoria),where("modalidades", "==", modalidadTorneo));
+  
+      const [resultadoSuperior, resultadoMediaSuperior] = await Promise.all([getDocs(consultaSuperior), getDocs(consultaMediaSuperior)]);
       
       const escuelas = [];
   
-      consulta.forEach((doc) => {
+      resultadoSuperior.forEach((doc) => {
+        escuelas.push({ id: doc.id, ...doc.data() });
+      });
+  
+      resultadoMediaSuperior.forEach((doc) => {
         escuelas.push({ id: doc.id, ...doc.data() });
       });
       console.log("Escuelas encontradas:", escuelas);
@@ -55,8 +65,18 @@ const Grupos = () => {
   // Función para manejar el cambio en el nombre de un equipo
   const handleEquipoChange = (event, index) => {
     const nuevosEquipos = [...equipos];
-    nuevosEquipos[index] = event.target.value;
-    setEquipos(nuevosEquipos);
+    if (nuevosEquipos.includes(event)) {
+      console.log('El nombre ya ha sido seleccionado previamente.');
+      cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'El nombre ya ha sido seleccionado previamente.'
+            });
+    } else {
+      nuevosEquipos[index] = event.target.value;
+      console.log("este es el nuevo array",nuevosEquipos)
+      setEquipos(nuevosEquipos);
+    }
   };
   // Función para manejar el cambio en el número de grupos
   const handleNumGruposChange = (event) => {
@@ -67,7 +87,7 @@ const Grupos = () => {
   // Función para crear los grupos y enfrentamientos
   const handleCrearCalendario = (e) => {
     e.preventDefault();
-    const partidosRef = collection(firestore, 'partidos');
+    const partidosRef = collection(firestore, 'partidosPRUEBA');
     const grupos = dividirEnGrupos(equipos, numGrupos);
 
   // Crea los enfrentamientos para cada grupo
@@ -127,7 +147,7 @@ function crearEnfrentamientos(equipos) {
   const enfrentamientos = [];
 
   // Crea un arreglo con los números de equipo
-  const numsEquipos = Array.from({ length: numEquipos }, (_, index) => index + 1);
+  //const numsEquipos = Array.from({ length: numEquipos }, (_, index) => index + 1);
 
   // Crea los enfrentamientos para cada jornada
   for (let i = 0; i < numEquipos - 1; i++) {
@@ -206,6 +226,22 @@ function crearEnfrentamientos(equipos) {
                     </GrupoInput>
                  </div>
                  <div>
+                    {equipos.map((equipo, index) => (
+                    <div key={index}>
+                      <Label htmlFor='escuelasDisponibles'> Equipo {index + 1}: </Label>
+                      <GrupoInput>
+                      <select name="idEscuela" onChange = {(event) => handleEquipoChange( event.target.value,index)}>
+                            <option value="opcionPredeterminada">Elige una escuela </option>
+                      {escuelas.map((escuela) => (
+
+                            <option key={escuela.id} value={escuela ? escuela.escuela : "No Existe"}> {escuela.escuela}  </option>
+                     ))} 
+                     </select> 
+                      </GrupoInput>        
+                    </div>
+                  ))}
+                </div>  
+                 {/*<div>
                     {equipos.map((equipo,index)=> (
                       <div key={index}>
                         <Label>
@@ -217,7 +253,8 @@ function crearEnfrentamientos(equipos) {
                         </Label>
                       </div>
                     ))}
-                 </div>
+                 </div> */}
+                 
                  <div>
                   <Label> Número de Grupos: </Label>
                     <GrupoInput>
