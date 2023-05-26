@@ -59,6 +59,9 @@ import EstadisticasVaronilMediaSuperiorFutRapido from './componentes/Estadistica
 import EstadisticasVaronilMediaSuperiorFutAsociacion from './componentes/EstadisticasVaronilMediaSuperiorFutAsociacion';
 import RRFemenilMediaSuperiorFutAsociacion from './componentes/RRFemenilMediaSuperiorFutAsociacion';
 import EstadisticasFemenilSuperiorFut7 from './componentes/EstadisticasFemenilSuperiorFut7';
+import TGFutbol7 from './componentes/TGFutbol7'; 
+import TGFutbolRapido from './componentes/TGFutbolRapido';
+import TGFutbolAsociacion from './componentes/TG-FutbolAsociacion';
 WebFont.load({
   google: {
     families: ['Ubuntu: 400,500,700', 'Droid Serif']
@@ -305,6 +308,21 @@ const Index = () => {
             <Route path="/estadisticas-VAMS" element={
               <RutaPrivada>
                 <EstadisticasVaronilMediaSuperiorFutAsociacion/>
+              </RutaPrivada>
+            }/>
+            <Route path="/TG-Futbol7" element={
+              <RutaPrivada>
+                <TGFutbol7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/TG-FutbolRapido" element={
+              <RutaPrivada>
+                <TGFutbolRapido/>
+              </RutaPrivada>
+            }/>
+            <Route path="/TG-FutbolAsociacion" element={
+              <RutaPrivada>
+                <TGFutbolAsociacion/>
               </RutaPrivada>
             }/>
             
