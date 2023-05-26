@@ -3,6 +3,8 @@ import { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import { getFirestore,collection, getDocs,addDoc, setDoc,doc } from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
+import { ContenedorBotonCentrado } from '../elementos/ElementosFormularioJuegos';
+import BtnRegresar from '../elementos/BtnRegresar';
 
 const EstadisticasFemenilSuperiorFutAsociación = () => {
   const nameUsuario = sessionStorage.getItem("name")
@@ -173,6 +175,9 @@ const EstadisticasFemenilSuperiorFutAsociación = () => {
             ))}
             </tbody>
         </table>
+        <ContenedorBotonCentrado>
+              <BtnRegresar ruta = '/menu-profe'/>
+            </ContenedorBotonCentrado>
         </div>
      );
 }
