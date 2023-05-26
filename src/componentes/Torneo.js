@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet';
 import { Formulario, Label, GrupoInput, Input, ContenedorBotonCentrado, Boton} from '../elementos/ElementosFormulario';
 import Alerta from '../elementos/Alerta';
 import {useAuth} from './../contextos/AuthContext';
-import {getFirestore} from 'firebase/firestore';
-import {firebaseApp} from "../firebase/firebaseConfig";
 import agregarTorneo from '../firebase/agregarTorneo';
 import BtnRegresar from '../elementos/BtnRegresar';
 
@@ -13,7 +11,7 @@ const Torneo = () => {
 
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
-    const firestore = getFirestore(firebaseApp);
+    
     const{usuario} = useAuth();
     const [nombreTorneo, cambiarNombreT] = useState('');
     const [modalidadTorneo, cambiarModalidadT] = useState('');
@@ -89,9 +87,9 @@ const Torneo = () => {
     return ( 
 <div className="hero">
       <nav>
-      <img src="https://tinyurl.com/2obtocwe"/>
+      <img src="https://tinyurl.com/2obtocwe" alt=''/>
         <center><h2>Nuevo Torneo</h2><h2><h2>{nameUsuario}</h2></h2></center> 
-       <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+       <h3><img src="https://tinyurl.com/2kaldmbh" alt=''/></h3>
       </nav>
         <Helmet>
             <title> Nuevo Torneo </title>
