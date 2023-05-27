@@ -5,6 +5,7 @@ import {firebaseApp} from "../firebase/firebaseConfig";
 import {getFirestore, collection, addDoc,query,where, getDocs, doc,setDoc } from 'firebase/firestore';
 import BtnRegresar from '../elementos/BtnRegresar';
 import Alerta from '../elementos/Alerta';
+import { element } from 'prop-types';
 
 const RoundRobin = () => {
   
@@ -19,7 +20,8 @@ const RoundRobin = () => {
   const [modalidadTorneo, setModalidadTorneo] = useState("");
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
   const[alerta,cambiarAlerta] = useState({});
-
+  const [disponible, setDisponible] = useState(false);
+  const [arrayLleno, setArrayLleno] = useState(false);
   // Función que se ejecuta cuando se cambia el número de equipos
   const handleNumEquiposChange = (event) => {
     const num = parseInt(event.target.value);
@@ -33,17 +35,41 @@ const RoundRobin = () => {
   // Función que se ejecuta cuando se cambia el nombre de un equipo
   const handleEquipoChange = (index, nombre) => {   
     const nuevosEquipos = [...equipos];
-    if (nuevosEquipos.includes(nombre)) {
+    if (nuevosEquipos.some((elemento) => elemento.includes(nombre))) {
       console.log('El nombre ya ha sido seleccionado previamente.');
       cambiarEdoAlerta(true); 
             cambiarAlerta({
                 tipo: 'error',
                 mensaje:'El nombre ya ha sido seleccionado previamente.'
             });
-    } else {
-      nuevosEquipos[index] = nombre;
-      console.log(nuevosEquipos)
-      setEquipos(nuevosEquipos);
+    } else {    
+            nuevosEquipos[index] = nombre;
+            console.log("array esta formado por ",nuevosEquipos)
+            setEquipos(nuevosEquipos);         
+    }
+    if(nuevosEquipos.some((elemento) => elemento.includes('Equipo')) || nuevosEquipos.some((elemento) => elemento.includes('opcionPredeterminada'))){
+      const equipoId = nuevosEquipos.findIndex((elemento) => elemento.includes('Equipo'))
+      const equipoOpc = nuevosEquipos.findIndex((elemento) => elemento.includes('opcionPredeterminada'))
+      if(equipoId > 0){
+        console.log('Debes elegir una escuela en: ',equipoId+1);
+        cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:`Debes elegir una escuela en el Equipo "${equipoId+1}"`
+            });
+      }else {
+        console.log('Debes elegir una escuela en: ',equipoOpc+1);
+        cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:`Debes elegir una escuela en el Equipo "${equipoOpc+1}"`
+            });
+      }
+      
+      setArrayLleno(false)
+    }else{
+      setDisponible(true)
+      setArrayLleno(true)
     }
   };
 
@@ -51,7 +77,7 @@ const RoundRobin = () => {
     const nEquipos = equipos.length;
     const nJornadas = nEquipos;
     const nPartidosXJornada = (nEquipos+1)/2;
-    const partidosCollection = collection(firestore, "partidos");
+    const partidosCollection = collection(firestore, "partidosPRUEBA");
 
     const jornadas = []
     for(let i = 0; i < nJornadas; i++){
@@ -118,7 +144,7 @@ const RoundRobin = () => {
         jornada.push(partido);  
         const firestore = getFirestore(firebaseApp);
         // Agrega el partido a la subcolección "partidos"
-        setDoc(doc(firestore, "partidos", `${partido.local}-${partido.visitante}-${partido.jornada}`), partido)
+        setDoc(doc(firestore, "partidosPRUEBA", `${partido.local}-${partido.visitante}-${partido.jornada}`), partido)
           .then(() => {
             cambiarEdoAlerta(true); 
             cambiarAlerta({
@@ -168,7 +194,7 @@ const RoundRobin = () => {
       
       console.log("Escuelas encontradas:", escuelas);
       setEscuelas(escuelas);
-     
+      setDisponible(true)
     } catch (error) {
       cambiarEdoAlerta(true); 
       cambiarAlerta({
@@ -182,7 +208,6 @@ const RoundRobin = () => {
 
   const handleGenerateMatches = (e) => {
     e.preventDefault();
-    
     if (numEquipos % 2 === 0) {
       handleGenerarCalendario(numEquipos,categoria,nivelAcademico,modalidadTorneo);
     } else {
@@ -249,6 +274,7 @@ const RoundRobin = () => {
                       max="15"
                       value = {numEquipos}
                       onChange = {handleNumEquiposChange}
+                      disabled = {disponible ? false : true}
                     />
                   </GrupoInput>
                 </div>
@@ -262,14 +288,16 @@ const RoundRobin = () => {
                       {escuelas.map((escuela) => (
 
                             <option key={escuela.id} value={escuela ? escuela.escuela : "No Existe"}> {escuela.escuela}  </option>
+                            
                      ))} 
+                     
                      </select> 
                       </GrupoInput>        
                     </div>
                   ))}
                 </div>   
               <ContenedorBotonCentrado>
-              <Boton type="submit" onClick={handleGenerateMatches}> Generar Partidos</Boton>
+              <Boton type="submit" onClick={handleGenerateMatches} disabled = {disponible && arrayLleno ? false : true}> Generar Partidos</Boton>
               </ContenedorBotonCentrado>
               </Formulario>
               <br/>
