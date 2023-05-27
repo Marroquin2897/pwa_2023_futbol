@@ -184,8 +184,8 @@ const EstadisticasFemenilSuperiorFut7 = () => {
 				        </tbody>
             </table>    
             <ContenedorBotonCentrado>
-              <BtnRegresar ruta = '/menu-profe'/>
-            </ContenedorBotonCentrado>
+            <BtnRegresar ruta='/rol' />
+            </ContenedorBotonCentrado> 
             </div>  
         </div>
     );

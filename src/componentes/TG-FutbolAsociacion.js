@@ -38,8 +38,8 @@ const TGFutbolAsociacion = () => {
             </ContenedorBotonCentrado>
             <br/>
             <ContenedorBotonCentrado>
-              <BtnRegresar ruta = '/menu-profe'/>
-            </ContenedorBotonCentrado>
+            <BtnRegresar ruta='/rol' />
+            </ContenedorBotonCentrado> 
         </main>
         
       </div>

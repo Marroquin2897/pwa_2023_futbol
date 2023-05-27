@@ -187,7 +187,7 @@ const EstadisticasFR = () => {
 				        </tbody>
             </table>
             <ContenedorBotonCentrado>
-              <BtnRegresar ruta = '/menu-profe'/>
+            <BtnRegresar ruta='/rol' />
             </ContenedorBotonCentrado>    
             </div>  
         </div>

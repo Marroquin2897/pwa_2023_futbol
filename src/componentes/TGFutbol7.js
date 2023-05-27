@@ -38,7 +38,7 @@ const TGFutbol7 = () => {
             </ContenedorBotonCentrado>
             <br/>
             <ContenedorBotonCentrado>
-              <BtnRegresar ruta = '/menu-profe'/>
+            <BtnRegresar ruta='/rol' />
             </ContenedorBotonCentrado>
         </main>
         
