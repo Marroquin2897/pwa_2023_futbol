@@ -32,7 +32,6 @@ import RoundRobin from './componentes/RoundRobind';
 import Grupos from './componentes/Grupos';
 import EstadisticasFR from './componentes/EstadisticasFR';
 import ListaEscuelasAdm from './componentes/ListaEscuelasAdm';
-import TodosContraTodos from './componentes/RoundPrueba';
 import ListaJugadoresAdm from './componentes/ListaJugadoresAdm';
 import RegistrarResultadosFemenilSuperiorRapido from './componentes/RegistrarResultadosFemenilSuperiorRapido';
 import VistaJugador from './vistas/VistaJugador';
@@ -65,6 +64,23 @@ import TGFutbolAsociacion from './componentes/TG-FutbolAsociacion';
 import RRFutbol7 from './componentes/RRFutbol7';
 import RRFutbolRapido from './componentes/RRFutbolRapido';
 import RRFutbolAsociacion from './componentes/RRFutbolAsociacion';
+import VerPartidosFutbol7 from './componentes/VerPartidosFutbol7';
+import PartidosFemenilSuperiorF7 from './componentes/PartidosFemenilSuperiorF7';
+import VerPartidosFutbolRapido from './componentes/VerPartidosFutbolRapido';
+import VerPartidosFutbolAsociacion from './componentes/VerPartidosFutbolAsociacion';
+import PartidosFemenilMediaSuperiorF7 from './componentes/PartidosFemenilMediaSuperiorF7';
+import PartidosVaronilSuperiorF7 from './componentes/PartidosVaronilSuperiorF7';
+import PartidosVaronilMediaSuperiorF7 from './componentes/PartidosVaronilMediaSuperiorF7';
+import PartidosFemenilSuperiorFR from './componentes/PartidosFemenilSuperiorFR';
+import PartidosFemenilMediaSuperiorFR from './componentes/PartidosFemenilMediaSuperiorFR';
+import PartidosVaronilSuperiorFR from './componentes/PartidosVaronilSuperiorFR';
+import PartidosVaronilMediaSuperiorFR from './componentes/PartidosVaronilMediaSuperiorFR';
+import PartidosFemenilSuperiorFA from './componentes/PartidosFemenilSuperiorFA';
+import PartidosFemenilMediaSuperiorFA from './componentes/PartidosFemenilMediaSuperiorFA';
+import PartidosVaronilSuperiorFA from './componentes/PartidosVaronilSuperiorFA';
+import PartidosVaronilMediaSuperiorFA from './componentes/PartidosVaronilMediaSuperiorFA';
+
+
 WebFont.load({
   google: {
     families: ['Ubuntu: 400,500,700', 'Droid Serif']
@@ -178,11 +194,7 @@ const Index = () => {
                 <RoundRobin/>
               </RutaPrivada>
             }/>
-            <Route path="/round-prueba" element={
-              <RutaPrivada>
-                <TodosContraTodos/>
-              </RutaPrivada>
-            }/>
+          
             <Route path="/grupos" element={
               <RutaPrivada>
                 <Grupos/>
@@ -343,14 +355,82 @@ const Index = () => {
                 <TGFutbolAsociacion/>
               </RutaPrivada>
             }/>
-            
-            
-            
-            
-            
-
-            
-          
+            <Route path="/PartidosF7" element={
+              <RutaPrivada>
+                <VerPartidosFutbol7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFR" element={
+              <RutaPrivada>
+                <VerPartidosFutbolRapido/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFA" element={
+              <RutaPrivada>
+                <VerPartidosFutbolAsociacion/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFSF7" element={
+              <RutaPrivada>
+                <PartidosFemenilSuperiorF7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFMSF7" element={
+              <RutaPrivada>
+                <PartidosFemenilMediaSuperiorF7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVSF7" element={
+              <RutaPrivada>
+                <PartidosVaronilSuperiorF7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVMSF7" element={
+              <RutaPrivada>
+                <PartidosVaronilMediaSuperiorF7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFSFR" element={
+              <RutaPrivada>
+                <PartidosFemenilSuperiorFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFMSFR" element={
+              <RutaPrivada>
+                <PartidosFemenilMediaSuperiorFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVSFR" element={
+              <RutaPrivada>
+                <PartidosVaronilSuperiorFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVMSFR" element={
+              <RutaPrivada>
+                <PartidosVaronilMediaSuperiorFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFSFA" element={
+              <RutaPrivada>
+                <PartidosFemenilSuperiorFA/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFMSFA" element={
+              <RutaPrivada>
+                <PartidosFemenilMediaSuperiorFA/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVSFA" element={
+              <RutaPrivada>
+                <PartidosVaronilSuperiorFA/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVMSFA" element={
+              <RutaPrivada>
+                <PartidosVaronilMediaSuperiorFA/>
+              </RutaPrivada>
+            }/>
+ 
         </Routes>
     
     </BrowserRouter>

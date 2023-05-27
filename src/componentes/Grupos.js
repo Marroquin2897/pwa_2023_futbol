@@ -87,7 +87,7 @@ const Grupos = () => {
   // Función para crear los grupos y enfrentamientos
   const handleCrearCalendario = (e) => {
     e.preventDefault();
-    const partidosRef = collection(firestore, 'partidosPRUEBA');
+    const partidosRef = collection(firestore, 'partidos');
     const grupos = dividirEnGrupos(equipos, numGrupos);
 
   // Crea los enfrentamientos para cada grupo
