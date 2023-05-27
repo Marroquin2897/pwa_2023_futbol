@@ -62,6 +62,9 @@ import EstadisticasFemenilSuperiorFut7 from './componentes/EstadisticasFemenilSu
 import TGFutbol7 from './componentes/TGFutbol7'; 
 import TGFutbolRapido from './componentes/TGFutbolRapido';
 import TGFutbolAsociacion from './componentes/TG-FutbolAsociacion';
+import RRFutbol7 from './componentes/RRFutbol7';
+import RRFutbolRapido from './componentes/RRFutbolRapido';
+import RRFutbolAsociacion from './componentes/RRFutbolAsociacion';
 WebFont.load({
   google: {
     families: ['Ubuntu: 400,500,700', 'Droid Serif']
@@ -183,6 +186,21 @@ const Index = () => {
             <Route path="/grupos" element={
               <RutaPrivada>
                 <Grupos/>
+              </RutaPrivada>
+            }/>
+            <Route path="/RR-Futbol7" element={
+              <RutaPrivada>
+                <RRFutbol7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/RR-FutbolRapido" element={
+              <RutaPrivada>
+                <RRFutbolRapido/>
+              </RutaPrivada>
+            }/>
+            <Route path="/RR-FutbolAsociacion" element={
+              <RutaPrivada>
+                <RRFutbolAsociacion/>
               </RutaPrivada>
             }/>
             
