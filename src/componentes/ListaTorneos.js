@@ -31,9 +31,6 @@ const ListaTorneos = () => {
                         <Label> Nombre Torneo 
                         <Nombre> {torneo.nombreTorneo}</Nombre>
                         </Label>
-                        <Label> Modalidad 
-                        <Nombre> {torneo.modalidadTorneo}</Nombre>
-                        </Label>
                         <Label> Sistema Competencia 
                         <Nombre> {torneo.sistemaCompetencia}</Nombre>
                         </Label>

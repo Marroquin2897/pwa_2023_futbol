@@ -13,30 +13,21 @@ const Torneo = () => {
     const[alerta,cambiarAlerta] = useState({});
     
     const{usuario} = useAuth();
-    const [nombreTorneo, cambiarNombreT] = useState('');
-    const [modalidadTorneo, cambiarModalidadT] = useState('');
+    const [nombreTorneo, cambiarNombreT] = useState(''); 
     const [sistemaCompetencia, cambiarSistemaC] = useState('');
-    const [rama, cambiarRama] = useState('');
-    const [nivelAcademico, cambiarNivelA] = useState('');
+   
+
 
 
     const handleChange = (e) => { //Obtenemos los valores de los inputs
         switch(e.target.name){
             case 'nombreT':
                 cambiarNombreT(e.target.value);
-                break;
-            case 'modalidadT':
-                cambiarModalidadT(e.target.value);
-                break;
+                break;  
             case 'sistemacompetencia':
                 cambiarSistemaC(e.target.value);
                 break;  
-            case 'rama':
-                cambiarRama(e.target.value);
-                break; 
-            case 'nivelA':
-                cambiarNivelA(e.target.value);
-                break;       
+                   
             default:
                 break;
         }
@@ -55,21 +46,16 @@ const Torneo = () => {
             return;
         }
 
-        if(nombreTorneo !== '' && modalidadTorneo !== '' && sistemaCompetencia !== '' && rama !== '' && nivelAcademico !== ''){
+        if(nombreTorneo !== '' && sistemaCompetencia !== ''){
             agregarTorneo({
                 nombreTorneo: nombreTorneo,
-                modalidadTorneo: modalidadTorneo,
                 sistemaCompetencia: sistemaCompetencia,
-                nivelAcademico: nivelAcademico,
-                rama: rama,
                 uidUsuario: usuario.uid
             })
             .then(() => {
-                cambiarNombreT('');
-                cambiarModalidadT('');
+                cambiarNombreT('');        
                 cambiarSistemaC('');
-                cambiarRama('');
-                cambiarNivelA('');
+                
 
                 cambiarEdoAlerta(true);
                 cambiarAlerta({tipo: 'exito', mensaje: 'Torneo registrado exitosamente'});
@@ -108,17 +94,6 @@ const Torneo = () => {
 				</GrupoInput>
 			</div>
             <div>
-                    <Label htmlFor='modalidades'> Modalidades </Label>
-                    <GrupoInput>
-                        <select name="modalidadT" onChange = {handleChange} >
-                            
-                            <option value="Futbol 7"> Fútbol 7 </option>
-                            <option value="Futbol Rapido"> Fútbol Rápido </option>
-                            <option value="Futbol Asociacion"> Fútbol Asociación </option>
-                        </select> 
-                    </GrupoInput>   
-            </div>
-            <div>
                     <Label htmlFor='modalidades'> Sistema de Competencia </Label>
                     <GrupoInput>
                         <select name="sistemacompetencia" onChange = {handleChange}>
@@ -128,26 +103,7 @@ const Torneo = () => {
                         </select> 
                     </GrupoInput>   
             </div>
-            <div>
-                    <Label htmlFor='rama'> Rama </Label>
-                    <GrupoInput>
-                        <select name="rama" onChange = {handleChange}>
-                            
-                            <option value="Femenil"> Femenil </option>
-                            <option value="Varonil"> Varonil </option>
-                            
-                        </select> 
-                    </GrupoInput>   
-            </div>
-            <div>
-                    <Label htmlFor='nivelA'> Nivel Académico </Label>
-                    <GrupoInput>
-                        <select name="nivelA" onChange = {handleChange}>
-                            <option value="Media Superior"> Media Superior </option>
-                            <option value="Superior"> Superior </option> 
-                        </select> 
-                    </GrupoInput>   
-            </div>
+            
             <ContenedorBotonCentrado>
                 <Boton  type = 'submit' > Registrar </Boton>  <br/>
                 <BtnRegresar ruta = '/menu-admin'/>

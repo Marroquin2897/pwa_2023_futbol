@@ -103,6 +103,9 @@ const Grupos = () => {
         equipo1: enfrentamiento.equipo1,
         equipo2: enfrentamiento.equipo2,
         idGrupo,
+        categoria,
+        modalidadTorneo,
+        nivelAcademico
       })
       .then(()=> {
         cambiarEdoAlerta(true);
