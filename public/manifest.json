@@ -7,7 +7,7 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "icono2-burrito.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
@@ -17,7 +17,7 @@
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "icono2-burrito.png",
       "type": "image/png",
       "sizes": "512x512"
     }
