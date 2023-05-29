@@ -77,7 +77,7 @@ const RoundRobin = () => {
     const nEquipos = equipos.length;
     const nJornadas = nEquipos;
     const nPartidosXJornada = (nEquipos+1)/2;
-    const partidosCollection = collection(firestore, "partidosPRUEBA");
+    const partidosCollection = collection(firestore, "partidos");
 
     const jornadas = []
     for(let i = 0; i < nJornadas; i++){
@@ -144,7 +144,7 @@ const RoundRobin = () => {
         jornada.push(partido);  
         const firestore = getFirestore(firebaseApp);
         // Agrega el partido a la subcolección "partidos"
-        setDoc(doc(firestore, "partidosPRUEBA", `${partido.local}-${partido.visitante}-${partido.jornada}`), partido)
+        setDoc(doc(firestore, "partidos", `${partido.local}-${partido.visitante}-${partido.jornada}`), partido)
           .then(() => {
             cambiarEdoAlerta(true); 
             cambiarAlerta({

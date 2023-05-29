@@ -19,7 +19,8 @@ const Grupos = () => {
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
   const[alerta,cambiarAlerta] = useState({});
   const firestore = getFirestore(firebaseApp);
-
+  const [disponible, setDisponible] = useState(false);
+  const [arrayLleno, setArrayLleno] = useState(false); 
   //Funcion para buscar escuelas disponible para jugar torneo
   const handleBuscarEscuelas = async () => {
     try {
@@ -43,6 +44,9 @@ const Grupos = () => {
       });
       console.log("Escuelas encontradas:", escuelas);
       setEscuelas(escuelas);
+      if(escuelas.length >= 6){
+        setDisponible(true)
+      }     
     } catch (error) {
       cambiarEdoAlerta(true); 
             cambiarAlerta({
@@ -63,19 +67,35 @@ const Grupos = () => {
     setEquipos(Array.from({ length: numEquipos }, () => ''));
   };
   // Función para manejar el cambio en el nombre de un equipo
-  const handleEquipoChange = (event, index) => {
+  const handleEquipoChange = (index,nombre) => {
     const nuevosEquipos = [...equipos];
-    if (nuevosEquipos.includes(event)) {
+    if (nuevosEquipos.some((elemento) => elemento.includes(nombre))) {
       console.log('El nombre ya ha sido seleccionado previamente.');
       cambiarEdoAlerta(true); 
             cambiarAlerta({
                 tipo: 'error',
                 mensaje:'El nombre ya ha sido seleccionado previamente.'
+      });
+    } else {    
+            nuevosEquipos[index] = nombre;
+            console.log("array esta formado por ",nuevosEquipos)
+            setEquipos(nuevosEquipos);       
+    }
+    if(nuevosEquipos.some((elemento) => elemento.trim().length === 0) ){
+      console.log("valor del arrayLleno", arrayLleno)
+      const equipoId = nuevosEquipos.findIndex((elemento) => elemento.includes(''))
+      if(equipoId > 0){
+        console.log('Debes elegir una escuela en: ',equipoId+1);
+        cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:`Elige una escuela en el select "${equipoId+1}"`
             });
-    } else {
-      nuevosEquipos[index] = event.target.value;
-      console.log("este es el nuevo array",nuevosEquipos)
-      setEquipos(nuevosEquipos);
+      }    
+      setArrayLleno(false)
+    }else{
+      setDisponible(true)
+      setArrayLleno(true)
     }
   };
   // Función para manejar el cambio en el número de grupos
@@ -225,6 +245,7 @@ function crearEnfrentamientos(equipos) {
                         name='numE'
                         value = {numEquipos}
                         onChange = {handleNumEquiposChange}
+                        disabled = {disponible ? false : true}
                       />
                     </GrupoInput>
                  </div>
@@ -233,7 +254,7 @@ function crearEnfrentamientos(equipos) {
                     <div key={index}>
                       <Label htmlFor='escuelasDisponibles'> Equipo {index + 1}: </Label>
                       <GrupoInput>
-                      <select name="idEscuela" onChange = {(event) => handleEquipoChange( event.target.value,index)}>
+                      <select name="idEscuela" onChange = {(event) => handleEquipoChange( index,event.target.value)}>
                             <option value="opcionPredeterminada">Elige una escuela </option>
                       {escuelas.map((escuela) => (
 
@@ -266,11 +287,12 @@ function crearEnfrentamientos(equipos) {
                         name='numE'
                         value = {numGrupos}
                         onChange = {handleNumGruposChange}
+                        disabled = {disponible && arrayLleno ? false : true}
                       />
                     </GrupoInput>
                  </div>
                  <ContenedorBotonCentrado>
-                <Boton  type = 'submit' onClick={handleCrearCalendario} > Generar Partidos </Boton> 
+                <Boton  type = 'submit' onClick={handleCrearCalendario} disabled = {disponible && arrayLleno ? false : true} > Generar Partidos </Boton> 
                 <br/> 
               </ContenedorBotonCentrado>
               </Formulario>
