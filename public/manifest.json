@@ -1,9 +1,8 @@
 {
-  "short_name": "PWA Futbol",
-  
-  "categories": [ "sports", "education"],
+  "short_name": "PoliKickerFut7RA",
+  "name": "PoliKickerFut7RA",
   "description": "Aplicación Web Progresiva para Administrar los Torneos Interpolitécnicos de Fútbol del IPN.",
-  "display_override": ["standalone", "fullscreen"],
+  
   "display": "standalone",
   "icons": [
     {
@@ -24,8 +23,11 @@
   ],
   "start_url": ".",
   "lang": "es-MX",
-  "name": "PoliKickerFut7RA",
   "orientation": "portrait",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "scope": "/",
+  "serviceworker": {
+    "src": "service-worker.js"
+  }
 }

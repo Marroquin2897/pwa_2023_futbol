@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 
 :root {
@@ -16,35 +15,37 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  
 }
 
 #root {
-  width: 100%; /* tamaño que ocupa la pagina web de la pantalla */
-  
+  width: 100%; /* tamaño que ocupa la página web en la pantalla */
 }
 
-@media screen and (max-width: 60rem){ /* 950px */
+@media screen and (max-width: 60rem) { /* 950px */
   :root {
-      font-size: 5px; /* redimensión de pantalla ajustada */
+    font-size: 16px; /* redimensión de pantalla ajustada para dispositivos móviles */
+  }
+  
+  /* Ajustes de diseño para dispositivos móviles */
+  body {
+    padding: 20px; /* Agrega un espacio de relleno para evitar que el contenido se pegue a los bordes */
+  }
+
+  .hero .login .loginContainer .menu button:hover {
+    transition: 1s ease all;
+    box-shadow: 0px 5px 10px #560000;
+  }
+
+  .hero .login .loginContainer .menu2 button {
+    color: rgb(255, 255, 255);
+    margin: 8px 0;
+    display: block;
+    font-size: 16px; /* Reduce el tamaño de fuente de los botones */
+    line-height: 1;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: #560000;
   }
 }
-
-.hero .login .loginContainer .menu button:hover  {
-  transition: 1s ease all;
-  box-shadow: 0px 5px 10px #560000;
-}
-
-.hero .login .loginContainer .menu2 button {
-color: rgb(255, 255, 255);
-margin: 8px 0;
-display: block;
-font-size: 20px;
-line-height: 1;
-border-radius: 30px;
-border: none;
-outline: none;
-cursor: pointer;
-background: #560000 ;
-} 
-

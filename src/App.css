@@ -1,102 +1,99 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-decoration:none;
-  }
-  body{
-    background: #cacbcf;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
-
-  main{
-    max-width: 800px;
-    width: 90%;
-    margin: auto;
-    padding: 40px;
-  }
-  
-  button {
-    border: none;
-    outline: none;
-    width: 100%;
-    padding: 15px 0;
-    color: #000000; /*color de letras*/
-    font-size: 20px;
-    letter-spacing: 1px;
-    border-radius: 30px;
-    background: #cacbcf; /*color de boton registrarse*/
-    cursor: pointer;
-    
-  }
-  
-  .login {
-    width: 100%;
-    min-height: 100vh;
-    padding: 20px;
-    display: inline-block;
-    position: relative;
-    top: 40px;
-    left: 20px;
-    
-  }
-  
-  .login .loginContainer { /*Tamaño y color del recuadro inicio Acceso*/
-    padding: 40px;
-    margin: auto;
-    width: 100%;
-    max-width: 500px;
-    min-height: 350px;
-    display: flow-root;
-    flex-direction: column;
-    justify-content: space-evenly;
-    border-radius: 30px;
-    background: #ffffff;
-    
-  }
-
-  .login .loginContainer2 { /*Tamaño y color del recuadro*/
-    padding: 40px;
-    margin: auto;
-    width: 800px;
-    height: 850px;
-    display: flow-root;
-    flex-direction: column;
-    justify-content: space-evenly;
-    border-radius: 30px;
-    background: #ffffff;
-    
-  }
-  
-  .login .loginContainer label {
-    color: black;
-    margin: 14px 0;
-    display: block;
-    font-size: 22px;
-    line-height: 1;
-  }
-
-  .hero .login .loginContainer .menu button {
-    color: black;
-    margin: 8px 0;
-    display: block;
-    font-size: 25px;
-    line-height: 1;
-    border-radius: 30px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-  } 
-
-  .hero .login .loginContainer .menu button:hover  {
-    transition: 1s ease all;
-    box-shadow: 0px 5px 10px #560000;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-decoration: none;
 }
 
-.hero .login .loginContainer .menu2 button {
+body {
+  background: #cacbcf;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+main {
+  max-width: 800px;
+  width: 90%;
+  margin: auto;
+  padding: 40px;
+}
+
+button {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 15px 0;
+  color: #000000;
+  font-size: 20px;
+  letter-spacing: 1px;
+  border-radius: 30px;
+  background: #cacbcf;
+  cursor: pointer;
+}
+
+.login {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  display: inline-block;
+  position: relative;
+  top: 40px;
+  left: 20px;
+}
+
+.login .loginContainer {
+  padding: 40px;
+  margin: auto;
+  width: 100%;
+  max-width: 500px;
+  min-height: 350px;
+  display: flow-root;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 30px;
+  background: #ffffff;
+}
+
+.login .loginContainer2 {
+  padding: 40px;
+  margin: auto;
+  width: 100%;
+  height: auto;
+  display: flow-root;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 30px;
+  background: #ffffff;
+}
+
+.login .loginContainer label {
+  color: black;
+  margin: 14px 0;
+  display: block;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.login .loginContainer .menu button {
+  color: black;
+  margin: 8px 0;
+  display: block;
+  font-size: 25px;
+  line-height: 1;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.login .loginContainer .menu button:hover {
+  transition: 1s ease all;
+  box-shadow: 0px 5px 10px #560000;
+}
+
+.login .loginContainer .menu2 button {
   color: rgb(255, 255, 255);
   margin: 8px 0;
   display: block;
@@ -106,142 +103,133 @@
   border: none;
   outline: none;
   cursor: pointer;
-  background: #560000 ;
-} 
+  background: #560000;
+}
 
-.hero .login .loginContainer .menu2 button:hover  {
+.login .loginContainer .menu2 button:hover {
   transition: 1s ease all;
   box-shadow: 0px 5px 1px #0000006d;
 }
 
-
-  /* para la parte de recuadros de llenado */
-  .login .loginContainer input {
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 20px;
-    padding: 15px;
-    height: 45px;
-    background: #cacbcf;
-    color: rgb(0, 0, 0);  /* letra de llenado */
-    letter-spacing: 1px;
-  }
-  
-  .login .loginContainer .btnContainer {
-    width: 100%;
-    padding: 24px 0;
-
-  }
-
- /* No tienes cuenta y olvidaste contraseña */
-  .login .loginContainer .btnContainer p { 
-    margin: 14px 0 0 0;
-    text-align: right;
-    color: #ffffff;
-  }
-  
-  .login .loginContainer .errorMsg {
-    color: #2d3001;
-    font-size: 16px;
-  }
-  
-  .hero {
-    width: 100%;
-    min-height: 100vh;
-    background: #cacbcf;  /* fondo de inicio de sesion */
-  }
-  
-  .hero nav {
-    background: #560000; /* barra de navegacion Hola posicion */
-    padding: 20px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .hero nav h2 {
-    color: #ffffff; /* color letra barra superior */
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    font-size: 32px;
-  }
-
-  .hero nav h3 {
-    float:right;   
-  }
-  
-  .hero nav h3 img{
-    width: 70px;
-    height: 70px; 
-  }
-
-  .hero nav button a {
-    color: #fff;
-    text-decoration: none;
-    
-  }
-  
-  .hero nav button a:hover {
-    color: #011230;
-  }
-   
-  .hero img{
-    width: 42px;
-    height: 62px;
-  }
-  
-  h1{
-    text-align: center;
-    color: #000000;
-    margin-bottom: 20px;
-    font-size: 40px;
-  }
-
-  label {
-    color: #000000;
-    margin: 14px 0;
-    display: block;
-    font-size: 22px;
-    line-height: 1;
-  }
-
-  h4{
-    color: #bb2929;   
-  }
-
-  h5{
-    color: #560000;   
-  }
-  .golesContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .golesContainer > div {
-    flex-basis: 65%;
-  }
-
-
-
-select {   /* Color del rol en crear cuenta */
-    width: 100%;
-    background: #ffffff;
-    border-radius: 30px;
-    height: 45px;
-    line-height: 45px;
-    padding: 0 40px 0 10px;
-    transition: .3s ease all;
-    border: 15px solid transparent;
+.login .loginContainer input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  padding: 15px;
+  height: 45px;
+  background: #cacbcf;
+  color: rgb(0, 0, 0);
+  letter-spacing: 1px;
 }
 
+.login .loginContainer .btnContainer {
+  width: 100%;
+  padding: 24px 0;
+}
 
-/*<<<<<<< Updated upstream*/
+.login .loginContainer .btnContainer p {
+  margin: 14px 0 0 0;
+  text-align: right;
+  color: #ffffff;
+}
 
-.school {   /* Color del school en round robin */
-  width: 35%;
+.login .loginContainer .errorMsg {
+  color: #2d3001;
+  font-size: 16px;
+}
+
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  background: #cacbcf;
+}
+
+.hero nav {
+  background: #560000;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero nav h2 {
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-size: 32px;
+}
+
+.hero nav h3 {
+  float: right;
+}
+
+.hero nav h3 img {
+  width: 70px;
+  height: 70px;
+}
+
+.hero nav button a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero nav button a:hover {
+  color: #011230;
+}
+
+.hero img {
+  width: 42px;
+  height: 62px;
+}
+
+h1 {
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+
+label {
+  color: #000000;
+  margin: 14px 0;
+  display: block;
+  font-size: 22px;
+  line-height: 1;
+}
+
+h4 {
+  color: #bb2929;
+}
+
+h5 {
+  color: #560000;
+}
+
+.golesContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.golesContainer > div {
+  flex-basis: 65%;
+}
+
+select {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 30px;
+  height: 45px;
+  line-height: 45px;
+  padding: 0 40px 0 10px;
+  transition: .3s ease all;
+  border: 15px solid transparent;
+}
+
+.school {
+  width: 100%;
   background: #cacbcf;
   border-radius: 30px;
   height: 45px;
@@ -251,88 +239,50 @@ select {   /* Color del rol en crear cuenta */
   border: 15px solid transparent;
 }
 
-/*=======*/
-
-.hero nav button a:hover {
-  color: #011230;
-}
- 
-.hero img{
-  width: 42px;
-  height: 62px;
-}
-
-h1{
-  text-align: center;
-  color: #000000;
-  margin-bottom: 20px;
-  font-size: 40px;
-}
-
-.hero .login .loginContainer .menu button:hover  {
-  transition: 1s ease all;
-  box-shadow: 0px 5px 10px #560000;
-}
-
-.hero .login .loginContainer .menu2 button {
-color: rgb(255, 255, 255);
-margin: 8px 0;
-display: block;
-font-size: 20px;
-line-height: 1;
-border-radius: 30px;
-border: none;
-outline: none;
-cursor: pointer;
-background: #560000 ;
-} 
-
-/*ESTILOS PARA LA TABLA MOSTRADA EN LAS ESTADISTICAS*/
-
 .TablaGeneralPos {
-  border-collapse: collapse; /* permite que los bordes de las celdas se fusionen en una línea continua */
+  border-collapse: collapse;
   margin: 10px 20px 10px;
   width: 90%;
 }
 
-.encabezado, .descripcion {
+.encabezado,
+.descripcion {
   border: 2px solid black;
-  padding: 8px; /* agrega un espacio de relleno alrededor del contenido de las celdas */
+  padding: 8px;
   text-align: center;
   width: 130px;
 }
 
 .encabezado {
   text-align: center;
-  color: #ffffff; /* Cambia el color del texto aquí */
-  font-weight: bold; /* Cambia el estilo de fuente aquí, por ejemplo: bold, italic, etc. */
+  color: #ffffff;
+  font-weight: bold;
   padding: 8px;
   text-align: center;
-  background-image: linear-gradient(to right, #011230, #011250, #011280); /* Cambia los colores aquí */
+  background-image: linear-gradient(to right, #011230, #011250, #011280);
   font-weight: bold;
   width: auto;
 }
 
 .TablaGeneralPos td {
-  /* Estilos para el contenido de las celdas */
-  background-image: linear-gradient(to right, #a5a5a5, #a5a5a576, #a5a5a500); 
-  color: #000000; /* Cambia el color del texto del contenido aquí */
-  font-weight: normal; /* Cambia el estilo de fuente del contenido aquí */
+  background-image: linear-gradient(to right, #a5a5a5, #a5a5a576, #a5a5a500);
+  color: #000000;
+  font-weight: normal;
   width: auto;
 }
+
 .TablaGeneralPos td:first-child {
-  text-align: center; /* Alinea al centro solo la primera columna */
+  text-align: center;
 }
 
 .carousel {
   background: linear-gradient(to right, #011230, #072e4b, #0d3b67, #134983, #1957a0);
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: auto; /* Centra el carrusel horizontalmente */
+  margin: auto;
   padding: 10px;
-  max-width: 800px; /* Ajusta el ancho del carrusel según tus necesidades */
+  max-width: 8000px;
 }
-
 
 .carousel .slide {
   display: flex;
@@ -347,4 +297,107 @@ background: #560000 ;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px) {
+  /* Estilos para dispositivos móviles */
+  .carousel-container {
+    flex-direction: column;
+  }
+
+  .twitter-container {
+    margin-top: 20px;
+  }
+}
+/* Estilos para el carrusel */
+.carousel-container {
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel .slide {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.carousel .slide img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Estilos para la sección de Twitter */
+.twitter-timeline {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.twitter-timeline iframe {
+  width: 100%;
+  height: 500px;
+}
+
+/* Estilos adicionales para hacer el diseño responsive */
+@media (max-width: 768px) {
+  .carousel-container {
+    max-width: 100%;
+  }
+
+  .carousel .slide img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .twitter-timeline iframe {
+    max-width: 100%;
+    height: 300px;
+  }
+}
+
+/* Media Queries para estilos en dispositivos móviles */
+@media (max-width: 768px) {
+  main {
+    padding: 20px;
+  }
+
+  .login {
+    top: 0;
+    left: 0;
+    position: relative;
+  }
+
+  .login .loginContainer {
+    min-height: 300px;
+    width: 100%;
+    max-width: none;
+    padding: 20px;
+    margin: auto;
+  }
+
+  .login .loginContainer2 {
+    min-height: 300px;
+    width: 100%;
+    max-width: none;
+    padding: 20px;
+    margin: auto;
+  }
+
+  .hero nav h2 {
+    font-size: 24px;
+  }
+
+  .hero nav h3 {
+    display: none;
+  }
+
+  .golesContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .golesContainer > div {
+    flex-basis: 100%;
+    margin-bottom: 10px;
+  }
 }

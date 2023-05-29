@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import {Boton } from '../elementos/ElementosFormularioJuegos';
 
 export default function Layout(props) {
   const [isReadyForInstall, setIsReadyForInstall] = React.useState(false);
@@ -38,8 +39,9 @@ export default function Layout(props) {
 
   return (
     <div className="App">
+        <br/>
         {isReadyForInstall && (
-          <button onClick={downloadApp}> Descargar </button>
+          <Boton onClick={downloadApp}> Descargar </Boton>
         )}
       {props.children}
     </div>
