@@ -4,7 +4,10 @@ import HomePrincipal from './componentes/HomePrincipal';
 import {firebaseApp} from './firebase/firebaseConfig';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {getFirestore,doc,getDoc} from "firebase/firestore"
-
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { messaging } from "./firebase/firebaseConfig"
+import {ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -49,11 +52,24 @@ const Rol = () => {
     }
   });
 
+  const activarMensajes = async ()=>{
+    const token = await getToken(messaging, {
+        vapidKey: "BOzYf25OuRZEMHM1yjxf5q5Qu0yJTNFgvOXwjBOn4YzwRnENLuLjo-sDY6XUe68ocnp89CQ_m-kdRQhWy6cOQN4"
+    }).catch(error => console.log("Tuviste un error al generar el token",error));
+
+    if(token){
+        console.log("tu token", token);
+    }
+    if(!token){
+        console.log("No tienes token");
+    }
+  }
   return ( 
     <>
     
     {usuario ? <HomePrincipal usuario = {usuario}/> : <Login/>}
-
+    <ToastContainer/>
+     <button onClick={activarMensajes}>Generar Token</button>
     </>
    );
 }

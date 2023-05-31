@@ -2,7 +2,9 @@ import { initializeApp } from "firebase/app";
 
 import 'firebase/auth';
 import 'firebase/firestore';
-import { getFirestore } from "firebase/firestore";
+import { getAnalytics } from "firebase/analytics";
+import { getMessaging } from "firebase/messaging"
+
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
@@ -10,12 +12,14 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_PROJECTID,
   storageBucket: process.env.REACT_APP_STORAGEBUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
-  appId: process.env.REACT_APP_APPID
+  appId: process.env.REACT_APP_APPID,
+  measurementId: process.env.REACT_APP_MEASUREMENTID
 };
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
+const analytics = getAnalytics(firebaseApp);
+const messaging = getMessaging(firebaseApp);
 
-const db = getFirestore(firebaseApp);
 
-export {firebaseApp, db} ;
+export {firebaseApp, messaging } ;
