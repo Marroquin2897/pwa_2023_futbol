@@ -4,7 +4,7 @@ import { getAuth,signOut } from 'firebase/auth';
 import { slide as Menu } from 'react-burger-menu'
 import '../MenuSide.css';
 import { Link } from 'react-router-dom';
-import {FaUserEdit, FaRegChartBar, FaNewspaper} from "react-icons/fa";
+import {FaUserEdit, FaRegChartBar, FaNewspaper,FaCalendarAlt} from "react-icons/fa";
 import {TbSoccerField} from "react-icons/tb";
 
 const auth=getAuth(firebaseApp);
@@ -27,9 +27,13 @@ class MenuJugador extends React.Component  {
       return (
         <Menu >
           <Link id="editarPerfil" className="menu-item" to={`/editar-perfil/${auth.currentUser.uid}`}><FaUserEdit  className='iconMenu'/>  Editar perfil</Link>
-          <Link id="estadisticas" className="menu-item" to="/" > <FaRegChartBar  className='iconMenu'/>  Estadísticas</Link>
-          <Link id="rolJuegos" className="menu-item" to="/" > <TbSoccerField  className='iconMenu'/>  Rol de juegos</Link>
-          <Link id="noticias" className="menu-item" to="/noticias" > <FaNewspaper  className='iconMenu'/>  Noticias</Link>
+          <Link id="partidosF7" className="menu-item" to="/PartidosF7"> <FaCalendarAlt className='iconMenu'/>  Ver Partidos Fútbol 7</Link><br/>
+          <Link id="partidosFR" className="menu-item" to="/PartidosFR"> <FaCalendarAlt className='iconMenu'/>  Ver Partidos Fútbol Rápido</Link><br/>
+          <Link id="partidosFA" className="menu-item" to="/PartidosFA"> <FaCalendarAlt className='iconMenu'/>  Ver Partidos Fútbol Asociación</Link><br/>
+          <Link id="estadisticas" className="menu-item" to="/TG-Futbol7" > <FaRegChartBar className='iconMenu'/>  Tabla General de Posiciones Fútbol 7</Link><br/>
+          <Link id="estadisticas" className="menu-item" to="/TG-FutbolRapido" > <FaRegChartBar className='iconMenu'/>  Tabla General de Posiciones Fútbol Rápido</Link><br/>
+          <Link id="estadisticas" className="menu-item" to="/TG-FutbolAsociacion" > <FaRegChartBar className='iconMenu'/>  Tabla General de Posiciones Fútbol Asociación</Link><br/>
+          
           <center><button className='btn-cerrarSesion' onClick={this.handleCerrarSesion}> Cerrar sesión</button></center>
         </Menu>
       );

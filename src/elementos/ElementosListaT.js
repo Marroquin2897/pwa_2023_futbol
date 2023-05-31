@@ -8,7 +8,7 @@ const Lista = styled.ul`
     overflow-y: auto;
  
     li {
-        grid-template-columns: 1fr 1fr 1fr auto;
+        grid-template-columns: 1fr 1fr auto;
     }
  
     @media (max-width: 50rem) { /*80px*/

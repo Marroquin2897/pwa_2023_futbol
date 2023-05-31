@@ -1,15 +1,18 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
-import { getFirestore, collection, addDoc,where,updateDoc,getDocs,doc,query,setDoc} from 'firebase/firestore';
+import { getFirestore, collection,where,getDocs,doc,query,setDoc} from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
+import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input } from '../elementos/ElementosFormularioJuegos';
 import Alerta from '../elementos/Alerta';
+import BtnRegresar from '../elementos/BtnRegresar';
 
 const RegistrarResultadosFemenilSuperiorFut7 = () => {
   const [jornada, setJornada] = useState('');
   const [partidos, setPartidos] = useState([]);
   const [resultados, setResultados] = useState({}); 
   const [guardado, setGuardado] = useState(false);
+  const [mostrarPartidos, setMostrarPartidos] = useState(false);
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
   const[alerta,cambiarAlerta] = useState({});
   const firestore = getFirestore(firebaseApp);
@@ -63,7 +66,7 @@ const RegistrarResultadosFemenilSuperiorFut7 = () => {
         querySnapshot.forEach((doc) => {
           partidos.push({ id: doc.id, ...doc.data() });
         });
-    
+        setMostrarPartidos(true);
         console.log('Partidos encontrados:', partidos);
         setPartidos(partidos);
       } catch (error) {
@@ -139,70 +142,90 @@ const RegistrarResultadosFemenilSuperiorFut7 = () => {
     return (
         <div className='hero'>
             <nav>
-            <img src="https://tinyurl.com/2obtocwe"/>
+            <img src="https://tinyurl.com/2obtocwe" alt=''/>
               <center><h2> Registro de Resultados Fútbol 7 Femenil Nivel Superior</h2></center> 
-              <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+              <h3><img src="https://tinyurl.com/2kaldmbh" alt=''/></h3>
             </nav>
             <Helmet>
                 <title> Registro de Resultados Fútbol 7 Femenil Nivel Superior </title>
             </Helmet>
             <main>
             <div>
-                <label htmlFor="jornada">Jornada:</label>
-                <input type="text" id="jornada" value={jornada} onChange={(e) => setJornada(e.target.value)} />
-                <button onClick={handleVerPartidos}>Ver Partidos</button>
+                <Label htmlFor="jornada">Jornada:</Label>
+                <GrupoInput>
+                <Input type="text" id="jornada" value={jornada} onChange={(e) => setJornada(e.target.value)} />
+                </GrupoInput>
+                <br/>
+                <ContenedorBotonCentrado>
+                  <Boton onClick={handleVerPartidos}> Ver Partidos </Boton>
+                </ContenedorBotonCentrado>
+                <br/>
             </div>
-            <div>
-                <h3>Partidos</h3>
-                <ul>
-                    {partidos.map((partido) => (
-                    <li key={partido.id}>
-                        <div>
-                        <span>{partido.local}</span> vs <span>{partido.visitante}</span>
-                        </div>
-                        <div>
-                        <label htmlFor="golesLocal">Goles Local</label>
-                        <input
-                        type="number"
-                        id="golesLocal"
-                        value={resultados[partido.id]?.golesLocal || ''}
-                        onChange={(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
-                        />
-                        </div>
-                        <div>
-                            <label htmlFor="ganadorPenalesLocal">Ganador Penales Local:</label>
-                            <input
-                            type="checkbox"
-                            id="ganadorPenalesLocal"
-                            checked={resultados[partido.id]?.ganadorPenalesLocal || false}
-                            onChange={(e) =>handleGanadorPenalesChange(partido.id,'ganadorPenalesLocal',e.target.checked)}
+            {mostrarPartidos && ( 
+                <div>
+                  {partidos.length === 0 ? (
+                    <p> No hay partidos para esta modalidad.</p>
+                  ) : (
+                    <div> 
+                        <Label> <h3>Partidos</h3> </Label>
+                        <ul>
+                        {partidos.map((partido) => (
+                        <li key={partido.id}>
+                            <div>
+                              <Label> 
+                              <span>{partido.local}</span> vs <span>{partido.visitante}</span>
+                              </Label>
+                            </div>
+                            <div>
+                            <Label htmlFor="golesLocal">Goles Local</Label>
+                            <Input
+                            type="number"
+                            id="golesLocal"
+                            value={resultados[partido.id]?.golesLocal || ''}
+                            onChange={(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
                             />
-                        </div>
-                        <div>
-                        <label htmlFor="golesVisitante">Goles Visitante:</label>
-                        <input
-                        type="number"
-                        id="golesVisitante"
-                        value={resultados[partido.id]?.golesVisitante || ''}
-                        onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
-                        />
-                        </div>
-                        <div>
-                            <label htmlFor="ganadorPenalesVisitante">Ganó en penales Visitante:</label>
-                            <input
-                            type="checkbox"
-                            id="ganadorPenalesVisitante"
-                            checked={resultados[partido.id]?.ganadorPenalesVisitante || false}
-                            onChange={(e) =>handleGanadorPenalesChange(partido.id,'ganadorPenalesVisitante',e.target.checked)}
+                            </div>
+                            <div>
+                                <Label htmlFor="ganadorPenalesLocal">Ganador en Penales Local</Label>
+                                <Input
+                                type="checkbox"
+                                id="ganadorPenalesLocal"
+                                checked={resultados[partido.id]?.ganadorPenalesLocal || false}
+                                onChange={(e) =>handleGanadorPenalesChange(partido.id,'ganadorPenalesLocal',e.target.checked)}
+                                />
+                            </div>
+                            <div>
+                            <Label htmlFor="golesVisitante">Goles Visitante:</Label>
+                            <Input
+                            type="number"
+                            id="golesVisitante"
+                            value={resultados[partido.id]?.golesVisitante || ''}
+                            onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
                             />
-                        </div>
-                    </li>
-                    ))}  
-                </ul>
+                            </div>
+                            <div>
+                                <Label htmlFor="ganadorPenalesVisitante">Ganador en Penales Visitante</Label>
+                                <Input
+                                type="checkbox"
+                                id="ganadorPenalesVisitante"
+                                checked={resultados[partido.id]?.ganadorPenalesVisitante || false}
+                                onChange={(e) =>handleGanadorPenalesChange(partido.id,'ganadorPenalesVisitante',e.target.checked)}
+                                />
+                            </div>
+                        </li>
+                        ))}  
+                        </ul>
+                      </div>     
+                  )}  
                 </div>
+            )}
+            <br/>
                 {partidos.length > 0 && (
                   <button onClick={guardarResultados}>Guardar Resultado</button>
                 )}
+                <ContenedorBotonCentrado>
+                <BtnRegresar ruta = '/menu-admin'/>
+                </ContenedorBotonCentrado>
             </main>
             <Alerta 
             tipo= {alerta.tipo}

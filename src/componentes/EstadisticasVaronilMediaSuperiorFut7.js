@@ -1,8 +1,10 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
-import { getFirestore,collection, getDocs,addDoc, setDoc,doc } from 'firebase/firestore';
+import { getFirestore,collection, getDocs, setDoc,doc } from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
+import { ContenedorBotonCentrado } from '../elementos/ElementosFormularioJuegos';
+import BtnRegresar from '../elementos/BtnRegresar';
 
 const EstadisticasVaronilMediaSuperiorFut7 = () => {
     const nameUsuario = sessionStorage.getItem("name")
@@ -139,9 +141,9 @@ const EstadisticasVaronilMediaSuperiorFut7 = () => {
     return (  
         <div className="hero">
             <nav>
-            <img src="https://tinyurl.com/2obtocwe"/>
+            <img src="https://tinyurl.com/2obtocwe" alt=''/>
               <center><h2> Tabla General de Posiciones Fútbol 7 Varonil Nivel Media Superior </h2><h2>{nameUsuario}</h2></center> 
-            <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+            <h3><img src="https://tinyurl.com/2kaldmbh" alt=''/></h3>
             </nav>
             <Helmet>
                 <title> Tabla General de Posiciones Fútbol 7 Varonil Nivel Media Superior</title>
@@ -180,7 +182,10 @@ const EstadisticasVaronilMediaSuperiorFut7 = () => {
                         </tr>
                 ))}
 				        </tbody>
-            </table>    
+            </table>  
+            <ContenedorBotonCentrado>
+            <BtnRegresar ruta='/rol' />
+            </ContenedorBotonCentrado>    
             </div>  
         </div>
     );

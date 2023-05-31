@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
-import { getFirestore,collection, getDocs,addDoc, setDoc,doc } from 'firebase/firestore';
+import { getFirestore,collection, getDocs, setDoc,doc } from 'firebase/firestore';
+import { ContenedorBotonCentrado } from '../elementos/ElementosFormularioJuegos';
+import BtnRegresar from '../elementos/BtnRegresar';
 import { firebaseApp } from '../firebase/firebaseConfig';
 
 const EstadisticasFemenilMediaSuperiorAsociación = () => {
@@ -173,6 +175,9 @@ const EstadisticasFemenilMediaSuperiorAsociación = () => {
             ))}
             </tbody>
         </table>
+        <ContenedorBotonCentrado>
+          <BtnRegresar ruta='/rol' />
+        </ContenedorBotonCentrado> 
         </div>
      );
 }

@@ -17,7 +17,6 @@ import ListaJugadores from './componentes/ListaJugadores';
 import ListaEscuelas from './componentes/ListaEscuelas';
 import EditarJugador from './componentes/EditarJugador';
 import EditarEscuela from './componentes/EditarEscuela';
-import Noticias from './componentes/Noticias';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/icono2-burrito.png';
 import './App.css';
@@ -32,12 +31,10 @@ import RoundRobin from './componentes/RoundRobind';
 import Grupos from './componentes/Grupos';
 import EstadisticasFR from './componentes/EstadisticasFR';
 import ListaEscuelasAdm from './componentes/ListaEscuelasAdm';
-import TodosContraTodos from './componentes/RoundPrueba';
 import ListaJugadoresAdm from './componentes/ListaJugadoresAdm';
 import RegistrarResultadosFemenilSuperiorRapido from './componentes/RegistrarResultadosFemenilSuperiorRapido';
 import VistaJugador from './vistas/VistaJugador';
 import RegistrarResultadosVaronilSuperiorFut7 from './componentes/RegistrarResultadosVaronilSuperiorFut7';
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import RegistrarResultadosFemenilSuperiorFut7 from './componentes/RegistrarResultadosFemenilSuperiorFut7';
 import RRFemenilSuperiorFutAsociacion from './componentes/RRFemenilSuperiorFutAsociacion';
 import RRFemenilRapidoMediaSuperior from './componentes/RRFemenilRapidoMediaSuperior';
@@ -59,6 +56,29 @@ import EstadisticasVaronilMediaSuperiorFutRapido from './componentes/Estadistica
 import EstadisticasVaronilMediaSuperiorFutAsociacion from './componentes/EstadisticasVaronilMediaSuperiorFutAsociacion';
 import RRFemenilMediaSuperiorFutAsociacion from './componentes/RRFemenilMediaSuperiorFutAsociacion';
 import EstadisticasFemenilSuperiorFut7 from './componentes/EstadisticasFemenilSuperiorFut7';
+import TGFutbol7 from './componentes/TGFutbol7'; 
+import TGFutbolRapido from './componentes/TGFutbolRapido';
+import TGFutbolAsociacion from './componentes/TG-FutbolAsociacion';
+import RRFutbol7 from './componentes/RRFutbol7';
+import RRFutbolRapido from './componentes/RRFutbolRapido';
+import RRFutbolAsociacion from './componentes/RRFutbolAsociacion';
+import VerPartidosFutbol7 from './componentes/VerPartidosFutbol7';
+import PartidosFemenilSuperiorF7 from './componentes/PartidosFemenilSuperiorF7';
+import VerPartidosFutbolRapido from './componentes/VerPartidosFutbolRapido';
+import VerPartidosFutbolAsociacion from './componentes/VerPartidosFutbolAsociacion';
+import PartidosFemenilMediaSuperiorF7 from './componentes/PartidosFemenilMediaSuperiorF7';
+import PartidosVaronilSuperiorF7 from './componentes/PartidosVaronilSuperiorF7';
+import PartidosVaronilMediaSuperiorF7 from './componentes/PartidosVaronilMediaSuperiorF7';
+import PartidosFemenilSuperiorFR from './componentes/PartidosFemenilSuperiorFR';
+import PartidosFemenilMediaSuperiorFR from './componentes/PartidosFemenilMediaSuperiorFR';
+import PartidosVaronilSuperiorFR from './componentes/PartidosVaronilSuperiorFR';
+import PartidosVaronilMediaSuperiorFR from './componentes/PartidosVaronilMediaSuperiorFR';
+import PartidosFemenilSuperiorFA from './componentes/PartidosFemenilSuperiorFA';
+import PartidosFemenilMediaSuperiorFA from './componentes/PartidosFemenilMediaSuperiorFA';
+import PartidosVaronilSuperiorFA from './componentes/PartidosVaronilSuperiorFA';
+import PartidosVaronilMediaSuperiorFA from './componentes/PartidosVaronilMediaSuperiorFA';
+
+
 WebFont.load({
   google: {
     families: ['Ubuntu: 400,500,700', 'Droid Serif']
@@ -132,11 +152,7 @@ const Index = () => {
                 <EditarEscuela/>
               </RutaPrivada>
             }/>
-              <Route path="/noticias" element={
-                <RutaPrivada>
-                  <Noticias/>
-                </RutaPrivada>
-            }/>
+
             <Route path="/editar-perfil/:id" element={
               <RutaPrivada>
                 <EditarUsuario/>
@@ -172,14 +188,25 @@ const Index = () => {
                 <RoundRobin/>
               </RutaPrivada>
             }/>
-            <Route path="/round-prueba" element={
-              <RutaPrivada>
-                <TodosContraTodos/>
-              </RutaPrivada>
-            }/>
+          
             <Route path="/grupos" element={
               <RutaPrivada>
                 <Grupos/>
+              </RutaPrivada>
+            }/>
+            <Route path="/RR-Futbol7" element={
+              <RutaPrivada>
+                <RRFutbol7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/RR-FutbolRapido" element={
+              <RutaPrivada>
+                <RRFutbolRapido/>
+              </RutaPrivada>
+            }/>
+            <Route path="/RR-FutbolAsociacion" element={
+              <RutaPrivada>
+                <RRFutbolAsociacion/>
               </RutaPrivada>
             }/>
             
@@ -307,35 +334,106 @@ const Index = () => {
                 <EstadisticasVaronilMediaSuperiorFutAsociacion/>
               </RutaPrivada>
             }/>
-            
-            
-            
-            
-            
-
-            
-          
+            <Route path="/TG-Futbol7" element={
+              <RutaPrivada>
+                <TGFutbol7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/TG-FutbolRapido" element={
+              <RutaPrivada>
+                <TGFutbolRapido/>
+              </RutaPrivada>
+            }/>
+            <Route path="/TG-FutbolAsociacion" element={
+              <RutaPrivada>
+                <TGFutbolAsociacion/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosF7" element={
+              <RutaPrivada>
+                <VerPartidosFutbol7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFR" element={
+              <RutaPrivada>
+                <VerPartidosFutbolRapido/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFA" element={
+              <RutaPrivada>
+                <VerPartidosFutbolAsociacion/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFSF7" element={
+              <RutaPrivada>
+                <PartidosFemenilSuperiorF7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFMSF7" element={
+              <RutaPrivada>
+                <PartidosFemenilMediaSuperiorF7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVSF7" element={
+              <RutaPrivada>
+                <PartidosVaronilSuperiorF7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVMSF7" element={
+              <RutaPrivada>
+                <PartidosVaronilMediaSuperiorF7/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFSFR" element={
+              <RutaPrivada>
+                <PartidosFemenilSuperiorFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFMSFR" element={
+              <RutaPrivada>
+                <PartidosFemenilMediaSuperiorFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVSFR" element={
+              <RutaPrivada>
+                <PartidosVaronilSuperiorFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVMSFR" element={
+              <RutaPrivada>
+                <PartidosVaronilMediaSuperiorFR/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFSFA" element={
+              <RutaPrivada>
+                <PartidosFemenilSuperiorFA/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosFMSFA" element={
+              <RutaPrivada>
+                <PartidosFemenilMediaSuperiorFA/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVSFA" element={
+              <RutaPrivada>
+                <PartidosVaronilSuperiorFA/>
+              </RutaPrivada>
+            }/>
+            <Route path="/PartidosVMSFA" element={
+              <RutaPrivada>
+                <PartidosVaronilMediaSuperiorFA/>
+              </RutaPrivada>
+            }/>
+ 
         </Routes>
     
     </BrowserRouter>
     </AuthProvider>
     </>
      
-   );
+   ); 
 }
 
 ReactDOM.render(<Index/>,document.getElementById('root'));
-serviceWorkerRegistration.register({
-  onUpdate: async (registration) => {
-    // Corremos este código si hay una nueva versión de nuestra app
-    // Detalles en: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
-    if (registration && registration.waiting) {
-      await registration.unregister();
-      registration.waiting.postMessage({ type: "SKIP_WAITING" });
-      // Des-registramos el SW para recargar la página y obtener la nueva versión. Lo cual permite que el navegador descargue lo nuevo y que invalida la cache que tenía previamente.
-      window.location.reload();
-    }
-  },
-});
 
 

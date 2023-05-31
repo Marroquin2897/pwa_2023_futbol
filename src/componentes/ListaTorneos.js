@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
 import useObtenerTorneos from '../hooks/useObtenerTorneos';
-
 import {ReactComponent as IconoCalendar} from './../imagenes/calendar.svg';
 import {Lista,ElementoLista,Label,ContenedorBotonCentral,ContenedorBotones,BotonAccion,Nombre,BotonCargarMas,
 ContenedorSubtitulo,
@@ -16,9 +15,9 @@ const ListaTorneos = () => {
     return ( 
     <div className="hero">
       <nav>
-      <img src="https://tinyurl.com/2obtocwe"/>
+      <img src="https://tinyurl.com/2obtocwe" alt=''/>
         <center><h2>Lista de Torneos</h2><h2>{nameUsuario}</h2></center> 
-        <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+        <h3><img src="https://tinyurl.com/2kaldmbh" alt=''/></h3>
         
       </nav>
         <Helmet>
@@ -31,9 +30,6 @@ const ListaTorneos = () => {
                     <ElementoLista key={torneo.id}>
                         <Label> Nombre Torneo 
                         <Nombre> {torneo.nombreTorneo}</Nombre>
-                        </Label>
-                        <Label> Modalidad 
-                        <Nombre> {torneo.modalidadTorneo}</Nombre>
                         </Label>
                         <Label> Sistema Competencia 
                         <Nombre> {torneo.sistemaCompetencia}</Nombre>

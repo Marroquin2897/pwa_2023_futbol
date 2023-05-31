@@ -1,130 +1,126 @@
 /* Position and sizing of burger button */
 .bm-burger-button {
-    position: fixed;
-    width: 50px;
-    height: 50px;
-    left: 35px;
-    top: 20px;
-  }
-  
-  /* Color/shape of burger icon bars #373a47; background: #560000; */
-  .bm-burger-bars {
-    background: #bdc3c7;
-  }
-  
-  /* Color/shape of burger icon bars on hover  
-  background: #a90000; 
-  box-shadow: 6px 0px 60px rgba(163,163,163,1);
-  */
-  .bm-burger-bars-hover {
-    background: #fff;
-    box-shadow: 6px 0px 60px rgb(0, 0, 0);
-  }
-  
-  /* Position and sizing of clickable cross button */
-  .bm-cross-button {
-    height: 30px;
-    width: 30px;
-  }
-  
-  /* Color/shape of close button cross */
-  .bm-cross {
-    background: #ffffff;
-  }
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  left: 35px;
+  top: 20px;
+}
 
-  /*
-  Sidebar wrapper styles
-  Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
-  */
-  .bm-menu-wrap {
-    position: fixed;
-    height: 100%;
-    
-  }
-  
-  /* General sidebar styles background: #373a47; */
-  .bm-menu {
-    background:  #011230;
-    padding: 3em 1em 0;
-    font-size: 1em;
-    width: 300px;
-  }
-  
-  /* Wrapper for item list */
-  .bm-item-list {
-    color: #ffffff;
-    padding: 1em;
-  }
-  
-  /* Individual item */
-  .bm-item {
-    color: #ffffff;
-    text-decoration: none;
-    height: 50px;
-    text-align: center;
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #bdc3c7;
+}
 
-  }
-  
-  /* Styling of overlay background: rgba(0, 0, 0, 0.3); */
-  .bm-overlay {
-    background: red;
-  }
+/* Color/shape of burger icon bars on hover */
+.bm-burger-bars-hover {
+  background: #fff;
+  box-shadow: 6px 0px 60px rgb(0, 0, 0);
+}
 
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 30px;
+  width: 30px;
+}
 
-  /******************Estilos para registrar resultados**********************/
- /* .iconMenu{ Color de los iconos en menu
-    color: #fff;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    display: inline-table;
-  }*/
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #ffffff;
+}
 
-  .btn-cerrarSesion{
-    border: none;
-    outline: none;
-    width: 80%;
-    padding: 15px 0px;
-    color: #fff; /*Color de la letra en boton cerrar sesion*/
-    font-size: 18px;
-    letter-spacing: 1px;
-    background: #560000; /*Color boton cerrar sesion*/
-    cursor: pointer;
-    margin: 30px 10px 0;
-    text-align: center;
-  }
+/* Sidebar wrapper styles */
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+}
 
-.saludosMenu{
+/* General sidebar styles */
+.bm-menu {
+  background: #011230;
+  padding: 3em 1em 0;
+  font-size: 1em;
+  width: 300px;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #ffffff;
+  padding: 1em;
+}
+
+/* Individual item */
+.bm-item {
+  color: #ffffff;
+  text-decoration: none;
+  height: 50px;
+  text-align: center;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/**Estilos para registrar resultados**/
+.btn-cerrarSesion {
+  border: none;
+  outline: none;
+  width: 80%;
+  padding: 15px 0px;
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 1px;
+  background: #560000;
+  cursor: pointer;
+  margin: 30px 10px 0;
+  text-align: center;
+}
+
+.saludosMenu {
   color: #ffffff;
   text-align: right;
 }
-/*
-  table {
-    align-items: center;
-    text-align: center;
-    color: white;
-    justify-content: center;
-    width: 100%;
-    padding: 20px 40px;
-    display: flex;
-    
-}*/
+
 input {
-    width: 40%;
-    background: #fff;
-    border-radius: 3px;
-    height: 25px;
-    line-height: 160px;
-    padding: 0 10px 0 10px;
-    transition: .3s ease all;
-    border: 1px solid black;
-    border-radius: 30px;
+  width: 100%;
+  background: #fff;
+  border-radius: 3px;
+  height: 25px;
+  line-height: 160px;
+  padding: 0 10px 0 10px;
+  transition: .3s ease all;
+  border: 1px solid black;
+  border-radius: 30px;
 }
 
 div h1 {
-    margin-bottom: 10px;
-    padding: 10px;
-    text-align: center;
-    color: rgb(0, 0, 0);
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
 
+/* Media queries for responsive design */
+@media screen and (max-width: 768px) {
+  /* Adjustments for mobile devices */
+  .bm-burger-button {
+    left: 20px;
+    top: 10px;
+  }
+
+  .bm-menu {
+    width: 250px;
+  }
+
+  .bm-item-list {
+    padding: 0.5em;
+  }
+  
+  .btn-cerrarSesion {
+    width: 100%;
+    padding: 10px 0px;
+    font-size: 16px;
+    margin: 20px 0;
+  }
 }

@@ -123,9 +123,9 @@ const RRFemenilMediaSuperiorFutAsociacion = () => {
     return ( 
         <div className='hero'>
         <nav>
-            <img src="https://tinyurl.com/2obtocwe"/>
+            <img src="https://tinyurl.com/2obtocwe" alt=''/>
               <center><h2> Registro de Resultados Fútbol Asociación Femenil Nivel Media Superior</h2></center> 
-              <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+              <h3><img src="https://tinyurl.com/2kaldmbh" alt=''/></h3>
             </nav>
             <Helmet>
                 <title> Registro de Resultados Fútbol Asociación Femenil Nivel Media Superior</title>
