@@ -8,6 +8,7 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { messaging } from "./firebase/firebaseConfig"
 import {ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { ContenedorBotonCentrado, Boton } from './elementos/ElementosFormularioJuegos';
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -62,12 +63,26 @@ const Rol = () => {
         console.log("No tienes token");
     }
   }
+
+  React.useEffect(()=>{
+    onMessage(messaging, message =>{
+      console.log("tu mensaje: ", message);
+      toast(message.notification.title);
+      
+    })
+    activarMensajes()
+  }, []);
+
   return ( 
     <>
+    <ToastContainer/>
+    {/* <ContenedorBotonCentrado>
+      <Boton  onClick={activarMensajes}>Recibir notificaciones</Boton>
+    </ContenedorBotonCentrado>*/}
     
     {usuario ? <HomePrincipal usuario = {usuario}/> : <Login/>}
-    <ToastContainer/>
-     <button onClick={activarMensajes}>Generar Token</button>
+    
+     
     </>
    );
 }
