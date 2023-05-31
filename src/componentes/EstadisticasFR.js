@@ -3,7 +3,7 @@ import { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import { getFirestore,collection, getDocs,addDoc, setDoc,doc } from 'firebase/firestore';
 import { firebaseApp } from '../firebase/firebaseConfig';
-import { ContenedorBotonCentrado, Boton } from '../elementos/ElementosFormularioJuegos';
+import { ContenedorBotonCentrado } from '../elementos/ElementosFormularioJuegos';
 import BtnRegresar from '../elementos/BtnRegresar';
 
 const EstadisticasFR = () => {

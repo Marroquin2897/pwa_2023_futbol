@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-
+import { getMessaging } from 'firebase/messaging';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { getFirestore } from "firebase/firestore";
@@ -15,7 +15,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-
-const db = getFirestore(firebaseApp);
-
-export {firebaseApp, db} ;
+const messaging = getMessaging(firebaseApp);
+export {firebaseApp, messaging} ;
