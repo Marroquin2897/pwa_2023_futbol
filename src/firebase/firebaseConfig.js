@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getMessaging } from 'firebase/messaging';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { getAnalytics } from "firebase/analytics";
