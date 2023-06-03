@@ -50,17 +50,35 @@ const RegistroUsuario = ({usuario}) => {
 
 
     async function actualizarUsuario (nombre,apellidos,fechaNacimiento,telefono,direccion) {
-        const firestore = getFirestore(firebaseApp);
-        const id = usuario.id
-        console.log(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo,contrasenia,rol)
-        const documento = doc(firestore, `usuarios`, id);
-        updateDoc(documento,{
-            nombre: nombre,
-            apellidos: apellidos,
-            fechaNacimiento: fechaNacimiento,
-            telefono:telefono,
-            direccion: direccion,
-        });  
+        cambiarEdoAlerta(false);
+        cambiarAlerta({});
+        let mensaje;
+        try{
+            const firestore = getFirestore(firebaseApp);
+            const id = usuario.id
+            console.log(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo,contrasenia,rol)
+            const documento = doc(firestore, `usuarios`, id);
+            updateDoc(documento,{
+                nombre: nombre,
+                apellidos: apellidos,
+                fechaNacimiento: fechaNacimiento,
+                telefono:telefono,
+                direccion: direccion,
+            });  
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo:'exito',
+                mensaje:'Actualizado exitosamente'
+            });
+             navigate('/rol')
+        }catch(error){
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:'Hubo un error al actualizar'
+            });
+            console.log(error)
+        }
         
     }
 
@@ -121,12 +139,7 @@ const RegistroUsuario = ({usuario}) => {
 
         }  
             
-    }
-
-    
-	
-	
-	
+    }	
 	
 	const handleChange = (e) => {
         switch(e.target.name){
@@ -164,10 +177,7 @@ const RegistroUsuario = ({usuario}) => {
                 break;
         }
 	}
- 
-    function validarFecha(){
-        
-    }
+
 	const handleSubmit = async (e) => {
 
 		e.preventDefault();
@@ -288,22 +298,8 @@ const RegistroUsuario = ({usuario}) => {
 		//Validar que ningun campo quede vacio
         if(nombre !== '' && apellidos !== '' && fechaNacimiento !== '' && telefono !== '' && direccion !== '' && boleta !== '' && correo !=='' && contrasenia !== '' && contrasenia2 !=='' && rol !== ''
         ){ 
-            if(usuario){
-                await actualizarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion).then(()=>{
-                    console.log(nameUsuario)
-                    cambiarEdoAlerta(true);
-                    cambiarAlerta({
-                        tipo:'exito',
-                        mensaje:'Actualizado exitosamente'
-                    });
-                    console.log(cambiarAlerta({
-                        tipo:'exito',
-                        mensaje:'Actualizado exitosamente'
-                    }))
-                navigate('/rol')
-                }).catch((error)=>{
-                    console.log(error);
-                })
+            if(usuario){              
+              await actualizarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion) 
             }else if(!usuario) {
                await registrarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo, contrasenia, rol);
             }      
