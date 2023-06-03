@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useAuth} from './../contextos/AuthContext';
 import {Helmet} from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
+import { Await, useNavigate } from 'react-router-dom';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 import {getFirestore,doc,setDoc, updateDoc} from "firebase/firestore"
@@ -15,7 +15,7 @@ const RegistroUsuario = ({usuario}) => {
     const firestore = getFirestore(firebaseApp);
 	const [registrarse, setRegistrarse] = useState(false);
     const navigate = useNavigate();
-      
+    const [existencia, cambiarExistencia] = useState(false);
     const[nombre, cambiarNombre] = useState('');
     const[apellidos, cambiarApellidos] = useState('');
     const[fechaNacimiento, cambiarFechaNacimiento] = useState('');
@@ -42,7 +42,9 @@ const RegistroUsuario = ({usuario}) => {
                 cambiarCorreo(usuario.data().correo);
                 cambiarContrasenia(usuario.data().contrasenia);
                 cambiarContrasenia2(usuario.data().contrasenia2);
+                cambiarRol(usuario.data().rol);
             } 
+            cambiarExistencia(true)
         }
     },[usuario,usuarioAPP,navigate]);
 
@@ -51,8 +53,6 @@ const RegistroUsuario = ({usuario}) => {
         const firestore = getFirestore(firebaseApp);
         const id = usuario.id
         console.log(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo,contrasenia,rol)
-        console.log(apellidos)
-        console.log(apellidos)
         const documento = doc(firestore, `usuarios`, id);
         updateDoc(documento,{
             nombre: nombre,
@@ -61,11 +61,7 @@ const RegistroUsuario = ({usuario}) => {
             telefono:telefono,
             direccion: direccion,
         });  
-        cambiarEdoAlerta(true);
-            cambiarAlerta({
-                tipo:'exito',
-                mensaje:'Actualizado exitosamente'
-            });
+        
     }
 
 
@@ -109,6 +105,7 @@ const RegistroUsuario = ({usuario}) => {
 					break;
 				case 'auth/email-already-in-use':
 					mensaje = 'Ya existe una cuenta con el correo electrónico proporcionado.'
+                    navigate('/iniciar-sesion');
 				    break;
 				case 'auth/invalid-email':
 					mensaje = 'El correo electrónico no es válido.'
@@ -160,21 +157,26 @@ const RegistroUsuario = ({usuario}) => {
             case 'contrasenia2':
                 cambiarContrasenia2(e.target.value);
                 break;    
+            case 'rol':
+                cambiarRol(e.target.value);
+                break;  
             default:
                 break;
         }
 	}
  
-    
+    function validarFecha(){
+        
+    }
 	const handleSubmit = async (e) => {
 
 		e.preventDefault();
-		const rol = e.target.rol.value; //linea necesaria para guardar el rol del jugador
+		//const rol = e.target.rol.value; //linea necesaria para guardar el rol del jugador
 		//validar el correo, nombre, direccion, telefono, boleta, apellidos
         const expresionRegularNombre = /^[a-zA-ZÀ-ÿ\s]{1,40}$/; // Letras y espacios, pueden llevar acentos.
         const expresionRegularApellidos = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
         const expresionRegularTelefono = /^\d{10,14}$/;// 10 a 14 numeros
-        const expresionRegularBoleta = /^\d{7,14}$/;
+        const expresionRegularBoleta = /^\d{6,14}$/;
 		const expresionRegularCorreo = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 		const expresionRegularDireccion = /^[a-zA-Z0-9\s]+$/;
 		const expresionRegularPassword = /^.{8,12}$/; // 8 a 12 digitos.
@@ -184,7 +186,7 @@ const RegistroUsuario = ({usuario}) => {
             cambiarEdoAlerta(true); 
             cambiarAlerta({
                 tipo: 'error',
-                mensaje:'Ingrese un nombre valido'
+                mensaje:'Ingrese un nombre válido'
             });
             return;
         }
@@ -192,15 +194,47 @@ const RegistroUsuario = ({usuario}) => {
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo:'error',
-                mensaje:'Apellido Paterno y Materno'
+                mensaje:'Ingrese correctamente sus apellidos'
             });
             return;
         }
+        const fechaIngresada = new Date(fechaNacimiento)
+        // Obtener el año actual
+        const anioActual = new Date().getFullYear();
+          
+        // Obtener la fecha hace 15 años
+        const fechaLimite = new Date(anioActual - 15, 0, 1); // Restar 15 años al año actual
+
+        console.log("esta fecha limita",fechaLimite)
+         // Validar que la fecha ingresada no sea mayor al año actual
+         if (fechaIngresada.getFullYear() > anioActual ) {
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:'La fecha no puede ser mayor al año actual'
+            });
+            return;
+         }else if(fechaLimite <= fechaIngresada){ // Validar que la persona tenga al menos 15 años en el año actual
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:'Debes tener al menos 15 años'
+            });
+            return;
+         }
         if(!expresionRegularTelefono.test(telefono)){
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo:'error',
-                mensaje:'Numero con 10 digitos'
+                mensaje:'El número de teléfono debe ser de 10 digitos'
+            });
+            return;
+        }
+        if(!expresionRegularDireccion.test(direccion)){ 
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Ingresa una dirección válida'
             });
             return;
         }
@@ -208,7 +242,7 @@ const RegistroUsuario = ({usuario}) => {
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo:'error',
-                mensaje:'Solo se permite numeros'
+                mensaje:'Sólo se permiten números en la Boleta/No. Empleado'
             });
             return;
         }
@@ -217,29 +251,30 @@ const RegistroUsuario = ({usuario}) => {
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo: 'error',
-                mensaje:'Ingresa un correo valido'
+                mensaje:'Ingresa un correo válido'
             });
             return;
         }
 		
-		if(!expresionRegularDireccion.test(direccion)){ 
-            cambiarEdoAlerta(true);
-            cambiarAlerta({
-                tipo: 'error',
-                mensaje:'Ingresa una direccion valida'
-            });
-            return;
-        }
+		
 		
 		if(!expresionRegularPassword.test(contrasenia)){ 
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo: 'error',
-                mensaje:'Ingresa una contraseña valida'
+                mensaje:'Ingresa una contraseña válida'
             });
             return;
         }
 		
+        if(rol === "opcDeter"){
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Elige un rol'
+            });
+            return;
+        }
         //Validar que las contraseñas sean iguales
         if(contrasenia !== contrasenia2){
             cambiarEdoAlerta(true);
@@ -250,18 +285,27 @@ const RegistroUsuario = ({usuario}) => {
             return;
         }
 		
-		//Validar que ningun campo quede vacio 
-        if(nombre !== '' && apellidos !== '' && fechaNacimiento !== '' && telefono !== '' && direccion !== '' && boleta !== '' && correo !=='' && contrasenia !== '' && contrasenia2 !==''
+		//Validar que ningun campo quede vacio
+        if(nombre !== '' && apellidos !== '' && fechaNacimiento !== '' && telefono !== '' && direccion !== '' && boleta !== '' && correo !=='' && contrasenia !== '' && contrasenia2 !=='' && rol !== ''
         ){ 
             if(usuario){
-                actualizarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion).then(()=>{
+                await actualizarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion).then(()=>{
                     console.log(nameUsuario)
-                    navigate(nameUsuario === "alumno" ? '/menu-alumno' : '/menu-profe')
+                    cambiarEdoAlerta(true);
+                    cambiarAlerta({
+                        tipo:'exito',
+                        mensaje:'Actualizado exitosamente'
+                    });
+                    console.log(cambiarAlerta({
+                        tipo:'exito',
+                        mensaje:'Actualizado exitosamente'
+                    }))
+                navigate('/rol')
                 }).catch((error)=>{
                     console.log(error);
                 })
             }else if(!usuario) {
-                registrarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo, contrasenia, rol);
+               await registrarUsuario(nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo, contrasenia, rol);
             }      
         }else{
             cambiarEdoAlerta(true);
@@ -279,7 +323,7 @@ const RegistroUsuario = ({usuario}) => {
     <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2obtocwe"/>
-      <center><h2>{nameUsuario ? 'Editar Usuario' : 'Crear Cuenta'}</h2>
+      <center><h2>{existencia ? 'Editar Usuario' : 'Crear Cuenta'}</h2>
               <h2>{nameUsuario}</h2></center> 
                 <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>      
       </nav>
@@ -352,12 +396,12 @@ const RegistroUsuario = ({usuario}) => {
 				<Label> Boleta o No. Empleado *</Label>
 				<GrupoInput>
 					 <Input
-						type='text'
+						type='number'
 						name='boleta'
 						value={boleta}
 						onChange={handleChange}
 						placeholder='Boleta (Alumno) o No. Empleado (Profesor)'
-                        disabled={usuario ? true : false }
+                        disabled={existencia ? true : false }
 					/>
 				</GrupoInput>
 			</div>
@@ -370,7 +414,7 @@ const RegistroUsuario = ({usuario}) => {
 						placeholder='Ingresa tu correo'
 						value={correo}
 						onChange={handleChange}
-                        disabled={usuario ? true : false }
+                        disabled={existencia ? true : false }
 					/>
 				</GrupoInput>
 			</div>
@@ -383,7 +427,7 @@ const RegistroUsuario = ({usuario}) => {
 						placeholder='Contraseña'
 						value={contrasenia}
 						onChange={handleChange}
-                        disabled={usuario ? true : false }
+                        disabled={existencia ? true : false }
 					/>
 				</GrupoInput>
 			</div>
@@ -396,14 +440,15 @@ const RegistroUsuario = ({usuario}) => {
 						placeholder='Confirmar contraseña'
 						value={contrasenia2}
 						onChange={handleChange}
-                        disabled={usuario ? true : false }
+                        disabled={existencia ? true : false }
 					/>  
 				</GrupoInput>
 			</div>
 			<div>
               <Label htmlFor='rol'> Rol *</Label>
               <GrupoInput>
-                <select name="rol" disabled={usuario ? true : false }>                  
+                <select name="rol" disabled={existencia ? true : false } onChange={handleChange}> 
+                    <option value="opcDeter"> {existencia ? rol : "Elige un rol" }  </option>                 
                     <option value="alumno"> Alumno </option>
                     <option value="profesor"> Profesor </option>
                 </select> 
@@ -413,7 +458,7 @@ const RegistroUsuario = ({usuario}) => {
             <center><h5> * TODOS LOS CAMPOS SON OBLIGATORIOS </h5></center>
 
             <ContenedorBotonCentrado>
-                <Boton as="button"  type = 'submit' >  {usuario ? 'Editar Usuario' : 'Crear Cuenta'} </Boton>
+                <Boton as="button"  type = 'submit' >  {existencia ? 'Editar Usuario' : 'Crear Cuenta'} </Boton>
             </ContenedorBotonCentrado>
         <Alerta 
             tipo= {alerta.tipo}
