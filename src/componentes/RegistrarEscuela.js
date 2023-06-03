@@ -43,6 +43,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
     },[escuelaExistente,usuario,navigate]);
 
     const handleChange = (e) => {
+        
         switch(e.target.name){
             case 'nombreEntrenador':
                 cambiarNombreE(e.target.value);
@@ -59,7 +60,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
             case 'categoria':
                 cambiarCategoria(e.target.value);
                 break; 
-            case 'nivelA':
+            case 'nivelAcademico':
                 cambiarNivelA(e.target.value);
                 break;    
             default:
@@ -68,36 +69,42 @@ const RegistrarEscuela = ({escuelaExistente}) => {
     }
     
     const validarEscuelaExistente = async (escuela) => {
-        // Obtener todas las escuelas del nivel superior
-        const escuelasSuperiorRef = collection(firestore, "Escuelas Superior");
-        const querySuperior = query(
-          escuelasSuperiorRef,
-          where("escuela", "==", escuela.escuela),
-          where("categoria", "==", escuela.categoria)
-        );
-        const querySnapshotSuperior = await getDocs(querySuperior);
-      
-        // Verificar si existe una escuela con el mismo nombre y dirección en el nivel superior
-        if (!querySnapshotSuperior.empty) {
-          return true;
-        }
-      
-        // Obtener todas las escuelas del nivel medio superior
-        const escuelasMediaSuperiorRef = collection(firestore, "Escuelas Media Superior");
-        const queryMediaSuperior = query(
-          escuelasMediaSuperiorRef,
-          where("escuela", "==", escuela.escuela),
-          where("categoria", "==", escuela.categoria)
-        );
-        const querySnapshotMediaSuperior = await getDocs(queryMediaSuperior);
-      
-        // Verificar si existe una escuela con el mismo nombre y dirección en el nivel medio superior
-        if (!querySnapshotMediaSuperior.empty) {
-          return true;
-        }
-        // Si no se encontró ninguna escuela con el mismo nombre y dirección, retornar false
-        return false;
-      }
+        if(escuela.nivelAcademico === "Superior"){
+            // Obtener todas las escuelas del nivel superior
+            const escuelasSuperiorRef = collection(firestore, "Escuelas Superior");
+            const querySuperior = query(
+            escuelasSuperiorRef,
+            where("escuela", "==", escuela.escuela),
+            where("categoria", "==", escuela.categoria),
+            where("modalidades", "==", escuela.modalidades)
+            );
+            const querySnapshotSuperior = await getDocs(querySuperior);
+            // Verificar si existe una escuela con el mismo nombre, categoria y modalidad en el nivel superior
+            if (!querySnapshotSuperior.empty) {
+                return true;
+            }
+        }else if(escuela.nivelAcademico === "Media Superior"){
+            // Obtener todas las escuelas del nivel medio superior
+            const escuelasMediaSuperiorRef = collection(firestore, "Escuelas Media Superior");
+            const queryMediaSuperior = query(
+            escuelasMediaSuperiorRef,
+            where("escuela", "==", escuela.escuela),
+            where("categoria", "==", escuela.categoria),
+            where("modalidades", "==", escuela.modalidades)
+            );
+            const querySnapshotMediaSuperior = await getDocs(queryMediaSuperior);
+        
+            // Verificar si existe una escuela con el mismo nombre, categoria y modalidad en el nivel medio superior
+            if (!querySnapshotMediaSuperior.empty) {
+                return true;
+            }
+        }else{
+                // Si no se encontró ninguna escuela con el mismo nombre, categoria y modalidad, retornar false
+                return false; 
+                console.log("regresare false")
+            }
+            
+    }
     const editarEscuela = async (escuelaEditada) => {
         if (escuelaExistente.data().nivelAcademico === "Superior") {
             const escuelaSuperiorRef = doc(firestore, "Escuelas Superior",escuelaExistente.id);
@@ -114,11 +121,19 @@ const RegistrarEscuela = ({escuelaExistente}) => {
         if (escuela.nivelAcademico === "Superior") {
           const escuelasSuperiorRef = collection(firestore, "Escuelas Superior");
           await addDoc(escuelasSuperiorRef, escuela);
+          cambiarEdoAlerta(true);
+                    cambiarAlerta({
+                        tipo: "exito",
+                        mensaje: "Escuela registrada exitosamente",
+                      });
         } else if (escuela.nivelAcademico === "Media Superior") {
           const escuelasMediaSuperiorRef = collection(firestore, "Escuelas Media Superior");
           await addDoc(escuelasMediaSuperiorRef, escuela);
-        } else {
-          console.error("Nivel académico no reconocido");
+          cambiarEdoAlerta(true);
+                    cambiarAlerta({
+                        tipo: "exito",
+                        mensaje: "Escuela registrada exitosamente",
+                      });
         }
       };
     
@@ -126,12 +141,12 @@ const RegistrarEscuela = ({escuelaExistente}) => {
         e.preventDefault();
        const nombreE = /^[a-zA-ZÀ-ÿ\s]{1,40}$/ ;// Letras y espacios, pueden llevar acentos.
        const nombreA = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
-
+       console.log(nombreEscuela, categoria, modalidades)
        if(!nombreE.test(nombreEntrenador)){
             cambiarEdoAlerta(true); 
             cambiarAlerta({
                 tipo: 'error',
-                mensaje:'Ingrese un nombre valido'
+                mensaje:'Ingrese un nombre de entrenador válido'
             });
             return;
         }
@@ -139,12 +154,45 @@ const RegistrarEscuela = ({escuelaExistente}) => {
             cambiarEdoAlerta(true); 
             cambiarAlerta({
                 tipo: 'error',
-                mensaje:'Ingrese un nombre valido'
+                mensaje:'Ingrese un nombre de entrenador asistente válido'
             });
             return;
-        } 
+        }
+        
+        if(nombreEscuela=== "opcDeter" || nombreEscuela === ''){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Selecciona una escuela'
+            });
+            return;
+        }
+        if(modalidades=== "opcDeter" || modalidades=== ''){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Selecciona una modalidad'
+            });
+            return;
+        }
+        if(categoria=== "opcDeter" || categoria===''){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Selecciona una categoría'
+            });
+            return;
+        }
+        if(nivelAcademico === "opcDeter" || nivelAcademico ===''){
+            cambiarEdoAlerta(true); 
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje:'Selecciona el nivel académico'
+            });
+            return;
+        }
   
-        if(nombreEntrenador === " " || nombreAsistente === " " || nombreEscuela === " " || modalidades === " " || categoria === " ") {
+        if(nombreEntrenador === '' || nombreAsistente === '' || nombreEscuela === '' || modalidades === '' || categoria === '' || nivelAcademico === '') {
             cambiarEdoAlerta(true);
             cambiarAlerta({
             tipo: "error",
@@ -152,54 +200,50 @@ const RegistrarEscuela = ({escuelaExistente}) => {
             });
             return;
         }
-        console.log({escuelaExistente})
         if(!escuelaExistente){
             // Definir la variable escuela antes de llamar a validarEscuelaExistente
-        const escuela = {
-            escuela: nombreEscuela,
-            categoria: categoria,
-            nivelAcademico: nivelAcademico,
-        };
-        const existeEscuela = await validarEscuelaExistente(escuela);
-        if (existeEscuela) {
-            cambiarEdoAlerta(true);
-            cambiarAlerta({
-              tipo: "error",
-              mensaje: "Esta escuela ya fue registrada",
-            });
-            return;
-        }
-        const nuevaEscuela = {
-            nombreEntrenador: nombreEntrenador,
-            nombreAsistente: nombreAsistente,
-            escuela: nombreEscuela,
-            modalidades: modalidades,
-            categoria: categoria,
-            nivelAcademico: nivelAcademico,
-            uidUsuario: usuario.uid,
-        };
-        await guardarEscuela(nuevaEscuela)
-        .then(() => {
-            cambiarNombreE("");
-            cambiarNombreA("");
-            cambiarEscuela("");
-            cambiarModalidaes("");
-            cambiarCategoria("");
-            cambiarNivelA("");
-
-            cambiarEdoAlerta(true);
-            cambiarAlerta({
-                tipo: "exito",
-                mensaje: "Escuela registrada exitosamente",
-              });
-        })
-        .catch((error) => {
-            cambiarEdoAlerta(true);
-            cambiarAlerta({
+            const escuela = {
+                escuela: nombreEscuela,
+                categoria: categoria,
+                nivelAcademico: nivelAcademico,
+                modalidades: modalidades
+            };
+            const existeEscuela = await validarEscuelaExistente(escuela);
+            if (existeEscuela === true) { 
+                cambiarEdoAlerta(true);
+                cambiarAlerta({
                 tipo: "error",
-                mensaje: "Hubo un problema al intentar registrar la escuela.",
-            });
-        })   
+                mensaje: "Esta escuela ya fue registrada",
+                });
+                return;
+            }else{
+                const nuevaEscuela = {
+                    nombreEntrenador: nombreEntrenador,
+                    nombreAsistente: nombreAsistente,
+                    escuela: nombreEscuela,
+                    modalidades: modalidades,
+                    categoria: categoria,
+                    nivelAcademico: nivelAcademico,
+                    uidUsuario: usuario.uid,
+                };
+                await guardarEscuela(nuevaEscuela)
+                .then(() => {
+                    cambiarNombreE("");
+                    cambiarNombreA("");
+                    cambiarEscuela("");
+                    cambiarModalidaes("");
+                    cambiarCategoria("");
+                    cambiarNivelA("");
+                })
+                .catch((error) => {
+                    cambiarEdoAlerta(true);
+                    cambiarAlerta({
+                        tipo: "error",
+                        mensaje: "Hubo un problema al intentar registrar la escuela.",
+                    });
+                }) 
+            }
+          
         }  
         else{
             const escuelaEditada = {
@@ -216,8 +260,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 cambiarEscuela("");
                 cambiarModalidaes("");
                 cambiarCategoria("");
-                cambiarNivelA("");
-    
+                cambiarNivelA("");    
                 cambiarEdoAlerta(true);
                 cambiarAlerta({
                     tipo: "exito",
@@ -276,6 +319,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                     <Label htmlFor='escuela'> Escuela </Label>
                     <GrupoInput>
                         <select name="nombreEscuela" onChange = {handleChange}>
+                            <option value="opcDeter">Elige una escuela</option>
                             <option value="CET 1"> CET 1 Walter Cross Buchanan </option>
                             <option value="CECyT 1"> CECyT No. 1 Gonzalo Vázquez Vela </option>
                             <option value="CECyT 2"> CECyT No. 2 Miguel Bernard </option>
@@ -315,7 +359,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                             <option value="EST"> EST </option>
                             <option value="UPIBI"> UPIBI </option>
                             <option value="UPIICSA"> UPIICSA </option>
-                            <option value="UPIITA"> UPIITA </option>
+                            <option value="UPIITA"> UPIITA </option>                                                        
                         </select> 
                     </GrupoInput>   
                 </div>
@@ -323,6 +367,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                     <Label htmlFor='modalidades'> Modalidades </Label>
                     <GrupoInput>
                         <select name="modalidades" onChange = {handleChange}> 
+                            <option value="opcDeter">Elige una modalidad</option>
                             <option value="Futbol 7"> Fútbol 7 </option>
                             <option value="Futbol Rapido"> Fútbol Rápido </option>
                             <option value="Futbol Asociacion"> Fútbol Asociación </option>
@@ -330,18 +375,20 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                     </GrupoInput>   
                 </div>
                 <div>
-                    <Label htmlFor='categoria'> Categoria </Label>
+                    <Label htmlFor='categoria'> Categoría </Label>
                     <GrupoInput>
-                        <select name="categoria"  onChange = {handleChange}>
+                        <select name="categoria"   onChange = {handleChange}>
+                            <option value="opcDeter">Elige una categoría</option>
                             <option value="femenil"> Femenil </option>
                             <option value="varonil"> Varonil </option>
                         </select> 
                     </GrupoInput>   
                 </div>
                 <div>
-                    <Label htmlFor='nivelA'> Nivel Académico </Label>
+                    <Label htmlFor='nivelAcademico'> Nivel Académico </Label>
                     <GrupoInput>
-                        <select name="nivelA"  onChange = {handleChange}>
+                        <select name="nivelAcademico"  onChange = {handleChange}>
+                            <option value="opcDeter">Elige el nivel académico</option>
                             <option value="Media Superior"> Media Superior </option>
                             <option value="Superior"> Superior </option>
                         </select> 
