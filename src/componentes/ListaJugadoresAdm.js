@@ -16,6 +16,7 @@ import { Lista,
         ContenedorSubtitulo,
         Subtitulo
  } from '../elementos/ElementosDeLista';
+ import { ContenedorBotonCentrado } from '../elementos/ElementosFormularioJuegos';
 import ListaExcel from './ListaExcel';
 
 const ListaJugadoresAdm = () => {
@@ -36,10 +37,12 @@ const ListaJugadoresAdm = () => {
         <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2obtocwe"/>
-      <center><h2>Lista de Jugadores</h2></center> 
+      <center><h2>Lista de Jugadores</h2>
+      <h2>{nameUsuario}</h2>
+      </center> 
        <div>
             <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
-            <h2>{nameUsuario}</h2>
+            
         </div>
       </nav>
         <Helmet>
@@ -66,19 +69,19 @@ const ListaJugadoresAdm = () => {
                             </Escuela>
                         </Label>
                         <Label> Boleta 
-                            <Boleta>
+                            <Escuela>
                                 {jugador.boletaJugador}
-                            </Boleta>
+                            </Escuela>
                         </Label>
                         <Label> Semestre 
-                            <Semestre>
+                            <Escuela>
                                 {jugador.semestreJugador}
-                            </Semestre>
+                            </Escuela>
                         </Label>        
                         <Label> Género 
-                            <Semestre>
+                            <Escuela>
                                 {jugador.sexoJugador}
-                            </Semestre>
+                            </Escuela>
                         </Label>                 
                     </ElementoLista>
                 );
@@ -86,16 +89,19 @@ const ListaJugadoresAdm = () => {
             {hayMasPorCargar && filtrarJugadores().length !== 0 && 
                 <center><ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasJugadores()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-admin'/>
+                    
                 </ContenedorBotonCentral></center>
             }
             
             {filtrarJugadores().length === 0 &&
                 <center><ContenedorSubtitulo>
                     <Subtitulo> No hay jugadores por mostrar</Subtitulo>
-                    <BtnRegresar ruta = '/menu-admin'/>
+                    
                 </ContenedorSubtitulo></center> 
                 }
+            <ContenedorBotonCentrado>
+            <BtnRegresar ruta = '/menu-admin'/>
+            </ContenedorBotonCentrado>
             <ContenedorBotonCentral>
                 <Boton onClick={() => setFiltro("Masculino")}>Varonil</Boton>
                 <Boton onClick={() => setFiltro("Femenino")}>Femenil</Boton>
@@ -103,7 +109,7 @@ const ListaJugadoresAdm = () => {
                 <ListaExcel listaJugadores={jugadores}/>
             </ContenedorBotonCentral>
         </Lista>
-
+        
         </div>
      );
 }

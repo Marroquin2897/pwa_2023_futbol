@@ -8,7 +8,7 @@ import {ReactComponent as IconoCalendar} from './../imagenes/calendar.svg';
 import {Lista,ElementoLista,Label,ContenedorBotonCentral,ContenedorBotones,BotonAccion,Nombre,BotonCargarMas,
 ContenedorSubtitulo,
 Subtitulo} from './../elementos/ElementosListaT';
-
+import { ContenedorBotonCentrado } from '../elementos/ElementosFormularioJuegos';
 const ListaTorneos = () => {
     const [torneos,obtenerMasTorneos,hayMasPorCargar] = useObtenerTorneos();
     const nameUsuario = sessionStorage.getItem("name")
@@ -48,7 +48,7 @@ const ListaTorneos = () => {
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasTorneos()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-admin'/>
+                    
                 </ContenedorBotonCentral>
             }
             {torneos.length === 0 &&
@@ -59,6 +59,9 @@ const ListaTorneos = () => {
                 </ContenedorSubtitulo>
                 }
         </Lista>
+        <ContenedorBotonCentrado>
+        <BtnRegresar ruta = '/menu-admin'/>
+        </ContenedorBotonCentrado>
     </div>
      );
 }

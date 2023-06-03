@@ -7,7 +7,7 @@ import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from
 import {getFirestore,doc,setDoc, updateDoc} from "firebase/firestore"
 import { Formulario, Label, GrupoInput, Input, ContenedorBotonCentrado, Boton} from '../elementos/ElementosFormulario';
 import Alerta from '../elementos/Alerta';
-
+import BtnRegresar from '../elementos/BtnRegresar';
 const auth = getAuth(firebaseApp);
 
 const RegistroUsuario = ({usuario}) => {
@@ -462,7 +462,11 @@ const RegistroUsuario = ({usuario}) => {
             estadoAlerta={estadoAlerta}
             cambiarEdoAlerta={cambiarEdoAlerta}
         />
-		 </Formulario>  
+		 </Formulario>
+         <br/> 
+         <ContenedorBotonCentrado>
+            <BtnRegresar ruta='/' />
+        </ContenedorBotonCentrado> 
         </main>
     </div>
  );

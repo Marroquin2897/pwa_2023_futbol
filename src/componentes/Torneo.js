@@ -2,16 +2,17 @@ import React,{useState} from 'react';
 import { Helmet } from 'react-helmet';
 import { Formulario, Label, GrupoInput, Input, ContenedorBotonCentrado, Boton} from '../elementos/ElementosFormulario';
 import Alerta from '../elementos/Alerta';
+import {getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import {useAuth} from './../contextos/AuthContext';
 import agregarTorneo from '../firebase/agregarTorneo';
 import BtnRegresar from '../elementos/BtnRegresar';
-
+import {firebaseApp} from "../firebase/firebaseConfig";
 
 const Torneo = () => {
 
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
-    
+    const firestore = getFirestore(firebaseApp);
     const{usuario} = useAuth();
     const [nombreTorneo, cambiarNombreT] = useState(''); 
     const [sistemaCompetencia, cambiarSistemaC] = useState('');
@@ -26,8 +27,7 @@ const Torneo = () => {
                 break;  
             case 'sistemacompetencia':
                 cambiarSistemaC(e.target.value);
-                break;  
-                   
+                break;       
             default:
                 break;
         }
@@ -41,11 +41,22 @@ const Torneo = () => {
             cambiarEdoAlerta(true); 
             cambiarAlerta({
                 tipo: 'error',
-                mensaje:'Ingrese un nombre valido'
+                mensaje:'Ingrese un Nombre Válido'
             });
             return;
         }
+        const torneosRef = collection(firestore,'torneos');
+        const q = query(torneosRef, where('nombreTorneo', '==', nombreTorneo),where('sistemaCompetencia', '==', sistemaCompetencia));
+        const querySnapshot = await getDocs(q);
 
+        if (!querySnapshot.empty) {
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+              tipo: 'error',
+              mensaje: 'El Torneo Ya Existe',
+            });
+            return;
+          }
         if(nombreTorneo !== '' && sistemaCompetencia !== ''){
             agregarTorneo({
                 nombreTorneo: nombreTorneo,
@@ -58,15 +69,15 @@ const Torneo = () => {
                 
 
                 cambiarEdoAlerta(true);
-                cambiarAlerta({tipo: 'exito', mensaje: 'Torneo registrado exitosamente'});
+                cambiarAlerta({tipo: 'exito', mensaje: 'Torneo Registrado Exitosamente'});
             })
             .catch((error) => {
                 cambiarEdoAlerta(true);
-                cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar registrar el torneo.'});
+                cambiarAlerta({tipo: 'error', mensaje: 'Hubo un Problema al Intentar Registrar el Torneo.'});
             })
         } else {
             cambiarEdoAlerta(true);
-            cambiarAlerta({tipo: 'error', mensaje: 'Completa todos los campos'});
+            cambiarAlerta({tipo: 'error', mensaje: 'Completa Todos los Campos'});
         }
     }
     const nameUsuario = sessionStorage.getItem("name")

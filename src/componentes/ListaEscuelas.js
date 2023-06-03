@@ -27,6 +27,7 @@ import { Lista,
     ContenedorSubtitulo,
     Subtitulo
 } from '../elementos/ElementosDeLista';
+import { ContenedorBotonCentrado } from '../elementos/ElementosFormularioJuegos';
 import borrarEscuela from '../firebase/borrarEscuela';
 
 const ListaEscuelas = () => {
@@ -97,7 +98,7 @@ const ListaEscuelas = () => {
             {hayMasPorCargar && 
                 <ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasEscuelas()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-profe'/>
+                    
                 </ContenedorBotonCentral>
             }
             {escuelas.length === 0 &&
@@ -108,6 +109,9 @@ const ListaEscuelas = () => {
                 </ContenedorSubtitulo></center>
                 }
         </Lista>
+        <ContenedorBotonCentrado>
+        <BtnRegresar ruta = '/menu-profe'/>
+        </ContenedorBotonCentrado>
         </div>
      );
 }

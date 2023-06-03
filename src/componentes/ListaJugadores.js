@@ -23,6 +23,7 @@ import { Lista,
         Subtitulo
  } from '../elementos/ElementosDeLista';
 import ListaExcel from './ListaExcel';
+import { ContenedorBotonCentrado } from '../elementos/ElementosFormularioJuegos';
 
 const ListaJugadores = () => {
     const [jugadores,obtenerMasJugadores,hayMasPorCargar] = useObtenerJugadores();
@@ -86,7 +87,7 @@ const ListaJugadores = () => {
             {hayMasPorCargar && 
                 <center><ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasJugadores()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-profe'/>
+                    
                 </ContenedorBotonCentral></center>
             }
             
@@ -100,7 +101,12 @@ const ListaJugadores = () => {
             <ContenedorBotonCentral>
                 <ListaExcel listaJugadores={jugadores}/>
             </ContenedorBotonCentral>
+            
         </Lista>
+        <ContenedorBotonCentrado>
+        <BtnRegresar ruta = '/menu-profe'/>
+        </ContenedorBotonCentrado>
+        
 
         </div>
      );

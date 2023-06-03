@@ -3,12 +3,9 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Boton from './../elementos/Boton';
 import BtnRegresar from '../elementos/BtnRegresar';
-import {ReactComponent as IconoVer} from './../imagenes/ojo.svg';
-import {ReactComponent as IconoRegresar} from './../imagenes/flecha.svg';
 import {ReactComponent as IconoBorrar} from './../imagenes/borrar.svg';
 import useObtenerTodaCEscuelas from '../hooks/useObtenerTodaCEscuelas';
-import ListaJugadoresFem from './ListaJugadoresFem';
-import ListaJugadoresMas from './ListaJugadoresMas';
+import { ContenedorBotonCentrado } from '../elementos/ElementosFormularioJuegos';
 import {useNavigate} from 'react-router-dom';
 import borrarEscuela from '../firebase/borrarEscuela';
 import { Lista, 
@@ -120,7 +117,7 @@ const ListaEscuelasAdm = () => {
             {hayMasPorCargar && filtrarEscuelas().length !== 0 &&
                 <ContenedorBotonCentral>
                     <BotonCargarMas onClick={() => obtenerMasEscuelas()}> Cargas más </BotonCargarMas>
-                    <BtnRegresar ruta = '/menu-admin'/>
+                    
                 </ContenedorBotonCentral>
             }
             {filtrarEscuelas().length === 0 &&
@@ -130,6 +127,9 @@ const ListaEscuelasAdm = () => {
                 </ContenedorSubtitulo>
                 }         
         </Lista>
+        <ContenedorBotonCentrado>
+        <BtnRegresar ruta = '/menu-admin'/>
+        </ContenedorBotonCentrado>
         <ContenedorBotonCentral>
             <Boton onClick={() => setFiltro("varonil_superior")}>Varonil-Superior</Boton>
             <Boton onClick={() => setFiltro("varonil_ms")}>Varonil-Media Superior</Boton>

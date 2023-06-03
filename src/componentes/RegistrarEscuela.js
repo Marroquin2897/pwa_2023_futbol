@@ -2,11 +2,11 @@ import React, {useState,useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import { FormularioEscuela } from '../elementos/FormularioEscuela';
 import {useAuth} from './../contextos/AuthContext';
-import { Label, GrupoInput, ContenedorBotonCentrado, Boton, Input,} from '../elementos/ElementosFormulario';
+import {Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input,} from '../elementos/ElementosFormulario';
 import BtnRegresar from '../elementos/BtnRegresar';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import {getFirestore, collection,query,where, getDocs,addDoc,doc,updateDoc } from 'firebase/firestore';
-import agregarEscuela from '../firebase/agregarEscuela';
+
 import {useNavigate} from 'react-router-dom';
 import Alerta from '../elementos/Alerta';
 import useObtenerEscuela from '../hooks/useObtenerEscuela';
@@ -291,7 +291,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
             <title>Registrar Escuela</title>
         </Helmet>
         <main>
-            <FormularioEscuela onSubmit={handleSubmit}>
+            <Formulario onSubmit={handleSubmit}>
                 <div>
                     <Label> Entrenador (a) en Jefe (a) </Label>
                     <GrupoInput>
@@ -404,7 +404,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 estadoAlerta={estadoAlerta}
                 cambiarEdoAlerta={cambiarEdoAlerta}
             />
-            </FormularioEscuela>
+            </Formulario>
         </main>
         </div>
      );
