@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+.hero{
+    width: 100%;
+    min-height: 100vh;
+    background: #cacbcf;
+  }
+  
+  .hero nav {
+    background: #560000;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  
+  }
+  @media (max-width: 768px) {
+    .hero nav {
+      width: 50px; /* Ajusta el tamaño del icono para dispositivos móviles */
+    }
+  }
+  
+  .hero nav h2 {
+    color: #ffffff;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 32px;
+  }
+  @media (max-width: 768px) {
+    .hero nav h2 {
+      width: 50px; /* Ajusta el tamaño del icono para dispositivos móviles */
+    }
+  }
+  
+  .hero nav h3 {
+    float: right;
+  }
+  @media (max-width: 768px) {
+    .hero nav h3 {
+      width: 50px; /* Ajusta el tamaño del icono para dispositivos móviles */
+    }
+  }
+  .nav-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .nav-icons {
+      width: 50px; /* Ajusta el tamaño del icono para dispositivos móviles */
+    }
+  }
+  
+  .nav-icons img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-icons img {
+      width: 50px; /* Ajusta el tamaño del icono para dispositivos móviles */
+    }
+  }

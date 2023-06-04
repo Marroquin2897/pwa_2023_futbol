@@ -11,6 +11,7 @@ const RRFemenilSuperiorFutAsociacion = () => {
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({});
     const [jornada, setJornada] = useState('');
+    const [grupo, setGrupo] = useState('');
     const [guardado, setGuardado] = useState(false);
     const [mostrarPartidos, setMostrarPartidos] = useState(false);
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
@@ -159,7 +160,7 @@ const RRFemenilSuperiorFutAsociacion = () => {
                             <li key={partido.id}>
                               <div>
                                 <Label>
-                                  <span>{partido.local}</span> vs <span>{partido.visitante}</span>
+                                <center> <span>{partido.local}</span>  VS <span> {partido.visitante}</span></center> 
                                 </Label>
                               </div>
                               <div className="golesContainer">
@@ -195,8 +196,9 @@ const RRFemenilSuperiorFutAsociacion = () => {
               <Boton onClick={guardarResultados}> Guardar Resultado </Boton>
             </ContenedorBotonCentrado>
           )}
-          <ContenedorBotonCentrado>
-              <BtnRegresar ruta = '/menu-admin'/>
+          <br/>
+          <ContenedorBotonCentrado> 
+              <BtnRegresar ruta = '/RR-FutbolAsociacion'/>
           </ContenedorBotonCentrado>
           {guardado && (
             <div>

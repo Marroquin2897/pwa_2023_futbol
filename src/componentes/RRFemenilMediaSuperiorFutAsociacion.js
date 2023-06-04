@@ -11,6 +11,7 @@ const RRFemenilMediaSuperiorFutAsociacion = () => {
     const [partidos, setPartidos] = useState([]);
     const [resultados, setResultados] = useState({});
     const [jornada, setJornada] = useState('');
+    const [grupo, setGrupo] = useState('');
     const [guardado, setGuardado] = useState(false);
     const[estadoAlerta,cambiarEdoAlerta] = useState(false); 
     const[alerta,cambiarAlerta] = useState({});
@@ -24,7 +25,7 @@ const RRFemenilMediaSuperiorFutAsociacion = () => {
           try { 
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Futbol Asociacion'))
+              query(partidosRef, where('idGrupo', '==', grupo), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Futbol Asociacion'))
             );
     
             const partidos = [];
@@ -55,7 +56,8 @@ const RRFemenilMediaSuperiorFutAsociacion = () => {
           const querySnapshot = await getDocs(
             query(
               partidosCollection,
-              where('jornada', '==', parseInt(jornada)),
+              where('idGrupo', '==', parseInt(grupo)),
+              
               where('categoria', '==', 'femenil'),
               where('nivelAcademico', '==', 'Media Superior'),
               where('modalidadTorneo', '==', 'Futbol Asociacion')
@@ -131,10 +133,11 @@ const RRFemenilMediaSuperiorFutAsociacion = () => {
                 <title> Registro de Resultados Fútbol Asociación Femenil Nivel Media Superior</title>
             </Helmet>
             <main>
-            <Label htmlFor="jornada">Jornada:</Label>
-            <GrupoInput>
-              <Input type="text" id="jornada" value={jornada} onChange={(e) => setJornada(e.target.value)} />
-            </GrupoInput>
+            <Label htmlFor="grupo">Grupo:</Label>
+          <GrupoInput>
+            <Input type="text" id="grupo" value={grupo} onChange={(e) => setGrupo(e.target.value)} />
+          </GrupoInput>
+            
             <br/>
             <ContenedorBotonCentrado>
               <Boton  onClick={handleVerPartidos} > Ver Partidos </Boton> <br/>
@@ -154,7 +157,7 @@ const RRFemenilMediaSuperiorFutAsociacion = () => {
                         <li key={partido.id}>
                           <div>
                             <Label>
-                              <span>{partido.local}</span> vs <span>{partido.visitante}</span>
+                            <center> <span>{partido.local}</span>  VS <span> {partido.visitante}</span></center> 
                             </Label>
                           </div>
                           <div className="golesContainer">
@@ -188,11 +191,11 @@ const RRFemenilMediaSuperiorFutAsociacion = () => {
           {partidos.length > 0 && (
               <ContenedorBotonCentrado>
                 <Boton onClick={guardarResultados}>Guardar Resultado</Boton>
-                
               </ContenedorBotonCentrado>
             )}
+            <br/>
             <ContenedorBotonCentrado>
-              <BtnRegresar ruta = '/menu-admin'/>
+              <BtnRegresar ruta = '/RR-FutbolAsociacion'/>
             </ContenedorBotonCentrado>
             
             {guardado && (

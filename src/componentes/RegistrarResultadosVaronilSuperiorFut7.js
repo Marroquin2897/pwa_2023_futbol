@@ -174,7 +174,7 @@ const RegistrarResultadosVaronilSuperiorFut7 = () => {
                         <li key={partido.id}>
                             <div>
                               <Label> 
-                              <span>{partido.local}</span> vs <span>{partido.visitante}</span>
+                              <center> <span>{partido.local}</span>  VS <span> {partido.visitante}</span></center> 
                               </Label>
                             </div>
                             <div>
@@ -222,10 +222,13 @@ const RegistrarResultadosVaronilSuperiorFut7 = () => {
             )}
             <br/>
                 {partidos.length > 0 && (
-                  <button onClick={guardarResultados}>Guardar Resultado</button>
+                  <ContenedorBotonCentrado>
+                  <Boton onClick={guardarResultados} >  Guardar Resultado </Boton>
+                  </ContenedorBotonCentrado>
                 )}
+                <br/>
                 <ContenedorBotonCentrado>
-                <BtnRegresar ruta = '/menu-admin'/>
+                <BtnRegresar ruta = '/RR-Futbol7'/>
                 </ContenedorBotonCentrado>
             </main>
             <Alerta 

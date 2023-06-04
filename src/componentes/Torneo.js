@@ -8,6 +8,7 @@ import agregarTorneo from '../firebase/agregarTorneo';
 import BtnRegresar from '../elementos/BtnRegresar';
 import {firebaseApp} from "../firebase/firebaseConfig";
 
+
 const Torneo = () => {
 
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
@@ -82,7 +83,8 @@ const Torneo = () => {
     }
     const nameUsuario = sessionStorage.getItem("name")
     return ( 
-<div className="hero">
+        
+    <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2obtocwe" alt=''/>
         <center><h2>Nuevo Torneo</h2><h2><h2>{nameUsuario}</h2></h2></center> 

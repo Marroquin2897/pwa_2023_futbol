@@ -17,9 +17,7 @@ const EditarUsuario = () => {
                 <title>Editar Usuario</title>
             </Helmet> 
             <RegistroUsuario usuario={usuario} />
-            <ContenedorBotonCentral>
-                <BtnRegresar ruta='/rol' />
-            </ContenedorBotonCentral>        
+                    
         </>
      );
 }

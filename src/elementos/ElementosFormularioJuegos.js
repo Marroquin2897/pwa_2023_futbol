@@ -8,7 +8,7 @@ const colores = {
 
 const Formulario = styled.form`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
 
   @media (max-width: 800px) {
@@ -35,7 +35,7 @@ const GrupoInput = styled.div`
 `;
 
 const Input = styled.input`
-  width: 100%;
+  width: 25%;
   background: #ffff;
   border-radius: 30px;
   height: 45px;
@@ -72,7 +72,7 @@ const ContenedorBotonCentrado = styled.div`
 const Boton = styled.button`
   border: none;
   outline: none;
-  width: 100%;
+  width: 50%;
   padding: 15px 0;
   color: #fff;
   font-size: 16px;

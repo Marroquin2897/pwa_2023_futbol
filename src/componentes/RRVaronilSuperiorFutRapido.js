@@ -172,7 +172,7 @@ const RRVaronilSuperiorFutRapido = () => {
                         <li key={partido.id}>
                             <div>
                               <Label>
-                              <span>{partido.local}</span> vs <span>{partido.visitante}</span>
+                              <center> <span>{partido.local}</span>  VS <span> {partido.visitante}</span></center> 
                               </Label>
                             
                             </div>
@@ -224,7 +224,7 @@ const RRVaronilSuperiorFutRapido = () => {
                   <button onClick={guardarResultados}>Guardar Resultado</button>
                 )}
                 <ContenedorBotonCentrado>
-                <BtnRegresar ruta = '/menu-admin'/>
+                <BtnRegresar ruta = '/RR-FutbolRapido'/>
                 </ContenedorBotonCentrado>
             </main>
             <Alerta 

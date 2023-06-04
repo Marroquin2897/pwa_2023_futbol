@@ -34,7 +34,7 @@ const ListaJugadoresAdm = () => {
     const nameUsuario = sessionStorage.getItem("name")
 
     return ( 
-        <div className="hero">
+    <div className="hero">
       <nav>
       <img src="https://tinyurl.com/2obtocwe"/>
       <center><h2>Lista de Jugadores</h2>

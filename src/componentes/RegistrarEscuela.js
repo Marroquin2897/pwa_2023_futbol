@@ -368,9 +368,9 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                     <GrupoInput>
                         <select name="modalidades" onChange = {handleChange}> 
                             <option value="opcDeter">Elige una modalidad</option>
-                            <option value="Futbol 7"> Fútbol 7 </option>
-                            <option value="Futbol Rapido"> Fútbol Rápido </option>
-                            <option value="Futbol Asociacion"> Fútbol Asociación </option>
+                            <option value="Fútbol 7"> Fútbol 7 </option>
+                            <option value="Fútbol Rapido"> Fútbol Rápido </option>
+                            <option value="Fútbol Asociacion"> Fútbol Asociación </option>
                         </select> 
                     </GrupoInput>   
                 </div>
