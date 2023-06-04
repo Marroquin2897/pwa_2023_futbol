@@ -241,8 +241,9 @@ select {
 
 .TablaGeneralPos {
   border-collapse: collapse;
-  margin: 10px 20px 10px;
+  margin: 10px auto;
   width: 90%;
+  overflow-x: auto;
 }
 
 .encabezado,
@@ -251,16 +252,15 @@ select {
   padding: 8px;
   text-align: center;
   width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .encabezado {
-  text-align: center;
   color: #ffffff;
   font-weight: bold;
-  padding: 8px;
   text-align: center;
   background-image: linear-gradient(to right, #011230, #011250, #011280);
-  font-weight: bold;
   width: auto;
 }
 
@@ -268,12 +268,17 @@ select {
   background-image: linear-gradient(to right, #a5a5a5, #a5a5a576, #a5a5a500);
   color: #000000;
   font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   width: auto;
 }
 
 .TablaGeneralPos td:first-child {
   text-align: center;
 }
+
+
 
 .carousel {
   background: linear-gradient(to right, #011230, #072e4b, #0d3b67, #134983, #1957a0);

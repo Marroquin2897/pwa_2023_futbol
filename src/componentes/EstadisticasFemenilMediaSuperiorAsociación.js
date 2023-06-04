@@ -146,35 +146,35 @@ const EstadisticasFemenilMediaSuperiorAsociación = () => {
                 <title> Tabla General de Posiciones Fútbol Asociación Femenil Nivel Media Superior</title>
             </Helmet>
             <table className='TablaGeneralPos'>
-            <thead>
-            <tr>
-                <th className='encabezado'>Posición</th>
-                <th className='encabezado'>Equipo</th>
-                <th className='encabezado'>Juegos Jugados</th>
-                <th className='encabezado'>Juegos Ganados</th>
-                <th className='encabezado'>Juegos Perdidos</th>
-                <th className='encabezado'>Goles a Favor</th>
-                <th className='encabezado'>Goles en Contra</th>
-                <th className='encabezado'>Diferencia de Goles</th>
-                <th className='encabezado'>Puntos</th>
-            </tr>
-            </thead>
-            <tbody>
-            {estadisticasEquipos.map((equipo) => (
-                <tr key={equipo.equipo}>
-                <td className='descripcion'>{equipo.posicion}</td>
-                <td className='descripcion'>{equipo.equipo}</td>
-                <td className='descripcion'>{equipo.juegosJugados}</td>
-                <td className='descripcion'>{equipo.juegosGanados}</td>
-                <td className='descripcion'>{equipo.juegosPerdidos}</td>
-                <td className='descripcion'>{equipo.golesAFavor}</td>
-                <td className='descripcion'>{equipo.golesEnContra}</td>
-                <td className='descripcion'>{equipo.diferenciaGoles}</td>
-                <td className='descripcion'>{equipo.puntos}</td>
-                </tr>
-            ))}
-            </tbody>
-        </table>
+              <thead>
+              <tr>
+                  <th className='encabezado'>Posición</th>
+                  <th className='encabezado'>Equipo</th>
+                  <th className='encabezado'>Juegos Jugados</th>
+                  <th className='encabezado'>Juegos Ganados</th>
+                  <th className='encabezado'>Juegos Perdidos</th>
+                  <th className='encabezado'>Goles a Favor</th>
+                  <th className='encabezado'>Goles en Contra</th>
+                  <th className='encabezado'>Diferencia de Goles</th>
+                  <th className='encabezado'>Puntos</th>
+              </tr>
+              </thead>
+              <tbody>
+              {estadisticasEquipos.map((equipo) => (
+                  <tr key={equipo.equipo}>
+                  <td className='descripcion'>{equipo.posicion}</td>
+                  <td className='descripcion'>{equipo.equipo}</td>
+                  <td className='descripcion'>{equipo.juegosJugados}</td>
+                  <td className='descripcion'>{equipo.juegosGanados}</td>
+                  <td className='descripcion'>{equipo.juegosPerdidos}</td>
+                  <td className='descripcion'>{equipo.golesAFavor}</td>
+                  <td className='descripcion'>{equipo.golesEnContra}</td>
+                  <td className='descripcion'>{equipo.diferenciaGoles}</td>
+                  <td className='descripcion'>{equipo.puntos}</td>
+                  </tr>
+              ))}
+              </tbody>
+            </table>
         <ContenedorBotonCentrado>
           <BtnRegresar ruta='/rol' />
         </ContenedorBotonCentrado> 

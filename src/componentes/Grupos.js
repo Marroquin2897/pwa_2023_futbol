@@ -223,9 +223,9 @@ function crearEnfrentamientos(equipos) {
                     <Label htmlFor='modalidad'> Selecciona la modalidad a jugar </Label>
                     <GrupoInput>
                         <select name="modalidad" value={modalidadTorneo} onChange = {(e) => setModalidadTorneo(e.target.value)}>
-                            <option value="Futbol Rapido"> Fútbol Rápido</option>
-                            <option value="Futbol 7"> Fútbol 7 </option>
-                            <option value="Futbol Asociacion"> Fútbol Asociación</option> 
+                            <option value="Fútbol Rapido"> Fútbol Rápido</option>
+                            <option value="Fútbol 7"> Fútbol 7 </option>
+                            <option value="Fútbol Asociacion"> Fútbol Asociación</option> 
                         </select> 
                     </GrupoInput>   
                 </div>
@@ -265,20 +265,7 @@ function crearEnfrentamientos(equipos) {
                     </div>
                   ))}
                 </div>  
-                 {/*<div>
-                    {equipos.map((equipo,index)=> (
-                      <div key={index}>
-                        <Label>
-                          Equipo {index+1}
-                          <Input
-                            type="text"
-                            value={equipo}
-                            onChange={(event) => handleEquipoChange(event, index)} />
-                        </Label>
-                      </div>
-                    ))}
-                 </div> */}
-                 
+  
                  <div>
                   <Label> Número de Grupos: </Label>
                     <GrupoInput>
