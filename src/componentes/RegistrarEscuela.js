@@ -283,7 +283,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
       <nav>
       <img src="https://tinyurl.com/2obtocwe"/>
         <center><h2> {escuelaExistente ? 'Editar Escuela' : 'Registrar Nueva Escuela'}</h2>
-        <h2>{nameUsuario}</h2></center>    
+        <h3>{nameUsuario}</h3></center>    
         <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
       </nav>
       
@@ -318,7 +318,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 <div>
                     <Label htmlFor='escuela'> Escuela </Label>
                     <GrupoInput>
-                        <select name="nombreEscuela" onChange = {handleChange}>
+                        <select name="nombreEscuela" value={nombreEscuela} onChange = {handleChange}>
                             <option value="opcDeter">Elige una escuela</option>
                             <option value="CET 1"> CET 1 Walter Cross Buchanan </option>
                             <option value="CECyT 1"> CECyT No. 1 Gonzalo Vázquez Vela </option>
@@ -366,7 +366,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 <div>
                     <Label htmlFor='modalidades'> Modalidades </Label>
                     <GrupoInput>
-                        <select name="modalidades" onChange = {handleChange}> 
+                        <select name="modalidades" value={modalidades} onChange = {handleChange}> 
                             <option value="opcDeter">Elige una modalidad</option>
                             <option value="Fútbol 7"> Fútbol 7 </option>
                             <option value="Fútbol Rapido"> Fútbol Rápido </option>
@@ -377,7 +377,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 <div>
                     <Label htmlFor='categoria'> Categoría </Label>
                     <GrupoInput>
-                        <select name="categoria"   onChange = {handleChange}>
+                        <select name="categoria" value={categoria}  onChange = {handleChange}>
                             <option value="opcDeter">Elige una categoría</option>
                             <option value="femenil"> Femenil </option>
                             <option value="varonil"> Varonil </option>
@@ -387,7 +387,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 <div>
                     <Label htmlFor='nivelAcademico'> Nivel Académico </Label>
                     <GrupoInput>
-                        <select name="nivelAcademico"  onChange = {handleChange}>
+                        <select name="nivelAcademico" value={nivelAcademico} onChange = {handleChange}>
                             <option value="opcDeter">Elige el nivel académico</option>
                             <option value="Media Superior"> Media Superior </option>
                             <option value="Superior"> Superior </option>

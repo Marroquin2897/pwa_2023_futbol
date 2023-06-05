@@ -208,7 +208,7 @@ const RegistrarJugador = ({jugador}) => {
       <nav>
       <img src="https://tinyurl.com/2obtocwe"/>
       <center><h2>{jugador ? 'Editar Jugador' : 'Registrar Nuevo Jugador'}</h2>
-      <h2>{nameUsuario}</h2></center> 
+      <h3>{nameUsuario}</h3></center> 
     <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
 
       </nav>

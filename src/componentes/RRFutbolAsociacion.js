@@ -5,15 +5,17 @@ import BtnRegresar from '../elementos/BtnRegresar';
 
 const RRFutbolAsociacion = () => {
     const navigate = useNavigate();
+    const nameUsuario = sessionStorage.getItem("name")
     const handleRedirect = (ruta) => {
         navigate(ruta);
       };
-
+    
   return (
     <div className='hero'>
         <nav>
             <img src="https://tinyurl.com/2obtocwe" alt=''/>
-            <center><h2> Registrar Resultados Fútbol Asociación</h2></center> 
+            <center><h2> Registrar Resultados Fútbol Asociación</h2> 
+            <h3>{nameUsuario}</h3></center> 
             <h3><img src="https://tinyurl.com/2kaldmbh" alt=''/></h3>
         </nav>
       
@@ -26,7 +28,7 @@ const RRFutbolAsociacion = () => {
             </ContenedorBotonCentrado>
             <br/>
             <ContenedorBotonCentrado>
-                <Boton onClick={() => handleRedirect('/RR-FA-FemenilMediaSuperior')}> Registrar Resultados Posiciones Femenil Media Superior </Boton>
+                <Boton onClick={() => handleRedirect('/RR-FA-FemenilMediaSuperior')}> Registrar Resultados Femenil Media Superior </Boton>
             </ContenedorBotonCentrado>
             <br/>
             <ContenedorBotonCentrado>

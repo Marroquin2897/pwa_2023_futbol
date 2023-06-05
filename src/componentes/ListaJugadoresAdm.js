@@ -38,7 +38,7 @@ const ListaJugadoresAdm = () => {
       <nav>
       <img src="https://tinyurl.com/2obtocwe"/>
       <center><h2>Lista de Jugadores</h2>
-      <h2>{nameUsuario}</h2>
+      <h3>{nameUsuario}</h3>
       </center> 
        <div>
             <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>

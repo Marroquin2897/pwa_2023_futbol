@@ -26,7 +26,7 @@ const RRFutbolRapido = () => {
             </ContenedorBotonCentrado>
             <br/>
             <ContenedorBotonCentrado>
-                <Boton onClick={() => handleRedirect('/RR-FR-FemenilMediaSuperior')}> Registrar Resultados Posiciones Femenil Media Superior </Boton>
+                <Boton onClick={() => handleRedirect('/RR-FR-FemenilMediaSuperior')}> Registrar Resultados Femenil Media Superior </Boton>
             </ContenedorBotonCentrado>
             <br/>
             <ContenedorBotonCentrado>

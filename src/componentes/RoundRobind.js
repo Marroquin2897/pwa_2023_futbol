@@ -8,7 +8,7 @@ import Alerta from '../elementos/Alerta';
 import { element } from 'prop-types';
 
 const RoundRobin = () => {
-  
+  const nameUsuario = sessionStorage.getItem("name")
   const [numEquipos, setNumEquipos] = useState(0);
   const [equipos, setEquipos] = useState([]);
   const [partidos, setPartidos] = useState([]);
@@ -219,7 +219,8 @@ const RoundRobin = () => {
         <div className="hero"> 
             <nav>
             <img src="https://tinyurl.com/2obtocwe" alt=""/>
-              <center><h2>Round Robin</h2></center> 
+              <center><h2>Round Robin</h2>
+              <h3>{nameUsuario}</h3></center> 
               <h3><img src="https://tinyurl.com/2kaldmbh" alt=""/></h3>
             </nav>
             <Helmet>
@@ -228,9 +229,10 @@ const RoundRobin = () => {
             <main>
               <div>
                 <div>
-                    <Label htmlFor='rama'> Selecciona la rama a jugar </Label>
+                    <Label htmlFor='rama'> Selecciona la categoría a jugar </Label>
                     <GrupoInput>
                         <select name="rama" value={categoria}onChange = {(e) => setCategoria(e.target.value)}>
+                            <option value="opcDeter">Elige la categoría</option>
                             <option value="femenil"> Femenil </option>
                             <option value="varonil"> Varonil </option>
                         </select> 
@@ -240,6 +242,7 @@ const RoundRobin = () => {
                     <Label htmlFor='nivelA'> Selecciona el nivel académico a jugar </Label>
                     <GrupoInput>
                         <select name="nivelA" value={nivelAcademico} onChange = {(e) => setNivelAcademico(e.target.value)}>
+                            <option value="opcDeter">Elige el nivel académico</option>
                             <option value="Media Superior"> Media Superior </option>
                             <option value="Superior"> Superior </option> 
                         </select> 
@@ -249,6 +252,7 @@ const RoundRobin = () => {
                     <Label htmlFor='modalidad'> Selecciona la modalidad a jugar </Label>
                     <GrupoInput>
                         <select name="modalidad" value={modalidadTorneo} onChange = {(e) => setModalidadTorneo(e.target.value)}>
+                            <option value="opcDeter">Elige la modalidad</option>
                             <option value="Fútbol Rapido"> Fútbol Rápido</option>
                             <option value="Fútbol 7"> Fútbol 7 </option>
                             <option value="Fútbol Asociacion"> Fútbol Asociación</option> 
@@ -268,7 +272,7 @@ const RoundRobin = () => {
                 <Label> Número de Equipos </Label>
                   <GrupoInput>
                     <Input
-                      type='text'
+                      type='number'
                       name='numE'
                       min="6"
                       max="15"

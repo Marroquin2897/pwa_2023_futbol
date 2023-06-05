@@ -5,6 +5,7 @@ import BtnRegresar from '../elementos/BtnRegresar';
 
 const VerPartidosFutbol7 = () => {
     const navigate = useNavigate();
+    const nameUsuario = sessionStorage.getItem("name")
     const handleRedirect = (ruta) => {
         navigate(ruta);
       };
@@ -13,7 +14,8 @@ const VerPartidosFutbol7 = () => {
     <div className='hero'>
         <nav>
             <img src="https://tinyurl.com/2obtocwe" alt=''/>
-            <center><h2> Ver Partidos Fútbol 7</h2></center> 
+            <center><h2> Ver Partidos Fútbol 7</h2>
+            <h3>{nameUsuario}</h3></center> 
             <h3><img src="https://tinyurl.com/2kaldmbh" alt=''/></h3>
         </nav>
       

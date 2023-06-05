@@ -19,7 +19,7 @@ const RRFemenilSuperiorFutAsociacion = () => {
     const firestore = getFirestore(firebaseApp);
     const partidosCollection = collection(firestore, 'partidos');
     const resultadosCollection = collection(firestore, 'resultadosFemenilSuperiorAsociacion');
-
+    const nameUsuario = sessionStorage.getItem("name")
     useEffect(() => {
         const fetchPartidos = async () => {
           try {
@@ -130,7 +130,8 @@ const RRFemenilSuperiorFutAsociacion = () => {
     <div className='hero'>
             <nav>
             <img src="https://tinyurl.com/2obtocwe"/>
-              <center><h2>Registro de Resultados Fútbol Asociación Femenil Nivel Superior </h2></center> 
+              <center><h2>Registro de Resultados Fútbol Asociación Femenil Nivel Superior </h2>
+              <h3>{nameUsuario}</h3></center> 
               <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>

@@ -81,8 +81,6 @@ const RegistroUsuario = ({usuario}) => {
         }
         
     }
-
-
 	async function registrarUsuario (nombre,apellidos,fechaNacimiento,telefono,direccion,boleta,correo, contrasenia, rol){ 
         cambiarEdoAlerta(false);
         cambiarAlerta({});
@@ -112,7 +110,9 @@ const RegistroUsuario = ({usuario}) => {
                 tipo:'exito',
                 mensaje:'Registrado exitosamente'
             });
-            navigate('/iniciar-sesion');
+            setTimeout(() => {
+                navigate('/iniciar-sesion');
+              }, 2000);
 
         } catch(error){
             cambiarEdoAlerta(true);
@@ -136,9 +136,7 @@ const RegistroUsuario = ({usuario}) => {
                 tipo:'error',
                 mensaje: mensaje
                });
-
-        }  
-            
+        }         
     }	
 	
 	const handleChange = (e) => {
@@ -310,9 +308,7 @@ const RegistroUsuario = ({usuario}) => {
                 mensaje:'Completa todos los campos'
             });
             return;
-        }
-        
-        
+        } 
 	}
 	const nameUsuario = sessionStorage.getItem("name")
 	return(
@@ -445,8 +441,8 @@ const RegistroUsuario = ({usuario}) => {
               <GrupoInput>
                 <select name="rol" disabled={existencia ? true : false } onChange={handleChange}> 
                     <option value="opcDeter"> {existencia ? rol : "Elige un rol" }  </option>                 
-                    <option value="alumno"> Alumno </option>
-                    <option value="profesor"> Profesor </option>
+                    <option value="Alumno"> Alumno </option>
+                    <option value="Profesor"> Profesor </option>
                 </select> 
               </GrupoInput>   
             </div>

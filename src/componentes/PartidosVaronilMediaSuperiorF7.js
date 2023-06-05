@@ -13,6 +13,7 @@ const PartidosVaronilMediaSuperiorF7 = () => {
   const [mostrarMensaje, setMostrarMensaje] = useState(null);
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
   const[alerta,cambiarAlerta] = useState({});
+  const nameUsuario = sessionStorage.getItem("name")
 
 
   // Función para obtener los partidos de la jornada seleccionada
@@ -51,13 +52,14 @@ const PartidosVaronilMediaSuperiorF7 = () => {
   useEffect(() => {
     console.log(partidos); // Verificar el contenido de partidos
   }, [partidos]);
-
+  
   return (
     <div className="hero">
       <nav>
         <img src="https://tinyurl.com/2obtocwe" alt="" />
         <center>
           <h2>Partidos Fútbol 7 Varonil Nivel Media Superior</h2>
+          <h3>{nameUsuario}</h3>
         </center>
         <h3>
           <img src="https://tinyurl.com/2kaldmbh" alt="" />

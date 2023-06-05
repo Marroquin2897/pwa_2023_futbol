@@ -143,7 +143,8 @@ const EstadisticasFemenilMediaSuperiorFutRapido = () => {
         <div className="hero">
             <nav>
             <img src="https://tinyurl.com/2obtocwe"/>
-              <center><h2> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Media Superior </h2><h2>{nameUsuario}</h2></center> 
+              <center><h2> Tabla General de Posiciones Fútbol Rápido Femenil Nivel Media Superior </h2>
+              <h3>{nameUsuario}</h3></center> 
             <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
             </nav>
             <Helmet>

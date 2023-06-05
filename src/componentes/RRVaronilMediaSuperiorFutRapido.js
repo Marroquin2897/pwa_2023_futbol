@@ -16,7 +16,7 @@ const RRVaronilMediaSuperiorFutRapido = () => {
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
     const firestore = getFirestore(firebaseApp);
-
+    const nameUsuario = sessionStorage.getItem("name")
     useEffect(() => {
         const fetchPartidos = async () => {
           try {
@@ -138,7 +138,8 @@ const RRVaronilMediaSuperiorFutRapido = () => {
         <div className="hero">
             <nav>
             <img src="https://tinyurl.com/2obtocwe" alt=''/>
-              <center><h2> Registro de Resultados Fútbol Rápido Varonil Nivel Media Superior</h2></center> 
+              <center><h2> Registro de Resultados Fútbol Rápido Varonil Nivel Media Superior</h2>
+              <h3>{nameUsuario}</h3></center> 
               <h3><img src="https://tinyurl.com/2kaldmbh" alt=''/></h3>
             </nav>
             <Helmet>
