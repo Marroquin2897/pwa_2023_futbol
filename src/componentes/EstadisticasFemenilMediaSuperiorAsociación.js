@@ -145,6 +145,7 @@ const EstadisticasFemenilMediaSuperiorAsociación = () => {
             <Helmet>
                 <title> Tabla General de Posiciones Fútbol Asociación Femenil Nivel Media Superior</title>
             </Helmet>
+            
             <table className='TablaGeneralPos'>
               <thead>
               <tr>
@@ -175,6 +176,7 @@ const EstadisticasFemenilMediaSuperiorAsociación = () => {
               ))}
               </tbody>
             </table>
+
         <ContenedorBotonCentrado>
           <BtnRegresar ruta='/rol' />
         </ContenedorBotonCentrado> 

@@ -12,7 +12,7 @@ const PartidosFemenilMediaSuperiorFR = () => {
   const firestore = getFirestore(firebaseApp);
   const[estadoAlerta,cambiarEdoAlerta] = useState(false);
   const[alerta,cambiarAlerta] = useState({});
-  const [mostrarMensaje, setMostrarMensaje] = useState(false);
+  const [mostrarMensaje, setMostrarMensaje] = useState(null);
   
 
   // Función para obtener los partidos de la jornada seleccionada
@@ -65,7 +65,7 @@ const PartidosFemenilMediaSuperiorFR = () => {
         <title>Partidos Fútbol Rápido Femenil Nivel Media Superior</title>
       </Helmet>
       <main>
-        <Label htmlFor="jornada">Seleccione la Jornada:</Label>
+        <Label htmlFor="jornada">Ingrese el Número de la Jornada:</Label>
         <GrupoInput>
         <Input type="text" id="jornada" value={jornada} onChange={e => setJornada(e.target.value)} />
         </GrupoInput>
@@ -73,23 +73,25 @@ const PartidosFemenilMediaSuperiorFR = () => {
         <ContenedorBotonCentrado>
           <Boton onClick={handleMostrarPartidos}> Mostrar partidos </Boton>
         </ContenedorBotonCentrado>
-
-        {jornada && (
-          <Label> <h3>Jornada {jornada}</h3> </Label>
-        )}
-        {mostrarMensaje && (
-          
-          <ul>
-            {partidos.length > 0 ? (
-              partidos.map((partido) => (
+        {jornada !== '' && mostrarMensaje !== null && partidos.length > 0 && (
+          <div>
+            <Label>
+              <h3>Jornada {jornada}</h3>
+            </Label>
+            <ul>
+              {partidos.map((partido) => (
                 <li key={partido.id}>
-                  <Label> {partido.local} VS {partido.visitante} </Label>
+                  <Label>
+                    {partido.local} VS {partido.visitante}
+                  </Label>
                 </li>
-              ))
-            ) : (
-              <p>No hay partidos para mostrar</p>
-            )}
-          </ul>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {jornada !== '' && mostrarMensaje !== null && partidos.length === 0 && (
+          <p>No hay partidos para mostrar</p>
         )}
         <br/>
         <ContenedorBotonCentrado>
