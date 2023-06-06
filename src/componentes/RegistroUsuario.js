@@ -4,7 +4,7 @@ import {Helmet} from 'react-helmet';
 import { Await, useNavigate } from 'react-router-dom';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import {getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
-import {getFirestore,doc,setDoc, updateDoc} from "firebase/firestore"
+import {getFirestore,doc,setDoc, updateDoc, query, where,collection,getDocs} from "firebase/firestore"
 import { Formulario, Label, GrupoInput, Input, ContenedorBotonCentrado, Boton} from '../elementos/ElementosFormulario';
 import Alerta from '../elementos/Alerta';
 import BtnRegresar from '../elementos/BtnRegresar';
@@ -86,34 +86,44 @@ const RegistroUsuario = ({usuario}) => {
         cambiarAlerta({});
         let mensaje;
         try{
-            const infoUsuario = await createUserWithEmailAndPassword(
-                auth,
-                correo,
-                contrasenia)
-                .then ((usuarioFirebase) => {
-                return usuarioFirebase;
-                })
-                //Pasamos el UID del usuario para guardarlo en la BD
-            const docuRef = doc(firestore,`usuarios/${infoUsuario.user.uid}`);
-            setDoc(docuRef,{
-                nombre: nombre,
-                apellidos: apellidos,
-                fechaNacimiento: fechaNacimiento,
-                telefono: telefono,
-                direccion: direccion,
-                boleta: boleta,
-                correo: correo,
-                rol: rol
-            });
-            cambiarEdoAlerta(true);
-            cambiarAlerta({
-                tipo:'exito',
-                mensaje:'Registrado exitosamente'
-            });
-            setTimeout(() => {
-                navigate('/iniciar-sesion');
-              }, 2000);
-
+            const boletaRef = query(collection(firestore, "usuarios"), where("boleta", "==", boleta));
+            const querySnapShot = getDocs(boletaRef)
+            if(!(await querySnapShot).empty){
+                cambiarEdoAlerta(true);
+                cambiarAlerta({
+                    tipo:'error',
+                    mensaje:'Ya existe un usuario registrado con esta boleta / No. Empleado'
+                });
+                console.log("Ya existe un usuario registrado con esta boleta",boleta)
+            } else {
+                const infoUsuario = await createUserWithEmailAndPassword(
+                    auth,
+                    correo,
+                    contrasenia)
+                    .then ((usuarioFirebase) => {
+                    return usuarioFirebase;
+                    })
+                    //Pasamos el UID del usuario para guardarlo en la BD
+                const docuRef = doc(firestore,`usuarios/${infoUsuario.user.uid}`);
+                setDoc(docuRef,{
+                    nombre: nombre,
+                    apellidos: apellidos,
+                    fechaNacimiento: fechaNacimiento,
+                    telefono: telefono,
+                    direccion: direccion,
+                    boleta: boleta,
+                    correo: correo,
+                    rol: rol
+                });
+                cambiarEdoAlerta(true);
+                cambiarAlerta({
+                    tipo:'exito',
+                    mensaje:'Registrado exitosamente'
+                });
+                setTimeout(() => {
+                    navigate('/iniciar-sesion');
+                  }, 2000);
+            }
         } catch(error){
             cambiarEdoAlerta(true);
             
@@ -209,7 +219,6 @@ const RegistroUsuario = ({usuario}) => {
         const fechaIngresada = new Date(fechaNacimiento)
         // Obtener el año actual
         const anioActual = new Date().getFullYear();
-          
         // Obtener la fecha hace 15 años
         const fechaLimite = new Date(anioActual - 15, 0, 1); // Restar 15 años al año actual
 
