@@ -57,7 +57,7 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
                 where('jornada', '==', parseInt(jornada)),
                 where('categoria', '==', 'femenil'),
                 where('nivelAcademico', '==', 'Superior'),
-                where('modalidadTorneo','==','Futbol Rapido')
+                where('modalidadTorneo','==','Fútbol Rapido')
               )
             );
         
@@ -79,28 +79,78 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
         }
       }, [jornada]);
 
-      const handleResultadoChange = (partidoId, campo, valor) => {
+      const handleResultadoChange = (partidoId, campo, valor) => { //Input para goles local y goles visitante
         setResultados((prevState) => {
           const nuevosResultados = { ...prevState };
           if (!nuevosResultados[partidoId]) {
             nuevosResultados[partidoId] = {};
           }
           nuevosResultados[partidoId][campo] = valor;
+          // Deshabilitar el checkbox opuesto
+          if (campo === 'ganadorPenalesLocal') {
+            nuevosResultados[partidoId]['ganadorPenalesVisitante'] = false;
+          } else if (campo === 'ganadorPenalesVisitante') {
+            nuevosResultados[partidoId]['ganadorPenalesLocal'] = false;
+          }
           return nuevosResultados;
         });
       };
-      const handleGanadorPenalesChange = (partidoId, campo, valor) => {
+      const handleGanadorPenalesChange = (partidoId, campo, valor) => { //Checkbox para ganador en shoot out 
         setResultados((prevState) => {
           const nuevosResultados = { ...prevState };
           if (!nuevosResultados[partidoId]) {
             nuevosResultados[partidoId] = {};
           }
           nuevosResultados[partidoId][campo] = valor;
+          // Deshabilitar el checkbox opuesto
+          if (campo === 'ganadorPenalesLocal') {
+            nuevosResultados[partidoId]['ganadorPenalesVisitante'] = false;
+          } else if (campo === 'ganadorPenalesVisitante') {
+            nuevosResultados[partidoId]['ganadorPenalesLocal'] = false;
+          }
           return nuevosResultados;
         });
       };
-
+      
       const guardarResultados = () => {
+        // Verificar si hay campos faltantes
+        const camposFaltantes = partidos.filter(
+          (partido) =>
+            !resultados[partido.id]?.golesLocal ||
+            !resultados[partido.id]?.golesVisitante
+        );
+
+        if (camposFaltantes.length > 0) {
+          cambiarEdoAlerta(true);
+          cambiarAlerta({
+            tipo: 'error',
+            mensaje: 'Faltan Campos a Llenar',
+          });
+          return;
+        }
+        // Verificar si los resultados ya han sido registrados
+        const verificarResultadosRegistrados = () => {
+          const resultadosRegistrados = Object.values(resultados).some((resultado) => {
+            return resultado.golesLocal !== '' && resultado.golesVisitante !== '';
+          });
+
+          if (resultadosRegistrados) {
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+              tipo: 'error',
+              mensaje: 'Los Resultados de la Jornada ya están Registrados',
+            });
+            return true;
+          }
+          return false;
+        };
+
+        // Llamada a la función de verificación de resultados registrados
+        const resultadosRegistrados = verificarResultadosRegistrados();
+        if (resultadosRegistrados) {
+          return;
+        }
+      
         Object.entries(resultados).forEach(([partidoId, resultado]) => {
           const partido = partidos.find((partido) => partido.id === partidoId);
           const golesPenalesLocal = resultado.ganadorPenalesLocal ? 1 : 0;
@@ -168,7 +218,7 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
                     <p> No hay partidos para esta modalidad.</p>
                   ) : (
                     <div> 
-                        <h3>Partidos</h3>
+                        <h2>Partidos</h2>
                         <ul>
                         {partidos.map((partido) => (
                         <li key={partido.id}>
