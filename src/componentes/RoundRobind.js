@@ -73,7 +73,7 @@ const RoundRobin = () => {
     }
   };
 
-  async function generarPartidosImpar(equipos,categoria,nivelAcademico){
+  async function generarPartidosImpar(equipos,categoria,nivelAcademico,modalidadTorneo){
     const nEquipos = equipos.length;
     const nJornadas = nEquipos;
     const nPartidosXJornada = (nEquipos+1)/2;
@@ -90,7 +90,8 @@ const RoundRobin = () => {
           local: equipos[local],
           visitante: equipos[visitante],
           categoria: categoria,
-          nivelAcademico: nivelAcademico
+          nivelAcademico: nivelAcademico,
+          modalidadTorneo: modalidadTorneo
         };
         jornada.push(partido);
 
@@ -194,7 +195,27 @@ const RoundRobin = () => {
       
       console.log("Escuelas encontradas:", escuelas);
       setEscuelas(escuelas);
-      setDisponible(true)
+      cambiarEdoAlerta(true); 
+      if(escuelas.length >= 6){
+        setDisponible(true)
+        cambiarAlerta({
+            tipo: 'exito',
+            mensaje:`Se encontraron ${escuelas.length} escuelas`
+        });
+      } else if(escuelas.length >= 1 && escuelas.length < 6){
+        setDisponible(false)
+        cambiarAlerta({
+          tipo: 'error',
+          mensaje:'El número de escuelas encontradas es menor a 6'
+        });
+      } else {
+        setDisponible(false)
+          setEscuelas([]);
+          cambiarAlerta({
+            tipo: 'error',
+            mensaje:'No se encontraron escuelas'
+          });
+      }
     } catch (error) {
       cambiarEdoAlerta(true); 
       cambiarAlerta({
@@ -206,8 +227,26 @@ const RoundRobin = () => {
     }
   };
 
-  const handleGenerateMatches = (e) => {
+  const handleGenerateMatches = async (e) => {
     e.preventDefault();
+    // Verificar si ya existen partidos con los mismos criterios de búsqueda
+    const partidosQuery = query(
+      collection(firestore, 'partidos'),
+      where('modalidadTorneo', '==', modalidadTorneo),
+      where('nivelAcademico', '==', nivelAcademico),
+      where('categoria', '==', categoria)
+    );
+
+    const partidosSnapshot =  await getDocs(partidosQuery);
+
+    if (!partidosSnapshot.empty) {
+      cambiarEdoAlerta(true);
+      cambiarAlerta({
+        tipo: 'error',
+        mensaje: 'Ya hay partidos para esta categoría, nivel académico y modalidad'
+      });
+      return;
+    }
     if (numEquipos % 2 === 0) {
       handleGenerarCalendario(numEquipos,categoria,nivelAcademico,modalidadTorneo);
     } else {
@@ -216,7 +255,7 @@ const RoundRobin = () => {
     setMostrarPartidos(true);
   };
     return (
-        <div className="hero"> 
+        <div className="hero">  
             <nav>
             <img src="https://tinyurl.com/2obtocwe" alt=""/>
               <center><h2>Round Robin</h2>
@@ -314,7 +353,7 @@ const RoundRobin = () => {
                     {partidos.map((jornada, index) => (
                       <li key={index}>
                         <Label>
-                          <h3>Jornada {index + 1}</h3> 
+                          Jornada {index + 1}
                         </Label>             
                         <ul>
                           {jornada.map((partido, index) => (

@@ -15,207 +15,243 @@ const RRFemenilSuperiorFutAsociacion = () => {
     const [guardado, setGuardado] = useState(false);
     const [mostrarPartidos, setMostrarPartidos] = useState(false);
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
+    const [resultadosRegistrados, setResultadosRegistrados] = useState([]);
     const[alerta,cambiarAlerta] = useState({});
     const firestore = getFirestore(firebaseApp);
     const partidosCollection = collection(firestore, 'partidos');
     const resultadosCollection = collection(firestore, 'resultadosFemenilSuperiorAsociacion');
     const nameUsuario = sessionStorage.getItem("name")
     useEffect(() => {
-        const fetchPartidos = async () => {
+      const fetchPartidos = async () => {
+        try {
+          const partidosRef = collection(firestore, 'partidos');
+          const querySnapshot = await getDocs(
+            query(
+              partidosRef,
+              where('grupo', '==', grupo),
+              where('jornada', '==', jornada),
+              where('categoria', '==', 'femenil'),
+              where('nivelAcademico', '==', 'Superior')
+            )
+          );
+  
+        const partidos = [];
+        const resultados = {};
+        const resultadosRegistrados = [];
+  
+        querySnapshot.forEach((doc) => {
+          const partido = { id: doc.id, ...doc.data() };
+          partidos.push(partido);
+          resultados[partido.id] = {
+            golesLocal: '',
+            golesVisitante: '',
+          };
+          resultadosRegistrados.push(partido.id);
+        });
+        setPartidos(partidos);
+        setResultados(resultados);
+        setResultadosRegistrados(resultadosRegistrados);
+      } catch (error) {
+        console.error(error);
+        setPartidos([]);
+        setResultados({});
+        setResultadosRegistrados([]);
+      }
+    };
+  
+    if (jornada && grupo) {
+      fetchPartidos();
+    }
+  }, [jornada, grupo, firestore]);
+  
+        const handleVerPartidos = async () => {
           try {
-            const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Futbol Asociacion'))
+              query(
+                partidosCollection,
+                where('grupo', '==', parseInt(grupo)),
+                where('jornada', '==',parseInt(jornada)),
+                where('categoria', '==', 'femenil'),
+                where('nivelAcademico', '==', 'Superior'),
+              )
             );
-    
+      
             const partidos = [];
-            const resultados = {}; // Objeto para almacenar los resultados de cada partido
-    
             querySnapshot.forEach((doc) => {
-              const partido = { id: doc.id, ...doc.data() };
-              partidos.push(partido);
-              resultados[partido.id] = { golesLocal: '', golesVisitante: '' }; // Inicializa el resultado vacío para cada partido
+              partidos.push({ id: doc.id, ...doc.data() });
             });
-    
+            setMostrarPartidos(true);
+            console.log('Partidos encontrados:', partidos);
             setPartidos(partidos);
-            setResultados(resultados);
           } catch (error) {
             console.error(error);
             setPartidos([]);
-            setResultados({});
           }
         };
-    
-        if (jornada) {
-          fetchPartidos();
-        }
-      }, [jornada, firestore]);
-    
-      const handleVerPartidos = async () => {
-        try {
-          const querySnapshot = await getDocs(
-            query(
-              partidosCollection,
-              where('jornada', '==', parseInt(jornada)),
-              where('categoria', '==', 'femenil'),
-              where('nivelAcademico', '==', 'Superior'),
-              where('modalidadTorneo','==','Futbol Asociacion')
-            )
-          );
-    
-          const partidos = [];
-          querySnapshot.forEach((doc) => {
-            partidos.push({ id: doc.id, ...doc.data() });
-          });
-          setMostrarPartidos(true);
-          console.log('Partidos encontrados:', partidos);
-          setPartidos(partidos);
-        } catch (error) {
-          console.error(error);
-          setPartidos([]);
-        }
-      };
-    
-      useEffect(() => {
-        if (jornada !== '') {
-          handleVerPartidos();
-        }
-      }, [jornada]);
-    
-      const handleResultadoChange = (partidoId, campo, valor) => {
-        setResultados((prevState) => ({
-          ...prevState,
-          [partidoId]: {
-            ...prevState[partidoId],
-            [campo]: valor,
-          },
-        }));
-      };
-    
-      const guardarResultados = () => {
-        Object.entries(resultados).forEach(([partidoId, resultado]) => {
-          const partido = partidos.find((partido) => partido.id === partidoId);
-          const resultadoPartido = {
-            jornada: partido.jornada,
-            local: partido.local,
-            visitante: partido.visitante,
-            golesLocal: resultado.golesLocal,
-            golesVisitante: resultado.golesVisitante,
-          };
-          const docRef = doc(resultadosCollection, `${partido.local}-${partido.visitante}-${partido.jornada}`);
-          setDoc(docRef, resultadoPartido)
-            .then(() => {
-              cambiarEdoAlerta(true); 
-              cambiarAlerta({
-                tipo: 'exito',
-                mensaje:'Resultado Guardado Exitosamente'
-            });
-            })
-            .catch((error) => {
-              cambiarEdoAlerta(true); 
+      
+        useEffect(() => {
+          if (jornada !== '') {
+            handleVerPartidos();
+          }
+        }, [jornada]);
+      
+        const handleResultadoChange = (partidoId, campo, valor) => {
+          setResultados((prevState) => ({
+            ...prevState,
+            [partidoId]: {
+              ...prevState[partidoId],
+              [campo]: valor,
+            },
+          }));
+        };
+      
+        const guardarResultados = async () => {
+          for (const [partidoId, resultado] of Object.entries(resultados)) {
+            const partido = partidos.find((partido) => partido.id === partidoId);
+        
+            const querySnapshot = await getDocs(
+              query(
+                resultadosCollection,
+                where('grupo', '==', partido.grupo),
+                where('jornada', '==', partido.jornada),
+                where('local', '==', partido.local),
+                where('visitante', '==', partido.visitante)
+              )
+            );
+        
+            if (!querySnapshot.empty) {
+              cambiarEdoAlerta(true);
               cambiarAlerta({
                 tipo: 'error',
-                mensaje:'Error al Guardar el Resultado'
+                mensaje: 'Los resultados ya han sido registrados para este partido.',
               });
-              
-            });
-        });
-        setGuardado(true);
-      };
-
-
-
+              return;
+            }
+        
+            const resultadoPartido = {
+              grupo: partido.grupo,
+              jornada: partido.jornada,
+              local: partido.local,
+              visitante: partido.visitante,
+              golesLocal: resultado.golesLocal,
+              golesVisitante: resultado.golesVisitante,
+            };
+        
+            const docRef = doc(
+              resultadosCollection,
+              `${partido.local}-${partido.visitante}-${partido.jornada}`
+            );
+        
+            try {
+              await setDoc(docRef, resultadoPartido);
+            } catch (error) {
+              console.error(error);
+              cambiarEdoAlerta(true);
+              cambiarAlerta({
+                tipo: 'error',
+                mensaje: 'Error al guardar el resultado.',
+              });
+              return;
+            }
+          }
+        
+          cambiarEdoAlerta(true);
+          cambiarAlerta({
+            tipo: 'exito',
+            mensaje: 'Resultado guardado exitosamente.',
+          });
+        
+          setGuardado(true);
+        };
 
   return (
     <div className='hero'>
-            <nav>
-            <img src="https://tinyurl.com/2obtocwe"/>
-              <center><h2>Registro de Resultados Fútbol Asociación Femenil Nivel Superior </h2>
+        <nav>
+            <img src="https://tinyurl.com/2obtocwe" alt=''/>
+              <center><h2> Registro de Resultados Fútbol Asociación Femenil Nivel Superior</h2>
               <h3>{nameUsuario}</h3></center> 
-              <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
+              <h3><img src="https://tinyurl.com/2kaldmbh" alt=''/></h3>
             </nav>
             <Helmet>
-                <title> Round Robin </title>
+                <title> Registro de Resultados Fútbol Asociación Femenil Nivel Superior</title>
             </Helmet>
-          <main>
-          <Label htmlFor="jornada">Jornada:</Label>
-          <GrupoInput>
-            <Input type="text" id="jornada" value={jornada} onChange={(e) => setJornada(e.target.value)} />
-          </GrupoInput>
-          <br/>
-          <ContenedorBotonCentrado>
-            <Boton onClick={handleVerPartidos}>Ver Partidos </Boton>
-          </ContenedorBotonCentrado>
+            <main>
+            <Label htmlFor="grupo">Grupo:</Label>
+            <GrupoInput>
+              <Input type="text" id="grupo" value={grupo} onChange={(e) => setGrupo(e.target.value)} />
+            </GrupoInput>
+            <Label htmlFor="jornada">Jornada:</Label>
+            <GrupoInput>
+              <Input type="text" id="jornada" value={jornada} onChange={(e) => setJornada(e.target.value)} />
+            </GrupoInput>
+            <br/>
+            <ContenedorBotonCentrado>
+              <Boton  onClick={handleVerPartidos} > Ver Partidos </Boton> <br/>
+            </ContenedorBotonCentrado>
 
-          {mostrarPartidos && (
+            {mostrarPartidos && (
+              <div>
+                {partidos.length === 0 ? (
+                  <p> No hay partidos.</p>
+                ) : (
                   <div>
-                    {partidos.length === 0 ? (
-                      <p> No hay partidos para esta modalidad.</p>
-                    ) : (
-                      <div>
-                        <Label>
-                          <h3>Partidos</h3>
-                        </Label>
-                        <ul>
-                          {partidos.map((partido) => (
-                            <li key={partido.id}>
-                              <div>
-                                <Label>
-                                <center> <span>{partido.local}</span>  VS <span> {partido.visitante}</span></center> 
-                                </Label>
-                              </div>
-                              <div className="golesContainer">
-                                <div>
-                                  <Label htmlFor="golesLocal">Goles Local</Label>
-                                  <Input
-                                    type="number"
-                                    id="golesLocal"
-                                    value={resultados[partido.id]?.golesLocal || ''}
-                                    onChange={(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
-                                  />
-                                </div>
-                                <div>
-                                  <Label htmlFor="golesVisitante">Goles Visitante:</Label>
-                                  <Input
-                                    type="number"
-                                    id="golesVisitante"
-                                    value={resultados[partido.id]?.golesVisitante || ''}
-                                    onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
-                                  />
-                                </div>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                    <Label>
+                     Partidos
+                    </Label>
+                    <ul>
+                      {partidos.map((partido) => (
+                        <li key={partido.id}>
+                          <div>
+                            <Label>
+                            <center> <span>{partido.local}</span>  VS <span> {partido.visitante}</span></center> 
+                            </Label>
+                          </div>
+                          <div className="golesContainer">
+                            <div>
+                              <Label htmlFor="golesLocal">Goles Local</Label>
+                              <Input
+                                type="number"
+                                id="golesLocal"
+                                value={resultados[partido.id]?.golesLocal || ''}
+                                onChange={(e) => handleResultadoChange(partido.id, 'golesLocal', e.target.value)}
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="golesVisitante">Goles Visitante:</Label>
+                              <Input
+                                type="number"
+                                id="golesVisitante"
+                                value={resultados[partido.id]?.golesVisitante || ''}
+                                onChange={(e) => handleResultadoChange(partido.id, 'golesVisitante', e.target.value)}
+                              />
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
+              </div>
+            )}
           <br/>
           {partidos.length > 0 && (
+              <ContenedorBotonCentrado>
+                <Boton onClick={guardarResultados}>Guardar Resultado</Boton>
+              </ContenedorBotonCentrado>
+            )}
+            <br/>
             <ContenedorBotonCentrado>
-              <Boton onClick={guardarResultados}> Guardar Resultado </Boton>
-            </ContenedorBotonCentrado>
-          )}
-          <br/>
-          <ContenedorBotonCentrado> 
               <BtnRegresar ruta = '/RR-FutbolAsociacion'/>
-          </ContenedorBotonCentrado>
-          {guardado && (
-            <div>
-              <p>Resultados guardados exitosamente.</p>
-            </div>
-          )}
-          </main>
-      
-
+            </ContenedorBotonCentrado>
+            
+            </main>
         <Alerta 
             tipo= {alerta.tipo}
             mensaje= {alerta.mensaje}
             estadoAlerta={estadoAlerta}
             cambiarEdoAlerta={cambiarEdoAlerta}
-          />
-    </div>
+            />
+        </div>
   );
 };
 

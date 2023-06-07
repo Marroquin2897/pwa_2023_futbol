@@ -468,10 +468,10 @@ const Grupos = () => {
                   </Label>
                   {grupos.map((grupo,index) => (
                     <div key={index}>
-                      <Label><h3> Grupo {index + 1} </h3> </Label>  
+                      <Label> Grupo {index + 1} </Label>  
                       {grupo.map((jornada,indexJornada) => ( 
                        <><Label>
-                          <h3>Jornada {indexJornada + 1}</h3>
+                          Jornada {indexJornada + 1}
                         </Label>
                         {jornada.map((partido,indexPartido) => ( 
                           <>

@@ -14,6 +14,7 @@ const RRVaronilMediaSuperiorFutAsociacion = () => {
     const [grupo, setGrupo] = useState('');
     const [mostrarPartidos, setMostrarPartidos] = useState(false);
     const [guardado, setGuardado] = useState(false);
+    const [resultadosRegistrados, setResultadosRegistrados] = useState([]);
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
     const nameUsuario = sessionStorage.getItem("name")
@@ -23,46 +24,57 @@ const RRVaronilMediaSuperiorFutAsociacion = () => {
     const resultadosCollection = collection(firestore, 'resultadosVaronilMediaSuperiorAsociacion');
 
     useEffect(() => {
-        const fetchPartidos = async () => {
-          try {
-            const partidosRef = collection(firestore, 'partidos');
-            const querySnapshot = await getDocs(
-              query(partidosRef,where('idGrupo', '==', grupo), where('jornada', '==', jornada), where('categoria', '==', 'varonil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Futbol Asociacion'))
-            );
-    
-            const partidos = [];
-            const resultados = {}; // Objeto para almacenar los resultados de cada partido
-    
-            querySnapshot.forEach((doc) => {
-              const partido = { id: doc.id, ...doc.data() };
-              partidos.push(partido);
-              resultados[partido.id] = { golesLocal: '', golesVisitante: '' }; // Inicializa el resultado vacío para cada partido
-            });
-    
-            setPartidos(partidos);
-            setResultados(resultados);
-          } catch (error) {
-            console.error(error);
-            setPartidos([]);
-            setResultados({});
-          }
-        };
-    
-        if (jornada) {
-          fetchPartidos();
-        }
-      }, [jornada, firestore]);
-    
+      const fetchPartidos = async () => {
+        try {
+          const partidosRef = collection(firestore, 'partidos');
+          const querySnapshot = await getDocs(
+            query(
+              partidosRef,
+              where('grupo', '==', grupo),
+              where('jornada', '==', jornada),
+              where('categoria', '==', 'varonil'),
+              where('nivelAcademico', '==', 'Media Superior')
+            )
+          );
+  
+        const partidos = [];
+        const resultados = {};
+        const resultadosRegistrados = [];
+  
+        querySnapshot.forEach((doc) => {
+          const partido = { id: doc.id, ...doc.data() };
+          partidos.push(partido);
+          resultados[partido.id] = {
+            golesLocal: '',
+            golesVisitante: '',
+          };
+          resultadosRegistrados.push(partido.id);
+        });
+        setPartidos(partidos);
+        setResultados(resultados);
+        setResultadosRegistrados(resultadosRegistrados);
+      } catch (error) {
+        console.error(error);
+        setPartidos([]);
+        setResultados({});
+        setResultadosRegistrados([]);
+      }
+    };
+  
+    if (jornada && grupo) {
+      fetchPartidos();
+    }
+  }, [jornada, grupo, firestore]);
+
       const handleVerPartidos = async () => {
         try {
           const querySnapshot = await getDocs(
             query(
               partidosCollection,
-              where('idGrupo', '==', parseInt(grupo)),
+              where('grupo', '==', parseInt(grupo)),
               where('jornada', '==', parseInt(jornada)),
               where('categoria', '==', 'varonil'),
-              where('nivelAcademico', '==', 'Media Superior'),
-              where('modalidadTorneo', '==', 'Futbol Asociacion')
+              where('nivelAcademico', '==', 'Media Superior')
             )
           );
     
@@ -95,33 +107,62 @@ const RRVaronilMediaSuperiorFutAsociacion = () => {
         }));
       };
     
-      const guardarResultados = () => {
-        Object.entries(resultados).forEach(([partidoId, resultado]) => {
+      const guardarResultados = async () => {
+        for (const [partidoId, resultado] of Object.entries(resultados)) {
           const partido = partidos.find((partido) => partido.id === partidoId);
+      
+          const querySnapshot = await getDocs(
+            query(
+              resultadosCollection,
+              where('grupo', '==', partido.grupo),
+              where('jornada', '==', partido.jornada),
+              where('local', '==', partido.local),
+              where('visitante', '==', partido.visitante)
+            )
+          );
+      
+          if (!querySnapshot.empty) {
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+              tipo: 'error',
+              mensaje: 'Los resultados ya han sido registrados para este partido.',
+            });
+            return;
+          }
+      
           const resultadoPartido = {
+            grupo: partido.grupo,
             jornada: partido.jornada,
             local: partido.local,
             visitante: partido.visitante,
             golesLocal: resultado.golesLocal,
             golesVisitante: resultado.golesVisitante,
           };
-          const docRef = doc(resultadosCollection, `${partido.local}-${partido.visitante}-${partido.jornada}`);
-          setDoc(docRef, resultadoPartido)
-            .then(() => {
-              cambiarEdoAlerta(true); 
-              cambiarAlerta({
-                  tipo: 'exito',
-                  mensaje:'Resultado Guardado Exitosamente'
-              });
-            })
-            .catch((error) => {
-              cambiarEdoAlerta(true); 
-              cambiarAlerta({
-                  tipo: 'error',
-                  mensaje:'Error al Guardar el Resultado'
-              });
+      
+          const docRef = doc(
+            resultadosCollection,
+            `${partido.local}-${partido.visitante}-${partido.jornada}`
+          );
+      
+          try {
+            await setDoc(docRef, resultadoPartido);
+          } catch (error) {
+            console.error(error);
+            cambiarEdoAlerta(true);
+            cambiarAlerta({
+              tipo: 'error',
+              mensaje: 'Error al guardar el resultado.',
             });
+            return;
+          }
+        }
+      
+        cambiarEdoAlerta(true);
+        cambiarAlerta({
+          tipo: 'exito',
+          mensaje: 'Resultado guardado exitosamente.',
         });
+      
         setGuardado(true);
       };
     return ( 
@@ -153,7 +194,7 @@ const RRVaronilMediaSuperiorFutAsociacion = () => {
           {mostrarPartidos && (
                   <div>
                     {partidos.length === 0 ? (         
-                      <p> No hay partidos para esta modalidad.</p> 
+                      <p> No hay partidos.</p> 
                     ) : (
                       <div>
                         <Label>
