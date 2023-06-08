@@ -31,7 +31,7 @@ const RRFemenilMediaSuperiorFutAsociacion = () => {
             partidosRef,
             where('grupo', '==', grupo),
             where('jornada', '==', jornada),
-            where('categoria', '==', 'femenil'),
+            where('categoria', '==', 'Femenil'),
             where('nivelAcademico', '==', 'Media Superior')
           )
         );
@@ -72,7 +72,7 @@ const RRFemenilMediaSuperiorFutAsociacion = () => {
               partidosCollection,
               where('grupo', '==', parseInt(grupo)),
               where('jornada', '==',parseInt(jornada)),
-              where('categoria', '==', 'femenil'),
+              where('categoria', '==', 'Femenil'),
               where('nivelAcademico', '==', 'Media Superior'),
             )
           );

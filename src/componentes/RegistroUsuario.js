@@ -196,7 +196,7 @@ const RegistroUsuario = ({usuario}) => {
         const expresionRegularTelefono = /^\d{10,14}$/;// 10 a 14 numeros
         const expresionRegularBoleta = /^\d{6,10}$/;
 		const expresionRegularCorreo = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-		const expresionRegularDireccion = /^[a-zA-Z0-9\s]+$/;
+		const expresionRegularDireccion = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/;
 		const expresionRegularPassword = /^.{8,12}$/; // 8 a 12 digitos.
 		
 				

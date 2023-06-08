@@ -20,7 +20,7 @@ function HomePrincipal({usuario}) {
     return (  
         <>
         <div >   
-            {usuario.rol === "administrador" ? <VistaAdmi /> : usuario.rol === "alumno" ?  <VistaJugador/> : <VistaProfe /> }  
+            {usuario.rol === "Administrador" ? <VistaAdmi /> : usuario.rol === "Alumno" ?  <VistaJugador/> : <VistaProfe /> }  
         </div>
         
         </>

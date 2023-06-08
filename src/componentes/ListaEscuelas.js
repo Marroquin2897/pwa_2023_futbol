@@ -81,7 +81,7 @@ const ListaEscuelas = () => {
                         </Label>
                         <ContenedorBotones>
                         <BotonAccion as={Link} to={
-                            escuela.categoria === "varonil" 
+                            escuela.categoria === "Varonil" 
                             ? `/equipo-varonil/${escuela.id}` 
                             : `/equipo-femenil/${escuela.id}`
                         }><IconoVer/> 

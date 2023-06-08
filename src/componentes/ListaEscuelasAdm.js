@@ -52,13 +52,13 @@ const ListaEscuelasAdm = () => {
 
     const filtrarEscuelas = () => {
         if (filtro === "varonil_superior") {
-          return escuelas.filter((escuela) => escuela.categoria === "varonil" && escuela.nivelAcademico === "Superior");
+          return escuelas.filter((escuela) => escuela.categoria === "Varonil" && escuela.nivelAcademico === "Superior");
         } else if (filtro === "varonil_ms") {
-          return escuelas.filter((escuela) => escuela.categoria === "varonil" && escuela.nivelAcademico === "Media Superior");
+          return escuelas.filter((escuela) => escuela.categoria === "Varonil" && escuela.nivelAcademico === "Media Superior");
         } else if (filtro === "femenil_superior") {
-            return escuelas.filter((escuela) => escuela.categoria === "femenil" && escuela.nivelAcademico === "Superior");
+            return escuelas.filter((escuela) => escuela.categoria === "Femenil" && escuela.nivelAcademico === "Superior");
         } else if (filtro === "femenil_ms"){
-            return escuelas.filter((escuela) => escuela.categoria === "femenil" && escuela.nivelAcademico === "Media Superior");
+            return escuelas.filter((escuela) => escuela.categoria === "Femenil" && escuela.nivelAcademico === "Media Superior");
         }else {
           return escuelas;
         }
@@ -98,7 +98,7 @@ const ListaEscuelasAdm = () => {
                             {escuela.modalidades}
                         </Modalidades>   
                         </Label>
-                        <Label> Categoria
+                        <Label> Categoría
                          <Categoria>
                             {escuela.categoria}
                         </Categoria>   

@@ -133,7 +133,7 @@ const EstadisticasFemenilMediaSuperiorFut7 = () => {
                   await setDoc(docRef, data);
               });
             } catch (error) {
-                console.error('Error al obtener las estadísticas de los equipos:', error);
+                console.error('Error al obtener la tabla de posiciones de los equipos:', error);
             }
             };
             fetchEstadisticasEquipos();

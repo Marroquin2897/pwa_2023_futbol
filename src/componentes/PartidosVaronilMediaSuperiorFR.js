@@ -20,9 +20,9 @@ const PartidosVaronilMediaSuperiorFR = () => {
     try {
       const partidosRef = collection(firestore, 'partidos');
       const q = query(partidosRef,
-        where('categoria', '==', 'varonil'),
+        where('categoria', '==', 'Varonil'),
         where('nivelAcademico', '==', 'Media Superior'),
-        where('modalidadTorneo', '==', 'Futbol Rapido'),
+        where('modalidadTorneo', '==', 'Fútbol Rápido'),
         where('jornada', '==', parseInt(jornada, 10))
       );
 
@@ -79,7 +79,7 @@ const PartidosVaronilMediaSuperiorFR = () => {
         {jornada !== '' && mostrarMensaje !== null && partidos.length > 0 && (
           <div>
             <Label>
-              <h3>Jornada {jornada}</h3>
+              Jornada {jornada}
             </Label>
             <ul>
               {partidos.map((partido) => (

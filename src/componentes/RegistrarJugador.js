@@ -137,7 +137,7 @@ const RegistrarJugador = ({ jugador }) => {
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo: 'error',
-                mensaje: 'Ingrese un nombre valido'
+                mensaje: 'Ingrese un Nombre Válido'
             });
             return;
         }
@@ -175,11 +175,11 @@ const RegistrarJugador = ({ jugador }) => {
          }
         
         const generoEsc = verificaEscuelaSelec(escuelaJugador)
-        if(generoEsc === "varonil" && sexoJugador === "Femenino" || generoEsc === "femenil" && sexoJugador === "Masculino" ){
+        if(generoEsc === "Varonil" && sexoJugador === "Femenino" || generoEsc === "Femenil" && sexoJugador === "Masculino" ){
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo:'error',
-                mensaje:'El género del Jugador es diferente al de la escuela seleccionada.'
+                mensaje:'El género del jugador es diferente al de la escuela seleccionada.'
             });
             return;
         }
@@ -211,7 +211,7 @@ const RegistrarJugador = ({ jugador }) => {
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo: 'error',
-                mensaje: 'NSS deben ser 11 digitos'
+                mensaje: 'NSS deben ser 11 dígitos'
             });
             return;
         }
@@ -227,7 +227,7 @@ const RegistrarJugador = ({ jugador }) => {
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo: 'error',
-                mensaje: 'El No. de boleta deben ser 10 digitos'
+                mensaje: 'El No. de boleta deben ser 10 dígitos'
             });
             return;
         }
@@ -285,7 +285,7 @@ const RegistrarJugador = ({ jugador }) => {
                             cambiarSexoJ('');
     
                             cambiarEdoAlerta(true);
-                            cambiarAlerta({ tipo: 'exito', mensaje: 'Jugador registrado exitosamente' });
+                            cambiarAlerta({ tipo: 'exito', mensaje: 'Jugador Registrado Exitosamente' });
                         })
                         .catch((error) => {
                             cambiarEdoAlerta(true);

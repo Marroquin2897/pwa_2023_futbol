@@ -22,7 +22,7 @@ const RRVaronilSuperiorFutRapido = () => {
           try {
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'varonil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Futbol Rapido'))
+              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'Varonil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Fútbol Rápido'))
             );
     
             const partidos = [];
@@ -55,9 +55,9 @@ const RRVaronilSuperiorFutRapido = () => {
               query(
                 partidosRef,
                 where('jornada', '==', parseInt(jornada)),
-                where('categoria', '==', 'varonil'),
+                where('categoria', '==', 'Varonil'),
                 where('nivelAcademico', '==', 'Superior'),
-                where('modalidadTorneo','==','Fútbol Rapido')
+                where('modalidadTorneo','==','Fútbol Rápido')
               )
             );
         

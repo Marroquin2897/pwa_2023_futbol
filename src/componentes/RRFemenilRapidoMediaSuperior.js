@@ -22,7 +22,7 @@ const RRFemenilRapidoMediaSuperior = () => {
           try {
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Futbol Rapido'))
+              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'Femenil'), where('nivelAcademico', '==', 'Media Superior'),where('modalidadTorneo', '==', 'Fútbol Rápido'))
             );
     
             const partidos = [];
@@ -54,9 +54,9 @@ const RRFemenilRapidoMediaSuperior = () => {
               query(
                 partidosRef,
                 where('jornada', '==', parseInt(jornada)),
-                where('categoria', '==', 'femenil'),
+                where('categoria', '==', 'Femenil'),
                 where('nivelAcademico', '==', 'Media Superior'),
-                where('modalidadTorneo', '==', 'Fútbol Rapido')
+                where('modalidadTorneo', '==', 'Fútbol Rápido')
               )
             );
         

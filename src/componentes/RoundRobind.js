@@ -272,8 +272,8 @@ const RoundRobin = () => {
                     <GrupoInput>
                         <select name="rama" value={categoria}onChange = {(e) => setCategoria(e.target.value)}>
                             <option value="opcDeter">Elige la categoría</option>
-                            <option value="femenil"> Femenil </option>
-                            <option value="varonil"> Varonil </option>
+                            <option value="Femenil"> Femenil </option>
+                            <option value="Varonil"> Varonil </option>
                         </select> 
                     </GrupoInput>   
                 </div>
@@ -292,9 +292,9 @@ const RoundRobin = () => {
                     <GrupoInput>
                         <select name="modalidad" value={modalidadTorneo} onChange = {(e) => setModalidadTorneo(e.target.value)}>
                             <option value="opcDeter">Elige la modalidad</option>
-                            <option value="Fútbol Rapido"> Fútbol Rápido</option>
+                            <option value="Fútbol Rápido"> Fútbol Rápido</option>
                             <option value="Fútbol 7"> Fútbol 7 </option>
-                            <option value="Fútbol Asociacion"> Fútbol Asociación</option> 
+                            <option value="Fútbol Asociación"> Fútbol Asociación</option> 
                         </select> 
                     </GrupoInput>   
                 </div>

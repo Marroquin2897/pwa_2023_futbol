@@ -32,7 +32,7 @@ const RRVaronilMediaSuperiorFutAsociacion = () => {
               partidosRef,
               where('grupo', '==', grupo),
               where('jornada', '==', jornada),
-              where('categoria', '==', 'varonil'),
+              where('categoria', '==', 'Varonil'),
               where('nivelAcademico', '==', 'Media Superior')
             )
           );
@@ -73,7 +73,7 @@ const RRVaronilMediaSuperiorFutAsociacion = () => {
               partidosCollection,
               where('grupo', '==', parseInt(grupo)),
               where('jornada', '==', parseInt(jornada)),
-              where('categoria', '==', 'varonil'),
+              where('categoria', '==', 'Varonil'),
               where('nivelAcademico', '==', 'Media Superior')
             )
           );

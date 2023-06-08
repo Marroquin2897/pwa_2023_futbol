@@ -22,7 +22,7 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
           try {
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'femenil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Futbol Rapido'))
+              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'Femenil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Fútbol Rápido'))
             );
     
             const partidos = [];
@@ -55,9 +55,9 @@ const RegistrarResultadosFemenilSuperiorRapido = () => {
               query(
                 partidosRef,
                 where('jornada', '==', parseInt(jornada)),
-                where('categoria', '==', 'femenil'),
+                where('categoria', '==', 'Femenil'),
                 where('nivelAcademico', '==', 'Superior'),
-                where('modalidadTorneo','==','Fútbol Rapido')
+                where('modalidadTorneo','==','Fútbol Rápido')
               )
             );
         

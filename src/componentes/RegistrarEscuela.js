@@ -1,47 +1,45 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect, useRef} from 'react';
 import { Helmet } from 'react-helmet';
-import { FormularioEscuela } from '../elementos/FormularioEscuela';
 import {useAuth} from './../contextos/AuthContext';
 import {Formulario, Label, GrupoInput, ContenedorBotonCentrado, Boton, Input,} from '../elementos/ElementosFormulario';
 import BtnRegresar from '../elementos/BtnRegresar';
 import {firebaseApp} from "../firebase/firebaseConfig";
 import {getFirestore, collection,query,where, getDocs,addDoc,doc,updateDoc } from 'firebase/firestore';
-
+import { INSTITUTIONS } from './../constants/schoolsCatalog';
 import {useNavigate} from 'react-router-dom';
 import Alerta from '../elementos/Alerta';
-import useObtenerEscuela from '../hooks/useObtenerEscuela';
-
 
 const RegistrarEscuela = ({escuelaExistente}) => {
     const firestore = getFirestore(firebaseApp);
     const navigate = useNavigate();  
     const{usuario} = useAuth();
-    console.log({escuelaExistente})
     const [nombreEntrenador, cambiarNombreE] = useState('');
     const [nombreAsistente,cambiarNombreA] = useState('');
     const [nombreEscuela,cambiarEscuela] = useState('');
     const [modalidades,cambiarModalidaes] = useState('');
     const [categoria,cambiarCategoria ] = useState('');
-    const [nivelAcademico,cambiarNivelA ] = useState('');
+    var [nivelAcademico,cambiarNivelA ] = useState('');
     const[estadoAlerta,cambiarEdoAlerta] = useState(false);
     const[alerta,cambiarAlerta] = useState({});
-
+    const documentoIdRef = useRef(null); // Variable para almacenar el ID de la escuela
     useEffect(() => { //Comprobamos si hay algun jugador, si hay obtenemos los valores que tiene ese jugador
         
         if(escuelaExistente){
             if(escuelaExistente.data().uidUsuario === usuario.uid){
                 cambiarNombreE(escuelaExistente.data().nombreEntrenador);
                 cambiarNombreA(escuelaExistente.data().nombreAsistente);
-                cambiarEscuela(escuelaExistente.data().nombreEscuela);
+                cambiarEscuela(escuelaExistente.data().escuela);
                 cambiarModalidaes(escuelaExistente.data().modalidades);
                 cambiarCategoria(escuelaExistente.data().categoria);
                 cambiarNivelA(escuelaExistente.data().nivelAcademico);
             } else {
                 navigate('/menu-profe');
             }
+            documentoIdRef.current = escuelaExistente.id;
         }
     },[escuelaExistente,usuario,navigate]);
-
+    // Acceder al valor del ID del documento fuera del useEffect
+  const documentoId = documentoIdRef.current;
     const handleChange = (e) => {
         
         switch(e.target.name){
@@ -69,7 +67,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
     }
     
     const validarEscuelaExistente = async (escuela) => {
-        if(escuela.nivelAcademico === "Superior"){
+        if(escuela.nivelAcademico === "Superior" || escuelaExistente.data().nivelAcademico === "Superior"){
             // Obtener todas las escuelas del nivel superior
             const escuelasSuperiorRef = collection(firestore, "Escuelas Superior");
             const querySuperior = query(
@@ -83,7 +81,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
             if (!querySnapshotSuperior.empty) {
                 return true;
             }
-        }else if(escuela.nivelAcademico === "Media Superior"){
+        }else if(escuela.nivelAcademico === "Media Superior" || escuelaExistente.data().nivelAcademico === "Media Superior"){
             // Obtener todas las escuelas del nivel medio superior
             const escuelasMediaSuperiorRef = collection(firestore, "Escuelas Media Superior");
             const queryMediaSuperior = query(
@@ -107,10 +105,10 @@ const RegistrarEscuela = ({escuelaExistente}) => {
     }
     const editarEscuela = async (escuelaEditada) => {
         if (escuelaExistente.data().nivelAcademico === "Superior") {
-            const escuelaSuperiorRef = doc(firestore, "Escuelas Superior",escuelaExistente.id);
+            const escuelaSuperiorRef = doc(firestore, "Escuelas Superior",documentoId);
             await updateDoc(escuelaSuperiorRef, escuelaEditada);
           } else if (escuelaExistente.data().nivelAcademico === "Media Superior") {
-            const escuelaMediaSuperiorRef = doc(firestore, "Escuelas Media Superior",escuelaExistente.id);
+            const escuelaMediaSuperiorRef = doc(firestore, "Escuelas Media Superior",documentoId);
             await updateDoc(escuelaMediaSuperiorRef, escuelaEditada);
           } else {
             console.error("Nivel académico no reconocido");
@@ -141,7 +139,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
         e.preventDefault();
        const nombreE = /^[a-zA-ZÀ-ÿ\s]{1,40}$/ ;// Letras y espacios, pueden llevar acentos.
        const nombreA = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
-       console.log(nombreEscuela, categoria, modalidades)
+
        if(!nombreE.test(nombreEntrenador)){
             cambiarEdoAlerta(true); 
             cambiarAlerta({
@@ -158,7 +156,6 @@ const RegistrarEscuela = ({escuelaExistente}) => {
             });
             return;
         }
-        
         if(nombreEscuela=== "opcDeter" || nombreEscuela === ''){
             cambiarEdoAlerta(true); 
             cambiarAlerta({
@@ -167,6 +164,16 @@ const RegistrarEscuela = ({escuelaExistente}) => {
             });
             return;
         }
+        INSTITUTIONS.map((institucion)=>{
+            if(institucion.selectorValue === nombreEscuela && institucion.isSuperior){
+                nivelAcademico = "Superior"
+            }else if(institucion.selectorValue === nombreEscuela && !institucion.isSuperior){
+                nivelAcademico = "Media Superior"
+            }
+            cambiarNivelA(nivelAcademico)
+            return;  
+        })
+
         if(modalidades=== "opcDeter" || modalidades=== ''){
             cambiarEdoAlerta(true); 
             cambiarAlerta({
@@ -183,16 +190,8 @@ const RegistrarEscuela = ({escuelaExistente}) => {
             });
             return;
         }
-        if(nivelAcademico === "opcDeter" || nivelAcademico ===''){
-            cambiarEdoAlerta(true); 
-            cambiarAlerta({
-                tipo: 'error',
-                mensaje:'Selecciona el nivel académico'
-            });
-            return;
-        }
-  
-        if(nombreEntrenador === '' || nombreAsistente === '' || nombreEscuela === '' || modalidades === '' || categoria === '' || nivelAcademico === '') {
+
+        if(nombreEntrenador === '' || nombreAsistente === '' || nombreEscuela === '' || modalidades === '' || categoria === '' ) {
             cambiarEdoAlerta(true);
             cambiarAlerta({
             tipo: "error",
@@ -200,8 +199,9 @@ const RegistrarEscuela = ({escuelaExistente}) => {
             });
             return;
         }
-        if(!escuelaExistente){
+        if(!escuelaExistente){ //Si no recibe ninguna escuela.
             // Definir la variable escuela antes de llamar a validarEscuelaExistente
+            cambiarEdoAlerta(true);
             const escuela = {
                 escuela: nombreEscuela,
                 categoria: categoria,
@@ -209,8 +209,9 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 modalidades: modalidades
             };
             const existeEscuela = await validarEscuelaExistente(escuela);
+            
             if (existeEscuela === true) { 
-                cambiarEdoAlerta(true);
+                console.log("Esta escuela ya fue registrada")
                 cambiarAlerta({
                 tipo: "error",
                 mensaje: "Esta escuela ya fue registrada",
@@ -233,10 +234,8 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                     cambiarEscuela("");
                     cambiarModalidaes("");
                     cambiarCategoria("");
-                    cambiarNivelA("");
                 })
                 .catch((error) => {
-                    cambiarEdoAlerta(true);
                     cambiarAlerta({
                         tipo: "error",
                         mensaje: "Hubo un problema al intentar registrar la escuela.",
@@ -244,38 +243,75 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 }) 
             }
           
-        }  
-        else{
-            const escuelaEditada = {
-                nombreEntrenador: nombreEntrenador,
-                nombreAsistente: nombreAsistente,
-                modalidades: modalidades,
-                categoria: categoria,
-                uidUsuario: usuario.uid,
-            };
-            await editarEscuela(escuelaEditada)
-            .then(() => {
-                cambiarNombreE("");
-                cambiarNombreA("");
-                cambiarEscuela("");
-                cambiarModalidaes("");
-                cambiarCategoria("");
-                cambiarNivelA("");    
-                cambiarEdoAlerta(true);
-                cambiarAlerta({
-                    tipo: "exito",
-                    mensaje: "Escuela editada exitosamente",
-                  });
-            })
-            .catch((error) => {
-                cambiarEdoAlerta(true);
-                cambiarAlerta({
+        } //-------------------------------EDITAR ESCUELA------------------------------------
+        else{ //Si recibe un objeto escuela con datos
+            if(escuelaExistente.data().categoria===categoria && escuelaExistente.data().modalidades===modalidades){ //si los datos principales no los cambio
+                const escuelaEditada = {
+                    nombreEntrenador: nombreEntrenador,
+                    nombreAsistente: nombreAsistente,
+                    uidUsuario: usuario.uid,
+                };
+                await editarEscuela(escuelaEditada)
+                .then(() => {
+                    console.log("Escuela editada exitosamente")
+                    cambiarEdoAlerta(true);
+                    cambiarAlerta({
+                        tipo: "exito",
+                        mensaje: "Escuela editada exitosamente",
+                      });
+                    
+                })
+                .catch((error) => {
+                    cambiarEdoAlerta(true);
+                    cambiarAlerta({
+                        tipo: "error",
+                        mensaje: "Hubo un problema al intentar editar la escuela.",
+                    });
+                    console.log(error)
+                })
+            }else{ //si alguno de los datos principales lo cambio.
+                const escuelaParaEdit ={
+                    modalidades: modalidades,
+                    escuela: nombreEscuela,
+                    categoria: categoria,
+                }
+                const existeEscuela = await validarEscuelaExistente(escuelaParaEdit);    
+                if (existeEscuela === true) { 
+                    console.log("Esta escuela ya fue registrada")
+                    cambiarEdoAlerta(true);
+                    cambiarAlerta({
                     tipo: "error",
-                    mensaje: "Hubo un problema al intentar editar la escuela.",
-                });
-            })
-        } 
-           
+                    mensaje: "Ya existe un registro de esta escuela",
+                    });
+                    return;
+                }else{
+                    const escuelaEditada = {
+                        nombreEntrenador: nombreEntrenador,
+                        nombreAsistente: nombreAsistente,
+                        modalidades: modalidades,
+                        categoria: categoria,
+                        uidUsuario: usuario.uid,
+                    };
+                    try{
+                        await editarEscuela(escuelaEditada)            
+                        cambiarEdoAlerta(true);
+                        cambiarAlerta({
+                            tipo: "exito",
+                            mensaje: "Escuela editada exitosamente",
+                          });                   
+                    }catch(error){
+                        cambiarEdoAlerta(true);
+                        cambiarAlerta({
+                            tipo: "error",
+                            mensaje: "Hubo un problema al intentar editar los campos de la escuela.",
+                        });
+                        console.log(error)
+                    }
+                }
+                
+            }
+            navigate("/lista-escuelas");          
+        }          
     }
     const nameUsuario = sessionStorage.getItem("name")
     return ( 
@@ -283,7 +319,7 @@ const RegistrarEscuela = ({escuelaExistente}) => {
       <nav>
       <img src="https://tinyurl.com/2obtocwe"/>
         <center><h2> {escuelaExistente ? 'Editar Escuela' : 'Registrar Nueva Escuela'}</h2>
-        <h3>{nameUsuario}</h3></center>    
+        <h2>{nameUsuario}</h2></center>    
         <h3><img src="https://tinyurl.com/2kaldmbh"/></h3>
       </nav>
       
@@ -318,79 +354,36 @@ const RegistrarEscuela = ({escuelaExistente}) => {
                 <div>
                     <Label htmlFor='escuela'> Escuela </Label>
                     <GrupoInput>
-                        <select name="nombreEscuela" value={nombreEscuela} onChange = {handleChange}>
-                            <option value="opcDeter">Elige una escuela</option>
-                            <option value="CET 1"> CET 1 Walter Cross Buchanan </option>
-                            <option value="CECyT 1"> CECyT No. 1 Gonzalo Vázquez Vela </option>
-                            <option value="CECyT 2"> CECyT No. 2 Miguel Bernard </option>
-                            <option value="CECyT 3"> CECyT No. 3 Estanislao Ramírez Ruiz </option>
-                            <option value="CECyT 4"> CECyT No. 4 Lázaro Cárdenas </option>
-                            <option value="CECyT 5"> CECyT No. 5 Benito Juárez </option>
-                            <option value="CECyT 6"> CECyT No. 6 Miguel Othón de Mendizábal </option>
-                            <option value="CECyT 7"> CECyT No. 7 Cuauhtémoc </option>
-                            <option value="CECyT 8"> CECyT No. 8 Narciso Bassols </option>
-                            <option value="CECyT 9"> CECyT No. 9 Juan de Dios Bátiz </option>
-                            <option value="CECyT 10"> CECyT No. 10 Carlos Vallejo Márquez </option>
-                            <option value="CECyT 11"> CECyT No. 11 Wilfrido Massieu </option>
-                            <option value="CECyT 12"> CECyT No. 12 José María Morelos </option>
-                            <option value="CECyT 13"> CECyT No. 13 Ricardo Flores Magón </option>
-                            <option value="CECyT 14"> CECyT No. 14 Luis Enrique Erro </option>
-                            <option value="CECyT 15"> CECyT No. 15 Diódoro Antúnez Echegaray </option>
-                            <option value="CICS Sto Tomas"> CICS Unidad Santo Tomás </option>
-                            <option value="CICS Milpa Alta"> CICS Unidad Milpa Alta </option>
-                            <option value="ENCB"> ENCB </option>
-                            <option value="ENMyH"> ENMyH </option>
-                            <option value="ESCA Sto Tomas"> ESCA Unidad Santo Tomás </option>
-                            <option value="ESCA Tepepan"> ESCA Unidad Tepepan </option>
-                            <option value="ESCOM"> ESCOM </option>
-                            <option value="ESE"> ESE </option>
-                            <option value="ESEO"> ESEO </option>
-                            <option value="ESFM"> ESFM </option>
-                            <option value="ESIME Zacatenco"> ESIME Unidad Zacatenco </option>
-                            <option value="ESIME Azcapotzalco"> ESIME Unidad Azcapotzalco </option>
-                            <option value="ESIME Culhuacan"> ESIME Unidad Culhuacán </option>
-                            <option value="ESIME Ticoman"> ESIME Unidad Ticomán </option>
-                            <option value="ESIQIE"> ESIQIE </option>
-                            <option value="ESIT"> ESIT </option>
-                            <option value="ESIA Tecamachalco"> ESIA Unidad Tecamachalco </option>
-                            <option value="ESIA Ticoman"> ESIA Unidad Ticomán </option>
-                            <option value="ESIA Zacatenco"> ESIA Unidad Zacatenco </option>
-                            <option value="ESM"> ESM </option>
-                            <option value="EST"> EST </option>
-                            <option value="UPIBI"> UPIBI </option>
-                            <option value="UPIICSA"> UPIICSA </option>
-                            <option value="UPIITA"> UPIITA </option>                                                        
+                        <select name="nombreEscuela" value={nombreEscuela} disabled={escuelaExistente ? true : false} onChange = {handleChange}>
+                        <option value="opcDeter">Elige una escuela</option>                       
+                        {INSTITUTIONS.map((escuela) =>{
+                                return(
+                                    <option key={escuela.selectorValue} value = {escuela.selectorValue}>
+                                         {escuela.name}
+                                    </option>                     
+                                ) 
+                        })};                                                      
                         </select> 
                     </GrupoInput>   
                 </div>
                 <div>
                     <Label htmlFor='modalidades'> Modalidades </Label>
                     <GrupoInput>
-                        <select name="modalidades" value={modalidades} onChange = {handleChange}> 
+                        <select name="modalidades"value={modalidades} onChange = {handleChange}> 
                             <option value="opcDeter">Elige una modalidad</option>
                             <option value="Fútbol 7"> Fútbol 7 </option>
-                            <option value="Fútbol Rapido"> Fútbol Rápido </option>
-                            <option value="Fútbol Asociacion"> Fútbol Asociación </option>
+                            <option value="Fútbol Rápido"> Fútbol Rápido </option>
+                            <option value="Fútbol Asociación"> Fútbol Asociación </option>
                         </select> 
                     </GrupoInput>   
                 </div>
                 <div>
                     <Label htmlFor='categoria'> Categoría </Label>
                     <GrupoInput>
-                        <select name="categoria" value={categoria}  onChange = {handleChange}>
+                        <select name="categoria" value={categoria}   onChange = {handleChange}>
                             <option value="opcDeter">Elige una categoría</option>
-                            <option value="femenil"> Femenil </option>
-                            <option value="varonil"> Varonil </option>
-                        </select> 
-                    </GrupoInput>   
-                </div>
-                <div>
-                    <Label htmlFor='nivelAcademico'> Nivel Académico </Label>
-                    <GrupoInput>
-                        <select name="nivelAcademico" value={nivelAcademico} onChange = {handleChange}>
-                            <option value="opcDeter">Elige el nivel académico</option>
-                            <option value="Media Superior"> Media Superior </option>
-                            <option value="Superior"> Superior </option>
+                            <option value="Femenil"> Femenil </option>
+                            <option value="Varonil"> Varonil </option>
                         </select> 
                     </GrupoInput>   
                 </div>
@@ -409,5 +402,4 @@ const RegistrarEscuela = ({escuelaExistente}) => {
         </div>
      );
 }
- 
 export default RegistrarEscuela;

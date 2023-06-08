@@ -23,7 +23,7 @@ const RegistrarResultadosVaronilSuperiorFut7 = () => {
           try {
             const partidosRef = collection(firestore, 'partidos');
             const querySnapshot = await getDocs(
-              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'varonil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Fútbol 7'))
+              query(partidosRef, where('jornada', '==', jornada), where('categoria', '==', 'Varonil'), where('nivelAcademico', '==', 'Superior'),where('modalidadTorneo', '==', 'Fútbol 7'))
             );
     
             const partidos = [];
@@ -57,7 +57,7 @@ const RegistrarResultadosVaronilSuperiorFut7 = () => {
               query(
                 partidosRef,
                 where('jornada', '==', parseInt(jornada)),
-                where('categoria', '==', 'varonil'),
+                where('categoria', '==', 'Varonil'),
                 where('nivelAcademico', '==', 'Superior'),
                 where('modalidadTorneo', '==', 'Fútbol 7')
               )
