@@ -279,7 +279,7 @@ const RegistroUsuario = ({usuario}) => {
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo: 'error',
-                mensaje:'La contraseña debe contener al menos una mayúscula, minúscula, número y caracter.'
+                mensaje:'La contraseña debe contener al menos una mayúscula, minúscula, número, caracter y ser de 8 caracteres.'
             });
             return;
         }
