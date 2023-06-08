@@ -197,7 +197,7 @@ const RegistroUsuario = ({usuario}) => {
         const expresionRegularBoleta = /^\d{6,10}$/;
 		const expresionRegularCorreo = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 		const expresionRegularDireccion = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s.,;:¿?¡!()\-'/#]+$/;
-		const expresionRegularPassword = /^(?=.*[a-zA-Z0-9])(?=.*[@#$%^&+=])(?!.*\s).{8,}$/; // 8 a 12 digitos.
+		const expresionRegularPassword = /^(?=.*[a-zA-Z0-9])(?=.*[@#$%^&+=])(?!.*\s).{8,}$/; // 8 digitos incluyendo caracteres.
 		
 				
         if(!expresionRegularNombre.test(nombre)){ 
@@ -279,7 +279,7 @@ const RegistroUsuario = ({usuario}) => {
             cambiarEdoAlerta(true);
             cambiarAlerta({
                 tipo: 'error',
-                mensaje:'Ingresa una contraseña válida'
+                mensaje:'La contraseña debe contener al menos una mayúscula, minúscula, número y caracter.'
             });
             return;
         }
